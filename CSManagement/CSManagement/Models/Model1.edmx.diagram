@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b69e8b41c4924f4d9b10ac1ab6bb8832" Name="Diagram1">
+        <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="12" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.History" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Job" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Project" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.School" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Student" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.sysdiagram" Width="1.5" PointX="9.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Teacher" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsManagementModel.Title" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="CsManagementModel.FK_CESup_ComputerEquipment" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_ComputerEquipment_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Dispose_ComputerEquipment" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Department_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_History_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_History_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Project_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Project_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Student_School" ManuallyRouted="false" />
+        <AssociationConnector Association="CsManagementModel.FK_Teacher_Title" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

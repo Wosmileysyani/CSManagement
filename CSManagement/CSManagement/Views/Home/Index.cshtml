@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Index";
+    ViewBag.Description = "Home Page";
+}
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>150</h3>
+
+                        <p>จำนวนนักศึกษา</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>22</h3>
+
+                        <p>จำนวนผู้เข้าชม</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>6</h3>
+
+                        <p>ผลงานนักศึกษา</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>65</h3>
+
+                        <p>จำนวนสมาชิก</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">สัดส่วนหลักสูตรสาขา</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">สัดส่วนการเข้าทำงานของศิษย์เก่า</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+
+        <h2 class="page-header">ผลงานนักศึกษา</h2>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นางสาวญาณี วงค์ตันฮวด</h3>
+                        <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นายกฤตกร ใคร่ครวญ</h3>
+                        <h5 class="widget-user-desc">พัฒนาระบบร้านค้าชุมชนตำบลท่าเสา</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นางสาวเพ็ชชรี อินทรเกตุ</h3>
+                        <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นายภัทรพล ทรงอาษา</h3>
+                        <h5 class="widget-user-desc">จัดการข้อมูลครุภัณฑ์ และประชาสัมพันธ์</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นายกฤษฎา สุทธิมูล</h3>
+                        <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">นางสาวสุวัจนีย์ ไม้หอม</h3>
+                        <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                            <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                            <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+        </div>
+    </section>

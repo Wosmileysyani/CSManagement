@@ -22,7 +22,7 @@ namespace CSManagement.Models
     
         public int SCH_ID { get; set; }
         public string SCH_Name { get; set; }
-        public string SCH_Provice { get; set; }
+        public string SCH_Province { get; set; }
         public string SCH_Tel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

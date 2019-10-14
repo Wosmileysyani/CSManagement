@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.WebPages;
 using CSManagement.Models;
 
 namespace CSManagement.Controllers
@@ -20,43 +23,70 @@ namespace CSManagement.Controllers
             return View(db.Logins.ToList());
         }
 
+
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
-            //if (login.password != null && login.password == login.repassword)
-            //{
-            //    var chkid = db.Logins.FirstOrDefault(x => x.Log_ID == emailUser);
-            //    if (chkid == null)
-            //    {
-            //        emailUser = login.id;
-            //        passwordUser = login.password;
-            //        login.Log_Role = login.specode == "admin" ? 1 : 2;
-            //        db.Logins.Add(login);
-            //        db.SaveChanges();
-            //    }
-            //    return RedirectToAction("Index", "Home");
-            //}
-
-            if (username != null && password != null)
+            if (username.IsEmpty() == false && password.IsEmpty() == false)
             {
-                var n = db.Logins.FirstOrDefault(x => x.Log_ID == username && x.Log_Pass == password);
-                if (n != null)
+                var dataCk = db.Logins.FirstOrDefault(x => x.Log_ID == username && x.Log_Pass == password);
+                if (dataCk != null)
                 {
-                    Session["User"] = n.Log_ID;
-                    if (n.Log_Role == 1) Session["AJ"] = "AJ";
-                    Session.Remove("loginfail");
+                    var data = db.Students.FirstOrDefault(x => x.Stu_ID == dataCk.Log_ID);
+                    Session["UserID"] = data.Stu_ID;
+                    Session["UserName"] = data.Stu_Name;
+                    Session["UserYear"] = data.Stu_Email;
+                    if (dataCk.Log_Role == 1) Session["AJ"] = "AJ";
                     return Json(true, JsonRequestBehavior.AllowGet);
-
-                }
-                else
-                {
-                    Session["loginfail"] = "set";
                 }
             }
+            else return Json(false, JsonRequestBehavior.AllowGet);
 
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Register(string username2, string password2, string repassword2, string specailcode)
+        {
+            if (username2.IsEmpty() == false && password2.IsEmpty() == false && password2 == repassword2)
+            {
+                var chkid = db.Logins.FirstOrDefault(x => x.Log_ID == username2);
+                if (chkid == null)
+                {
+                    Login loginmodel = new Login();
+                    loginmodel.Log_ID = username2;
+                    loginmodel.Log_Pass = password2;
+                    if (specailcode == "admin")
+                    {
+                        loginmodel.Log_Role = 1;
+                        Teacher teachermodel = new Teacher();
+                        teachermodel.Tea_ID = username2;
+                        db.Logins.Add(loginmodel);
+                        db.Teachers.Add(teachermodel);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        loginmodel.Log_Role = 2;
+                        Student studentmodel = new Student();
+                        studentmodel.Stu_ID = username2;
+                        db.Logins.Add(loginmodel);
+                        db.Students.Add(studentmodel);
+                        db.SaveChanges();
+                    }
+                }
+                else return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
 
         // GET: Logins/Details/5
         public ActionResult Details(string id)

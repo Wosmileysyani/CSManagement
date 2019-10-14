@@ -10,18 +10,18 @@ using CSManagement.Models;
 
 namespace CSManagement.Controllers
 {
-    public class StudentController : Controller
+    public class StudentsController : Controller
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        // GET: Student
+        // GET: Students
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.School);
             return View(students.ToList());
         }
 
-        // GET: Student/Details/5
+        // GET: Students/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,15 +36,14 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // GET: Student/Create
+        // GET: Students/Create
         public ActionResult Create()
         {
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
-            ViewBag.Stu_Title = new SelectList(db.Titles, "Title_ID", "Title_Name");
             return View();
         }
 
-        // POST: Student/Create
+        // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -62,7 +61,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // GET: Student/Edit/5
+        // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -78,7 +77,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // POST: Student/Edit/5
+        // POST: Students/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -95,7 +94,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // GET: Student/Delete/5
+        // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -110,7 +109,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // POST: Student/Delete/5
+        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<CSManagement.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_OldEdu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stu_Img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.School.SCH_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_OldEdu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stu_Img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.School.SCH_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Stu_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Stu_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Stu_ID })
+        </td>
+    </tr>
+}
+
+</table>

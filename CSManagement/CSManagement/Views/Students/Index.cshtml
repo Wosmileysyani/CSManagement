@@ -48,47 +48,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_OldEdu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stu_Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.School.SCH_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Stu_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Stu_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Stu_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stu_OldEdu)
+            </td>
+            <td>
+                <img src="~/img/@item.Stu_Img" width="100" height="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.School.SCH_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Stu_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Stu_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Stu_ID })
+            </td>
+        </tr>
+    }
 
 </table>

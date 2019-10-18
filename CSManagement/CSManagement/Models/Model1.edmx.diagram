@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b69e8b41c4924f4d9b10ac1ab6bb8832" Name="Diagram1">
-        <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="7.5" PointY="12.875" />
+        <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="7.5" PointY="9.875" />
         <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="5.25" PointY="10.625" />
         <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="7.75" PointY="2.625" />
         <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="10" PointY="2.875" />
-        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.5" PointY="9.875" />
+        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.5" PointY="12.625" />
         <EntityTypeShape EntityType="CsManagementModel.History" Width="1.5" PointX="5.25" PointY="1.375" />
         <EntityTypeShape EntityType="CsManagementModel.Job" Width="1.5" PointX="3" PointY="15" />
         <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="7.75" PointY="6.375" />

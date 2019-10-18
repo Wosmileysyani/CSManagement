@@ -9,24 +9,24 @@
           <Key>
             <PropertyRef Name="CESUB_No" />
           </Key>
-          <Property Name="CESUB_No" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="CESUB_Name" Type="varchar(max)" />
+          <Property Name="CESUB_No" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CESUB_Name" Type="nvarchar(max)" />
           <Property Name="CESUB_Status" Type="int" />
-          <Property Name="CE_No" Type="varchar" MaxLength="30" />
+          <Property Name="CE_No" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
             <PropertyRef Name="CE_No" />
           </Key>
-          <Property Name="CE_No" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CE_No" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CE_DateIN" Type="date" />
           <Property Name="CE_Name" Type="varchar(max)" />
-          <Property Name="CE_Noce" Type="varchar" MaxLength="50" />
+          <Property Name="CE_Noce" Type="nvarchar" MaxLength="50" />
           <Property Name="CE_Piece" Type="int" />
           <Property Name="CE_Price" Type="float" />
           <Property Name="CE_PriceTotal" Type="float" />
-          <Property Name="CE_TeaID" Type="char" MaxLength="11" />
-          <Property Name="CE_Budget" Type="varchar" MaxLength="30" />
+          <Property Name="CE_TeaID" Type="nchar" MaxLength="11" />
+          <Property Name="CE_Budget" Type="nvarchar" MaxLength="50" />
           <Property Name="CE_Status" Type="int" />
         </EntityType>
         <EntityType Name="Course">
@@ -34,11 +34,11 @@
             <PropertyRef Name="Course_ID" />
           </Key>
           <Property Name="Course_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Course_NameTH" Type="varchar" MaxLength="100" />
-          <Property Name="Course_NameENG" Type="varchar" MaxLength="100" />
+          <Property Name="Course_NameTH" Type="nvarchar" MaxLength="100" />
+          <Property Name="Course_NameENG" Type="nvarchar" MaxLength="100" />
           <Property Name="Course_Year" Type="int" />
-          <Property Name="Course_DegreeTH" Type="varchar" MaxLength="100" />
-          <Property Name="Course_DegreeENG" Type="varchar" MaxLength="100" />
+          <Property Name="Course_DegreeTH" Type="nvarchar" MaxLength="100" />
+          <Property Name="Course_DegreeENG" Type="nvarchar" MaxLength="100" />
           <Property Name="Course_Credit" Type="int" />
         </EntityType>
         <EntityType Name="Department">
@@ -46,7 +46,7 @@
             <PropertyRef Name="Dep_ID" />
           </Key>
           <Property Name="Dep_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dep_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Dep_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Dep_Credit" Type="int" />
           <Property Name="Dep_CourseID" Type="int" />
         </EntityType>
@@ -55,7 +55,7 @@
             <PropertyRef Name="DIS_ID" />
           </Key>
           <Property Name="DIS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DIS_NO" Type="varchar" MaxLength="30" />
+          <Property Name="DIS_NO" Type="nvarchar" MaxLength="50" />
           <Property Name="DIS_DateOUT" Type="date" />
           <Property Name="DIS_DateAPP" Type="date" />
           <Property Name="DIS_Status" Type="int" />
@@ -65,33 +65,33 @@
             <PropertyRef Name="HIS_ID" />
           </Key>
           <Property Name="HIS_ID" Type="int" Nullable="false" />
-          <Property Name="HIS_StuID" Type="char" MaxLength="11" />
+          <Property Name="HIS_StuID" Type="nchar" MaxLength="11" />
           <Property Name="HIS_Job" Type="int" />
-          <Property Name="HIS_Jobname" Type="varchar" MaxLength="50" />
+          <Property Name="HIS_Jobname" Type="nvarchar" MaxLength="50" />
           <Property Name="HIS_Year" Type="date" />
-          <Property Name="HIS_Company" Type="varchar" MaxLength="50" />
+          <Property Name="HIS_Company" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Job">
           <Key>
             <PropertyRef Name="JOB_ID" />
           </Key>
           <Property Name="JOB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="JOB_Name" Type="varchar" MaxLength="50" />
+          <Property Name="JOB_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Log_ID" />
           </Key>
-          <Property Name="Log_ID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Log_Pass" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Log_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Log_Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Log_Role" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'CsManagement.dbo.Picture' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Picture">
           <Property Name="Pic_ID" Type="int" />
-          <Property Name="Pic_Img" Type="varchar" MaxLength="50" />
-          <Property Name="Pic_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Pic_Img" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pic_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Pic_Description" Type="text" />
         </EntityType>-->
         <EntityType Name="Project">
@@ -99,71 +99,71 @@ warning 6013: The table/view 'CsManagement.dbo.Picture' does not have a primary 
             <PropertyRef Name="Pj_ID" />
           </Key>
           <Property Name="Pj_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pj_StuID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Pj_TeaID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Pj_NameTH" Type="varchar(max)" Nullable="false" />
-          <Property Name="Pj_NameENG" Type="varchar(max)" Nullable="false" />
+          <Property Name="Pj_StuID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Pj_TeaID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Pj_NameTH" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_NameENG" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Pj_Date" Type="date" Nullable="false" />
-          <Property Name="Pj_TypePj" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_TypePj" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Pj_Typefile" Type="int" Nullable="false" />
-          <Property Name="Pj_File" Type="varchar" MaxLength="50" />
+          <Property Name="Pj_File" Type="nvarchar" MaxLength="50" />
           <Property Name="Pj_Github" Type="nchar" MaxLength="10" />
           <Property Name="Pj_Description" Type="text" Nullable="false" />
-          <Property Name="Pj_Linkweb" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Pj_Video" Type="varchar" MaxLength="50" />
+          <Property Name="Pj_Linkweb" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_Video" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="RegisterLink">
-          <Property Name="Weblink" Type="varchar" MaxLength="50" />
+          <Property Name="Weblink" Type="nvarchar" MaxLength="50" />
         </EntityType>-->
         <EntityType Name="School">
           <Key>
             <PropertyRef Name="SCH_ID" />
           </Key>
           <Property Name="SCH_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SCH_Name" Type="varchar(max)" />
-          <Property Name="SCH_Province" Type="varchar(max)" />
+          <Property Name="SCH_Name" Type="nvarchar(max)" />
+          <Property Name="SCH_Province" Type="nvarchar(max)" />
           <Property Name="SCH_Tel" Type="nchar" MaxLength="11" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Stu_ID" />
           </Key>
-          <Property Name="Stu_ID" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Stu_Title" Type="varchar" MaxLength="10" />
-          <Property Name="Stu_Name" Type="varchar" MaxLength="50" />
-          <Property Name="Stu_Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Stu_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Stu_Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Stu_Sex" Type="bit" />
           <Property Name="Stu_Birthday" Type="date" />
           <Property Name="Stu_Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="Stu_Tel" Type="varchar" MaxLength="15" />
-          <Property Name="Stu_Address" Type="varchar(max)" />
+          <Property Name="Stu_Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Address" Type="nvarchar(max)" />
           <Property Name="Stu_School" Type="int" />
-          <Property Name="Stu_OldEdu" Type="varchar" MaxLength="50" />
-          <Property Name="Stu_Img" Type="varchar" MaxLength="50" />
+          <Property Name="Stu_OldEdu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Img" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="Tea_ID" />
           </Key>
-          <Property Name="Tea_ID" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Tea_ID" Type="nchar" MaxLength="11" Nullable="false" />
           <Property Name="Tea_TitleID" Type="int" />
-          <Property Name="Tea_Name" Type="varchar" MaxLength="50" />
-          <Property Name="Tea_Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Tea_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tea_Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Birth" Type="date" />
-          <Property Name="Tea_Img" Type="varchar" MaxLength="50" />
+          <Property Name="Tea_Img" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Export" Type="text" />
           <Property Name="Tea_LvEdu" Type="text" />
-          <Property Name="Tea_Program" Type="varchar" MaxLength="50" />
-          <Property Name="Tea_Position" Type="varchar" MaxLength="50" />
+          <Property Name="Tea_Program" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tea_Position" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Title">
           <Key>
             <PropertyRef Name="Title_ID" />
           </Key>
           <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_CESup_ComputerEquipment">
           <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
@@ -403,25 +403,25 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Key>
             <PropertyRef Name="CESUB_No" />
           </Key>
-          <Property Name="CESUB_No" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CESUB_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CESUB_No" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CESUB_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CESUB_Status" Type="Int32" />
-          <Property Name="CE_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CE_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ComputerEquipment" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="CESup" ToRole="ComputerEquipment" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
             <PropertyRef Name="CE_No" />
           </Key>
-          <Property Name="CE_No" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CE_No" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_DateIN" Type="DateTime" Precision="0" />
           <Property Name="CE_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CE_Noce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CE_Noce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Piece" Type="Int32" />
           <Property Name="CE_Price" Type="Double" />
           <Property Name="CE_PriceTotal" Type="Double" />
-          <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
-          <Property Name="CE_Budget" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="CE_Budget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Status" Type="Int32" />
           <NavigationProperty Name="CESups" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="ComputerEquipment" ToRole="CESup" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
@@ -432,11 +432,11 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="Course_ID" />
           </Key>
           <Property Name="Course_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Course_NameTH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Course_NameENG" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Course_NameTH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Course_NameENG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Course_Year" Type="Int32" />
-          <Property Name="Course_DegreeTH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Course_DegreeENG" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Course_DegreeTH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Course_DegreeENG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Course_Credit" Type="Int32" />
           <NavigationProperty Name="Departments" Relationship="CsManagementModel.FK_Department_Course" FromRole="Course" ToRole="Department" />
         </EntityType>
@@ -445,7 +445,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="Dep_ID" />
           </Key>
           <Property Name="Dep_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Dep_Credit" Type="Int32" />
           <Property Name="Dep_CourseID" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="CsManagementModel.FK_Department_Course" FromRole="Department" ToRole="Course" />
@@ -455,7 +455,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="DIS_ID" />
           </Key>
           <Property Name="DIS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DIS_NO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DIS_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DIS_DateOUT" Type="DateTime" Precision="0" />
           <Property Name="DIS_DateAPP" Type="DateTime" Precision="0" />
           <Property Name="DIS_Status" Type="Int32" />
@@ -466,11 +466,11 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="HIS_ID" />
           </Key>
           <Property Name="HIS_ID" Type="Int32" Nullable="false" />
-          <Property Name="HIS_StuID" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="HIS_StuID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="HIS_Job" Type="Int32" />
-          <Property Name="HIS_Jobname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HIS_Jobname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HIS_Year" Type="DateTime" Precision="0" />
-          <Property Name="HIS_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HIS_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Job" Relationship="CsManagementModel.FK_History_Job" FromRole="History" ToRole="Job" />
           <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_History_Student" FromRole="History" ToRole="Student" />
         </EntityType>
@@ -479,15 +479,15 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="JOB_ID" />
           </Key>
           <Property Name="JOB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JOB_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JOB_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Histories" Relationship="CsManagementModel.FK_History_Job" FromRole="Job" ToRole="History" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Log_ID" />
           </Key>
-          <Property Name="Log_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
-          <Property Name="Log_Pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Log_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Log_Pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Log_Role" Type="Int32" />
         </EntityType>
         <EntityType Name="Project">
@@ -495,18 +495,18 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="Pj_ID" />
           </Key>
           <Property Name="Pj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
-          <Property Name="Pj_TeaID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
-          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_TeaID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Pj_Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Pj_TypePj" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pj_TypePj" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pj_Typefile" Type="Int32" Nullable="false" />
-          <Property Name="Pj_File" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pj_File" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pj_Github" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Pj_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Pj_Linkweb" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Pj_Video" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pj_Linkweb" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Video" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_Project_Student" FromRole="Project" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Project" ToRole="Teacher" />
         </EntityType>
@@ -515,8 +515,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="SCH_ID" />
           </Key>
           <Property Name="SCH_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SCH_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SCH_Province" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SCH_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_Province" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SCH_Tel" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Students" Relationship="CsManagementModel.FK_Student_School" FromRole="School" ToRole="Student" />
         </EntityType>
@@ -524,18 +524,18 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Key>
             <PropertyRef Name="Stu_ID" />
           </Key>
-          <Property Name="Stu_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
-          <Property Name="Stu_Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Stu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Stu_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Stu_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Stu_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Stu_Sex" Type="Boolean" />
           <Property Name="Stu_Birthday" Type="DateTime" Precision="0" />
           <Property Name="Stu_Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Stu_Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Stu_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Stu_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Stu_School" Type="Int32" />
-          <Property Name="Stu_OldEdu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Stu_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Stu_OldEdu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Histories" Relationship="CsManagementModel.FK_History_Student" FromRole="Student" ToRole="History" />
           <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
           <NavigationProperty Name="School" Relationship="CsManagementModel.FK_Student_School" FromRole="Student" ToRole="School" />
@@ -544,16 +544,16 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Key>
             <PropertyRef Name="Tea_ID" />
           </Key>
-          <Property Name="Tea_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="Tea_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="Tea_TitleID" Type="Int32" />
-          <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Birth" Type="DateTime" Precision="0" />
-          <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
           <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Teacher" ToRole="Project" />
           <NavigationProperty Name="Title" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
@@ -563,7 +563,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             <PropertyRef Name="Title_ID" />
           </Key>
           <Property Name="Title_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Teachers" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Title" ToRole="Teacher" />
         </EntityType>
         <Association Name="FK_CESup_ComputerEquipment">

@@ -173,6 +173,26 @@
     <Content Include="Views\Schools\Details.cshtml" />
     <Content Include="Views\Schools\Edit.cshtml" />
     <Content Include="Views\Schools\Index.cshtml" />
+    <Content Include="Views\Teachers\Create.cshtml" />
+    <Content Include="Views\Teachers\Delete.cshtml" />
+    <Content Include="Views\Teachers\Details.cshtml" />
+    <Content Include="Views\Teachers\Edit.cshtml" />
+    <Content Include="Views\Teachers\Index.cshtml" />
+    <Content Include="Views\ComputerEquipments\Create.cshtml" />
+    <Content Include="Views\ComputerEquipments\Delete.cshtml" />
+    <Content Include="Views\ComputerEquipments\Details.cshtml" />
+    <Content Include="Views\ComputerEquipments\Edit.cshtml" />
+    <Content Include="Views\ComputerEquipments\Index.cshtml" />
+    <Content Include="Views\CESups\Create.cshtml" />
+    <Content Include="Views\CESups\Delete.cshtml" />
+    <Content Include="Views\CESups\Details.cshtml" />
+    <Content Include="Views\CESups\Edit.cshtml" />
+    <Content Include="Views\CESups\Index.cshtml" />
+    <Content Include="Views\Disposes\Create.cshtml" />
+    <Content Include="Views\Disposes\Delete.cshtml" />
+    <Content Include="Views\Disposes\Details.cshtml" />
+    <Content Include="Views\Disposes\Edit.cshtml" />
+    <Content Include="Views\Disposes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -181,12 +201,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CESupsController.cs" />
+    <Compile Include="Controllers\ComputerEquipmentsController.cs" />
+    <Compile Include="Controllers\DisposesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Models\CESup.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

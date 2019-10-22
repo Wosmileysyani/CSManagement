@@ -14,11 +14,10 @@ namespace CSManagement.Models
     
     public partial class CESup
     {
-        public string CESUB_No { get; set; }
+        public int CESUB_ATNO { get; set; }
+        public string CESUB_NO { get; set; }
         public string CESUB_Name { get; set; }
         public Nullable<int> CESUB_Status { get; set; }
-        public string CE_No { get; set; }
-    
-        public virtual ComputerEquipment ComputerEquipment { get; set; }
+        public Nullable<int> CE_ATNO { get; set; }
     }
 }

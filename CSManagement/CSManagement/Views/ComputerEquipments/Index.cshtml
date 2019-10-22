@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CSManagement.Models.ComputerEquipment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_NO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_DateIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Noce)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Piece)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_PriceTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Budget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_NO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_DateIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Noce)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Piece)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_PriceTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Budget)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE_Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CE_ATNO }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CE_ATNO }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CE_ATNO })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,99 @@
+﻿@model CSManagement.Models.ComputerEquipment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ComputerEquipment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_NO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_NO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_DateIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_DateIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Noce)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Noce)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Piece)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Piece)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_PriceTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_PriceTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Budget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Budget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CE_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CE_Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Tea_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CE_ATNO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

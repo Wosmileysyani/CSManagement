@@ -7,18 +7,20 @@
     <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CESup">
           <Key>
-            <PropertyRef Name="CESUB_No" />
+            <PropertyRef Name="CESUB_ATNO" />
           </Key>
-          <Property Name="CESUB_No" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CESUB_ATNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CESUB_NO" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CESUB_Name" Type="nvarchar(max)" />
           <Property Name="CESUB_Status" Type="int" />
-          <Property Name="CE_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="CE_ATNO" Type="int" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
-            <PropertyRef Name="CE_No" />
+            <PropertyRef Name="CE_ATNO" />
           </Key>
-          <Property Name="CE_No" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CE_ATNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CE_NO" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CE_DateIN" Type="date" />
           <Property Name="CE_Name" Type="varchar(max)" />
           <Property Name="CE_Noce" Type="nvarchar" MaxLength="50" />
@@ -52,10 +54,10 @@
         </EntityType>
         <EntityType Name="Dispose">
           <Key>
-            <PropertyRef Name="DIS_ID" />
+            <PropertyRef Name="DIS_ATNO" />
           </Key>
-          <Property Name="DIS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DIS_NO" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIS_ATNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CE_ATNO" Type="int" />
           <Property Name="DIS_DateOUT" Type="date" />
           <Property Name="DIS_DateAPP" Type="date" />
           <Property Name="DIS_Status" Type="int" />
@@ -153,8 +155,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Tea_Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Birth" Type="date" />
           <Property Name="Tea_Img" Type="nvarchar" MaxLength="50" />
-          <Property Name="Tea_Export" Type="text" />
-          <Property Name="Tea_LvEdu" Type="text" />
+          <Property Name="Tea_Export" Type="nvarchar(max)" />
+          <Property Name="Tea_LvEdu" Type="nvarchar(max)" />
           <Property Name="Tea_Program" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Position" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -165,18 +167,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_CESup_ComputerEquipment">
-          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
-          <End Role="CESup" Type="Self.CESup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ComputerEquipment">
-              <PropertyRef Name="CE_No" />
-            </Principal>
-            <Dependent Role="CESup">
-              <PropertyRef Name="CE_No" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
           <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="*" />
@@ -198,18 +188,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="Dep_CourseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Dispose_ComputerEquipment">
-          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
-          <End Role="Dispose" Type="Self.Dispose" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ComputerEquipment">
-              <PropertyRef Name="CE_No" />
-            </Principal>
-            <Dependent Role="Dispose">
-              <PropertyRef Name="DIS_NO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -299,10 +277,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="Self.FK_CESup_ComputerEquipment">
-            <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
-            <End Role="CESup" EntitySet="CESup" />
-          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="Self.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
@@ -310,10 +284,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <AssociationSet Name="FK_Department_Course" Association="Self.FK_Department_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="Department" EntitySet="Department" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="Self.FK_Dispose_ComputerEquipment">
-            <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
-            <End Role="Dispose" EntitySet="Dispose" />
           </AssociationSet>
           <AssociationSet Name="FK_History_Job" Association="Self.FK_History_Job">
             <End Role="Job" EntitySet="Job" />
@@ -358,17 +328,9 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <EntitySet Name="Students" EntityType="CsManagementModel.Student" />
           <EntitySet Name="Teachers" EntityType="CsManagementModel.Teacher" />
           <EntitySet Name="Titles" EntityType="CsManagementModel.Title" />
-          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="CsManagementModel.FK_CESup_ComputerEquipment">
-            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
-            <End Role="CESup" EntitySet="CESups" />
-          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="CsManagementModel.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="CsManagementModel.FK_Dispose_ComputerEquipment">
-            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
-            <End Role="Dispose" EntitySet="Disposes" />
           </AssociationSet>
           <AssociationSet Name="FK_Department_Course" Association="CsManagementModel.FK_Department_Course">
             <End Role="Course" EntitySet="Courses" />
@@ -401,19 +363,20 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
         </EntityContainer>
         <EntityType Name="CESup">
           <Key>
-            <PropertyRef Name="CESUB_No" />
+            <PropertyRef Name="CESUB_ATNO" />
           </Key>
-          <Property Name="CESUB_No" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CESUB_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CESUB_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CESUB_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CESUB_Status" Type="Int32" />
-          <Property Name="CE_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ComputerEquipment" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="CESup" ToRole="ComputerEquipment" />
+          <Property Name="CE_ATNO" Type="Int32" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
-            <PropertyRef Name="CE_No" />
+            <PropertyRef Name="CE_ATNO" />
           </Key>
-          <Property Name="CE_No" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CE_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CE_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_DateIN" Type="DateTime" Precision="0" />
           <Property Name="CE_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CE_Noce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -423,9 +386,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="CE_Budget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Status" Type="Int32" />
-          <NavigationProperty Name="CESups" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="ComputerEquipment" ToRole="CESup" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
-          <NavigationProperty Name="Disposes" Relationship="CsManagementModel.FK_Dispose_ComputerEquipment" FromRole="ComputerEquipment" ToRole="Dispose" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -452,14 +413,13 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
         </EntityType>
         <EntityType Name="Dispose">
           <Key>
-            <PropertyRef Name="DIS_ID" />
+            <PropertyRef Name="DIS_ATNO" />
           </Key>
-          <Property Name="DIS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DIS_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIS_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CE_ATNO" Type="Int32" />
           <Property Name="DIS_DateOUT" Type="DateTime" Precision="0" />
           <Property Name="DIS_DateAPP" Type="DateTime" Precision="0" />
           <Property Name="DIS_Status" Type="Int32" />
-          <NavigationProperty Name="ComputerEquipment" Relationship="CsManagementModel.FK_Dispose_ComputerEquipment" FromRole="Dispose" ToRole="ComputerEquipment" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -550,8 +510,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Birth" Type="DateTime" Precision="0" />
           <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
@@ -566,18 +526,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Title_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Teachers" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Title" ToRole="Teacher" />
         </EntityType>
-        <Association Name="FK_CESup_ComputerEquipment">
-          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="0..1" />
-          <End Type="CsManagementModel.CESup" Role="CESup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ComputerEquipment">
-              <PropertyRef Name="CE_No" />
-            </Principal>
-            <Dependent Role="CESup">
-              <PropertyRef Name="CE_No" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
           <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
           <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="*" />
@@ -587,18 +535,6 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Principal>
             <Dependent Role="ComputerEquipment">
               <PropertyRef Name="CE_TeaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Dispose_ComputerEquipment">
-          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Dispose" Role="Dispose" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ComputerEquipment">
-              <PropertyRef Name="CE_No" />
-            </Principal>
-            <Dependent Role="Dispose">
-              <PropertyRef Name="DIS_NO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -686,7 +622,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -695,10 +631,11 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <EntitySetMapping Name="CESups">
             <EntityTypeMapping TypeName="CsManagementModel.CESup">
               <MappingFragment StoreEntitySet="CESup">
-                <ScalarProperty Name="CE_No" ColumnName="CE_No" />
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
                 <ScalarProperty Name="CESUB_Status" ColumnName="CESUB_Status" />
                 <ScalarProperty Name="CESUB_Name" ColumnName="CESUB_Name" />
-                <ScalarProperty Name="CESUB_No" ColumnName="CESUB_No" />
+                <ScalarProperty Name="CESUB_NO" ColumnName="CESUB_NO" />
+                <ScalarProperty Name="CESUB_ATNO" ColumnName="CESUB_ATNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -714,7 +651,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
                 <ScalarProperty Name="CE_Noce" ColumnName="CE_Noce" />
                 <ScalarProperty Name="CE_Name" ColumnName="CE_Name" />
                 <ScalarProperty Name="CE_DateIN" ColumnName="CE_DateIN" />
-                <ScalarProperty Name="CE_No" ColumnName="CE_No" />
+                <ScalarProperty Name="CE_NO" ColumnName="CE_NO" />
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -747,8 +685,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
                 <ScalarProperty Name="DIS_Status" ColumnName="DIS_Status" />
                 <ScalarProperty Name="DIS_DateAPP" ColumnName="DIS_DateAPP" />
                 <ScalarProperty Name="DIS_DateOUT" ColumnName="DIS_DateOUT" />
-                <ScalarProperty Name="DIS_NO" ColumnName="DIS_NO" />
-                <ScalarProperty Name="DIS_ID" ColumnName="DIS_ID" />
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
+                <ScalarProperty Name="DIS_ATNO" ColumnName="DIS_ATNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -30,13 +30,19 @@ namespace CSManagement.Controllers
             if (username.IsEmpty() == false && password.IsEmpty() == false)
             {
                 var dataCk = db.Logins.FirstOrDefault(x => x.Log_ID == username && x.Log_Pass == password);
-                if (dataCk != null)
+                if (dataCk != null && dataCk.Log_Role == 2)
                 {
                     var data = db.Students.FirstOrDefault(x => x.Stu_ID == dataCk.Log_ID);
                     Session["UserID"] = data.Stu_ID;
                     Session["UserName"] = data.Stu_Name;
-                    Session["UserYear"] = data.Stu_Email;
-                    if (dataCk.Log_Role == 1) Session["AJ"] = "AJ";
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                else if (dataCk != null && dataCk.Log_Role == 1)
+                {
+                    var data = db.Teachers.FirstOrDefault(x => x.Tea_ID == dataCk.Log_ID);
+                    Session["UserID"] = data.Tea_ID;
+                    Session["UserName"] = data.Tea_Name;
+                    Session["AJ"] = "AJ";
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -66,8 +72,19 @@ namespace CSManagement.Controllers
                     if (specailcode == "admin")
                     {
                         loginmodel.Log_Role = 1;
-                        Teacher teachermodel = new Teacher();
-                        teachermodel.Tea_ID = username2;
+                        Teacher teachermodel = new Teacher()
+                        {
+                            Tea_ID = username2,
+                            Tea_Name = "รอแก้ไข",
+                            Tea_Img = "รอแก้ไข",
+                            Tea_Birth = DateTime.Today,
+                            Tea_Export = "รอแก้ไข",
+                            Tea_LvEdu = "รอแก้ไข",
+                            Tea_Position = "รอแก้ไข",
+                            Tea_Program = "รอแก้ไข",
+                            Tea_Surname = "รอแก้ไข",
+                            Tea_TitleID = 1
+                        };
                         db.Logins.Add(loginmodel);
                         db.Teachers.Add(teachermodel);
                         db.SaveChanges();
@@ -75,8 +92,21 @@ namespace CSManagement.Controllers
                     else
                     {
                         loginmodel.Log_Role = 2;
-                        Student studentmodel = new Student();
-                        studentmodel.Stu_ID = username2;
+                        Student studentmodel = new Student()
+                        {
+                            Stu_ID = username2,
+                            Stu_Img = "รอแก้ไข",
+                            Stu_Sex = true,
+                            Stu_Tel = "รอแก้ไข",
+                            Stu_Address = "รอแก้ไข",
+                            Stu_Title = "รอแก้ไข",
+                            Stu_Name = "รอแก้ไข",
+                            Stu_OldEdu = "รอแก้ไข",
+                            Stu_Email = "รอแก้ไข",
+                            Stu_School = 1,
+                            Stu_Surname = "รอแก้ไข",
+                            Stu_Birthday = DateTime.Today
+                        };
                         db.Logins.Add(loginmodel);
                         db.Students.Add(studentmodel);
                         db.SaveChanges();

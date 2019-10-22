@@ -66,9 +66,18 @@
                                 </li>
 
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
+                                    @if (Session["AJ"] == null)
+                                    {
+                                        <div class="pull-left">
+                                            <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="pull-left">
+                                            <a href='@Url.Action("Edit", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                    }
                                     <div class="pull-right">
                                         <a href='@Url.Action("Logout", "logins")' class="btn btn-default btn-flat">Sign out</a>
                                     </div>

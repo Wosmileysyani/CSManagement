@@ -1,0 +1,91 @@
+﻿@model CSManagement.Models.Teacher
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Birth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Birth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Export)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Export)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_LvEdu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_LvEdu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Program)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Program)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tea_Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tea_Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title.Title_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title.Title_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Tea_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

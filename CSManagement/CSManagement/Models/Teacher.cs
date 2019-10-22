@@ -22,11 +22,10 @@ namespace CSManagement.Models
         }
     
         public string Tea_ID { get; set; }
-        public int Tea_TitleID { get; set; }
+        public Nullable<int> Tea_TitleID { get; set; }
         public string Tea_Name { get; set; }
         public string Tea_Surname { get; set; }
-        public System.DateTime Tea_Birth { get; set; }
-        public string Tea_IDCard { get; set; }
+        public Nullable<System.DateTime> Tea_Birth { get; set; }
         public string Tea_Img { get; set; }
         public string Tea_Export { get; set; }
         public string Tea_LvEdu { get; set; }

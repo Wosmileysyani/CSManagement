@@ -25,8 +25,8 @@ namespace CSManagement.Models
         public string Stu_Title { get; set; }
         public string Stu_Name { get; set; }
         public string Stu_Surname { get; set; }
-        public bool Stu_Sex { get; set; }
-        public System.DateTime Stu_Birthday { get; set; }
+        public Nullable<bool> Stu_Sex { get; set; }
+        public Nullable<System.DateTime> Stu_Birthday { get; set; }
         public string Stu_Email { get; set; }
         public string Stu_Tel { get; set; }
         public string Stu_Address { get; set; }

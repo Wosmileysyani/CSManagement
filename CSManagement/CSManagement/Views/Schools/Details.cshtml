@@ -1,0 +1,43 @@
+﻿@model CSManagement.Models.School
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>School</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Province)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Province)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Tel)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SCH_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

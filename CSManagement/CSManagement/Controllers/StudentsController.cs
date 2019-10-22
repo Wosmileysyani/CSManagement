@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,18 +12,18 @@ using CSManagement.Models;
 
 namespace CSManagement.Controllers
 {
-    public class StudentController : Controller
+    public class StudentsController : Controller
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        // GET: Student
+        // GET: Students
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.School);
             return View(students.ToList());
         }
 
-        // GET: Student/Details/5
+        // GET: Students/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,32 +38,42 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // GET: Student/Create
+        // GET: Students/Create
         public ActionResult Create()
         {
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
             return View();
         }
 
-        // POST: Student/Create
+        // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Student student)
+        public ActionResult Create(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (file != null && file.ContentLength > 0)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //var fileName = Path.GetFileName(file.FileName);
+                //var path = Path.Combine(Server.MapPath("~/img"), fileName);
+                //file.SaveAs(path);
+                //student.Stu_Img = path;
+                string ImageName = Path.GetFileName(file.FileName);
+                var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "")+ImageName;
+                string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                file.SaveAs(physicalPath);
+                student.Stu_Img = myUniqueFileName;
             }
-
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-            return View(student);
+            student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            student.Stu_Tel = tel;
+            db.Students.Add(student);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+            //return View(student);
         }
 
-        // GET: Student/Edit/5
+        // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -77,12 +89,12 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // POST: Student/Edit/5
+        // POST: Students/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Stu_ID,Stu_Title,Stu_Name,Stu_Surname,Stu_Sex,Stu_Birthday,Stu_Email,Stu_Tel,Stu_Address,Stu_School,Stu_OldEdu,Stu_Img")] Student student)
+        public ActionResult Edit(Student student)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +106,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // GET: Student/Delete/5
+        // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -109,7 +121,7 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // POST: Student/Delete/5
+        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

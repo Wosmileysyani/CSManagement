@@ -10,112 +10,107 @@ using CSManagement.Models;
 
 namespace CSManagement.Controllers
 {
-    public class StudentController : Controller
+    public class SchoolsController : Controller
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        // GET: Student
+        // GET: Schools
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.School);
-            return View(students.ToList());
+            return View(db.Schools.ToList());
         }
 
-        // GET: Student/Details/5
-        public ActionResult Details(string id)
+        // GET: Schools/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            School school = db.Schools.Find(id);
+            if (school == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(school);
         }
 
-        // GET: Student/Create
+        // GET: Schools/Create
         public ActionResult Create()
         {
-            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
             return View();
         }
 
-        // POST: Student/Create
+        // POST: Schools/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Student student)
+        public ActionResult Create([Bind(Include = "SCH_ID,SCH_Name,SCH_Province,SCH_Tel")] School school)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Schools.Add(school);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-            return View(student);
+            return View(school);
         }
 
-        // GET: Student/Edit/5
-        public ActionResult Edit(string id)
+        // GET: Schools/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            School school = db.Schools.Find(id);
+            if (school == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-            return View(student);
+            return View(school);
         }
 
-        // POST: Student/Edit/5
+        // POST: Schools/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Stu_ID,Stu_Title,Stu_Name,Stu_Surname,Stu_Sex,Stu_Birthday,Stu_Email,Stu_Tel,Stu_Address,Stu_School,Stu_OldEdu,Stu_Img")] Student student)
+        public ActionResult Edit([Bind(Include = "SCH_ID,SCH_Name,SCH_Province,SCH_Tel")] School school)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(school).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-            return View(student);
+            return View(school);
         }
 
-        // GET: Student/Delete/5
-        public ActionResult Delete(string id)
+        // GET: Schools/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            School school = db.Schools.Find(id);
+            if (school == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(school);
         }
 
-        // POST: Student/Delete/5
+        // POST: Schools/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
+            School school = db.Schools.Find(id);
+            db.Schools.Remove(school);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

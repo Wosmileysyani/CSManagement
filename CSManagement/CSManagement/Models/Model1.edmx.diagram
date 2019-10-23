@@ -5,20 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b69e8b41c4924f4d9b10ac1ab6bb8832" Name="Diagram1" ZoomLevel="73">
-        <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="0.75" PointY="10.25" />
-        <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="7.75" PointY="3.5" />
-        <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="10" PointY="3.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.75" PointY="7.25" />
+        <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="7.5" PointY="12.875" />
+        <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="5.25" PointY="10.625" />
+        <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="7.75" PointY="2.625" />
+        <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="10" PointY="2.875" />
+        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.5" PointY="9.875" />
         <EntityTypeShape EntityType="CsManagementModel.History" Width="1.5" PointX="5.25" PointY="1.375" />
         <EntityTypeShape EntityType="CsManagementModel.Job" Width="1.5" PointX="3" PointY="15" />
-        <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="7.75" PointY="10.25" />
+        <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="7.75" PointY="6.375" />
         <EntityTypeShape EntityType="CsManagementModel.Project" Width="1.5" PointX="5.25" PointY="5.75" />
         <EntityTypeShape EntityType="CsManagementModel.School" Width="1.5" PointX="0.75" PointY="3.375" />
         <EntityTypeShape EntityType="CsManagementModel.Student" Width="1.5" PointX="3" PointY="0.75" />
         <EntityTypeShape EntityType="CsManagementModel.Teacher" Width="1.5" PointX="3" PointY="6" />
         <EntityTypeShape EntityType="CsManagementModel.Title" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="CsManagementModel.FK_CESup_ComputerEquipment" />
         <AssociationConnector Association="CsManagementModel.FK_ComputerEquipment_Teacher" />
+        <AssociationConnector Association="CsManagementModel.FK_Dispose_ComputerEquipment" />
         <AssociationConnector Association="CsManagementModel.FK_Department_Course" />
         <AssociationConnector Association="CsManagementModel.FK_History_Job" />
         <AssociationConnector Association="CsManagementModel.FK_History_Student" />

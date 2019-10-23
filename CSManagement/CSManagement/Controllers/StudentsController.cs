@@ -42,36 +42,33 @@ namespace CSManagement.Controllers
         public ActionResult Create()
         {
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
+            ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name");
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-            try
+            if (file != null && file.ContentLength > 0)
             {
-                if (file != null && file.ContentLength > 0)
-                {
-                    string ImageName = Path.GetFileName(file.FileName);
-                    var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "") + ImageName;
-                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
-                    file.SaveAs(physicalPath);
-                    student.Stu_Img = myUniqueFileName;
-                }
-                student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                student.Stu_Tel = tel;
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //var fileName = Path.GetFileName(file.FileName);
+                //var path = Path.Combine(Server.MapPath("~/img"), fileName);
+                //file.SaveAs(path);
+                //student.Stu_Img = path;
+                string ImageName = Path.GetFileName(file.FileName);
+                var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "")+ImageName;
+                string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                file.SaveAs(physicalPath);
+                student.Stu_Img = myUniqueFileName;
             }
-            catch (Exception)
-            {
-                ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-                return View(student);
-            }
+            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
+            student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            student.Stu_Tel = tel;
+            db.Students.Add(student);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+            //return View(student);
         }
 
         // GET: Students/Edit/5

@@ -33,11 +33,13 @@ namespace CSManagement.Models
         public Nullable<int> Stu_School { get; set; }
         public string Stu_OldEdu { get; set; }
         public string Stu_Img { get; set; }
+        public Nullable<int> Stu_StatusID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Projects { get; set; }
         public virtual School School { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

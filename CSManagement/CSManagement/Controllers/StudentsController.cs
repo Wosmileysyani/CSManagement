@@ -42,32 +42,27 @@ namespace CSManagement.Controllers
         public ActionResult Create()
         {
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
+            ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name");
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
-                //var fileName = Path.GetFileName(file.FileName);
-                //var path = Path.Combine(Server.MapPath("~/img"), fileName);
-                //file.SaveAs(path);
-                //student.Stu_Img = path;
                 string ImageName = Path.GetFileName(file.FileName);
-                var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "")+ImageName;
+                var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                 string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                 file.SaveAs(physicalPath);
                 student.Stu_Img = myUniqueFileName;
             }
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
+            ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
             student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             student.Stu_Tel = tel;
-            db.Students.Add(student);
-            db.SaveChanges();
+                db.Students.Add(student);
+                db.SaveChanges();
             return RedirectToAction("Index");
 
             //return View(student);

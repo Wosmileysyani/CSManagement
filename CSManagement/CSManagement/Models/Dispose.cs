@@ -14,12 +14,10 @@ namespace CSManagement.Models
     
     public partial class Dispose
     {
-        public int DIS_ID { get; set; }
-        public string DIS_NO { get; set; }
+        public int DIS_ATNO { get; set; }
+        public Nullable<int> CE_ATNO { get; set; }
         public Nullable<System.DateTime> DIS_DateOUT { get; set; }
         public Nullable<System.DateTime> DIS_DateAPP { get; set; }
         public Nullable<int> DIS_Status { get; set; }
-    
-        public virtual ComputerEquipment ComputerEquipment { get; set; }
     }
 }

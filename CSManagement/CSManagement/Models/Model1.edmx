@@ -686,6 +686,62 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="CsManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CESups" EntityType="Self.CESup" />
+          <EntitySet Name="ComputerEquipments" EntityType="Self.ComputerEquipment" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Disposes" EntityType="Self.Dispose" />
+          <EntitySet Name="Histories" EntityType="Self.History" />
+          <EntitySet Name="Jobs" EntityType="Self.Job" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Titles" EntityType="Self.Title" />
+          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="Self.FK_CESup_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+            <End Role="CESup" EntitySet="CESups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="Self.FK_ComputerEquipment_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="Self.FK_Dispose_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+            <End Role="Dispose" EntitySet="Disposes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Course" Association="Self.FK_Department_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Job" Association="Self.FK_History_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Student" Association="Self.FK_History_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Student" Association="Self.FK_Project_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Teacher" Association="Self.FK_Project_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_School" Association="Self.FK_Student_School">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Title" Association="Self.FK_Teacher_Title">
+            <End Role="Title" EntitySet="Titles" />
+            <End Role="Teacher" EntitySet="Teachers" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

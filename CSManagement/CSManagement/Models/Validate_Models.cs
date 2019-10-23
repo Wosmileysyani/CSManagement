@@ -42,9 +42,25 @@ namespace CSManagement.Models
         [Display(Name = "วุฒิการศึกษา")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Stu_OldEdu { get; set; }
+
         [Display(Name = "รูปภาพ")]
         public string Stu_Img { get; set; }
+
+        [Display(Name ="สถานะการศึกษา")]
+        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        public Nullable<int> Stu_StatusID { get; set; }
     }
     [MetadataType(typeof(V_Student))]
     public partial class Student { }
+
+    public partial class V_Status
+    {
+        [Display(Name = "สถานะ")]
+        public int Status_ID { get; set; }
+
+        [Display(Name = "สถานะการศึกษา")]
+        public string Status_Name { get; set; }
+    }
+    [MetadataType(typeof(V_Status))]
+    public partial class Status { }
 }

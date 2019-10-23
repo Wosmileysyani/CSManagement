@@ -23,14 +23,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/9738106a36.js" crossorigin="anonymous"></script>
     <style>
-        .take-all-space-you-can{
-            width:50%;
+        *{
+            font-family: 'Kanit', sans-serif;
+        }
+        .take-all-space-you-can {
+            width: 50%;
         }
 
         .set-text {
             text-align: center;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet"> 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -159,13 +163,7 @@
         </div>
 
         <div class="content-wrapper">
-            <section class="content-header">
-                <h1>
-                    @ViewBag.Title
-                    <small>@ViewBag.Description</small>
-                </h1>
-            </section>
-
+            
             <section class="content">
                 @RenderBody()
             </section>
@@ -255,7 +253,8 @@
         });
     </script>
 
-    @RenderSection("ViewSpecificJavascript", required: false)
+    <script src="~/Content/js/plugins/jquery.validate/jquery.validate.min.js"></script>
+    <script src="~/Content/js/plugins/jquery.validate/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

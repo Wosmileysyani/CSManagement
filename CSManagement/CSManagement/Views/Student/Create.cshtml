@@ -102,10 +102,10 @@
 
                 <div class="row">
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Stu_School,  htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Stu_School, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-university"></i></span>
-                            @Html.DropDownList("Stu_School", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Stu_School",null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Stu_School, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -137,7 +137,6 @@
         </div>
     </section>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

@@ -20,6 +20,12 @@ namespace CSManagement.Controllers
             return View(db.Disposes.ToList());
         }
 
+        public ActionResult Dispose(ComputerEquipment computerEquipment)
+        {
+            Console.WriteLine(computerEquipment.CE_ATNO);
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Disposes/Details/5
         public ActionResult Details(int? id)
         {

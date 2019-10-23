@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -48,14 +50,16 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ComputerEquipment computerEquipment)
+        public ActionResult Create(ComputerEquipment computerEquipment,string datein)
         {
             try
             {
+                computerEquipment.CE_DateIN = DateTime.ParseExact(datein, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 computerEquipment.CE_Status = 1;
                 db.ComputerEquipments.Add(computerEquipment);
                 db.SaveChanges();
-                var getno = db.ComputerEquipments.Last().CE_ATNO;
+
+                var getno = db.ComputerEquipments.OrderByDescending(x => x.CE_ATNO).FirstOrDefault();
 
                 for (int i = 0; i < computerEquipment.CE_Piece; i++)
                 {
@@ -64,16 +68,18 @@ namespace CSManagement.Controllers
                         CESUB_NO = computerEquipment.CE_NO,
                         CESUB_Name = computerEquipment.CE_Name,
                         CESUB_Status = 1,
-                        CE_ATNO = getno
+                        CE_ATNO = getno.CE_ATNO
                     };
                     db.CESups.Add(ceSup);
                 }
+                
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 ViewBag.CE_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", computerEquipment.CE_TeaID);
                 return View(computerEquipment);
             }

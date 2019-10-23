@@ -78,9 +78,10 @@
             @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CE_ATNO }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CE_ATNO }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CE_ATNO })
+            @Html.ActionLink("Edit", "Edit", new { id = item.CE_ATNO }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CE_ATNO })
+            @*<a href='@Url.Action("Dispose", "Disposes", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
         </td>
     </tr>
 }

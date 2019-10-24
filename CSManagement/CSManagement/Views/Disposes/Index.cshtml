@@ -40,19 +40,19 @@
                 @* 1 = รอดำเนินการ / 2 = จำหน่ายแล้ว / 3 = ยกเลิกการจำหน่าย *@
                 @if (item.DIS_Status == 1)
                 {
-                    <span>
+                    <span style="color:green">
                         รอดำเนินการ
                     </span>
                 }
                 else if (item.DIS_Status == 2)
                 {
-                    <span>
+                    <span style="color:red">
                         จำหน่ายแล้ว
                     </span>
                 }
                 else if (item.DIS_Status == 3)
                 {
-                    <span>
+                    <span style="color:blue">
                         ยกเลิกการจำหน่าย
                     </span>
                 }

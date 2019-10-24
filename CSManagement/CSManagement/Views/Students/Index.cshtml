@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int i=1;
+    int i = 1;
 }
 
 <div class="box">
@@ -15,14 +15,13 @@
         </div>
     </div>
     <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped" style="width:100%" >
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th style="text-align:center">ที่</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_ID)</th>
                     <th style="text-align:center">ชื่อ-นามสกุล</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Birthday)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Email)</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Tel)</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_StatusID)</th>
                     <th style="text-align:center">จัดการข้อมูล</th>
@@ -31,22 +30,37 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@(i++)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Stu_ID)</td>
-                    <td>@item.Stu_Title @item.Stu_Name @item.Stu_Surname</td>
-                    <td>@Html.DisplayFor(modelItem => item.Stu_Birthday)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Stu_Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Stu_Tel)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
-                    <td>
-                        <a class="btn btn-warning" href="@Url.Action("Edit", "Students", new { id = item.Stu_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
-                        <a class="btn btn-info" href="@Url.Action("Details", "Students", new { id = item.Stu_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Students", new { id = item.Stu_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Stu_ID)</td>
+                        <td>@item.Stu_Title @item.Stu_Name @item.Stu_Surname</td>
+                        <td>@Html.DisplayFor(modelItem => item.Stu_Birthday)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Stu_Tel)</td>
+                        @* 1 = กำลังศึกษา / 2 = จบการศึกษา / 3 = ไม่สำเร็จการศึกษา *@
+                        @if (item.Stu_StatusID == 1)
+                        {
+                            <td style="color:blue">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                        }
+                        else if (item.Stu_StatusID == 2)
+                        {
+                            <td style="color:green">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                        }
+                        else if (item.Stu_StatusID == 3)
+                        {
+                            <td style="color:red">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                        }
+                        else
+                        {
+                            <td style="color:black">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                        }
+                        <td>
+                            <a class="btn btn-warning" href="@Url.Action("Edit", "Students", new { id = item.Stu_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
+                            <a class="btn btn-info" href="@Url.Action("Details", "Students", new { id = item.Stu_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "Students", new { id = item.Stu_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                        </td>
+                    </tr>
                 }
-                </tbody>
+            </tbody>
         </table>
     </div>
 </div>

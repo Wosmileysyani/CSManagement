@@ -51,7 +51,7 @@ namespace CSManagement.Controllers
                 {
                     Models.Dispose dispose = new Dispose()
                     {
-                        DIS_DateOUT = DateTime.UtcNow,
+                        DIS_DateOUT = DateTime.Now,
                         DIS_Status = 1,
                         CE_ATNO = id
                     };
@@ -80,7 +80,7 @@ namespace CSManagement.Controllers
                     {
                         Models.Dispose dispose = new Dispose()
                         {
-                            DIS_DateOUT = DateTime.UtcNow,
+                            DIS_DateOUT = DateTime.Now,
                             DIS_Status = 1,
                             CE_ATNO = id
                         };

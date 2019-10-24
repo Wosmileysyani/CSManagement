@@ -14,6 +14,13 @@ namespace CSManagement.Models
     
     public partial class ComputerEquipment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ComputerEquipment()
+        {
+            this.CESups = new HashSet<CESup>();
+            this.Disposes = new HashSet<Dispose>();
+        }
+    
         public int CE_ATNO { get; set; }
         public string CE_NO { get; set; }
         public Nullable<System.DateTime> CE_DateIN { get; set; }
@@ -26,6 +33,10 @@ namespace CSManagement.Models
         public string CE_Budget { get; set; }
         public Nullable<int> CE_Status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CESup> CESups { get; set; }
         public virtual Teacher Teacher { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dispose> Disposes { get; set; }
     }
 }

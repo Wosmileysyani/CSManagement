@@ -19,5 +19,7 @@ namespace CSManagement.Models
         public string CESUB_Name { get; set; }
         public Nullable<int> CESUB_Status { get; set; }
         public Nullable<int> CE_ATNO { get; set; }
+    
+        public virtual ComputerEquipment ComputerEquipment { get; set; }
     }
 }

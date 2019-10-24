@@ -12,14 +12,9 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Dispose
+    public partial class RegisterLink
     {
-        public int DIS_ATNO { get; set; }
-        public Nullable<int> CE_ATNO { get; set; }
-        public Nullable<System.DateTime> DIS_DateOUT { get; set; }
-        public Nullable<System.DateTime> DIS_DateAPP { get; set; }
-        public Nullable<int> DIS_Status { get; set; }
-    
-        public virtual ComputerEquipment ComputerEquipment { get; set; }
+        public int WL_ID { get; set; }
+        public string Weblink { get; set; }
     }
 }

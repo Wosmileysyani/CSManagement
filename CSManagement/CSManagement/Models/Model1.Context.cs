@@ -31,13 +31,17 @@ namespace CSManagement.Models
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Dispose> Disposes { get; set; }
         public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<HitCount> HitCounts { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<RegisterLink> RegisterLinks { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<Totaljob> Totaljobs { get; set; }
     }
 }

@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>ครุภัณฑ์</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("เพิ่ม", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,53 +37,88 @@
             @Html.DisplayNameFor(model => model.CE_Budget)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CE_Status)
+            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
+            @Html.DisplayNameFor(model => model.CE_Status)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_NO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_DateIN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Noce)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Piece)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_PriceTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Budget)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CE_ATNO }) |
-            @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CE_ATNO })
-            @*<a href='@Url.Action("Dispose", "Disposes", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_DateIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_Noce)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_Piece)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_PriceTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_Budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
+            </td>
+            @* 1 = อยู่ในระบบ / 2 = จำหน่ายแล้ว / 3 = รอจำหน่าย *@
+            <td>
+                @if (item.CE_Status == 1)
+                {
+                    <span>
+                        อยู่ในระบบ
+                    </span>
+                }
+                else if (item.CE_Status == 2)
+                {
+                    <span>
+                        จำหน่ายแล้ว
+                    </span>
+                }
+                else if (item.CE_Status == 3)
+                {
+                    <span>
+                        รอจำหน่าย
+                    </span>
+                }
+            </td>
+
+            @if (item.CE_Status == 1)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CE_ATNO }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CE_ATNO }) |
+                    @Html.ActionLink("จำหน่าย", "Dispose", new { id = item.CE_ATNO })
+                </td>
+            }
+            else if (item.CE_Status == 2)
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO })
+                </td>
+            }
+            else if (item.CE_Status == 3)
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO })
+                </td>
+            }
+        </tr>
+    }
 
 </table>

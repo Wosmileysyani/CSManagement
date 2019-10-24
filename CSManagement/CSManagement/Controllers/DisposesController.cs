@@ -20,9 +20,36 @@ namespace CSManagement.Controllers
             return View(db.Disposes.ToList());
         }
 
-        public ActionResult Dispose(ComputerEquipment computerEquipment)
+        public ActionResult DisposeAgree(int? id)
         {
-            Console.WriteLine(computerEquipment.CE_ATNO);
+            var findid = db.Disposes.FirstOrDefault(x => x.DIS_Status == 1 && x.CE_ATNO == id);
+            findid.DIS_DateAPP = DateTime.Now;
+            findid.DIS_Status = 2;
+            db.Entry(findid).State = EntityState.Modified;
+            var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
+            findCE.CE_Status = 2;
+            var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
+            foreach (var item in findCESUB)
+            {
+                item.CESUB_Status = 2;
+            }
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult DisposeCancle(int? id)
+        {
+            var findid = db.Disposes.FirstOrDefault(x => x.DIS_Status == 1 && x.CE_ATNO == id);
+            findid.DIS_Status = 3;
+            db.Entry(findid).State = EntityState.Modified;
+            var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
+            findCE.CE_Status = 1;
+            var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
+            foreach (var item in findCESUB)
+            {
+                item.CESUB_Status = 1;
+            }
+            db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

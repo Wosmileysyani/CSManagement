@@ -5,11 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>การจำหน่าย</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -27,26 +24,59 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_ATNO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIS_DateOUT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIS_DateAPP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIS_Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DIS_ATNO }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DIS_ATNO }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DIS_ATNO })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_ATNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIS_DateOUT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIS_DateAPP)
+            </td>
+            <td>
+                @* 1 = รอดำเนินการ / 2 = จำหน่ายแล้ว / 3 = ยกเลิกการจำหน่าย *@
+                @if (item.DIS_Status == 1)
+                {
+                    <span>
+                        รอดำเนินการ
+                    </span>
+                }
+                else if (item.DIS_Status == 2)
+                {
+                    <span>
+                        จำหน่ายแล้ว
+                    </span>
+                }
+                else if (item.DIS_Status == 3)
+                {
+                    <span>
+                        ยกเลิกการจำหน่าย
+                    </span>
+                }
+            </td>
+            @if (item.DIS_Status == 1)
+            {
+                <td>
+                    @Html.ActionLink("ยืนยัน", "DisposeAgree", new { id = item.CE_ATNO }) |
+                    @Html.ActionLink("ยกเลิก", "DisposeCancle", new { id = item.CE_ATNO })
+                </td>
+            }
+            else if (item.DIS_Status == 2)
+            {
+                <td>
+                   
+                </td>
+            }
+            else if (item.DIS_Status == 3)
+            {
+                <td>
+                    
+                </td>
+            }
+        </tr>
+    }
 
 </table>

@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.CE_ATNO)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CESUB_NO)
         </th>
         <th>
@@ -21,32 +24,61 @@
         <th>
             @Html.DisplayNameFor(model => model.CESUB_Status)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_ATNO)
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CESUB_NO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CESUB_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CESUB_Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_ATNO)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CESUB_ATNO }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CESUB_ATNO }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CESUB_ATNO })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_ATNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CESUB_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CESUB_Name)
+            </td>
+            <td>
+                @if (item.CESUB_Status == 1)
+                {
+                    <span>
+                        อยู่ในระบบ
+                    </span>
+                }
+                else if (item.CESUB_Status == 2)
+                {
+                    <span>
+                        จำหน่ายแล้ว
+                    </span>
+                }
+                else if (item.CESUB_Status == 3)
+                {
+                    <span>
+                        รอจำหน่าย
+                    </span>
+                }
+            </td>
+            @if (item.CESUB_Status == 1)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CESUB_ATNO }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
+                </td>
+            }
+            else if (item.CESUB_Status == 2)
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
+                </td>
+            }
+            else if (item.CESUB_Status == 3)
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
+                </td>
+            }
+        </tr>
+    }
 
 </table>

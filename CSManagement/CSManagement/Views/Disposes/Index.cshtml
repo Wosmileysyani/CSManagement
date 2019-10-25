@@ -1,51 +1,82 @@
 ﻿@model IEnumerable<CSManagement.Models.Dispose>
 
 @{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int i = 1;
 }
 
-<div class="box">
-    <div class="box-header">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <h1 class="box-title">ข้อมูลการจำหน่ายครุภัณฑ์</h1>
-                <div style="float:right">
-                    <a class="btn btn-success" href="@Url.Action("Create", "Disposes")"><i class="fa fa-plus"></i> เพิ่มข้อมูลการจำหน่ายครุภัณฑ์</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th style="text-align:center">ที่</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_ATNO)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_DateOUT)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_DateAPP)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_Status)</th>
-                    @*<th></th>*@
-                </tr>
-            </thead>
+<h2>การจำหน่าย</h2>
 
-            <tbody>
-                @foreach (var item in Model)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CE_ATNO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIS_DateOUT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIS_DateAPP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DIS_Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CE_ATNO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIS_DateOUT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIS_DateAPP)
+            </td>
+            <td>
+                @* 1 = รอดำเนินการ / 2 = จำหน่ายแล้ว / 3 = ยกเลิกการจำหน่าย *@
+                @if (item.DIS_Status == 1)
                 {
-                    <tr>
-                        <td style="text-align:center">@(i++)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_ATNO)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DIS_DateOUT)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DIS_DateAPP)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.DIS_Status)</td>
-                        @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.DIS_ATNO }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.DIS_ATNO }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.DIS_ATNO })
-                        </td>*@
-                    </tr>
+                    <span style="color:green">
+                        รอดำเนินการ
+                    </span>
                 }
-            </tbody>
-        </table>
-    </div>
-</div>
+                else if (item.DIS_Status == 2)
+                {
+                    <span style="color:red">
+                        จำหน่ายแล้ว
+                    </span>
+                }
+                else if (item.DIS_Status == 3)
+                {
+                    <span style="color:blue">
+                        ยกเลิกการจำหน่าย
+                    </span>
+                }
+            </td>
+            @if (item.DIS_Status == 1)
+            {
+                <td>
+                    @Html.ActionLink("ยืนยัน", "DisposeAgree", new { id = item.CE_ATNO }) |
+                    @Html.ActionLink("ยกเลิก", "DisposeCancle", new { id = item.CE_ATNO })
+                </td>
+            }
+            else if (item.DIS_Status == 2)
+            {
+                <td>
+                   
+                </td>
+            }
+            else if (item.DIS_Status == 3)
+            {
+                <td>
+                    
+                </td>
+            }
+        </tr>
+    }
+
+</table>

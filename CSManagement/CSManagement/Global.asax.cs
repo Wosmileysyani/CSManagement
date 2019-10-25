@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -6,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using CSManagement.App_Start;
 using CSManagement.Controllers;
+using CSManagement.Models;
 using NLog;
 
 namespace CSManagement
@@ -13,9 +16,14 @@ namespace CSManagement
     public class MvcApplication : HttpApplication
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        private CsManagementEntities db = new CsManagementEntities();
 
         protected void Application_Start()
         {
+            var hc = db.HitCounts.FirstOrDefault();
+            var initialCount = hc.HitCount1;
+            Application["Totaluser"] = initialCount;
+
             Log.Info("Starting up...");
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -30,6 +38,18 @@ namespace CSManagement
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
+        }
+
+        protected void Session_Start()
+        {
+            var hc = db.HitCounts.FirstOrDefault();
+            var count = (int)Application["Totaluser"] + 1;
+            Application.Lock();
+            hc.HitCount1 = count;
+            db.SaveChanges();
+            Application["Totaluser"] = count;
+            Session["Totaluser"] = (int) Application["Totaluser"];
+            Application.UnLock();
         }
 
         //protected void Application_End()

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CSManagement.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Dep_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dep_Credit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.Course_NameTH)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dep_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dep_Credit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Course_NameTH)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Dep_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Dep_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Dep_ID })
+        </td>
+    </tr>
+}
+
+</table>

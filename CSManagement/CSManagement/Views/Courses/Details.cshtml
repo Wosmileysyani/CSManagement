@@ -1,0 +1,67 @@
+﻿@model CSManagement.Models.Course
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_NameTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_NameTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_NameENG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_NameENG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_DegreeTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_DegreeTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_DegreeENG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_DegreeENG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course_Credit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course_Credit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

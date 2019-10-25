@@ -16,7 +16,7 @@ namespace CSManagement.Models
     {
         public int Dep_ID { get; set; }
         public string Dep_Name { get; set; }
-        public Nullable<int> Dep_Credit { get; set; }
+        public Nullable<double> Dep_Credit { get; set; }
         public Nullable<int> Dep_CourseID { get; set; }
     
         public virtual Course Course { get; set; }

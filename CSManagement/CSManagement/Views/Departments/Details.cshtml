@@ -1,0 +1,43 @@
+﻿@model CSManagement.Models.Department
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Dep_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dep_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dep_Credit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dep_Credit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.Course_NameTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.Course_NameTH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Dep_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

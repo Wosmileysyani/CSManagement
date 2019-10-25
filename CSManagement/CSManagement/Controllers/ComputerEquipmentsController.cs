@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -38,6 +37,72 @@ namespace CSManagement.Controllers
             return View(computerEquipment);
         }
 
+        public ActionResult Dispose(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var chk = db.Disposes.Where(x => x.CE_ATNO == id).ToList();
+
+                if (chk.Count == 0)
+                {
+                    Models.Dispose dispose = new Dispose()
+                    {
+                        DIS_DateOUT = DateTime.Now,
+                        DIS_Status = 1,
+                        CE_ATNO = id
+                    };
+                    db.Disposes.Add(dispose);
+                    var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
+                    findCE.CE_Status = 3;
+                    var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
+                    foreach (var item in findCESUB)
+                    {
+                        item.CESUB_Status = 3;
+                    }
+                    db.SaveChanges();
+                }
+                else if (chk.Count > 0)
+                {
+                    int i = 0;
+                    foreach (var collection in chk)
+                    {
+                        if (collection.DIS_Status == 1 || collection.DIS_Status == 2)
+                        {
+                            i++;
+                        }
+                    }
+
+                    if (i == 0)
+                    {
+                        Models.Dispose dispose = new Dispose()
+                        {
+                            DIS_DateOUT = DateTime.Now,
+                            DIS_Status = 1,
+                            CE_ATNO = id
+                        };
+                        db.Disposes.Add(dispose);
+                        var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
+                        findCE.CE_Status = 3;
+                        var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
+                        foreach (var item in findCESUB)
+                        {
+                            item.CESUB_Status = 3;
+                        }
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        //แสดงข้อความว่ากดจำหน่ายไปแล้ว
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index), "Disposes");
+        }
+
         // GET: ComputerEquipments/Create
         public ActionResult Create()
         {
@@ -50,7 +115,7 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ComputerEquipment computerEquipment,string datein)
+        public ActionResult Create(ComputerEquipment computerEquipment, string datein)
         {
             try
             {
@@ -72,14 +137,13 @@ namespace CSManagement.Controllers
                     };
                     db.CESups.Add(ceSup);
                 }
-                
+
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 ViewBag.CE_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", computerEquipment.CE_TeaID);
                 return View(computerEquipment);
             }

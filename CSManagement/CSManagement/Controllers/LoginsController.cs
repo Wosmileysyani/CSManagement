@@ -79,7 +79,7 @@ namespace CSManagement.Controllers
                             Tea_ID = username2,
                             Tea_Name = "รอแก้ไข",
                             Tea_Img = "รอแก้ไข",
-                            Tea_Birth = DateTime.Today,
+                            Tea_Birth = DateTime.Now,
                             Tea_Export = "รอแก้ไข",
                             Tea_LvEdu = "รอแก้ไข",
                             Tea_Position = "รอแก้ไข",
@@ -108,8 +108,7 @@ namespace CSManagement.Controllers
                             Stu_School = 1,
                             Stu_StatusID = 1,
                             Stu_Surname = "รอแก้ไข",
-                            Stu_Birthday = DateTime.Today,
-                            Stu_StatusID = 1
+                            Stu_Birthday = DateTime.Now
                         };
                         db.Logins.Add(loginmodel);
                         db.Students.Add(studentmodel);
@@ -143,12 +142,9 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Logins/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Log_ID,Log_Pass,Log_Role")] Login login)
+        public ActionResult Create(Login login)
         {
             if (ModelState.IsValid)
             {
@@ -175,12 +171,9 @@ namespace CSManagement.Controllers
             return View(login);
         }
 
-        // POST: Logins/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Log_ID,Log_Pass,Log_Role")] Login login)
+        public ActionResult Edit(Login login)
         {
             if (ModelState.IsValid)
             {

@@ -1,11 +1,10 @@
 ﻿@model CSManagement.Models.Student
 
 @{
-    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Students" ,FormMethod.Post, new { enctype="multipart/form-data", accept_charset="utf-8" }))
 {
     @Html.AntiForgeryToken()
 
@@ -142,9 +141,9 @@
                                 new SelectListItem() { Text = "เกียรตินิยมอันดับ 2", Value = "4"} ,
                                 new SelectListItem() { Text = "พ้นสภาพการเป็นนักศึกษา", Value = "5"},
                                 new SelectListItem() { Text = "พักการเรียน", Value = "6"}
-                            }, "เลือกวุฒิการศึกษา", new { @id = "Stu_OldEdu", @class = "form-control" })
+                            }, "เลือกวุฒิการศึกษา", new { @id = "Stu_StatusID", @class = "form-control" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Stu_OldEdu, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_Img, htmlAttributes: new { @class = "control-label" })
@@ -163,10 +162,6 @@
     </section>
 
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

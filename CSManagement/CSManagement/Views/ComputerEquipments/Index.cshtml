@@ -5,57 +5,115 @@
     int i = 1;
 }
 
-
-<div class="box">
-    <div class="box-header">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <h1 class="box-title">จัดการข้อมูลครุภัณฑ์</h1>
-                <div style="float:right">
-                    <a class="btn btn-warning" href="@Url.Action("Index", "Disposes")"><i class="fa fa-cube"></i> ดูข้อมูลการจำหน่ายครุภัณฑ์</a>
-                    <a class="btn btn-success" href="@Url.Action("Create", "ComputerEquipments")"><i class="fa fa-plus"></i> เพิ่มข้อมูลครุภัณฑ์</a>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h1 class="box-title">จัดการข้อมูลครุภัณฑ์</h1>
+                    <div style="float:right">
+                        <a class="btn btn-danger" href="@Url.Action("Index", "Disposes")"><i class="fa fa-cube"></i> ดูข้อมูลการจำหน่ายครุภัณฑ์</a>
+                        <a class="btn btn-success" href="@Url.Action("Create", "ComputerEquipments")"><i class="fa fa-plus"></i> เพิ่มข้อมูลครุภัณฑ์</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th style="text-align:center">ที่</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_NO)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_DateIN)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Status)</th>
-                    <th style="text-align:center">ผู้เบิก</th>
-                    <th style="text-align:center">จัดการข้อมูล</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead>
                     <tr>
-                        <td style="text-align:center">@(i++)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_NO)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CE_DateIN)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CE_Name)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Noce)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Piece)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Status)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Teacher.Tea_Name)</td>
-                        <td class="text-center">
-                            @*<a class="btn btn-warning" href="@Url.Action("Edit", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa fa-edit"></i>แก้ไข</a>*@
-                            <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
-                            @*<a class="btn btn-danger" href="@Url.Action("Delete", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa  fa-trash-o"></i> ลบ</a>*@
-                            @*<a href='@Url.Action("Dispose", "Disposes", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
-                        </td>
+                        <th style="text-align:center">ที่</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_DateIN)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
+                        <th style="text-align:center">ผู้เบิก</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Status)</th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center">@(i++)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CE_DateIN)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CE_Name)</td>
+                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Noce)</td>
+                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Piece)</td>
+                            <td>@item.Teacher.Title.Title_Name@item.Teacher.Tea_Name @item.Teacher.Tea_Surname</td>
+                            <td>
+                                @if (item.CE_Status == 1)
+                                {
+                                    <span style="color:dodgerblue">
+                                        <i class="fa fa-dot-circle-o"></i>
+                                        อยู่ในระบบ
+                                    </span>
+                                }
+                                else if (item.CE_Status == 2)
+                                {
+                                    <span style="color:green">
+                                        <i class="fa  fa-check-circle"></i>
+                                        จำหน่ายแล้ว
+                                    </span>
+                                }
+                                else if (item.CE_Status == 3)
+                                {
+                                    <span style="color:red">
+                                        <i class="fa fa-times-circle"></i>
+                                        ยกเลิกการจำหน่าย
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.CE_Status == 1)
+                                {
+                                    <a class="btn btn-warning" href="@Url.Action("Edit", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-edit"></i> แก้ไข</a>
+                                    <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                }
+
+                                else if (item.CE_Status == 2)
+                                {
+                                    <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                }
+
+                                else if (item.CE_Status == 3)
+                                {
+                                    <a class="btn btn-warning" href="@Url.Action("Edit", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-edit"></i> แก้ไข</a>
+                                    <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                }
+
+                                @*<a class="btn btn-danger" href="@Url.Action("Delete", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa  fa-trash-o"></i> ลบ</a>*@
+                                @*<a href='@Url.Action("Dispose", "ComputerEquipments", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</section>
 
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}

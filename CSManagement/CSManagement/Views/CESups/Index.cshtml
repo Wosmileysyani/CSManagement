@@ -5,80 +5,100 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ComputerEquipment.CE_NO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CESUB_NO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CESUB_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CESUB_Status)
-        </th>
-        <th></th>
-    </tr>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h1 class="box-title">รายการครุภัณฑ์ทั้งหมด</h1>
+        </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ComputerEquipment.CE_NO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CESUB_NO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CESUB_Name)
-            </td>
-            <td>
-                @if (item.CESUB_Status == 1)
-                {
-                    <span style="color:green">
-                        อยู่ในระบบ
-                    </span>
-                }
-                else if (item.CESUB_Status == 2)
-                {
-                    <span style="color:red">
-                        จำหน่ายแล้ว
-                    </span>
-                }
-                else if (item.CESUB_Status == 3)
-                {
-                    <span style="color:blue">
-                        รอจำหน่าย
-                    </span>
-                }
-            </td>
-            @if (item.CESUB_Status == 1)
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CESUB_ATNO }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
-                </td>
-            }
-            else if (item.CESUB_Status == 2)
-            {
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
-                </td>
-            }
-            else if (item.CESUB_Status == 3)
-            {
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.CESUB_ATNO })
-                </td>
-            }
-        </tr>
-    }
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead style="font-size:18px">
+                    <tr>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CESUB_NO)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CESUB_Name)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CESUB_Status)</th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
+                    </tr>
+                </thead>
 
-</table>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.CESUB_NO)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CESUB_Name)</td>
+                            <td>
+                                @if (item.CESUB_Status == 1)
+                                {
+                                    <span style="color:green">
+                                        <i class="fa fa-dot-circle-o"></i>
+                                        อยู่ในระบบ
+                                    </span>
+                                }
+                                else if (item.CESUB_Status == 2)
+                                {
+                                    <span style="color:red">
+                                        <i class="fa  fa-check-circle"></i>
+                                        จำหน่ายแล้ว
+                                    </span>
+                                }
+                                else if (item.CESUB_Status == 3)
+                                {
+                                    <span style="color:#F8E507">
+                                        <i class="fa  fa-circle"></i>
+                                        รอจำหน่าย
+                                    </span>
+                                }
+                            </td>
+                            @if (item.CESUB_Status == 1)
+                            {
+                                <td style="text-align:center">
+                                    <a class="btn btn-warning" href="@Url.Action("Edit", "CESups", new { id = item.CESUB_ATNO })"><i class="fa fa-edit"></i> แก้ไข</a>
+                                    <a class="btn btn-info" href="@Url.Action("Details", "CESups", new { id = item.CESUB_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                </td>
+                            }
+                            else if (item.CESUB_Status == 2)
+                            {
+                                <td style="text-align:center">
+                                    <a class="btn btn-info" href="@Url.Action("Details", "CESups", new { id = item.CESUB_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                </td>
+                            }
+                            else if (item.CESUB_Status == 3)
+                            {
+                                <td style="text-align:center">
+                                    <a class="btn btn-info" href="@Url.Action("Details", "CESups", new { id = item.CESUB_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}

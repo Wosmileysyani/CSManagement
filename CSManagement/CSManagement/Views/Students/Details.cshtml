@@ -10,61 +10,63 @@
                 <div class="col-md-12">
                     <h1 class="box-title">รายละเอียดข้อมูลนักศึกษา</h1>
                     <div style="float:right">
+                        <a class="btn btn-default" href="@Url.Action("Index", "Students")"><i class="fa fa-mail-reply"></i> ย้อยกลับ</a>
                         <a class="btn btn-warning" href="@Url.Action("Edit", "Students", new { id = Model.Stu_ID })"><i class="fa fa-edit"></i>แก้ไขข้อมูล</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Students", new { id = Model.Stu_ID })"><i class="fa  fa-user-times"></i> ระงับการใช้งาน</a>
                     </div>
                 </div>
             </div>
 
         </div>
-        
-        <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:20px">
-            <tbody>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Img)</th>
-                    <td><img src="~/img/icons8-cat-profile-64.png" /></td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_ID)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_ID)</td>
-                </tr>
-                <tr>
-                    <th>ชื่อ-นามสกุล</th>
-                    <td style="width: 80%;">@Model.Stu_Title @Model.Stu_Name @Model.Stu_Surname</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Sex)</th>
-                    <td>@(Model.Stu_Sex.Value ? "เพศชาย" : "เพศหญิง")</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Birthday)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_Birthday)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Address)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_Address)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Tel)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_Tel)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_Email)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_Email)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_OldEdu)</th>
-                    <td>@Html.DisplayFor(model => model.Stu_OldEdu)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stu_School)</th>
-                    <td>@Html.DisplayFor(model => model.School.SCH_Name)</td>
-                </tr>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Status.Status_Name)</th>
-                    <td>@Html.DisplayFor(model => model.Status.Status_Name)</td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="box-body">
+            <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:18px">
+                <tbody>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Img)</th>
+                        <td><img src="~/img/icons8-cat-profile-64.png" /></td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_ID)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_ID)</td>
+                    </tr>
+                    <tr>
+                        <th>ชื่อ-นามสกุล</th>
+                        <td style="width: 80%;">@Model.Stu_Title @Model.Stu_Name @Model.Stu_Surname</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Sex)</th>
+                        <td>@(Model.Stu_Sex.Value ? "เพศชาย" : "เพศหญิง")</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Birthday)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_Birthday)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Address)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_Address)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Tel)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_Tel)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_Email)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_Email)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_OldEdu)</th>
+                        <td>@Html.DisplayFor(model => model.Stu_OldEdu)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Stu_School)</th>
+                        <td>@Html.DisplayFor(model => model.School.SCH_Name)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Status.Status_Name)</th>
+                        <td>@Html.DisplayFor(model => model.Status.Status_Name)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>

@@ -12,58 +12,59 @@
                 <div class="col-md-12">
                     <h1 class="box-title">รายละเอียดข้อมูลอาจารย์</h1>
                     <div style="float:right">
+                        <a class="btn btn-default" href="@Url.Action("Index", "Teachers")"><i class="fa  fa-mail-reply"></i> ย้อนกลับ</a>
                         <a class="btn btn-warning" href="@Url.Action("Edit", "Teachers", new { id = Model.Tea_ID })"><i class="fa fa-edit"></i>แก้ไขข้อมูล</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Teacher", new { id = Model.Tea_ID })"><i class="fa  fa-user-times"></i> ลบข้อมูล</a>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:20px">
-            <tbody>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_Img)</th>
-                    <td class="text-center" style="padding:10px 10px 10px 10px"><img src="~/img/@Model.Tea_Img" height="100" width="100" alt="Alternate Text" /></td>
-                </tr>
+        <div class="box-body">
+            <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:18px">
+                <tbody>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_Img)</th>
+                        <td class="text-center"><img src="~/img/@Model.Tea_Img" height="100" width="100" alt="Alternate Text" /></td>
+                    </tr>
 
-                <tr>
-                    <th>รหัสประจำตัว</th>
-                    <td>@Html.DisplayFor(model => model.Tea_ID)</td>
-                </tr>
+                    <tr>
+                        <th>รหัสประจำตัว</th>
+                        <td>@Html.DisplayFor(model => model.Tea_ID)</td>
+                    </tr>
 
-                <tr>
-                    <th>ชื่อ-นามสกุล</th>
-                    <td>@Model.Title.Title_Name @Model.Tea_Name @Model.Tea_Surname</td>
-                </tr>
+                    <tr>
+                        <th>ชื่อ-นามสกุล</th>
+                        <td>@Model.Title.Title_Name @Model.Tea_Name @Model.Tea_Surname</td>
+                    </tr>
 
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_Birth)</th>
-                    <td>@Html.DisplayFor(model => model.Tea_Birth)</td>
-                </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_Birth)</th>
+                        <td>@Html.DisplayFor(model => model.Tea_Birth)</td>
+                    </tr>
 
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_LvEdu)</th>
-                    <td>@Html.DisplayFor(model => model.Tea_LvEdu)</td>
-                </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_LvEdu)</th>
+                        <td>@Html.DisplayFor(model => model.Tea_LvEdu)</td>
+                    </tr>
 
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_Export)</th>
-                    <td>@Html.DisplayFor(model => model.Tea_Export)</td>
-                </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_Export)</th>
+                        <td>@Html.DisplayFor(model => model.Tea_Export)</td>
+                    </tr>
 
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_Program)</th>
-                    <td>@Html.DisplayFor(model => model.Tea_Program)</td>
-                </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_Program)</th>
+                        <td>@Html.DisplayFor(model => model.Tea_Program)</td>
+                    </tr>
 
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Tea_Position)</th>
-                    <td>@Html.DisplayFor(model => model.Tea_Position)</td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Tea_Position)</th>
+                        <td>@Html.DisplayFor(model => model.Tea_Position)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
-    
+
 

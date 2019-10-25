@@ -1,89 +1,61 @@
 ﻿@model IEnumerable<CSManagement.Models.ComputerEquipment>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_NO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_DateIN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Noce)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Piece)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_PriceTotal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Budget)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CE_Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
-        </th>
-        <th></th>
-    </tr>
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="box-title">จัดการข้อมูลครุภัณฑ์</h1>
+                <div style="float:right">
+                    <a class="btn btn-warning" href="@Url.Action("Index", "Disposes")"><i class="fa fa-cube"></i> ดูข้อมูลการจำหน่ายครุภัณฑ์</a>
+                    <a class="btn btn-success" href="@Url.Action("Create", "ComputerEquipments")"><i class="fa fa-plus"></i> เพิ่มข้อมูลครุภัณฑ์</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align:center">ที่</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_NO)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_DateIN)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Status)</th>
+                    <th style="text-align:center">ผู้เบิก</th>
+                    <th style="text-align:center">จัดการข้อมูล</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:center">@(i++)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_NO)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CE_DateIN)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CE_Name)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Noce)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Piece)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Status)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Teacher.Tea_Name)</td>
+                        <td class="text-center">
+                            @*<a class="btn btn-warning" href="@Url.Action("Edit", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa fa-edit"></i>แก้ไข</a>*@
+                            <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                            @*<a class="btn btn-danger" href="@Url.Action("Delete", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa  fa-trash-o"></i> ลบ</a>*@
+                            @*<a href='@Url.Action("Dispose", "Disposes", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_NO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_DateIN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Noce)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Piece)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_PriceTotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Budget)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CE_Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CE_ATNO }) |
-            @Html.ActionLink("Details", "Details", new { id = item.CE_ATNO }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CE_ATNO })
-            @*<a href='@Url.Action("Dispose", "Disposes", new { id = item.CE_ATNO })' class="btn btn-default btn-flat">จำหน่าย</a>*@
-        </td>
-    </tr>
-}
 
-</table>

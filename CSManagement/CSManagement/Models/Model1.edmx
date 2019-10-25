@@ -88,14 +88,6 @@
           <Property Name="Log_Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Log_Role" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CsManagement.dbo.Picture' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Picture">
-          <Property Name="Pic_ID" Type="int" />
-          <Property Name="Pic_Img" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pic_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pic_Description" Type="text" />
-        </EntityType>-->
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Pj_ID" />
@@ -114,11 +106,6 @@ warning 6013: The table/view 'CsManagement.dbo.Picture' does not have a primary 
           <Property Name="Pj_Linkweb" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Pj_Video" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="RegisterLink">
-          <Property Name="Weblink" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
         <EntityType Name="School">
           <Key>
             <PropertyRef Name="SCH_ID" />
@@ -127,6 +114,13 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="SCH_Name" Type="nvarchar(max)" />
           <Property Name="SCH_Province" Type="nvarchar(max)" />
           <Property Name="SCH_Tel" Type="nchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status_Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -144,6 +138,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Stu_School" Type="int" />
           <Property Name="Stu_OldEdu" Type="nvarchar" MaxLength="50" />
           <Property Name="Stu_Img" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_StatusID" Type="int" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -155,8 +150,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Tea_Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Birth" Type="date" />
           <Property Name="Tea_Img" Type="nvarchar" MaxLength="50" />
-          <Property Name="Tea_Export" Type="nvarchar(max)" />
-          <Property Name="Tea_LvEdu" Type="nvarchar(max)" />
+          <Property Name="Tea_Export" Type="text" />
+          <Property Name="Tea_LvEdu" Type="text" />
           <Property Name="Tea_Program" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Position" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -251,6 +246,18 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Student_ToTable">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Stu_StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Teacher_Title">
           <End Role="Title" Type="Self.Title" Multiplicity="0..1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
@@ -274,6 +281,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
@@ -303,6 +311,10 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           </AssociationSet>
           <AssociationSet Name="FK_Student_School" Association="Self.FK_Student_School">
             <End Role="School" EntitySet="School" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_ToTable" Association="Self.FK_Student_ToTable">
+            <End Role="Status" EntitySet="Status" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
           <AssociationSet Name="FK_Teacher_Title" Association="Self.FK_Teacher_Title">
@@ -359,6 +371,11 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <AssociationSet Name="FK_Teacher_Title" Association="CsManagementModel.FK_Teacher_Title">
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
+          </AssociationSet>
+          <EntitySet Name="Status" EntityType="CsManagementModel.Status" />
+          <AssociationSet Name="FK_Student_ToTable" Association="CsManagementModel.FK_Student_ToTable">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Student" EntitySet="Students" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CESup">
@@ -499,6 +516,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <NavigationProperty Name="Histories" Relationship="CsManagementModel.FK_History_Student" FromRole="Student" ToRole="History" />
           <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
           <NavigationProperty Name="School" Relationship="CsManagementModel.FK_Student_School" FromRole="Student" ToRole="School" />
+          <Property Name="Stu_StatusID" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="CsManagementModel.FK_Student_ToTable" FromRole="Student" ToRole="Status" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -510,8 +529,8 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Birth" Type="DateTime" Precision="0" />
           <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
@@ -619,6 +638,26 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
             </Principal>
             <Dependent Role="Teacher">
               <PropertyRef Name="Tea_TitleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="CsManagementModel.FK_Student_ToTable" FromRole="Status" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Student_ToTable">
+          <End Type="CsManagementModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Stu_StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -751,6 +790,7 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="CsManagementModel.Student">
               <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Stu_StatusID" ColumnName="Stu_StatusID" />
                 <ScalarProperty Name="Stu_Img" ColumnName="Stu_Img" />
                 <ScalarProperty Name="Stu_OldEdu" ColumnName="Stu_OldEdu" />
                 <ScalarProperty Name="Stu_School" ColumnName="Stu_School" />
@@ -787,6 +827,14 @@ warning 6013: The table/view 'CsManagement.dbo.RegisterLink' does not have a pri
               <MappingFragment StoreEntitySet="Title">
                 <ScalarProperty Name="Title_Name" ColumnName="Title_Name" />
                 <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="CsManagementModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

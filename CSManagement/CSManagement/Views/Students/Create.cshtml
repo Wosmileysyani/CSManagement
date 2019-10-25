@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body" style="font-size:15px">
                 <div class="row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_ID, htmlAttributes: new { @class = "control-label" })
@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_School, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-university"></i></span>
@@ -113,7 +113,7 @@
                         @Html.ValidationMessageFor(model => model.Stu_School, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_OldEdu, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
@@ -131,7 +131,7 @@
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_StatusID, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-graduation-cap"></i>></span>
+                            <span class="input-group-addon"><i class="fa  fa-mortar-board"></i>></span>
                             @Html.DropDownListFor(model => model.Stu_StatusID, new List<SelectListItem>()
                             {
                                 new SelectListItem() { Text = "กำลังศึกษาอยู่", Value = "1" },
@@ -145,7 +145,7 @@
                         @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_Img, htmlAttributes: new { @class = "control-label" })
                         <input type="file" id="file" name="file">
                     </div>

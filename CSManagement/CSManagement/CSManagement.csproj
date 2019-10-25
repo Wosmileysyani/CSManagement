@@ -294,6 +294,7 @@
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="img\cs1.png" />
     <Content Include="img\icons8-cat-profile-64.png" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

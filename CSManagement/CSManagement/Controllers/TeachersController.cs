@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -43,22 +45,29 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Teachers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Tea_ID,Tea_TitleID,Tea_Name,Tea_Surname,Tea_Birth,Tea_Img,Tea_Export,Tea_LvEdu,Tea_Program,Tea_Position")] Teacher teacher)
+        public ActionResult Create(Teacher teacher,string birthday, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (file != null && file.ContentLength > 0)
+                {
+                    string ImageName = Path.GetFileName(file.FileName);
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    teacher.Tea_Img = myUniqueFileName;
+                }
+                teacher.Tea_Birth = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 db.Teachers.Add(teacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
-            return View(teacher);
+            catch (Exception ex)
+            {
+                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
+                return View(teacher);
+            }
         }
 
         // GET: Teachers/Edit/5
@@ -77,21 +86,31 @@ namespace CSManagement.Controllers
             return View(teacher);
         }
 
-        // POST: Teachers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Tea_ID,Tea_TitleID,Tea_Name,Tea_Surname,Tea_Birth,Tea_Img,Tea_Export,Tea_LvEdu,Tea_Program,Tea_Position")] Teacher teacher)
+        public ActionResult Edit(Teacher teacher, string birthday, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (file != null && file.ContentLength > 0)
+                {
+                    string ImageName = Path.GetFileName(file.FileName);
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    teacher.Tea_Img = myUniqueFileName;
+                }
+                teacher.Tea_Birth = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                db.Teachers.Add(teacher);
                 db.Entry(teacher).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Teachers", new { id = Session["UserID"].ToString() });
             }
-            ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
-            return View(teacher);
+            catch (Exception ex)
+            {
+                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
+                return View(teacher);
+            }
         }
 
         // GET: Teachers/Delete/5

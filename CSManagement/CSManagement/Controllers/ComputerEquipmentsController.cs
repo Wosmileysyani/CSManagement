@@ -83,9 +83,6 @@ namespace CSManagement.Controllers
                 ViewBag.CE_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", computerEquipment.CE_TeaID);
                 return View(computerEquipment);
             }
-
-
-
         }
 
         // GET: ComputerEquipments/Edit/5

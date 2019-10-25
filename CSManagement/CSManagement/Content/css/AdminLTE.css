@@ -1720,10 +1720,10 @@ a:focus {
   clear: both;
 }
 .box-header {
-  color: #444;
-  display: block;
-  padding: 10px;
-  position: relative;
+    color: #444;
+    display: block;
+    padding: 20px 50px 10px 50px;
+    position: relative;
 }
 .box-header.with-border {
   border-bottom: 1px solid #f4f4f4;
@@ -1737,9 +1737,10 @@ a:focus {
 .box-header .box-title {
     display: inline-block;
     font-family: 'Kanit', sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     margin: 0;
     line-height: 1;
+    color: #3c8dbc;
 }
 .box-header > .fa,
 .box-header > .glyphicon,
@@ -1779,7 +1780,7 @@ a:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  padding: 10px;
+  padding: 20px 50px 20px 50px;
 }
 .no-header .box-body {
   border-top-right-radius: 3px;

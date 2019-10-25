@@ -35,6 +35,7 @@ namespace CSManagement.Controllers
                     var data = db.Students.FirstOrDefault(x => x.Stu_ID == dataCk.Log_ID);
                     Session["UserID"] = data.Stu_ID;
                     Session["UserName"] = data.Stu_Name;
+                    Session["UserSurname"] = data.Stu_Surname;
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
                 else if (dataCk != null && dataCk.Log_Role == 1)
@@ -42,6 +43,7 @@ namespace CSManagement.Controllers
                     var data = db.Teachers.FirstOrDefault(x => x.Tea_ID == dataCk.Log_ID);
                     Session["UserID"] = data.Tea_ID;
                     Session["UserName"] = data.Tea_Name;
+                    Session["UserSurname"] = data.Tea_Surname;
                     Session["AJ"] = "AJ";
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
@@ -104,6 +106,7 @@ namespace CSManagement.Controllers
                             Stu_OldEdu = "รอแก้ไข",
                             Stu_Email = "รอแก้ไข",
                             Stu_School = 1,
+                            Stu_StatusID = 1,
                             Stu_Surname = "รอแก้ไข",
                             Stu_Birthday = DateTime.Today
                         };

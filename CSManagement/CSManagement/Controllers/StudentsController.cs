@@ -19,8 +19,8 @@ namespace CSManagement.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.School);
-            return View(students.ToList());
+            var students = db.Students.Include(x=>x.Status).ToList();
+            return View(students);
         }
 
         // GET: Students/Details/5
@@ -49,26 +49,28 @@ namespace CSManagement.Controllers
         [HttpPost]
         public ActionResult Create(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
+            try
             {
-                //var fileName = Path.GetFileName(file.FileName);
-                //var path = Path.Combine(Server.MapPath("~/img"), fileName);
-                //file.SaveAs(path);
-                //student.Stu_Img = path;
-                string ImageName = Path.GetFileName(file.FileName);
-                var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "")+ImageName;
-                string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
-                file.SaveAs(physicalPath);
-                student.Stu_Img = myUniqueFileName;
+                if (file != null && file.ContentLength > 0)
+                {
+                    string ImageName = Path.GetFileName(file.FileName);
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    student.Stu_Img = myUniqueFileName;
+                }
+                student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                student.Stu_Tel = tel;
+                db.Students.Add(student);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-            student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            student.Stu_Tel = tel;
-            db.Students.Add(student);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-
-            //return View(student);
+            catch (Exception)
+            {
+                ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
+                ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
+                return View(student);
+            }
         }
 
         // GET: Students/Edit/5
@@ -84,6 +86,7 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
+            ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
             return View(student);
         }
 
@@ -99,7 +102,7 @@ namespace CSManagement.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     string ImageName = Path.GetFileName(file.FileName);
-                    var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "") + ImageName;
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
                     student.Stu_Img = myUniqueFileName;
@@ -108,11 +111,12 @@ namespace CSManagement.Controllers
                 student.Stu_Tel = tel;
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Edit","Students",new { id = Session["UserID"].ToString()});
+                return RedirectToAction("Edit", "Students", new { id = Session["UserID"].ToString() });
             }
             catch (Exception)
             {
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
+                ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
                 return View(student);
             }
 

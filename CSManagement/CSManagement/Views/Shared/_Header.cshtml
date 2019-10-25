@@ -52,7 +52,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/img/icons8-cat-profile-64.png" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@Session["UserName"].ToString()</span>
+                                <span class="hidden-xs">@Session["UserName"].ToString() @Session["UserSurname"].ToString()</span>
                             </a>
 
                             <ul class="dropdown-menu">
@@ -61,7 +61,8 @@
 
                                     <p>
                                         @Session["UserName"].ToString()
-                                        <small>Member since Nov. 2012</small>
+                                        @Session["UserSurname"].ToString()
+                                        <small>@Session["UserID"].ToString()</small>
                                     </p>
                                 </li>
 

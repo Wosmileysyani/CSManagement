@@ -5,97 +5,99 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">เพิ่มข้อมูลอาจารย์</h3>
 
-    <div class="form-horizontal">
-        <h4>ComputerEquipment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_NO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_NO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CE_NO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.CE_DateIN, htmlAttributes: new { @class = "control-label" })
-            <div class="input-group">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                 </div>
-                <input type="text" id="datein" name="datein" class="form-control" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
             </div>
-        </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_ATNO, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_ATNO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_ATNO, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CE_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_NO, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_NO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_NO, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_Noce, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_Noce, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CE_Noce, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_DateIN, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" id="datein" name="datein" class="form-control" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_Piece, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_Piece, new { htmlAttributes = new { @class = "form-control", @id = "piece" } })
-                @Html.ValidationMessageFor(model => model.CE_Piece, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_Name, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_Price, new { htmlAttributes = new { @class = "form-control", @id = "price" } })
-                @Html.ValidationMessageFor(model => model.CE_Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_Noce, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Noce, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_Noce, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_PriceTotal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_PriceTotal, new { htmlAttributes = new { @class = "form-control", @id = "pricetotal", @ReadOnly = true } })
-                @Html.ValidationMessageFor(model => model.CE_PriceTotal, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.CE_Piece, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Piece, new { htmlAttributes = new { @class = "form-control", @id = "piece" } })
+                        @Html.ValidationMessageFor(model => model.CE_Piece, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_TeaID, "CE_TeaID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CE_TeaID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CE_TeaID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.CE_Price, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Price, new { htmlAttributes = new { @class = "form-control", @id = "price" } })
+                        @Html.ValidationMessageFor(model => model.CE_Price, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE_Budget, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE_Budget, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CE_Budget, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.CE_PriceTotal, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_PriceTotal, new { htmlAttributes = new { @class = "form-control", @id = "pricetotal", @ReadOnly = true } })
+                        @Html.ValidationMessageFor(model => model.CE_PriceTotal, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.CE_Budget, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Budget, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_Budget, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.CE_TeaID, "CE_TeaID", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("CE_TeaID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CE_TeaID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success col-lg-3" style="float:right;font-size:18px"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    <a class="btn btn-default col-lg-3" style="float:left;font-size:18px" href="@Url.Action("Index", "Teachers")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 }
 
 <div>

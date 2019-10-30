@@ -74,12 +74,9 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Disposes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DIS_ATNO,CE_ATNO,DIS_DateOUT,DIS_DateAPP,DIS_Status")] Dispose dispose)
+        public ActionResult Create(Dispose dispose)
         {
             if (ModelState.IsValid)
             {

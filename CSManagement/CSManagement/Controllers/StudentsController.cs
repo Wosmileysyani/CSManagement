@@ -90,13 +90,11 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
+            //วันที่ถ้าเป็นค่าว่างให้เอาวันที่เก่ามา
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -113,7 +111,7 @@ namespace CSManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Students", new { id = Session["UserID"].ToString() });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);

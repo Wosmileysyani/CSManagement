@@ -1,67 +1,59 @@
 ﻿@model CSManagement.Models.Course
 
 @{
-    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="box-title">รายละเอียดหมวดหมู่วิชา</h1>
 
-<div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_NameTH)
-        </dt>
+                    <div style="float:right">
+                        <a class="btn btn-default" href="@Url.Action("Index", "Courses")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Courses")"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course_NameTH)
-        </dd>
+        <div class="box-body">
+            <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:18px">
+                <tbody>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_NameTH)</th>
+                        <td>@Html.DisplayFor(model => model.Course_NameTH)</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_NameENG)
-        </dt>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_NameENG)</th>
+                        <td>@Html.DisplayFor(model => model.Course_NameENG)</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course_NameENG)
-        </dd>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_DegreeTH)</th>
+                        <td>@Html.DisplayFor(model => model.Course_DegreeTH)</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_Year)
-        </dt>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_DegreeENG)</th>
+                        <td>@Html.DisplayFor(model => model.Course_DegreeENG)</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course_Year)
-        </dd>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_Year)</th>
+                        <td>@Html.DisplayFor(model => model.Course_Year)</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_DegreeTH)
-        </dt>
+                    <tr>
+                        <th style="padding:10px 50px 10px 50px">@Html.DisplayNameFor(model => model.Course_Credit)</th>
+                        <td>@Html.DisplayFor(model => model.Course_Credit)</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course_DegreeTH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_DegreeENG)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Course_DegreeENG)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Course_Credit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Course_Credit)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Course_ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

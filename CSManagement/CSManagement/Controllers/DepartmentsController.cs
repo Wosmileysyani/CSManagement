@@ -43,12 +43,9 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Departments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Dep_ID,Dep_Name,Dep_Credit,Dep_CourseID")] Department department)
+        public ActionResult Create(Department department)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +53,6 @@ namespace CSManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH", department.Dep_CourseID);
             return View(department);
         }
@@ -73,16 +69,13 @@ namespace CSManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH", department.Dep_CourseID);
+            ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH");
             return View(department);
         }
 
-        // POST: Departments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Dep_ID,Dep_Name,Dep_Credit,Dep_CourseID")] Department department)
+        public ActionResult Edit(Department department)
         {
             if (ModelState.IsValid)
             {

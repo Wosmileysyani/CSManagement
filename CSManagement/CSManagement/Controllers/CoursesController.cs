@@ -41,12 +41,9 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Courses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Course_ID,Course_NameTH,Course_NameENG,Course_Year,Course_DegreeTH,Course_DegreeENG,Course_Credit")] Course course)
+        public ActionResult Create(Course course)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +52,7 @@ namespace CSManagement.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(course);
+            return RedirectToAction("Index");
         }
 
         // GET: Courses/Edit/5
@@ -73,12 +70,9 @@ namespace CSManagement.Controllers
             return View(course);
         }
 
-        // POST: Courses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Course_ID,Course_NameTH,Course_NameENG,Course_Year,Course_DegreeTH,Course_DegreeENG,Course_Credit")] Course course)
+        public ActionResult Edit(Course course)
         {
             if (ModelState.IsValid)
             {

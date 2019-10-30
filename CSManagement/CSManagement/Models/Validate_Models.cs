@@ -127,7 +127,7 @@ namespace CSManagement.Models
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string CE_TeaID { get; set; }
 
-        [Display(Name = "จำนวนงบ")]
+        [Display(Name = "งบประมาณ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string CE_Budget { get; set; }
 
@@ -176,11 +176,11 @@ namespace CSManagement.Models
 
     public partial class V_Department
     {
-        [Display(Name = "รหัสรายวิชา")]
+        [Display(Name = "รหัสหมวดหมู่วิชา")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public int Dep_ID { get; set; }
 
-        [Display(Name = "รายวิชา")]
+        [Display(Name = "หมวดหมู่วิชา")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Dep_Name { get; set; }
 
@@ -212,7 +212,6 @@ namespace CSManagement.Models
         public Nullable<System.DateTime> DIS_DateOUT { get; set; }
 
         [Display(Name = "วันที่จำหน่าย")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<System.DateTime> DIS_DateAPP { get; set; }
 
         [Display(Name = "สถานะ")]

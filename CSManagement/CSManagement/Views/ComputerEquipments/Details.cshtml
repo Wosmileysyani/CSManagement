@@ -11,10 +11,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="box-title">รายละเอียดข้อมูลครุภัณฑ์</h1>
-                    <div style="float:right">
+                    <div style="float: right">
                         <a class="btn btn-default" href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
-                        <a class="btn btn-danger" href="@Url.Action("Dispose", "ComputerEquipments", new { id = Model.CE_ATNO })"><i class="fa  fa-user-times"></i> จำหน่ายครุภัณฑ์</a>
-                    </div>
+                        <td>
+                            @* 1 = อยู่ในระบบ / 2 = จำหน่ายแล้ว / 3 = รอดำเนินการ *@
+                            @if (Model.CE_Status == 1)
+                            {
+                                <a class="btn btn-danger" href="@Url.Action("Dispose", "ComputerEquipments", new {id = Model.CE_ATNO})"><i class="fa  fa-user-times"></i> จำหน่ายครุภัณฑ์</a>
+                            }
+                            else if (Model.CE_Status == 2)
+                            {
+                                <span style="color:red">
+                                    <i class="fa fa-times-circle"></i>
+                                </span>
+                            }
+                            else if (Model.CE_Status == 3)
+                            {
+                                <a class="btn btn-danger" href="@Url.Action("Dispose", "ComputerEquipments", new {id = Model.CE_ATNO})"><i class="fa  fa-user-times"></i> จำหน่ายครุภัณฑ์</a>
+                            }
+                        </td>
+                        </div>
                 </div>
             </div>
         </div>
@@ -42,25 +58,27 @@
                     <tr>
                         <th style="padding: 10px 50px 10px 50px">@Html.DisplayNameFor(model => model.CE_Status)</th>
                         <td>
+                            @* 1 = อยู่ในระบบ / 2 = จำหน่ายแล้ว / 3 = รอดำเนินการ *@
                             @if (Model.CE_Status == 1)
                             {
-                                <span style="color:dodgerblue">
-                                    <i class="fa fa-dot-circle-o"></i>
+                                <span style="color:green">
+                                    <i class="fa fa-check-circle  "></i>
                                     อยู่ในระบบ
                                 </span>
                             }
                             else if (Model.CE_Status == 2)
                             {
-                                <span style="color:green">
-                                    <i class="fa  fa-check-circle"></i>
+                                <span style="color:red">
+                                    <i class="fa fa-times-circle"></i>
                                     จำหน่ายแล้ว
                                 </span>
                             }
                             else if (Model.CE_Status == 3)
                             {
-                                <span style="color:red">
-                                    <i class="fa fa-times-circle"></i>
-                                    ยกเลิกการจำหน่าย
+                                <span style="color:yellow">
+                                    <i class="fa  fa-circle"></i>
+
+                                    รอดำเนินการ
                                 </span>
                             }
                         </td>
@@ -74,36 +92,36 @@
             </table>
         </div>
 
-       <div class="row">
-           <div class="col-md-12">
-               <div class="box-body">
-                   <table class="table table-bordered table-striped" style="width:100%">
-                       <thead style="font-size:18px">
-                           <tr>
-                               <th style="text-align:center">ที่</th>
-                               <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
-                               <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
-                               <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
-                               <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Price)</th>
-                               <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_PriceTotal)</th>
-                               
-                           </tr>
-                       </thead>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box-body">
+                    <table class="table table-bordered table-striped" style="width:100%">
+                        <thead style="font-size:18px">
+                            <tr>
+                                <th style="text-align:center">ที่</th>
+                                <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
+                                <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
+                                <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
+                                <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Price)</th>
+                                <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_PriceTotal)</th>
 
-                       <tbody>
-                           <tr>
-                               <td>@(i++)</td>
-                               <td>@Html.DisplayFor(model => model.CE_Name)</td>
-                               <td style="text-align:center">@Html.DisplayFor(model => model.CE_Noce)</td>
-                               <td style="text-align:center">@Html.DisplayFor(model => model.CE_Piece)</td>
-                               <td style="text-align:right">@Html.DisplayFor(model => model.CE_Price)</td>
-                               <td style="text-align:right;">@Html.DisplayFor(model => model.CE_PriceTotal)</td>
-                           </tr>
-                       </tbody>
-                   </table>
-               </div>
-           </div>
-       </div>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@Html.DisplayFor(model => model.CE_Name)</td>
+                                <td style="text-align:center">@Html.DisplayFor(model => model.CE_Noce)</td>
+                                <td style="text-align:center">@Html.DisplayFor(model => model.CE_Piece)</td>
+                                <td style="text-align:right">@Html.DisplayFor(model => model.CE_Price)</td>
+                                <td style="text-align:right;">@Html.DisplayFor(model => model.CE_PriceTotal)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -16,7 +16,7 @@
                 <thead style="font-size:18px">
                     <tr>
                         <th style="text-align:center">ที่</th>
-                        <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_ATNO)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.ComputerEquipment.CE_Name)</th>
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_DateOUT)</th>
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_DateAPP)</th>
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.DIS_Status)</th>
@@ -29,7 +29,7 @@
                     {
                         <tr>
                             <td style="text-align:center">@(i++)</td>
-                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_ATNO)</td>
+                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.ComputerEquipment.CE_Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.DIS_DateOUT)</td>
                             <td>@Html.DisplayFor(modelItem => item.DIS_DateAPP)</td>
                             <td>

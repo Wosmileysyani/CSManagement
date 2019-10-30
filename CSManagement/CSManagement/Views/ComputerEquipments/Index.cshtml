@@ -28,8 +28,8 @@
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Name)</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Noce)</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Piece)</th>
-                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Status)</th>
                     <th style="text-align:center">ผู้เบิก</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.CE_Status)</th>
                     <th style="text-align:center">จัดการข้อมูล</th>
                 </tr>
             </thead>
@@ -43,8 +43,32 @@
                         <td>@Html.DisplayFor(modelItem => item.CE_Name)</td>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Noce)</td>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Piece)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.CE_Status)</td>
                         <td>@Html.DisplayFor(modelItem => item.Teacher.Tea_Name)</td>
+                        <td>
+                            @* 1 = อยู่ในระบบ / 2 = จำหน่ายแล้ว / 3 = รอดำเนินการ *@
+                            @if (item.CE_Status == 1)
+                            {
+                                <span style="color:green">
+                                    <i class="fa fa-check-circle  "></i>
+                                    อยู่ในระบบ
+                                </span>
+                            }
+                            else if (item.CE_Status == 2)
+                            {
+                                <span style="color:red">
+                                    <i class="fa fa-times-circle"></i>
+                                    จำหน่ายแล้ว
+                                </span>
+                            }
+                            else if (item.CE_Status == 3)
+                            {
+                                <span style="color:yellow">
+                                    <i class="fa  fa-circle"></i>
+
+                                    รอดำเนินการ
+                                </span>
+                            }
+                        </td>
                         <td class="text-center">
                             @*<a class="btn btn-warning" href="@Url.Action("Edit", "ComputerEquipment", new { id = item.CE_ATNO })"><i class="fa fa-edit"></i>แก้ไข</a>*@
                             <a class="btn btn-info" href="@Url.Action("Details", "ComputerEquipments", new { id = item.CE_ATNO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>

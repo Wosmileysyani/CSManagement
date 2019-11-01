@@ -12,16 +12,13 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class History
+    public partial class Applied
     {
-        public int HIS_ID { get; set; }
-        public string HIS_StuID { get; set; }
-        public Nullable<int> HIS_Job { get; set; }
-        public string HIS_Jobname { get; set; }
-        public string HIS_Year { get; set; }
-        public string HIS_Company { get; set; }
+        public int APP_NO { get; set; }
+        public Nullable<int> APP_ReNO { get; set; }
+        public Nullable<int> APP_SCNO { get; set; }
     
-        public virtual Job Job { get; set; }
-        public virtual Student Student { get; set; }
+        public virtual Register_SC Register_SC { get; set; }
+        public virtual Short_Course Short_Course { get; set; }
     }
 }

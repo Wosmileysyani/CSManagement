@@ -46,7 +46,7 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JOB_ID,JOB_Name")] Job job)
+        public ActionResult Create(Job job)
         {
             if (ModelState.IsValid)
             {

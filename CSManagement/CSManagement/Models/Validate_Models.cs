@@ -224,7 +224,6 @@ namespace CSManagement.Models
     public partial class V_History
     {
         [Display(Name = "รหัส")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public int HIS_ID { get; set; }
 
         [Display(Name = "รหัสนักศึกษา")]
@@ -240,8 +239,7 @@ namespace CSManagement.Models
         public string HIS_Jobname { get; set; }
 
         [Display(Name = "ปีที่เข้าทำงาน")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public Nullable<System.DateTime> HIS_Year { get; set; }
+        public string HIS_Year { get; set; }
 
         [Display(Name = "ชื่อบริษัท")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]

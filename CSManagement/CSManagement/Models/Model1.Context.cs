@@ -25,6 +25,7 @@ namespace CSManagement.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Applied> Applieds { get; set; }
         public virtual DbSet<CESup> CESups { get; set; }
         public virtual DbSet<ComputerEquipment> ComputerEquipments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
@@ -36,8 +37,10 @@ namespace CSManagement.Models
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Register_SC> Register_SC { get; set; }
         public virtual DbSet<RegisterLink> RegisterLinks { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Short_Course> Short_Course { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }

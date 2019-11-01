@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using CSManagement.Models;
 
 namespace CSManagement.Controllers
@@ -19,6 +21,16 @@ namespace CSManagement.Controllers
         {
             var histories = db.Histories.Include(h => h.Job).Include(h => h.Student);
             return View(histories.ToList());
+        }
+
+        public JsonResult GetSearchValue(string search)
+        {
+            List<StudentName> allsearch = db.Students.Where(x => x.Stu_Name.Contains(search)).Select(x => new StudentName
+            {
+                Stu_ID = x.Stu_Name + " " + x.Stu_Surname + " " + x.Stu_ID,
+                Stu_Name = x.Stu_Name + " " + x.Stu_Surname
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         // GET: Histories/Details/5
@@ -51,8 +63,11 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(History history)
         {
+            string[] Split_ID = history.HIS_StuID.Split(' ');
+            if (history.HIS_Year == null) history.HIS_Year = " ";
             if (ModelState.IsValid)
             {
+                history.HIS_StuID = Split_ID[2];
                 db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");

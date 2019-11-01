@@ -108,8 +108,7 @@ namespace CSManagement.Controllers
                             Stu_School = 1,
                             Stu_StatusID = 1,
                             Stu_Surname = "รอแก้ไข",
-                            Stu_Birthday = DateTime.Today,
-                            Stu_StatusID = 1
+                            Stu_Birthday = DateTime.Now
                         };
                         db.Logins.Add(loginmodel);
                         db.Students.Add(studentmodel);

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CSManagement.Models.History>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HIS_Jobname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HIS_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HIS_Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Job.JOB_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.Stu_Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HIS_Jobname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HIS_Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HIS_Company)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Job.JOB_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.Stu_Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HIS_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HIS_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HIS_ID })
+        </td>
+    </tr>
+}
+
+</table>

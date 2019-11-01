@@ -28,8 +28,7 @@ namespace CSManagement.Controllers
         {
             //เก็บคนเข้าชมเว็ป
             var hc = db.HitCounts.FirstOrDefault().HitCount1;
-            var initialCount = hc;
-            Session["Totaluser"] = initialCount;
+            Session["Totaluser"] = hc;
             //นักศึกษา
             var stCount = db.Students.Count();
             Session["Totalstudent"] = stCount;
@@ -64,7 +63,6 @@ namespace CSManagement.Controllers
             {
                 dataPoints2.Add(new DataPoint(item.JOB_Name, Math.Round((Convert.ToDouble(item.count * 100.00 / total2)), 2)));
             }
-
             ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
         }
     }

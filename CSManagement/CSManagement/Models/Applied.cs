@@ -16,9 +16,10 @@ namespace CSManagement.Models
     {
         public int APP_NO { get; set; }
         public Nullable<int> APP_ReNO { get; set; }
-        public Nullable<int> APP_SCNO { get; set; }
+        public Nullable<int> APP_GenNO { get; set; }
+        public Nullable<int> APP_Status { get; set; }
     
+        public virtual Generation Generation { get; set; }
         public virtual Register_SC Register_SC { get; set; }
-        public virtual Short_Course Short_Course { get; set; }
     }
 }

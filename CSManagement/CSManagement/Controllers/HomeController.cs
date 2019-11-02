@@ -57,11 +57,11 @@ namespace CSManagement.Controllers
             double? total2 = 0;
             foreach (var item in hisList)
             {
-                total2 += item.count;
+                total2 += item.JOB;
             }
             foreach (var item in hisList)
             {
-                dataPoints2.Add(new DataPoint(item.JOB_Name, Math.Round((Convert.ToDouble(item.count * 100.00 / total2)), 2)));
+                dataPoints2.Add(new DataPoint(item.JOB_Name, Math.Round((Convert.ToDouble(item.JOB * 100.00 / total2)), 2)));
             }
             ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
         }

@@ -12,21 +12,26 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Register_SC
+    public partial class Generation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Register_SC()
+        public Generation()
         {
             this.Applieds = new HashSet<Applied>();
         }
     
-        public int REG_IDCard { get; set; }
-        public string REG_Name { get; set; }
-        public string REG_Address { get; set; }
-        public string REG_Tel { get; set; }
-        public string REG_Email { get; set; }
+        public int Gen_NO { get; set; }
+        public Nullable<int> Gen_SCID { get; set; }
+        public string Gen_Name { get; set; }
+        public Nullable<int> Gen_Member { get; set; }
+        public Nullable<int> Gen_MemberMax { get; set; }
+        public string Gen_Details { get; set; }
+        public string Gen_Year { get; set; }
+        public Nullable<double> Gen_Fee { get; set; }
+        public string Gen_TextForMail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Applied> Applieds { get; set; }
+        public virtual Short_Course Short_Course { get; set; }
     }
 }

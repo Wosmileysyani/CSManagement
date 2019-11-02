@@ -31,6 +31,7 @@ namespace CSManagement.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Dispose> Disposes { get; set; }
+        public virtual DbSet<Generation> Generations { get; set; }
         public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<HitCount> HitCounts { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }

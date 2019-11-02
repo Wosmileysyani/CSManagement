@@ -14,9 +14,8 @@ namespace CSManagement.Models
     
     public partial class Totaljob
     {
-        public Nullable<int> count { get; set; }
-        public Nullable<int> HIS_Job { get; set; }
-        public string Stu_ID { get; set; }
+        public Nullable<int> JOB { get; set; }
         public string JOB_Name { get; set; }
+        public int JOB_ID { get; set; }
     }
 }

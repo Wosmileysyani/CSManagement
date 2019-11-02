@@ -1,0 +1,115 @@
+﻿@model CSManagement.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_NameTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_NameTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_NameENG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_NameENG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_TypePj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_TypePj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Typefile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Typefile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_File)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_File)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Github)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Github)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Linkweb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Linkweb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Video)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Video)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Stu_Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Stu_Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Tea_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pj_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CSManagement.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace CSManagement.Controllers
 {
@@ -31,6 +32,12 @@ namespace CSManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            List<History> history = db.Histories.Where(x => x.HIS_StuID == id).OrderByDescending(x => x.HIS_Year).ToList();
+            if (history.Any())
+            {
+                Session.Remove("HistoryStu");
+                Session["HistoryStu"] = history;
+            }
             if (student == null)
             {
                 return HttpNotFound();

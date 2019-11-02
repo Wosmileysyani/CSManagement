@@ -17,23 +17,13 @@ namespace CSManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Short_Course()
         {
-            this.Applieds = new HashSet<Applied>();
+            this.Generations = new HashSet<Generation>();
         }
     
         public int SC_ID { get; set; }
         public string SC_NameTH { get; set; }
-        public string SC_NameENG { get; set; }
-        public string SC_Description { get; set; }
-        public string SC_Content { get; set; }
-        public string SC_IsFor { get; set; }
-        public string SC_Date { get; set; }
-        public string SC_Place { get; set; }
-        public string SC_Fee { get; set; }
-        public string SC_Img { get; set; }
-        public string SC_Lecturer { get; set; }
-        public string SC_LecImg { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applied> Applieds { get; set; }
+        public virtual ICollection<Generation> Generations { get; set; }
     }
 }

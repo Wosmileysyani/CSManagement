@@ -8,24 +8,24 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create",  "Projects" ,FormMethod.Post, new { enctype="multipart/form-data", accept_charset="utf-8" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Project</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Pj_StuID, "Pj_StuID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Pj_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Pj_StuID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.Pj_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name" } })
                 @Html.ValidationMessageFor(model => model.Pj_StuID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pj_TeaID, "Pj_TeaID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Pj_TeaID, "ชื่ออาจารย์ที่ปรึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Pj_TeaID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Pj_TeaID, "", new { @class = "text-danger" })
@@ -127,3 +127,29 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script>
+    $("#Stu_Name").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue","Histories")',
+                dataType: "json",
+                data: { search: $("#Stu_Name").val() },
+                success: function(data) {
+                    response($.map(data,
+                        function(item) {
+                            return { label: item.Stu_Name, value: item.Stu_ID };
+                        }));
+                },
+                error: function(xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+</script>

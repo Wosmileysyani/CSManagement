@@ -49,7 +49,7 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Pj_ID,Pj_StuID,Pj_TeaID,Pj_NameTH,Pj_NameENG,Pj_Date,Pj_TypePj,Pj_Typefile,Pj_File,Pj_Github,Pj_Description,Pj_Linkweb,Pj_Video")] Project project)
+        public ActionResult Create(Project project)
         {
             if (ModelState.IsValid)
             {

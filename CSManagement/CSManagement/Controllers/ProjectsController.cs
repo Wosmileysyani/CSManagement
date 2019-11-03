@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,6 +20,27 @@ namespace CSManagement.Controllers
         {
             var projects = db.Projects.Include(p => p.Student).Include(p => p.Teacher);
             return View(projects.ToList());
+        }
+
+        public FileStreamResult ShowPdf(int? id)
+        {
+            var projects = db.Projects.Find(id);
+            FileStream fs = new FileStream(Server.MapPath("~/FileUploaded/" + projects.Pj_File), FileMode.Open, FileAccess.Read);
+            return File(fs, "application/pdf");
+        }
+
+        public void DownloadPdf(int? id)
+        {
+            var projects = db.Projects.Find(id);
+            String Filepath = Server.MapPath("~/FileUploaded/" + projects.Pj_File);
+            System.IO.FileInfo file = new System.IO.FileInfo(Filepath); // full file path on disk
+            Response.ClearContent(); // Clear previous content
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name);
+            Response.AddHeader("Content-Length", file.Length.ToString());
+            Response.ContentType = "application/pdf";
+            Response.TransmitFile(file.FullName);
+            Response.WriteFile(file.FullName);
+            Response.End();
         }
 
         // GET: Projects/Details/5
@@ -49,18 +71,37 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Project project)
+        public ActionResult Create(Project project, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
+                FileUploadCheck fs = new FileUploadCheck();
+                fs.filesize = 1000000;
+                string us = fs.UploadUserFile(file);
+                if (us != null)
+                {
+                    ViewBag.ResultErrorMessage = fs.ErrorMessage;
+                }
+                project.Pj_Date = DateTime.Today;
+                string[] Split_ID = project.Pj_StuID.Split(' ');
+                if (file != null && file.ContentLength > 0)
+                {
+                    var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                    string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    project.Pj_File = myUniqueFileName;
+                }
+                project.Pj_StuID = Split_ID[2];
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
-            ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
-            return View(project);
+            catch (Exception)
+            {
+                ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
+                ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
+                return View(project);
+            }
         }
 
         // GET: Projects/Edit/5
@@ -85,7 +126,7 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Pj_ID,Pj_StuID,Pj_TeaID,Pj_NameTH,Pj_NameENG,Pj_Date,Pj_TypePj,Pj_Typefile,Pj_File,Pj_Github,Pj_Description,Pj_Linkweb,Pj_Video")] Project project)
+        public ActionResult Edit(Project project)
         {
             if (ModelState.IsValid)
             {

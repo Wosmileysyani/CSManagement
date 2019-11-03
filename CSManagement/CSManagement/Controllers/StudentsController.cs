@@ -60,7 +60,6 @@ namespace CSManagement.Controllers
             {
                 if (file != null && file.ContentLength > 0)
                 {
-                    string ImageName = Path.GetFileName(file.FileName);
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);

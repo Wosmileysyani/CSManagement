@@ -21,7 +21,6 @@ namespace CSManagement.Models
         public string Pj_NameENG { get; set; }
         public System.DateTime Pj_Date { get; set; }
         public string Pj_TypePj { get; set; }
-        public int Pj_Typefile { get; set; }
         public string Pj_File { get; set; }
         public string Pj_Github { get; set; }
         public string Pj_Description { get; set; }

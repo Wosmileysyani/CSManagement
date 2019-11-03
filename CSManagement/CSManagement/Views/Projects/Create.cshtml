@@ -1,14 +1,27 @@
-﻿@model CSManagement.Models.Project
+﻿@using System.Web.UI.WebControls
+@model CSManagement.Models.Project
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<style type="text/css">
+    textarea {
+        resize: none;
+    }
+</style>
 
+@if (ViewBag.ResultErrorMessage != null)  
+{  
+    <script type="text/javascript">  
+        window.onload = function () {  
+            alert("@ViewBag.ResultErrorMessage");  
+        };  
+    </script>  
+} 
 
-@using (Html.BeginForm("Create",  "Projects" ,FormMethod.Post, new { enctype="multipart/form-data", accept_charset="utf-8" }))
+@using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
 {
     @Html.AntiForgeryToken()
 
@@ -19,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pj_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name" } })
+                @Html.EditorFor(model => model.Pj_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name", @PlaceHolder = "พิมชื่อนักศึกษา" } })
                 @Html.ValidationMessageFor(model => model.Pj_StuID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,33 +62,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pj_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Pj_TypePj, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_TypePj, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Pj_TypePj, new List<SelectListItem>()
+                {
+                    new SelectListItem() { Text = "โครงงาน", Value = "โครงงาน" },
+                    new SelectListItem() { Text = "วิจัย", Value = "วิจัย" }
+                }, "เลือกประเภทงาน", new { @id = "Pj_TypePj", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Pj_TypePj, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Typefile, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Typefile, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pj_Typefile, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Pj_File, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_File, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" id="file" name="file">
                 @Html.ValidationMessageFor(model => model.Pj_File, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,23 +84,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pj_Github, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Github, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pj_Github, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง(ไม่มีให้ปล่อยว่าง)" } })
                 @Html.ValidationMessageFor(model => model.Pj_Github, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pj_Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Pj_Linkweb, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Linkweb, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pj_Linkweb, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
                 @Html.ValidationMessageFor(model => model.Pj_Linkweb, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -107,8 +100,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pj_Video, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Video, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pj_Video, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
                 @Html.ValidationMessageFor(model => model.Pj_Video, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pj_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pj_Description, new { htmlAttributes = new { @class = "form-control", @cols = 100, @rows = 5 } })
+                @Html.ValidationMessageFor(model => model.Pj_Description, "", new { @class = "text-danger" })
             </div>
         </div>
 

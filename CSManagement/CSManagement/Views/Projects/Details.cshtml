@@ -11,6 +11,24 @@
     <h4>Project</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            ชื่อนักศึกษา
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Stu_Name) @Html.DisplayFor(model => model.Student.Stu_Surname)
+        </dd>
+
+
+        <dt>
+            อาจารย์ที่ปรึกษา
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Tea_Name) @Html.DisplayFor(model => model.Teacher.Tea_Surname)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Pj_NameTH)
         </dt>
@@ -43,29 +61,90 @@
             @Html.DisplayFor(model => model.Pj_TypePj)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pj_Typefile)
-        </dt>
+        @if (@Model.Pj_File == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_File)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pj_Typefile)
-        </dd>
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_File)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pj_File)
-        </dt>
+            <dd>
+                @Html.ActionLink("ดูไฟล์งาน", "ShowPdf", new { id = Model.Pj_ID }, new { target = "_blank" }) |||
+                @Html.ActionLink("ดาวน์โหลดไฟล์งาน", "DownloadPdf", new { id = Model.Pj_ID }, new { target = "_blank" })
+            </dd>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Pj_File)
-        </dd>
+        @if (@Model.Pj_Github == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Github)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pj_Github)
-        </dt>
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Github)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pj_Github)
-        </dd>
+            <dd>
+                <a target="_blank" href=@Model.Pj_Github>ดูเว็บไซต์</a>
+            </dd>
+        }
+
+        @if (@Model.Pj_Linkweb == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Linkweb)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Linkweb)
+            </dt>
+
+            <dd>
+                <a target="_blank" href=@Model.Pj_Linkweb>ดูเว็บไซต์</a>
+            </dd>
+        }
+
+        @if (@Model.Pj_Video == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Video)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Video)
+            </dt>
+
+            <dd>
+                <a target="_blank" href=@Model.Pj_Video>ดูวิดีโอ</a>
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.Pj_Description)
@@ -74,39 +153,6 @@
         <dd>
             @Html.DisplayFor(model => model.Pj_Description)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Pj_Linkweb)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Pj_Linkweb)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Pj_Video)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Pj_Video)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Student.Stu_Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Student.Stu_Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Teacher.Tea_Name)
-        </dd>
-
     </dl>
 </div>
 <p>

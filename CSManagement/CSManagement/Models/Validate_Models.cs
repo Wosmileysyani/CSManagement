@@ -46,7 +46,7 @@ namespace CSManagement.Models
         [Display(Name = "รูปภาพ")]
         public string Stu_Img { get; set; }
 
-        [Display(Name ="สถานะการศึกษา")]
+        [Display(Name = "สถานะการศึกษา")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<int> Stu_StatusID { get; set; }
     }
@@ -298,28 +298,22 @@ namespace CSManagement.Models
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_TypePj { get; set; }
 
-        [Display(Name = "ประเภทไฟล์")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public int Pj_Typefile { get; set; }
-
         [Display(Name = "ไฟล์")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_File { get; set; }
 
         [Display(Name = "Github")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_Github { get; set; }
 
         [Display(Name = "รายละเอียด")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        [DataType(DataType.MultilineText)]
         public string Pj_Description { get; set; }
 
         [Display(Name = "ลิงค์เว็บไซต์")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_Linkweb { get; set; }
 
         [Display(Name = "วิดีโอ")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_Video { get; set; }
 
         public virtual Student Student { get; set; }

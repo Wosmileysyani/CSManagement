@@ -13,88 +13,47 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Pj_NameTH)
+            ชื่อนักศึกษา
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pj_NameENG)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pj_Date)
+            ชื่อผลงาน
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Pj_TypePj)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pj_Typefile)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Pj_File)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pj_Github)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pj_Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pj_Linkweb)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pj_Video)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.Stu_Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Teacher.Tea_Name)
+            @Html.DisplayNameFor(model => model.Pj_Date)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_NameTH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_NameENG)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_TypePj)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Typefile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_File)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Github)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Linkweb)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pj_Video)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.Stu_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Teacher.Tea_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Pj_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Pj_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Pj_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Stu_Name) @Html.DisplayFor(modelItem => item.Student.Stu_Surname)
+            </td>
+            <td>
+                @Html.ActionLink(@item.Pj_NameTH + " (" + @item.Pj_NameENG + ")", "Details", new { id = item.Pj_ID }, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pj_TypePj)
+            </td>
+            <td>
+                @Html.ActionLink("ดูไฟล์งาน", "ShowPDF", new { id = item.Pj_ID }, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pj_Date)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Pj_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Pj_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Pj_ID })
+            </td>
+        </tr>
+    }
 
 </table>

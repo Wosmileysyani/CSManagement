@@ -37,7 +37,6 @@ namespace CSManagement.Models
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Register_SC> Register_SC { get; set; }
         public virtual DbSet<RegisterLink> RegisterLinks { get; set; }
         public virtual DbSet<School> Schools { get; set; }
@@ -47,5 +46,6 @@ namespace CSManagement.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<Totaljob> Totaljobs { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
     }
 }

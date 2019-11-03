@@ -138,12 +138,11 @@
           <Property Name="Pj_NameENG" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Pj_Date" Type="date" Nullable="false" />
           <Property Name="Pj_TypePj" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Pj_Typefile" Type="int" Nullable="false" />
-          <Property Name="Pj_File" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pj_Github" Type="nchar" MaxLength="10" />
-          <Property Name="Pj_Description" Type="text" Nullable="false" />
-          <Property Name="Pj_Linkweb" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Pj_Video" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pj_File" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_Github" Type="nvarchar(max)" />
+          <Property Name="Pj_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_Linkweb" Type="nvarchar(max)" />
+          <Property Name="Pj_Video" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Register_SC">
           <Key>
@@ -506,7 +505,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <EntitySet Name="Jobs" EntityType="CsManagementModel.Job" />
           <EntitySet Name="Logins" EntityType="CsManagementModel.Login" />
           <EntitySet Name="Pictures" EntityType="CsManagementModel.Picture" />
-          <EntitySet Name="Projects" EntityType="CsManagementModel.Project" />
           <EntitySet Name="Register_SC" EntityType="CsManagementModel.Register_SC" />
           <EntitySet Name="RegisterLinks" EntityType="CsManagementModel.RegisterLink" />
           <EntitySet Name="Schools" EntityType="CsManagementModel.School" />
@@ -552,14 +550,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Student" EntitySet="Students" />
             <End Role="History" EntitySet="Histories" />
           </AssociationSet>
-          <AssociationSet Name="FK_Project_Student" Association="CsManagementModel.FK_Project_Student">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="Project" EntitySet="Projects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Project_Teacher" Association="CsManagementModel.FK_Project_Teacher">
-            <End Role="Teacher" EntitySet="Teachers" />
-            <End Role="Project" EntitySet="Projects" />
-          </AssociationSet>
           <AssociationSet Name="FK_Student_School" Association="CsManagementModel.FK_Student_School">
             <End Role="School" EntitySet="Schools" />
             <End Role="Student" EntitySet="Students" />
@@ -572,7 +562,16 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Projects" EntityType="CsManagementModel.Project" />
+          <AssociationSet Name="FK_Project_Student" Association="CsManagementModel.FK_Project_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Teacher" Association="CsManagementModel.FK_Project_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Applied">
           <Key>
             <PropertyRef Name="APP_NO" />
@@ -709,26 +708,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pic_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="Pj_ID" />
-          </Key>
-          <Property Name="Pj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_TeaID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Pj_TypePj" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_Typefile" Type="Int32" Nullable="false" />
-          <Property Name="Pj_File" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_Github" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Pj_Linkweb" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_Video" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_Project_Student" FromRole="Project" ToRole="Student" />
-          <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Project" ToRole="Teacher" />
-        </EntityType>
         <EntityType Name="Register_SC">
           <Key>
             <PropertyRef Name="REG_IDCard" />
@@ -791,9 +770,9 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Stu_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Stu_StatusID" Type="Int32" />
           <NavigationProperty Name="Histories" Relationship="CsManagementModel.FK_History_Student" FromRole="Student" ToRole="History" />
-          <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
           <NavigationProperty Name="School" Relationship="CsManagementModel.FK_Student_School" FromRole="Student" ToRole="School" />
           <NavigationProperty Name="Status" Relationship="CsManagementModel.FK_Student_Status" FromRole="Student" ToRole="Status" />
+          <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -810,8 +789,8 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
-          <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Teacher" ToRole="Project" />
           <NavigationProperty Name="Title" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
+          <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Teacher" ToRole="Project" />
         </EntityType>
         <EntityType Name="Title">
           <Key>
@@ -937,30 +916,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Project_Student">
-          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="1" />
-          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Stu_ID" />
-            </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="Pj_StuID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Project_Teacher">
-          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="1" />
-          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="Tea_ID" />
-            </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="Pj_TeaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Student_School">
           <End Type="CsManagementModel.School" Role="School" Multiplicity="0..1" />
           <End Type="CsManagementModel.Student" Role="Student" Multiplicity="*" />
@@ -994,6 +949,49 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Principal>
             <Dependent Role="Teacher">
               <PropertyRef Name="Tea_TitleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+          </Key>
+          <Property Name="Pj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_TeaID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Pj_TypePj" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_File" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Github" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Linkweb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_Project_Student" FromRole="Project" ToRole="Student" />
+          <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Project" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="FK_Project_Student">
+          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Stu_ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Pj_StuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Teacher">
+          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tea_ID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Pj_TeaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1137,25 +1135,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="CsManagementModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
-                <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
-                <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
-                <ScalarProperty Name="Pj_Github" ColumnName="Pj_Github" />
-                <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
-                <ScalarProperty Name="Pj_Typefile" ColumnName="Pj_Typefile" />
-                <ScalarProperty Name="Pj_TypePj" ColumnName="Pj_TypePj" />
-                <ScalarProperty Name="Pj_Date" ColumnName="Pj_Date" />
-                <ScalarProperty Name="Pj_NameENG" ColumnName="Pj_NameENG" />
-                <ScalarProperty Name="Pj_NameTH" ColumnName="Pj_NameTH" />
-                <ScalarProperty Name="Pj_TeaID" ColumnName="Pj_TeaID" />
-                <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
-                <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Register_SC">
             <EntityTypeMapping TypeName="CsManagementModel.Register_SC">
               <MappingFragment StoreEntitySet="Register_SC">
@@ -1250,6 +1229,24 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
                 <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
                 <ScalarProperty Name="JOB" ColumnName="JOB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="CsManagementModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
+                <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
+                <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
+                <ScalarProperty Name="Pj_Github" ColumnName="Pj_Github" />
+                <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
+                <ScalarProperty Name="Pj_TypePj" ColumnName="Pj_TypePj" />
+                <ScalarProperty Name="Pj_Date" ColumnName="Pj_Date" />
+                <ScalarProperty Name="Pj_NameENG" ColumnName="Pj_NameENG" />
+                <ScalarProperty Name="Pj_NameTH" ColumnName="Pj_NameTH" />
+                <ScalarProperty Name="Pj_TeaID" ColumnName="Pj_TeaID" />
+                <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
+                <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

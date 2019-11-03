@@ -1,0 +1,161 @@
+﻿@model CSManagement.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            ชื่อนักศึกษา
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Stu_Name) @Html.DisplayFor(model => model.Student.Stu_Surname)
+        </dd>
+
+
+        <dt>
+            อาจารย์ที่ปรึกษา
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Tea_Name) @Html.DisplayFor(model => model.Teacher.Tea_Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_NameTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_NameTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_NameENG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_NameENG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_TypePj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_TypePj)
+        </dd>
+
+        @if (@Model.Pj_File == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_File)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_File)
+            </dt>
+
+            <dd>
+                @Html.ActionLink("ดูไฟล์งาน", "ShowPdf", new { id = Model.Pj_ID }, new { target = "_blank" }) |||
+                @Html.ActionLink("ดาวน์โหลดไฟล์งาน", "DownloadPdf", new { id = Model.Pj_ID }, new { target = "_blank" })
+            </dd>
+        }
+
+        @if (@Model.Pj_Github == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Github)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Github)
+            </dt>
+
+            <dd>
+                <a target="_blank" href=@Model.Pj_Github>ดูเว็บไซต์</a>
+            </dd>
+        }
+
+        @if (@Model.Pj_Linkweb == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Linkweb)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Linkweb)
+            </dt>
+
+            <dd>
+                <a target="_blank" href=@Model.Pj_Linkweb>ดูเว็บไซต์</a>
+            </dd>
+        }
+
+        @if (@Model.Pj_Video == null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Video)
+            </dt>
+
+            <dd>
+                ไม่ได้ใส่ไว้
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pj_Video)
+            </dt>
+
+            <dd>
+                <a target="_blank" href=@Model.Pj_Video>ดูวิดีโอ</a>
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pj_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pj_Description)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pj_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

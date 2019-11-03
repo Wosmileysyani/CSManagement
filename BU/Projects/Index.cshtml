@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CSManagement.Models.Project>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ชื่อนักศึกษา
+        </th>
+        <th>
+            ชื่อผลงาน
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pj_TypePj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pj_File)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pj_Date)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Stu_Name) @Html.DisplayFor(modelItem => item.Student.Stu_Surname)
+            </td>
+            <td>
+                @Html.ActionLink(@item.Pj_NameTH + " (" + @item.Pj_NameENG + ")", "Details", new { id = item.Pj_ID }, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pj_TypePj)
+            </td>
+            <td>
+                @Html.ActionLink("ดูไฟล์งาน", "ShowPDF", new { id = item.Pj_ID }, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pj_Date)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Pj_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Pj_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Pj_ID })
+            </td>
+        </tr>
+    }
+
+</table>

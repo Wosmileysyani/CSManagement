@@ -122,10 +122,9 @@
           <Key>
             <PropertyRef Name="Pic_ID" />
           </Key>
-          <Property Name="Pic_ID" Type="int" Nullable="false" />
+          <Property Name="Pic_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pic_Img" Type="nvarchar" MaxLength="50" />
           <Property Name="Pic_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pic_Description" Type="text" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -504,7 +503,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <EntitySet Name="HitCounts" EntityType="CsManagementModel.HitCount" />
           <EntitySet Name="Jobs" EntityType="CsManagementModel.Job" />
           <EntitySet Name="Logins" EntityType="CsManagementModel.Login" />
-          <EntitySet Name="Pictures" EntityType="CsManagementModel.Picture" />
           <EntitySet Name="Register_SC" EntityType="CsManagementModel.Register_SC" />
           <EntitySet Name="RegisterLinks" EntityType="CsManagementModel.RegisterLink" />
           <EntitySet Name="Schools" EntityType="CsManagementModel.School" />
@@ -571,6 +569,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
+          <EntitySet Name="Pictures" EntityType="CsManagementModel.Picture" />
           </EntityContainer>
         <EntityType Name="Applied">
           <Key>
@@ -698,15 +697,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Log_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="Log_Pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Log_Role" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Picture">
-          <Key>
-            <PropertyRef Name="Pic_ID" />
-          </Key>
-          <Property Name="Pic_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pic_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pic_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Register_SC">
           <Key>
@@ -995,6 +985,14 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Pic_ID" />
+          </Key>
+          <Property Name="Pic_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pic_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1125,16 +1123,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pictures">
-            <EntityTypeMapping TypeName="CsManagementModel.Picture">
-              <MappingFragment StoreEntitySet="Picture">
-                <ScalarProperty Name="Pic_Description" ColumnName="Pic_Description" />
-                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
-                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
-                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Register_SC">
             <EntityTypeMapping TypeName="CsManagementModel.Register_SC">
               <MappingFragment StoreEntitySet="Register_SC">
@@ -1247,6 +1235,15 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="Pj_TeaID" ColumnName="Pj_TeaID" />
                 <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
                 <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="CsManagementModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
+                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
+                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CSManagement.Models.RegisterLink>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Weblink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weblink)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WL_ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -453,6 +453,17 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Pictures\Create.cshtml" />
+    <Content Include="Views\Pictures\Delete.cshtml" />
+    <Content Include="Views\Pictures\Details.cshtml" />
+    <Content Include="Views\Pictures\Edit.cshtml" />
+    <Content Include="Views\Pictures\Index.cshtml" />
+    <Content Include="Views\RegisterLinks\Create.cshtml" />
+    <Content Include="Views\RegisterLinks\Delete.cshtml" />
+    <Content Include="Views\RegisterLinks\Details.cshtml" />
+    <Content Include="Views\RegisterLinks\Edit.cshtml" />
+    <Content Include="Views\RegisterLinks\Index.cshtml" />
+    <Content Include="Views\Pictures\GoRegister.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -471,7 +482,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\RegisterLinksController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
@@ -691,6 +704,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FIleUploaded\" />
+    <Folder Include="imgSlideShow\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

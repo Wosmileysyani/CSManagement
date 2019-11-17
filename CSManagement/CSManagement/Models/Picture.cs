@@ -17,5 +17,6 @@ namespace CSManagement.Models
         public int Pic_ID { get; set; }
         public string Pic_Img { get; set; }
         public string Pic_Name { get; set; }
+        public string Pic_Description { get; set; }
     }
 }

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CSManagement.Models.Student>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="box-title">จัดการข้อมูลนักศึกษา</h1>
+                <a class="btn btn-success" style="float: right" href="@Url.Action("Create", "Students")"><i class="fa fa-user-plus"></i>เพิ่มข้อมูลนักศึกษา</a>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align:center">ที่</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_ID)</th>
+                    <th style="text-align:center">ชื่อ-นามสกุล</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Birthday)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Tel)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_StatusID)</th>
+                    <th style="text-align:center">จัดการข้อมูล</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Stu_ID)</td>
+                    <td>@item.Stu_Title @item.Stu_Name @item.Stu_Surname</td>
+                    <td>@Html.DisplayFor(modelItem => item.Stu_Birthday)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Stu_Tel)</td>
+                    @* 1 = กำลังศึกษาอยู่ / 2 = สำเร็จการศึกษา / 3 = เกียรตินิยมอันดับ 1 / 4 = เกียรตินิยมอันดับ 2 / 5 = พ้นสภาพการเป็นนักศึกษา / 6 = พักการเรียน *@
+                    @if (item.Stu_StatusID == 3)
+                    {
+                        <td style="color:red">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                    }
+                    else if (item.Stu_StatusID == 4)
+                    {
+                        <td style="color:darkorange">@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                    }
+                    else
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.Status.Status_Name)</td>
+                    }
+                    <td style="text-align:center">
+                        <a class="btn btn-warning" href="@Url.Action("Edit", "Students", new { id = item.Stu_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
+                        <a class="btn btn-info" href="@Url.Action("Details", "Students", new { id = item.Stu_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Students", new { id = item.Stu_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}

@@ -66,9 +66,6 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Projects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Project project, HttpPostedFileBase file)
@@ -84,6 +81,7 @@ namespace CSManagement.Controllers
                 }
                 project.Pj_Date = DateTime.Today;
                 string[] Split_ID = project.Pj_StuID.Split(' ');
+                //เปลี่ยนใช้ Select tool
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
@@ -96,7 +94,7 @@ namespace CSManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
                 ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
@@ -122,8 +120,6 @@ namespace CSManagement.Controllers
         }
 
         // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Project project)

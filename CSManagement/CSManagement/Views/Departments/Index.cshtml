@@ -31,20 +31,44 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td style="text-align:center">@(i++)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Dep_Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Course.Course_NameTH)</td>
-                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Course.Course_Year)</td>
-                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Dep_Credit)</td>
-                    <td style="text-align:center">
-                        <a class="btn btn-warning" href="@Url.Action("Edit", "Departments", new { id = item.Dep_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
-                        @*<a class="btn btn-info" href="@Url.Action("Details", "Departments", new { id = item.Dep_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Departments", new { id = item.Dep_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center">@(i++)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Dep_Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Course.Course_NameTH)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.Course.Course_Year)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.Dep_Credit)</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-warning" href="@Url.Action("Edit", "Departments", new { id = item.Dep_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
+                            @*<a class="btn btn-info" href="@Url.Action("Details", "Departments", new { id = item.Dep_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "Departments", new { id = item.Dep_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}
+

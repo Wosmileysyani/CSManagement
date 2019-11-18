@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CSManagement.Models.Project>
+
+@{
+
+    ViewBag.Title = "วิทยาการคอมพิวเตอร์";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-danger">
+            <div class="box-header with-border set-text">
+                <h3 class="box-title" style="letter-spacing:0px">สัดส่วนหมวดวิชาหลักสูตรสาขา</h3>
+            </div>
+            <div class="box-body chart-responsive">
+                <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-danger">
+            <div class="box-header with-border set-text">
+                <h3 class="box-title" style="letter-spacing:0px">สัดส่วนการเข้าทำงานของศิษย์เก่า</h3>
+            </div>
+            <div class="box-body chart-responsive">
+                <div class="chart" id="chartContainer2" style="height: 300px; position: relative;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="page-header text-center" style="font-size:40px"><i class="fa fa-star"></i>ผลงานนักศึกษา<i class="fa fa-star"></i></p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-yellow">
+                <div class="widget-user-image">
+                    <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                </div><h3 class="widget-user-username" style="letter-spacing:0px">นางสาวญาณี วงค์ตันฮวด</h3>
+                <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
+            </div>
+            <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                    <li><a href="#">รูปเล่ม<span class="pull-right badge bg-aqua">เข้าชม</span></a></li>
+                    <li><a href="#">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+
+    window.onload = function () {
+        var chart =
+            new CanvasJS.Chart("chartContainer", {
+                theme: "light2",
+                exportEnabled: true,
+                animationEnabled: true,
+                data: [
+                    {
+                        type: "pie", //change type to bar, line, area, pie, etc
+                        startAngle: 180,
+                        toolTipContent: "<b>{label}</b>: {y}%",
+                        indexLabel: "{label} {y}%",
+                        dataPoints: @Html.Raw(ViewBag.DataPoints)
+    }
+        ]
+            });
+    var chart2 =
+        new CanvasJS.Chart("chartContainer2", {
+            theme: "light2",
+            exportEnabled: true,
+            animationEnabled: true,
+            data: [
+                {
+                    type: "pie", //change type to bar, line, area, pie, etc
+                    startAngle: 180,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    indexLabel: "{label} {y}%",
+                    dataPoints: @Html.Raw(ViewBag.DataPoints2)
+                    }
+                ]
+            });
+    chart.render();
+    chart2.render();
+    };
+</script>

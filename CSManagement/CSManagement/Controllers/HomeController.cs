@@ -19,6 +19,13 @@ namespace CSManagement.Controllers
         }
 
         [HttpGet]
+        public ActionResult IndexUser()
+        {
+            SetSession();
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult AnotherLink()
         {
             return View("Index");

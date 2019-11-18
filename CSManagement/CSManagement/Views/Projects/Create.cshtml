@@ -12,119 +12,116 @@
     }
 </style>
 
-@if (ViewBag.ResultErrorMessage != null)  
-{  
-    <script type="text/javascript">  
-        window.onload = function () {  
-            alert("@ViewBag.ResultErrorMessage");  
-        };  
-    </script>  
-} 
+@if (ViewBag.ResultErrorMessage != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@ViewBag.ResultErrorMessage");
+        };
+    </script>
+}
 
 @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">เพิ่มข้อมูลผลงานปริญญานิพนธ์</h3>
 
-    <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name", @PlaceHolder = "พิมชื่อนักศึกษา" } })
-                @Html.ValidationMessageFor(model => model.Pj_StuID, "", new { @class = "text-danger" })
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="font-size:15px">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name", @PlaceHolder = "พิมชื่อนักศึกษา" } })
+                        @Html.ValidationMessageFor(model => model.Pj_StuID, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_TeaID, "ชื่ออาจารย์ที่ปรึกษา", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("Pj_TeaID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Pj_TeaID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_NameTH, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_NameTH, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Pj_NameTH, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_NameENG, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_NameENG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Pj_NameENG, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_TypePj, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Pj_TypePj, new List<SelectListItem>()
+                        {
+                            new SelectListItem() { Text = "โครงงาน", Value = "โครงงาน" },
+                            new SelectListItem() { Text = "วิจัย", Value = "วิจัย" }
+                        }, "เลือกประเภทงาน", new { @id = "Pj_TypePj", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Pj_TypePj, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_File, htmlAttributes: new { @class = "control-label" })
+                        <input type="file" id="file" name="file">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_Github, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_Github, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง(ไม่มีให้ปล่อยว่าง)" } })
+                        @Html.ValidationMessageFor(model => model.Pj_Github, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_Linkweb, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_Linkweb, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
+                        @Html.ValidationMessageFor(model => model.Pj_Linkweb, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_Video, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_Video, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
+                        @Html.ValidationMessageFor(model => model.Pj_Video, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Pj_Description, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Pj_Description, new { htmlAttributes = new { @class = "form-control", @cols = 100, @rows = 5 } })
+                        @Html.ValidationMessageFor(model => model.Pj_Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success col-lg-3" style="float:right;font-size:15px"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    <a class="btn btn-default col-lg-3" style="float:left;font-size:15px" href="@Url.Action("Index", "Projects")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_TeaID, "ชื่ออาจารย์ที่ปรึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Pj_TeaID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Pj_TeaID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_NameTH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_NameTH, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pj_NameTH, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_NameENG, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_NameENG, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pj_NameENG, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_TypePj, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Pj_TypePj, new List<SelectListItem>()
-                {
-                    new SelectListItem() { Text = "โครงงาน", Value = "โครงงาน" },
-                    new SelectListItem() { Text = "วิจัย", Value = "วิจัย" }
-                }, "เลือกประเภทงาน", new { @id = "Pj_TypePj", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Pj_TypePj, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_File, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" id="file" name="file">
-                @Html.ValidationMessageFor(model => model.Pj_File, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Github, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Github, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง(ไม่มีให้ปล่อยว่าง)" } })
-                @Html.ValidationMessageFor(model => model.Pj_Github, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Linkweb, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Linkweb, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
-                @Html.ValidationMessageFor(model => model.Pj_Linkweb, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Video, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Video, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Copy ลิ้งค์เว็บไซต์มาวาง" } })
-                @Html.ValidationMessageFor(model => model.Pj_Video, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pj_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pj_Description, new { htmlAttributes = new { @class = "form-control", @cols = 100, @rows = 5 } })
-                @Html.ValidationMessageFor(model => model.Pj_Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </section>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

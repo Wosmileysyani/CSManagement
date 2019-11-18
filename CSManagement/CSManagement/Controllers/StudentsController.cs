@@ -24,6 +24,8 @@ namespace CSManagement.Controllers
             return View(students);
         }
 
+       
+
         // GET: Students/Details/5
         public ActionResult Details(string id)
         {

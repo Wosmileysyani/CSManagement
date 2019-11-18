@@ -3,27 +3,46 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="box-title">จัดการข้อมูลเว็บสมัครเรียน</h1>
+                    <div style="float:right">
+                        <a class="btn btn-success" href="@Url.Action("Create", "RegisterLinks")"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Weblink)
-        </th>
-        <th></th>
-    </tr>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ที่</th>
+                        <th style="text-align:center">ลิงค์เว็บไซต์</th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
+                    </tr>
+                </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Weblink)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.WL_ID })
-        </td>
-    </tr>
-}
-
-</table>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center">@(i++)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Weblink)</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "RegisterLinks", new { id = item.WL_ID })"><i class="fa fa-edit"></i> แก้ไข</a>
+                                <a class="btn btn-danger" href="@Url.Action("Delete", "RegisterLinks", new { id = item.WL_ID })"><i class="fa fa-trash-o"></i> ลบข้อมูล</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

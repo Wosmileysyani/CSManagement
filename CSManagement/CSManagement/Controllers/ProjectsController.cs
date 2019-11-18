@@ -22,6 +22,11 @@ namespace CSManagement.Controllers
             return View(projects.ToList());
         }
 
+        public ActionResult IndexUser()
+        {
+            return View();
+        }
+
         public FileStreamResult ShowPdf(int? id)
         {
             var projects = db.Projects.Find(id);

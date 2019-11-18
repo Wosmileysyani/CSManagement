@@ -41,12 +41,9 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Schools/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SCH_ID,SCH_Name,SCH_Province,SCH_Tel")] School school)
+        public ActionResult Create(School school)
         {
             if (ModelState.IsValid)
             {

@@ -464,6 +464,27 @@
     <Content Include="Views\RegisterLinks\Edit.cshtml" />
     <Content Include="Views\RegisterLinks\Index.cshtml" />
     <Content Include="Views\Pictures\GoRegister.cshtml" />
+    <Content Include="Views\Short_Course\Create.cshtml" />
+    <Content Include="Views\Short_Course\Delete.cshtml" />
+    <Content Include="Views\Short_Course\Details.cshtml" />
+    <Content Include="Views\Short_Course\Edit.cshtml" />
+    <Content Include="Views\Short_Course\Index.cshtml" />
+    <Content Include="Views\Generations\Create.cshtml" />
+    <Content Include="Views\Generations\Delete.cshtml" />
+    <Content Include="Views\Generations\Details.cshtml" />
+    <Content Include="Views\Generations\Edit.cshtml" />
+    <Content Include="Views\Generations\Index.cshtml" />
+    <Content Include="Views\Register_SC\Create.cshtml" />
+    <Content Include="Views\Register_SC\Delete.cshtml" />
+    <Content Include="Views\Register_SC\Details.cshtml" />
+    <Content Include="Views\Register_SC\Edit.cshtml" />
+    <Content Include="Views\Register_SC\Index.cshtml" />
+    <Content Include="Views\Applieds\Create.cshtml" />
+    <Content Include="Views\Applieds\Delete.cshtml" />
+    <Content Include="Views\Applieds\Details.cshtml" />
+    <Content Include="Views\Applieds\Edit.cshtml" />
+    <Content Include="Views\Applieds\Index.cshtml" />
+    <Content Include="Views\Generations\Registers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -472,12 +493,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AppliedsController.cs" />
     <Compile Include="Controllers\CESupsController.cs" />
     <Compile Include="Controllers\ComputerEquipmentsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DisposesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GenerationsController.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
@@ -485,7 +508,9 @@
     <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RegisterLinksController.cs" />
+    <Compile Include="Controllers\Register_SCController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
+    <Compile Include="Controllers\Short_CourseController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Models\Applied.cs">

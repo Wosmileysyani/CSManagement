@@ -20,7 +20,7 @@ namespace CSManagement.Models
             this.Applieds = new HashSet<Applied>();
         }
     
-        public int REG_IDCard { get; set; }
+        public string REG_IDCard { get; set; }
         public string REG_Name { get; set; }
         public string REG_Address { get; set; }
         public string REG_Tel { get; set; }

@@ -1,0 +1,76 @@
+﻿@model CSManagement.Models.Generation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Generation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Short_Course.SC_NameTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_Member)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_Member)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_MemberMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_MemberMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gen_Fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gen_Fee)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Gen_NO }) |
+    @Html.ActionLink("สมัคร", "Registers", new { id = Model.Gen_NO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

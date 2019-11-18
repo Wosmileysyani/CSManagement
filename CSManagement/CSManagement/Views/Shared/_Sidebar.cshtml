@@ -86,18 +86,29 @@
                 </li>
             </ul>
         </li>
-
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-calendar-check-o"></i> <span>รายงานข้อมูล</span>
+                <i class="fa fa-graduation-cap"></i> <span>จัดการข้อมูลคอร์สสั้น</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="#">ข้อมูลศิษย์เก่า</a></li>
+                <li>
+                    <a href="@Url.Action("Index", "Short_Course")"><i class="fa fa-user"></i> <span>คอร์สสั้น</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Generations")"><i class="fa fa-user"></i> <span>รุ่น</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Register_SC")"><i class="fa fa-address-book"></i> <span>การสมัคร</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Applieds")"><i class="fa fa-address-book"></i> <span>จัดการสมาชิก</span></a>
+                </li>
             </ul>
         </li>
+
     </ul>
         @* END Menu *@
     </section>

@@ -15,7 +15,7 @@ namespace CSManagement.Models
     public partial class Applied
     {
         public int APP_NO { get; set; }
-        public Nullable<int> APP_ReNO { get; set; }
+        public string APP_ReNO { get; set; }
         public Nullable<int> APP_GenNO { get; set; }
         public Nullable<int> APP_Status { get; set; }
     

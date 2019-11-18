@@ -1,0 +1,71 @@
+﻿@model IEnumerable<CSManagement.Models.Generation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_Member)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_MemberMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gen_Fee)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_Member)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_MemberMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen_Fee)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Gen_NO }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Gen_NO }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Gen_NO })
+            </td>
+        </tr>
+    }
+
+</table>

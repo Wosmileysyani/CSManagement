@@ -11,17 +11,24 @@
     <h4>Applied</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
-            คอร์สที่สมัคร
+            @Html.DisplayNameFor(model => model.APP_Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(model => model.Generation.Gen_Name)
+            @Html.DisplayFor(model => model.APP_Status)
         </dd>
 
         <dt>
-            ผู้สมัคร
+            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Generation.Gen_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
         </dt>
 
         <dd>

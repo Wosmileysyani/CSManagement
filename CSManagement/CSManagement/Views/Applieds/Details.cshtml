@@ -1,0 +1,63 @@
+﻿@model CSManagement.Models.Applied
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Applied</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.APP_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.APP_Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Generation.Gen_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Register_SC.REG_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-success" onclick="SendEmail()" href="@Url.Action("AppAgree", new { id = Model.APP_NO })"><i class="fa fa-circle"></i>รับสมัคร</a> |
+    <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = Model.APP_NO })"><i class="fa fa-close"></i>ยกเลิกการสมัคร</a>
+</p>
+
+<script type="text/javascript">
+
+    var SendEmail = function () {
+
+        $.ajax({
+            url: "/Applieds/SendMailToUser",
+            data: { 'id': @Model.Register_SC.REG_IDCard,'idg':@Model.APP_GenNO },
+            method: "POST",
+            success: function (data) {
+                if (data == true) {
+                    alert("การตอบรับเสร็จสิ้น");
+                } else {
+                    alert("การตอบรับไม่สำเร็จ");
+                }
+            }
+        })
+    }
+
+</script>

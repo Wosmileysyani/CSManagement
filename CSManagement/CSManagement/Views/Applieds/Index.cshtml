@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CSManagement.Models.Applied>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.APP_Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Register_SC.REG_Name)
+            </td>
+            @{
+                if (item.APP_Status == 1)
+                {
+                    <td>
+                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                        รับสมัครแล้ว
+                    </td>
+                }
+                else if (item.APP_Status == 2)
+                {
+                    <td>
+                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                        ยกเลิกการสมัครแล้ว
+                    </td>
+                }
+                else if (item.APP_Status == 3)
+                {
+                    <td>
+                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                        รอการอนุมัติ
+                    </td>
+                    <td style="text-align:center">
+                        @Html.ActionLink("Details", "Details", new { id = item.APP_NO })
+                    </td>
+                }
+            }
+            <td>
+
+        </tr>
+    }
+
+</table>
+

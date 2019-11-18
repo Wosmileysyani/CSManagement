@@ -1,0 +1,51 @@
+﻿@model CSManagement.Models.Register_SC
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Register_SC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.REG_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REG_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REG_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REG_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REG_Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REG_Tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REG_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REG_Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.REG_IDCard }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

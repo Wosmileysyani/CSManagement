@@ -4,7 +4,7 @@
     ViewBag.Title = "จัดการข้อมูลนักศึกษา";
 }
 
-@using (Html.BeginForm("Create",  "Students" ,FormMethod.Post, new { enctype="multipart/form-data", accept_charset="utf-8" }))
+@using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
 {
     @Html.AntiForgeryToken()
     <section class="content">

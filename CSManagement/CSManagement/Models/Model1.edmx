@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Applied">
           <Key>
             <PropertyRef Name="APP_NO" />
           </Key>
           <Property Name="APP_NO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="APP_ReNO" Type="int" />
+          <Property Name="APP_ReNO" Type="varchar" MaxLength="13" />
           <Property Name="APP_GenNO" Type="int" />
           <Property Name="APP_Status" Type="int" />
         </EntityType>
@@ -125,7 +125,6 @@
           <Property Name="Pic_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pic_Img" Type="nvarchar" MaxLength="50" />
           <Property Name="Pic_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pic_Description" Type="text" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -148,7 +147,7 @@
           <Key>
             <PropertyRef Name="REG_IDCard" />
           </Key>
-          <Property Name="REG_IDCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REG_IDCard" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="REG_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="REG_Address" Type="nvarchar" MaxLength="50" />
           <Property Name="REG_Tel" Type="nvarchar" MaxLength="50" />
@@ -488,7 +487,8 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CsManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -497,7 +497,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <PropertyRef Name="APP_NO" />
           </Key>
           <Property Name="APP_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="APP_ReNO" Type="Int32" />
+          <Property Name="APP_ReNO" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="APP_GenNO" Type="Int32" />
           <Property Name="APP_Status" Type="Int32" />
           <NavigationProperty Name="Generation" Relationship="Self.FK_Applied_Generation" FromRole="Applied" ToRole="Generation" />
@@ -619,6 +619,14 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Log_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Log_Role" Type="Int32" />
         </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Pic_ID" />
+          </Key>
+          <Property Name="Pic_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pic_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Pj_ID" />
@@ -642,7 +650,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Key>
             <PropertyRef Name="REG_IDCard" />
           </Key>
-          <Property Name="REG_IDCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REG_IDCard" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="REG_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="REG_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="REG_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -918,6 +926,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <EntitySet Name="HitCounts" EntityType="Self.HitCount" />
           <EntitySet Name="Jobs" EntityType="Self.Job" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Pictures" EntityType="Self.Picture" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="Register_SC" EntityType="Self.Register_SC" />
           <EntitySet Name="RegisterLinks" EntityType="Self.RegisterLink" />
@@ -984,17 +993,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-          <EntitySet Name="Pictures" EntityType="CsManagementModel.Picture" />
         </EntityContainer>
-        <EntityType Name="Picture">
-          <Key>
-            <PropertyRef Name="Pic_ID" />
-          </Key>
-          <Property Name="Pic_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pic_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pic_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1125,6 +1124,15 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="CsManagementModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
+                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
+                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="CsManagementModel.Project">
               <MappingFragment StoreEntitySet="Project">
@@ -1237,16 +1245,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="JOB" ColumnName="JOB" />
                 <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
                 <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pictures">
-            <EntityTypeMapping TypeName="CsManagementModel.Picture">
-              <MappingFragment StoreEntitySet="Picture">
-                <ScalarProperty Name="Pic_Description" ColumnName="Pic_Description" />
-                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
-                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
-                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,14 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Edit", "Students" ,FormMethod.Post, new { enctype="multipart/form-data", accept_charset="utf-8" }))
+@using (Html.BeginForm("Edit", "Students", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
 {
     @Html.AntiForgeryToken()
 
     <section class="content">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">แก้ไขข้อมูลนักศึกษา</h3>
+                <h3 class="box-title">เพิ่มข้อมูลนักศึกษา</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -23,26 +23,17 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_ID, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control", @ReadOnly = true } })
+                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Stu_ID, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group col-md-3">
-                        @Html.LabelFor(model => model.Stu_Title, htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.Stu_Title, new List<SelectListItem>()
-                        {
-                            new SelectListItem() { Text = "นาย", Value = "นาย" },
-                            new SelectListItem() { Text = "นาง", Value = "นาง" },
-                            new SelectListItem() { Text = "นางสาว", Value = "นางสาว"}
-                        }, "เลือกคำนำหน้าชื่อ", new { @id = "Stu_Sex", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Stu_Title, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        @Html.LabelFor(model => model.Stu_Name, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Stu_Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Stu_Name, "", new { @class = "text-danger" })
-                    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stu_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Stu_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stu_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_Surname, htmlAttributes: new { @class = "control-label" })
@@ -150,9 +141,11 @@
                         <input type="file" id="file" name="file">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success col-md-3" style="float:right"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                <a class="btn btn-default col-md-3" style="float:left" href="@Url.Action("Index", "Students")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
-
+                <div>
+                    <button type="submit" class="btn btn-success col-md-3" style="float:right"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    <a class="btn btn-default col-md-3" style="float:left" href="@Url.Action("Index", "Students")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                </div>
+                
             </div>
         </div>
 
@@ -160,7 +153,6 @@
             หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก
         </div>
     </section>
-
 }
 
 @section Scripts {

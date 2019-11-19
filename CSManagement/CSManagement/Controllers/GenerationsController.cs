@@ -21,6 +21,12 @@ namespace CSManagement.Controllers
             return View(generations.ToList());
         }
 
+        public ActionResult IndexUser()
+        {
+            var generations = db.Generations.Include(g => g.Short_Course);
+            return View(db.Generations.ToList());
+        }
+
         public ActionResult Registers(int? id)
         {
             if (id == null)
@@ -38,6 +44,20 @@ namespace CSManagement.Controllers
             return View();
         }
 
+        public ActionResult DetailsUser(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Generation generation = db.Generations.Find(id);
+            if (generation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(generation);
+        }
+        
         // GET: Generations/Details/5
         public ActionResult Details(int? id)
         {

@@ -494,6 +494,8 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Projects\IndexUser.cshtml" />
     <Content Include="Views\Home\IndexUser.cshtml" />
+    <Content Include="Views\Generations\IndexUser.cshtml" />
+    <Content Include="Views\Generations\DetailsUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

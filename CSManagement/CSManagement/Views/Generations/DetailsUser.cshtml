@@ -1,11 +1,11 @@
 ﻿@model CSManagement.Models.Generation
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "DetailsUser";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Details</h2>
+<h2>DetailsUser</h2>
 
 <div>
     <h4>Generation</h4>
@@ -70,6 +70,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Gen_NO }) |
+    @Html.ActionLink("สมัคร", "Registers", new { id = Model.Gen_NO }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -485,6 +485,8 @@
     <Content Include="Views\Applieds\Edit.cshtml" />
     <Content Include="Views\Applieds\Index.cshtml" />
     <Content Include="Views\Generations\Registers.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Home\IndexUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

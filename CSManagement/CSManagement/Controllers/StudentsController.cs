@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using CSManagement.Models;
 using Microsoft.Ajax.Utilities;
 
@@ -63,9 +64,6 @@ namespace CSManagement.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
-                    string ImageName = Path.GetFileName(file.FileName);
-                    var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid()).Replace("-", "") + ImageName;
-
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
                     student.Stu_Img = myUniqueFileName;
@@ -79,10 +77,7 @@ namespace CSManagement.Controllers
             catch (Exception)
             {
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
-<<<<<<< HEAD
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
-=======
->>>>>>> smile
                 return View(student);
             }
         }
@@ -108,15 +103,16 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-<<<<<<< HEAD
             //วันที่ถ้าเป็นค่าว่างให้เอาวันที่เก่ามา
-=======
->>>>>>> smile
             try
             {
+                if (birthday.IsEmpty() == true)
+                {
+                    var bd = db.Students.FirstOrDefault(x => x.Stu_ID == student.Stu_ID);
+                    student.Stu_Birthday = bd.Stu_Birthday;
+                }
                 if (file != null && file.ContentLength > 0)
                 {
-                    string ImageName = Path.GetFileName(file.FileName);
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
@@ -128,11 +124,7 @@ namespace CSManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Students", new { id = Session["UserID"].ToString() });
             }
-<<<<<<< HEAD
-            catch (Exception ex)
-=======
             catch (Exception)
->>>>>>> smile
             {
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);

@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applied">
+          <Key>
+            <PropertyRef Name="APP_NO" />
+          </Key>
+          <Property Name="APP_NO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APP_ReNO" Type="varchar" MaxLength="13" />
+          <Property Name="APP_GenNO" Type="int" />
+          <Property Name="APP_Status" Type="int" />
+        </EntityType>
         <EntityType Name="CESup">
           <Key>
             <PropertyRef Name="CESUB_ATNO" />
@@ -116,6 +125,7 @@
           <Property Name="Pic_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pic_Img" Type="nvarchar" MaxLength="50" />
           <Property Name="Pic_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pic_Description" Type="text" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -160,12 +170,19 @@
           <Property Name="SCH_Province" Type="nvarchar(max)" />
           <Property Name="SCH_Tel" Type="nchar" MaxLength="11" />
         </EntityType>
+        <EntityType Name="Short_Course">
+          <Key>
+            <PropertyRef Name="SC_ID" />
+          </Key>
+          <Property Name="SC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SC_NameTH" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="Status_ID" />
           </Key>
           <Property Name="Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Status_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -207,6 +224,52 @@
           <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Totaljob">
+          <Key>
+            <PropertyRef Name="JOB_ID" />
+          </Key>
+          <Property Name="JOB" Type="int" />
+          <Property Name="JOB_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="JOB_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Applied_Generation">
+          <End Role="Generation" Type="Self.Generation" Multiplicity="0..1" />
+          <End Role="Applied" Type="Self.Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generation">
+              <PropertyRef Name="Gen_NO" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_GenNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applied_Register_SC">
+          <End Role="Register_SC" Type="Self.Register_SC" Multiplicity="0..1" />
+          <End Role="Applied" Type="Self.Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register_SC">
+              <PropertyRef Name="REG_IDCard" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_ReNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CESup_ComputerEquipment">
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
+          <End Role="CESup" Type="Self.CESup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="CESup">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
           <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="*" />
@@ -228,6 +291,30 @@
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="Dep_CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dispose_ComputerEquipment">
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
+          <End Role="Dispose" Type="Self.Dispose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="Dispose">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Generation_Short_Course">
+          <End Role="Short_Course" Type="Self.Short_Course" Multiplicity="0..1" />
+          <End Role="Generation" Type="Self.Generation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Short_Course">
+              <PropertyRef Name="SC_ID" />
+            </Principal>
+            <Dependent Role="Generation">
+              <PropertyRef Name="Gen_SCID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -291,7 +378,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_ToTable">
+        <Association Name="FK_Student_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,12 +416,33 @@
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Register_SC" EntityType="Self.Register_SC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegisterLink" EntityType="Self.RegisterLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Short_Course" EntityType="Self.Short_Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Totaljob" EntityType="Self.Totaljob" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Totaljob].[JOB] AS [JOB], 
+    [Totaljob].[JOB_Name] AS [JOB_Name], 
+    [Totaljob].[JOB_ID] AS [JOB_ID]
+    FROM [dbo].[Totaljob] AS [Totaljob]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Applied_Generation" Association="Self.FK_Applied_Generation">
+            <End Role="Generation" EntitySet="Generation" />
+            <End Role="Applied" EntitySet="Applied" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applied_Register_SC" Association="Self.FK_Applied_Register_SC">
+            <End Role="Register_SC" EntitySet="Register_SC" />
+            <End Role="Applied" EntitySet="Applied" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="Self.FK_CESup_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
+            <End Role="CESup" EntitySet="CESup" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="Self.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
@@ -342,6 +450,14 @@
           <AssociationSet Name="FK_Department_Course" Association="Self.FK_Department_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="Self.FK_Dispose_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
+            <End Role="Dispose" EntitySet="Dispose" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Generation_Short_Course" Association="Self.FK_Generation_Short_Course">
+            <End Role="Short_Course" EntitySet="Short_Course" />
+            <End Role="Generation" EntitySet="Generation" />
           </AssociationSet>
           <AssociationSet Name="FK_History_Job" Association="Self.FK_History_Job">
             <End Role="Job" EntitySet="Job" />
@@ -363,7 +479,7 @@
             <End Role="School" EntitySet="School" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_ToTable" Association="Self.FK_Student_ToTable">
+          <AssociationSet Name="FK_Student_Status" Association="Self.FK_Student_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
@@ -372,26 +488,39 @@
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CsManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Applied">
+          <Key>
+            <PropertyRef Name="APP_NO" />
+          </Key>
+          <Property Name="APP_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APP_ReNO" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="APP_GenNO" Type="Int32" />
+          <Property Name="APP_Status" Type="Int32" />
+          <NavigationProperty Name="Generation" Relationship="Self.FK_Applied_Generation" FromRole="Applied" ToRole="Generation" />
+          <NavigationProperty Name="Register_SC" Relationship="Self.FK_Applied_Register_SC" FromRole="Applied" ToRole="Register_SC" />
+        </EntityType>
         <EntityType Name="CESup">
           <Key>
             <PropertyRef Name="CESUB_ATNO" />
           </Key>
           <Property Name="CESUB_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CESUB_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CESUB_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CESUB_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CESUB_Status" Type="Int32" />
           <Property Name="CE_ATNO" Type="Int32" />
+          <NavigationProperty Name="ComputerEquipment" Relationship="Self.FK_CESup_ComputerEquipment" FromRole="CESup" ToRole="ComputerEquipment" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
             <PropertyRef Name="CE_ATNO" />
           </Key>
           <Property Name="CE_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CE_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CE_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CE_DateIN" Type="DateTime" Precision="0" />
           <Property Name="CE_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CE_Noce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -401,7 +530,9 @@
           <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="CE_Budget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Status" Type="Int32" />
+          <NavigationProperty Name="CESups" Relationship="Self.FK_CESup_ComputerEquipment" FromRole="ComputerEquipment" ToRole="CESup" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
+          <NavigationProperty Name="Disposes" Relationship="Self.FK_Dispose_ComputerEquipment" FromRole="ComputerEquipment" ToRole="Dispose" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -414,7 +545,7 @@
           <Property Name="Course_DegreeTH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Course_DegreeENG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Course_Credit" Type="Int32" />
-          <NavigationProperty Name="Departments" Relationship="CsManagementModel.FK_Department_Course" FromRole="Course" ToRole="Department" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Course" FromRole="Course" ToRole="Department" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -424,7 +555,7 @@
           <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Dep_Credit" Type="Double" />
           <Property Name="Dep_CourseID" Type="Int32" />
-          <NavigationProperty Name="Course" Relationship="CsManagementModel.FK_Department_Course" FromRole="Department" ToRole="Course" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Department_Course" FromRole="Department" ToRole="Course" />
         </EntityType>
         <EntityType Name="Dispose">
           <Key>
@@ -435,6 +566,23 @@
           <Property Name="DIS_DateOUT" Type="DateTime" Precision="0" />
           <Property Name="DIS_DateAPP" Type="DateTime" Precision="0" />
           <Property Name="DIS_Status" Type="Int32" />
+          <NavigationProperty Name="ComputerEquipment" Relationship="Self.FK_Dispose_ComputerEquipment" FromRole="Dispose" ToRole="ComputerEquipment" />
+        </EntityType>
+        <EntityType Name="Generation">
+          <Key>
+            <PropertyRef Name="Gen_NO" />
+          </Key>
+          <Property Name="Gen_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gen_SCID" Type="Int32" />
+          <Property Name="Gen_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gen_Member" Type="Int32" />
+          <Property Name="Gen_MemberMax" Type="Int32" />
+          <Property Name="Gen_Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gen_Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Gen_Fee" Type="Double" />
+          <Property Name="Gen_TextForMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applieds" Relationship="Self.FK_Applied_Generation" FromRole="Generation" ToRole="Applied" />
+          <NavigationProperty Name="Short_Course" Relationship="Self.FK_Generation_Short_Course" FromRole="Generation" ToRole="Short_Course" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -446,15 +594,8 @@
           <Property Name="HIS_Jobname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HIS_Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
           <Property Name="HIS_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Job" Relationship="CsManagementModel.FK_History_Job" FromRole="History" ToRole="Job" />
-          <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_History_Student" FromRole="History" ToRole="Student" />
-        </EntityType>
-        <EntityType Name="HitCount">
-          <Key>
-            <PropertyRef Name="HC_ID" />
-          </Key>
-          <Property Name="HC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HitCount1" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Job" Relationship="Self.FK_History_Job" FromRole="History" ToRole="Job" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_History_Student" FromRole="History" ToRole="Student" />
         </EntityType>
         <EntityType Name="HitCount">
           <Key>
@@ -469,33 +610,41 @@
           </Key>
           <Property Name="JOB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="JOB_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Histories" Relationship="CsManagementModel.FK_History_Job" FromRole="Job" ToRole="History" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Job" FromRole="Job" ToRole="History" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Log_ID" />
           </Key>
-          <Property Name="Log_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Log_Pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Log_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Log_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Log_Role" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Pic_ID" />
+          </Key>
+          <Property Name="Pic_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pic_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pic_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pic_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Pj_ID" />
           </Key>
           <Property Name="Pj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_TeaID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_StuID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Pj_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Pj_NameTH" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pj_NameENG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Pj_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Pj_TypePj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pj_Typefile" Type="Int32" Nullable="false" />
-          <Property Name="Pj_File" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pj_Github" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Pj_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Pj_Linkweb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pj_Video" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_File" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pj_Github" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pj_Linkweb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Project_Student" FromRole="Project" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Project_Teacher" FromRole="Project" ToRole="Teacher" />
         </EntityType>
@@ -525,7 +674,7 @@
           <Property Name="SCH_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SCH_Province" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SCH_Tel" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Students" Relationship="CsManagementModel.FK_Student_School" FromRole="School" ToRole="Student" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_School" FromRole="School" ToRole="Student" />
         </EntityType>
         <EntityType Name="Short_Course">
           <Key>
@@ -540,14 +689,14 @@
             <PropertyRef Name="Status_ID" />
           </Key>
           <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Student_ToTable" FromRole="Status" ToRole="Student" />
+          <Property Name="Status_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Status" FromRole="Status" ToRole="Student" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Stu_ID" />
           </Key>
-          <Property Name="Stu_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Stu_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Stu_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Stu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Stu_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -563,13 +712,13 @@
           <NavigationProperty Name="Histories" Relationship="Self.FK_History_Student" FromRole="Student" ToRole="History" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_Project_Student" FromRole="Student" ToRole="Project" />
           <NavigationProperty Name="School" Relationship="Self.FK_Student_School" FromRole="Student" ToRole="School" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Student_ToTable" FromRole="Student" ToRole="Status" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Student_Status" FromRole="Student" ToRole="Status" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="Tea_ID" />
           </Key>
-          <Property Name="Tea_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Tea_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Tea_TitleID" Type="Int32" />
           <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -579,9 +728,9 @@
           <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
-          <NavigationProperty Name="Projects" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Teacher" ToRole="Project" />
-          <NavigationProperty Name="Title" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
+          <NavigationProperty Name="ComputerEquipments" Relationship="Self.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_Project_Teacher" FromRole="Teacher" ToRole="Project" />
+          <NavigationProperty Name="Title" Relationship="Self.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
         </EntityType>
         <EntityType Name="Title">
           <Key>
@@ -589,11 +738,55 @@
           </Key>
           <Property Name="Title_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Teachers" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Title" ToRole="Teacher" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teacher_Title" FromRole="Title" ToRole="Teacher" />
         </EntityType>
+        <EntityType Name="Totaljob">
+          <Key>
+            <PropertyRef Name="JOB_ID" />
+          </Key>
+          <Property Name="JOB" Type="Int32" />
+          <Property Name="JOB_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JOB_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Applied_Generation">
+          <End Role="Generation" Type="Self.Generation" Multiplicity="0..1" />
+          <End Role="Applied" Type="Self.Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generation">
+              <PropertyRef Name="Gen_NO" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_GenNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applied_Register_SC">
+          <End Role="Register_SC" Type="Self.Register_SC" Multiplicity="0..1" />
+          <End Role="Applied" Type="Self.Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register_SC">
+              <PropertyRef Name="REG_IDCard" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_ReNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CESup_ComputerEquipment">
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
+          <End Role="CESup" Type="Self.CESup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="CESup">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
-          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
-          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="*" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
               <PropertyRef Name="Tea_ID" />
@@ -603,9 +796,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dispose_ComputerEquipment">
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
+          <End Role="Dispose" Type="Self.Dispose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="Dispose">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Department_Course">
-          <End Type="CsManagementModel.Course" Role="Course" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Department" Role="Department" Multiplicity="*" />
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Course_ID" />
@@ -628,8 +833,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_History_Job">
-          <End Type="CsManagementModel.Job" Role="Job" Multiplicity="0..1" />
-          <End Type="CsManagementModel.History" Role="History" Multiplicity="*" />
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Job">
               <PropertyRef Name="JOB_ID" />
@@ -640,8 +845,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_History_Student">
-          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="0..1" />
-          <End Type="CsManagementModel.History" Role="History" Multiplicity="*" />
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
               <PropertyRef Name="Stu_ID" />
@@ -652,8 +857,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Project_Student">
-          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="1" />
-          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
               <PropertyRef Name="Stu_ID" />
@@ -664,8 +869,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Project_Teacher">
-          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="1" />
-          <End Type="CsManagementModel.Project" Role="Project" Multiplicity="*" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
               <PropertyRef Name="Tea_ID" />
@@ -676,8 +881,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Student_School">
-          <End Type="CsManagementModel.School" Role="School" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Student" Role="Student" Multiplicity="*" />
+          <End Role="School" Type="Self.School" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="School">
               <PropertyRef Name="SCH_ID" />
@@ -687,7 +892,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_ToTable">
+        <Association Name="FK_Student_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -700,8 +905,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Teacher_Title">
-          <End Type="CsManagementModel.Title" Role="Title" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="*" />
+          <End Role="Title" Type="Self.Title" Multiplicity="0..1" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Title">
               <PropertyRef Name="Title_ID" />
@@ -712,27 +917,55 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CsManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applieds" EntityType="Self.Applied" />
           <EntitySet Name="CESups" EntityType="Self.CESup" />
           <EntitySet Name="ComputerEquipments" EntityType="Self.ComputerEquipment" />
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Disposes" EntityType="Self.Dispose" />
+          <EntitySet Name="Generations" EntityType="Self.Generation" />
           <EntitySet Name="Histories" EntityType="Self.History" />
+          <EntitySet Name="HitCounts" EntityType="Self.HitCount" />
           <EntitySet Name="Jobs" EntityType="Self.Job" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Pictures" EntityType="Self.Picture" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Register_SC" EntityType="Self.Register_SC" />
+          <EntitySet Name="RegisterLinks" EntityType="Self.RegisterLink" />
           <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="Short_Course" EntityType="Self.Short_Course" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
           <EntitySet Name="Titles" EntityType="Self.Title" />
+          <EntitySet Name="Totaljobs" EntityType="Self.Totaljob" />
+          <AssociationSet Name="FK_Applied_Generation" Association="Self.FK_Applied_Generation">
+            <End Role="Generation" EntitySet="Generations" />
+            <End Role="Applied" EntitySet="Applieds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applied_Register_SC" Association="Self.FK_Applied_Register_SC">
+            <End Role="Register_SC" EntitySet="Register_SC" />
+            <End Role="Applied" EntitySet="Applieds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="Self.FK_CESup_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+            <End Role="CESup" EntitySet="CESups" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="Self.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="Self.FK_Dispose_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+            <End Role="Dispose" EntitySet="Disposes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Department_Course" Association="Self.FK_Department_Course">
             <End Role="Course" EntitySet="Courses" />
             <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Generation_Short_Course" Association="Self.FK_Generation_Short_Course">
+            <End Role="Short_Course" EntitySet="Short_Course" />
+            <End Role="Generation" EntitySet="Generations" />
           </AssociationSet>
           <AssociationSet Name="FK_History_Job" Association="Self.FK_History_Job">
             <End Role="Job" EntitySet="Jobs" />
@@ -754,7 +987,7 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_ToTable" Association="Self.FK_Student_ToTable">
+          <AssociationSet Name="FK_Student_Status" Association="Self.FK_Student_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
@@ -782,62 +1015,62 @@
           <EntitySetMapping Name="CESups">
             <EntityTypeMapping TypeName="CsManagementModel.CESup">
               <MappingFragment StoreEntitySet="CESup">
-                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
-                <ScalarProperty Name="CESUB_Status" ColumnName="CESUB_Status" />
-                <ScalarProperty Name="CESUB_Name" ColumnName="CESUB_Name" />
-                <ScalarProperty Name="CESUB_NO" ColumnName="CESUB_NO" />
                 <ScalarProperty Name="CESUB_ATNO" ColumnName="CESUB_ATNO" />
+                <ScalarProperty Name="CESUB_NO" ColumnName="CESUB_NO" />
+                <ScalarProperty Name="CESUB_Name" ColumnName="CESUB_Name" />
+                <ScalarProperty Name="CESUB_Status" ColumnName="CESUB_Status" />
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ComputerEquipments">
             <EntityTypeMapping TypeName="CsManagementModel.ComputerEquipment">
               <MappingFragment StoreEntitySet="ComputerEquipment">
-                <ScalarProperty Name="CE_Status" ColumnName="CE_Status" />
-                <ScalarProperty Name="CE_Budget" ColumnName="CE_Budget" />
-                <ScalarProperty Name="CE_TeaID" ColumnName="CE_TeaID" />
-                <ScalarProperty Name="CE_PriceTotal" ColumnName="CE_PriceTotal" />
-                <ScalarProperty Name="CE_Price" ColumnName="CE_Price" />
-                <ScalarProperty Name="CE_Piece" ColumnName="CE_Piece" />
-                <ScalarProperty Name="CE_Noce" ColumnName="CE_Noce" />
-                <ScalarProperty Name="CE_Name" ColumnName="CE_Name" />
-                <ScalarProperty Name="CE_DateIN" ColumnName="CE_DateIN" />
-                <ScalarProperty Name="CE_NO" ColumnName="CE_NO" />
                 <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
+                <ScalarProperty Name="CE_NO" ColumnName="CE_NO" />
+                <ScalarProperty Name="CE_DateIN" ColumnName="CE_DateIN" />
+                <ScalarProperty Name="CE_Name" ColumnName="CE_Name" />
+                <ScalarProperty Name="CE_Noce" ColumnName="CE_Noce" />
+                <ScalarProperty Name="CE_Piece" ColumnName="CE_Piece" />
+                <ScalarProperty Name="CE_Price" ColumnName="CE_Price" />
+                <ScalarProperty Name="CE_PriceTotal" ColumnName="CE_PriceTotal" />
+                <ScalarProperty Name="CE_TeaID" ColumnName="CE_TeaID" />
+                <ScalarProperty Name="CE_Budget" ColumnName="CE_Budget" />
+                <ScalarProperty Name="CE_Status" ColumnName="CE_Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CsManagementModel.Course">
               <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="Course_Credit" ColumnName="Course_Credit" />
-                <ScalarProperty Name="Course_DegreeENG" ColumnName="Course_DegreeENG" />
-                <ScalarProperty Name="Course_DegreeTH" ColumnName="Course_DegreeTH" />
-                <ScalarProperty Name="Course_Year" ColumnName="Course_Year" />
-                <ScalarProperty Name="Course_NameENG" ColumnName="Course_NameENG" />
-                <ScalarProperty Name="Course_NameTH" ColumnName="Course_NameTH" />
                 <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+                <ScalarProperty Name="Course_NameTH" ColumnName="Course_NameTH" />
+                <ScalarProperty Name="Course_NameENG" ColumnName="Course_NameENG" />
+                <ScalarProperty Name="Course_Year" ColumnName="Course_Year" />
+                <ScalarProperty Name="Course_DegreeTH" ColumnName="Course_DegreeTH" />
+                <ScalarProperty Name="Course_DegreeENG" ColumnName="Course_DegreeENG" />
+                <ScalarProperty Name="Course_Credit" ColumnName="Course_Credit" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="CsManagementModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="Dep_CourseID" ColumnName="Dep_CourseID" />
-                <ScalarProperty Name="Dep_Credit" ColumnName="Dep_Credit" />
-                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
                 <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Dep_Credit" ColumnName="Dep_Credit" />
+                <ScalarProperty Name="Dep_CourseID" ColumnName="Dep_CourseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Disposes">
             <EntityTypeMapping TypeName="CsManagementModel.Dispose">
               <MappingFragment StoreEntitySet="Dispose">
-                <ScalarProperty Name="DIS_Status" ColumnName="DIS_Status" />
-                <ScalarProperty Name="DIS_DateAPP" ColumnName="DIS_DateAPP" />
-                <ScalarProperty Name="DIS_DateOUT" ColumnName="DIS_DateOUT" />
-                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
                 <ScalarProperty Name="DIS_ATNO" ColumnName="DIS_ATNO" />
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
+                <ScalarProperty Name="DIS_DateOUT" ColumnName="DIS_DateOUT" />
+                <ScalarProperty Name="DIS_DateAPP" ColumnName="DIS_DateAPP" />
+                <ScalarProperty Name="DIS_Status" ColumnName="DIS_Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -859,20 +1092,12 @@
           <EntitySetMapping Name="Histories">
             <EntityTypeMapping TypeName="CsManagementModel.History">
               <MappingFragment StoreEntitySet="History">
-                <ScalarProperty Name="HIS_Company" ColumnName="HIS_Company" />
-                <ScalarProperty Name="HIS_Year" ColumnName="HIS_Year" />
-                <ScalarProperty Name="HIS_Jobname" ColumnName="HIS_Jobname" />
-                <ScalarProperty Name="HIS_Job" ColumnName="HIS_Job" />
-                <ScalarProperty Name="HIS_StuID" ColumnName="HIS_StuID" />
                 <ScalarProperty Name="HIS_ID" ColumnName="HIS_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HitCounts">
-            <EntityTypeMapping TypeName="CsManagementModel.HitCount">
-              <MappingFragment StoreEntitySet="HitCount">
-                <ScalarProperty Name="HitCount1" ColumnName="HitCount" />
-                <ScalarProperty Name="HC_ID" ColumnName="HC_ID" />
+                <ScalarProperty Name="HIS_StuID" ColumnName="HIS_StuID" />
+                <ScalarProperty Name="HIS_Job" ColumnName="HIS_Job" />
+                <ScalarProperty Name="HIS_Jobname" ColumnName="HIS_Jobname" />
+                <ScalarProperty Name="HIS_Year" ColumnName="HIS_Year" />
+                <ScalarProperty Name="HIS_Company" ColumnName="HIS_Company" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -887,54 +1112,33 @@
           <EntitySetMapping Name="Jobs">
             <EntityTypeMapping TypeName="CsManagementModel.Job">
               <MappingFragment StoreEntitySet="Job">
-                <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
                 <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
+                <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logins">
             <EntityTypeMapping TypeName="CsManagementModel.Login">
               <MappingFragment StoreEntitySet="Login">
-                <ScalarProperty Name="Log_Role" ColumnName="Log_Role" />
-                <ScalarProperty Name="Log_Pass" ColumnName="Log_Pass" />
                 <ScalarProperty Name="Log_ID" ColumnName="Log_ID" />
+                <ScalarProperty Name="Log_Pass" ColumnName="Log_Pass" />
+                <ScalarProperty Name="Log_Role" ColumnName="Log_Role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pictures">
             <EntityTypeMapping TypeName="CsManagementModel.Picture">
               <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
+                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
+                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
                 <ScalarProperty Name="Pic_Description" ColumnName="Pic_Description" />
-                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
-                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
-                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pictures">
-            <EntityTypeMapping TypeName="CsManagementModel.Picture">
-              <MappingFragment StoreEntitySet="Picture">
-                <ScalarProperty Name="Pic_ID" ColumnName="Pic_ID" />
-                <ScalarProperty Name="Pic_Img" ColumnName="Pic_Img" />
-                <ScalarProperty Name="Pic_Name" ColumnName="Pic_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="CsManagementModel.Project">
               <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
-                <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
-                <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
-                <ScalarProperty Name="Pj_Github" ColumnName="Pj_Github" />
-                <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
-                <ScalarProperty Name="Pj_Typefile" ColumnName="Pj_Typefile" />
-                <ScalarProperty Name="Pj_TypePj" ColumnName="Pj_TypePj" />
-                <ScalarProperty Name="Pj_Date" ColumnName="Pj_Date" />
-                <ScalarProperty Name="Pj_NameENG" ColumnName="Pj_NameENG" />
-                <ScalarProperty Name="Pj_NameTH" ColumnName="Pj_NameTH" />
-                <ScalarProperty Name="Pj_TeaID" ColumnName="Pj_TeaID" />
-                <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
                 <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
                 <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
                 <ScalarProperty Name="Pj_TeaID" ColumnName="Pj_TeaID" />
@@ -942,7 +1146,6 @@
                 <ScalarProperty Name="Pj_NameENG" ColumnName="Pj_NameENG" />
                 <ScalarProperty Name="Pj_Date" ColumnName="Pj_Date" />
                 <ScalarProperty Name="Pj_TypePj" ColumnName="Pj_TypePj" />
-                <ScalarProperty Name="Pj_Typefile" ColumnName="Pj_Typefile" />
                 <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
                 <ScalarProperty Name="Pj_Github" ColumnName="Pj_Github" />
                 <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
@@ -973,10 +1176,10 @@
           <EntitySetMapping Name="Schools">
             <EntityTypeMapping TypeName="CsManagementModel.School">
               <MappingFragment StoreEntitySet="School">
-                <ScalarProperty Name="SCH_Tel" ColumnName="SCH_Tel" />
-                <ScalarProperty Name="SCH_Province" ColumnName="SCH_Province" />
-                <ScalarProperty Name="SCH_Name" ColumnName="SCH_Name" />
                 <ScalarProperty Name="SCH_ID" ColumnName="SCH_ID" />
+                <ScalarProperty Name="SCH_Name" ColumnName="SCH_Name" />
+                <ScalarProperty Name="SCH_Province" ColumnName="SCH_Province" />
+                <ScalarProperty Name="SCH_Tel" ColumnName="SCH_Tel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -991,51 +1194,51 @@
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="CsManagementModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
                 <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="CsManagementModel.Student">
               <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="Stu_StatusID" ColumnName="Stu_StatusID" />
-                <ScalarProperty Name="Stu_Img" ColumnName="Stu_Img" />
-                <ScalarProperty Name="Stu_OldEdu" ColumnName="Stu_OldEdu" />
-                <ScalarProperty Name="Stu_School" ColumnName="Stu_School" />
-                <ScalarProperty Name="Stu_Address" ColumnName="Stu_Address" />
-                <ScalarProperty Name="Stu_Tel" ColumnName="Stu_Tel" />
-                <ScalarProperty Name="Stu_Email" ColumnName="Stu_Email" />
-                <ScalarProperty Name="Stu_Birthday" ColumnName="Stu_Birthday" />
-                <ScalarProperty Name="Stu_Sex" ColumnName="Stu_Sex" />
-                <ScalarProperty Name="Stu_Surname" ColumnName="Stu_Surname" />
-                <ScalarProperty Name="Stu_Name" ColumnName="Stu_Name" />
-                <ScalarProperty Name="Stu_Title" ColumnName="Stu_Title" />
                 <ScalarProperty Name="Stu_ID" ColumnName="Stu_ID" />
+                <ScalarProperty Name="Stu_Title" ColumnName="Stu_Title" />
+                <ScalarProperty Name="Stu_Name" ColumnName="Stu_Name" />
+                <ScalarProperty Name="Stu_Surname" ColumnName="Stu_Surname" />
+                <ScalarProperty Name="Stu_Sex" ColumnName="Stu_Sex" />
+                <ScalarProperty Name="Stu_Birthday" ColumnName="Stu_Birthday" />
+                <ScalarProperty Name="Stu_Email" ColumnName="Stu_Email" />
+                <ScalarProperty Name="Stu_Tel" ColumnName="Stu_Tel" />
+                <ScalarProperty Name="Stu_Address" ColumnName="Stu_Address" />
+                <ScalarProperty Name="Stu_School" ColumnName="Stu_School" />
+                <ScalarProperty Name="Stu_OldEdu" ColumnName="Stu_OldEdu" />
+                <ScalarProperty Name="Stu_Img" ColumnName="Stu_Img" />
+                <ScalarProperty Name="Stu_StatusID" ColumnName="Stu_StatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="CsManagementModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
-                <ScalarProperty Name="Tea_Position" ColumnName="Tea_Position" />
-                <ScalarProperty Name="Tea_Program" ColumnName="Tea_Program" />
-                <ScalarProperty Name="Tea_LvEdu" ColumnName="Tea_LvEdu" />
-                <ScalarProperty Name="Tea_Export" ColumnName="Tea_Export" />
-                <ScalarProperty Name="Tea_Img" ColumnName="Tea_Img" />
-                <ScalarProperty Name="Tea_Birth" ColumnName="Tea_Birth" />
-                <ScalarProperty Name="Tea_Surname" ColumnName="Tea_Surname" />
-                <ScalarProperty Name="Tea_Name" ColumnName="Tea_Name" />
-                <ScalarProperty Name="Tea_TitleID" ColumnName="Tea_TitleID" />
                 <ScalarProperty Name="Tea_ID" ColumnName="Tea_ID" />
+                <ScalarProperty Name="Tea_TitleID" ColumnName="Tea_TitleID" />
+                <ScalarProperty Name="Tea_Name" ColumnName="Tea_Name" />
+                <ScalarProperty Name="Tea_Surname" ColumnName="Tea_Surname" />
+                <ScalarProperty Name="Tea_Birth" ColumnName="Tea_Birth" />
+                <ScalarProperty Name="Tea_Img" ColumnName="Tea_Img" />
+                <ScalarProperty Name="Tea_Export" ColumnName="Tea_Export" />
+                <ScalarProperty Name="Tea_LvEdu" ColumnName="Tea_LvEdu" />
+                <ScalarProperty Name="Tea_Program" ColumnName="Tea_Program" />
+                <ScalarProperty Name="Tea_Position" ColumnName="Tea_Position" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Titles">
             <EntityTypeMapping TypeName="CsManagementModel.Title">
               <MappingFragment StoreEntitySet="Title">
-                <ScalarProperty Name="Title_Name" ColumnName="Title_Name" />
                 <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+                <ScalarProperty Name="Title_Name" ColumnName="Title_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -108,8 +108,6 @@ namespace CSManagement.Controllers
             return View(student);
         }
 
-        }
-
         // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
@@ -146,3 +144,4 @@ namespace CSManagement.Controllers
         }
     }
 }
+

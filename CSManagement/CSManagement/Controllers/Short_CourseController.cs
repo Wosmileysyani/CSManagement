@@ -20,6 +20,8 @@ namespace CSManagement.Controllers
             return View(db.Short_Course.ToList());
         }
 
+        
+
         // GET: Short_Course/Details/5
         public ActionResult Details(int? id)
         {

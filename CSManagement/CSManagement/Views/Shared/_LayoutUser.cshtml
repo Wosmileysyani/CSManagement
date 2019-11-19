@@ -19,131 +19,364 @@
             text-align: center;
         }
 
+        body {
+            font: 400 15px/1.8 Lato, sans-serif;
+            color: #777;
+        }
+
+        h3, h4 {
+            margin: 10px 0 30px 0;
+            letter-spacing: 10px;
+            font-size: 20px;
+            color: #111;
+        }
+
         .container {
             padding: 80px 120px;
         }
 
-        .navbar{
-            font-size:20px
+        .person {
+            border: 10px solid transparent;
+            margin-bottom: 25px;
+            width: 80%;
+            height: 80%;
+            opacity: 0.7;
         }
 
-        /*Grid*/
-        .item1 { grid-area: header; }
-        .item3 { grid-area: main; }
-        .item4 { grid-area: right; }
-        .item5 { grid-area: footer; }
+            .person:hover {
+                border-color: #f1f1f1;
+            }
 
-        .grid-container {
-            display: grid;
-            grid-template-areas:
-                'header header header header header header'
-                'main main main main right right'
-                'footer footer footer footer footer footer';
-            grid-gap: 10px;
-            padding: 10px;
+        .carousel-inner img {
+            /*-webkit-filter: grayscale(90%);*/
+            /*filter: grayscale(90%);*/ /* make all photos black and white */
+            width: 100%; /* Set width to 100% */
+            margin: auto;
         }
 
-        .grid-container > div {
-            background-color: rgba(255, 255, 255, 0.8);
+        .carousel-caption h3 {
+            color: #fff !important;
+        }
+
+        .media (max-width: 600px) {
+            .carousel-caption
+
+        {
+            display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+        }
+
+        }
+
+        .bg-1 {
+            background: #2d2d30;
+            color: #bdbdbd;
+        }
+
+            .bg-1 h3 {
+                color: #fff;
+            }
+
+            .bg-1 p {
+                font-style: italic;
+            }
+
+        .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+
+            .thumbnail p {
+                margin-top: 15px;
+                color: #555;
+            }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #f1f1f1;
+            border-radius: 0;
+            transition: .2s;
+        }
+
+            .btn:hover, .btn:focus {
+                border: 1px solid #333;
+                background-color: #fff;
+                color: #000;
+            }
+
+        .modal-header, h4, .close {
+            background-color: #333;
+            color: #fff !important;
             text-align: center;
-            padding: 20px 0;
             font-size: 30px;
-            margin:10px
-}
-
-        /*กรอบข้อความ*/
-        .outer {
-            padding: 0.5em 1em;
-            box-shadow: 5px 5px 5px #d9d9d9;
         }
 
-        .headerbar {
-            background: #feac28 !important;
-            color: #ffffff !important;
-            position: relative;
-            margin-bottom: 0.5em;
-            margin-right: -1.5em;
-            margin-left: -1.5em;
-            box-shadow: 5px 5px 5px #d9d9d9;
+        .modal-header, .modal-body {
+            padding: 40px 50px;
         }
 
-        .headerbar:before {
-            content: "";
-            position: absolute;
-            border-bottom: 0.5em solid #333;
-            border-left: 0.5em solid transparent;
-            left: 0;
-            top: -0.5em;
+        .nav-tabs li a {
+            color: #777;
         }
 
-        .headerbar:after {
-            content: "";
-            position: absolute;
-            border-top: 0.5em solid #333;
-            border-right: 0.5em solid transparent;
-            right: 0;
-            bottom: -0.5em;
+        #googleMap {
+            width: 100%;
+            height: 400px;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
         }
 
-        .headerbar:hover {
-            transform: scale(1,1.1);
+        .navbar {
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 0;
+            background-color: #2d2d30;
+            border: 0;
+            font-size: 20px !important;
+            letter-spacing: 0px;
+            opacity: 0.9;
+        }
+
+            .navbar li a, .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
+
+        .navbar-nav li a:hover {
+            color: #fff !important;
+        }
+
+        .navbar-nav li.active a {
+            color: #fff !important;
+            background-color: #29292c !important;
+        }
+
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+        }
+
+        .open .dropdown-toggle {
+            color: #fff;
+            background-color: #555 !important;
+        }
+
+        .dropdown-menu li a {
+            color: #000 !important;
+        }
+
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+
+        footer {
+            background-color: #2d2d30;
+            color: #f5f5f5;
+            padding: 32px;
+        }
+
+            footer a {
+                color: #f5f5f5;
+            }
+
+                footer a:hover {
+                    color: #777;
+                    text-decoration: none;
+                }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .textarea {
+            resize: none;
         }
     </style>
+
+    <script src="https://kit.fontawesome.com/9738106a36.js" crossorigin="anonymous"></script>
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50" >
-    <div class="item1">
-        <div class="header">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img src="~/img/logo.png" style="float:right;padding:10px 0px 10px 150px" width="600" height="120" />
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+    <div class="header">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="~/img/logo.png" style="float:right;padding:10px 0px 10px 150px" width="600" height="120" />
+            </div>
+            <div class="col-lg-6" style="padding:30px 0px 0px 10px">
+                <a href="https://www.facebook.com/kru.cs/?epa=SEARCH_BOX" style="color:black"><img src="~/img/fb.png" width="20" height="20"> วิทยาการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏกาญจนบุรี</a>
+                <p>
+                    <a style="color:black"><img src="~/img/tel.png" width="20" height="20"> 084-0990207</a>
+                    <a href="http://coms.kru.ac.th/WebLink/" style="color:black"><img src="~/img/email.png" width="20" height="20"> coms.kru.ac.th</a>
+                    <a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+
+            <div class="modal-content modal-md">
+                <div class="modal-header modal-md text-center" style="background-color: cornflowerblue;">
+                    @*<img src="~/img/cs1.png" height="100" width="150" />*@
+                    <a style="font-size: 25px; color: white">ระบบจัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</a>
                 </div>
-                <div class="col-lg-6" style="padding:30px 0px 0px 10px;font-size:20px">
-                    <a href="https://www.facebook.com/kru.cs/?epa=SEARCH_BOX" style="color:black"><img src="~/img/fb.png" width="20" height="20"> วิทยาการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏกาญจนบุรี</a>
-                    <br />
-                    <p>
-                        <a style="color:black"><img src="~/img/tel.png" width="20" height="20"> 084-0990207</a>
-                        <a href="http://coms.kru.ac.th/WebLink/" style="color:black"><img src="~/img/email.png" width="20" height="20"> coms.kru.ac.th</a>
-                        <a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a>
-                    </p>
+                <div class="modal-c-tabs">
+                    <ul class="nav nav-tabs md-tabs light-blue darken-3" role="tablist">
+                        <li class="nav-item take-all-space-you-can set-text">
+                            <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab" style="font-size: 20px">
+                                <i class="fas fa-user"></i>
+                                เข้าสู่ระบบ
+                            </a>
+                        </li>
+                        <li class="nav-item take-all-space-you-can set-text">
+                            <a class="nav-link" data-toggle="tab" href="#panel8" role="tab" style="font-size: 20px">
+                                <i class="fas fa-user-plus"></i>
+                                สมัครสมาชิก
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="panel7" role="tabpanel">
+                            <div class="modal-body modal-md">
+                                <form id="FormLogin">
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    @*@Html.Label("username", "รหัสนักศึกษา", new { @class = "control-label col-md-6" })*@
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fas fa-id-card"></span>
+                                            </div>
+                                            @Html.Editor("username", new { htmlAttributes = new { @class = "form-control  input-lg", AutoComplete = "off", placeholder = "กรุณาใส่รหัสนักศึกษา" } })
+                                        </div>
+                                        @Html.ValidationMessage("username", "", new { @class = "text-danger", id = "usernameCK1" })
+                                    </div>
+
+                                    @*@Html.Label("password", "รหัสผ่าน", new { @class = "control-label col-md-6" })*@
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon" style="font-size: 15px">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                            @Html.Editor("password", new { htmlAttributes = new { @class = "form-control input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่าน" } })
+                                        </div>
+                                        @Html.ValidationMessage("password", "", new { @class = "text-danger", id = "passwordCK1" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success input-lg" style="font-size: 20px">เข้าสู่ระบบ</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="panel8" role="tabpanel">
+                            <form id="FormRegister">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="modal-body modal-md">
+
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fas fa-id-card"></span>
+                                            </div>
+                                            @Html.Editor("username2", new { htmlAttributes = new { @class = "form-control input-lg", AutoComplete = "off", placeholder = "กรุณาใส่รหัสนักศึกษา" } })
+                                        </div>
+                                        @Html.ValidationMessage("username", "", new { @class = "text-danger", id = "usernameCK2" })
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                            @Html.Editor("password2", new { htmlAttributes = new { @class = "form-control input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่าน" } })
+                                        </div>
+                                        @Html.ValidationMessage("password", "", new { @class = "text-danger", id = "passwordCK2" })
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                            @Html.Editor("repassword2", new { htmlAttributes = new { @class = "form-control  input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่านอีกครั้ง" } })
+                                        </div>
+                                        @Html.ValidationMessage("repassword", "", new { @class = "text-danger", id = "repasswordCK2" })
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fas fa-user-slash"></span>
+                                            </div>
+                                            @Html.Editor("specailcode", new { htmlAttributes = new { @class = "form-control  input-lg", @Type = "password", placeholder = "รหัสพิเศษ(ไม่มีไม่ต้องใส่)" } })
+                                        </div>
+                                        @Html.ValidationMessage("specailcode", "", new { @class = "text-danger", id = "specialcodeCK2" })
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-info input-lg" style="font-size: 20px">สมัครสมาชิก</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <nav class="navbar navbar-inverse" style="margin:0px 100px 0px 100px">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li><a href="@Url.Action("IndexUser", "Home")">หน้าหลัก</a></li>
-                        <li><a href="#">บุคคลกร</a></li>
-                        <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
-                        <li><a href="#">หลักสูตรสาขา</a></li>
-                        <li><a href="#">หลักสูตรอบรม</a></li>
-                        <li><a href="#">ประชาสัมพันธ์</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
     </div>
 
-    <div class="content item3 item4" style="margin:10px 100px 10px 100px">
+    <nav class="navbar navbar-default" style="margin:0px 100px 0px 100px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="@Url.Action("IndexUser", "Home")">หน้าหลัก</a></li>
+                    <li><a href="#">บุคคลกร</a></li>
+                    <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
+                    <li><a href="#">หลักสูตรสาขา</a></li>
+                    <li><a href="#">หลักสูตรอบรม</a></li>
+                    <li><a href="#">ประชาสัมพันธ์</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="content" style="margin:10px 100px 10px 100px">
         @RenderBody()
     </div>
 
 
     <!-- Footer -->
-    <footer class="text-center item5" style="background-color:#333333">
-        <a class="up-arrow" href="#myPage"  title="TO TOP">
+    <footer class="text-center">
+        <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
             <span class="glyphicon glyphicon-chevron-up"></span>
         </a>
-        <h3 style="letter-spacing:0px;font-size:30px;color:white">วิทยาการคอมพิวเตอร์</h3><p style="color:whitesmoke">มหาวิทยาลัยราชภัฏกาญจนบุรี</p>
+        <h3 style="letter-spacing:0px;font-size:30px">วิทยาการคอมพิวเตอร์</h3><p>มหาวิทยาลัยราชภัฏกาญจนบุรี</p>
     </footer>
 
     <script>
@@ -176,6 +409,82 @@
             });
         })
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("submit",
+                "#FormLogin",
+                function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/Logins/Login",
+                        method: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data === false) {
+                                document.getElementById("usernameCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
+                                document.getElementById("passwordCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
+                            } else {
+                                window.location.href = "/Home/Index";
+                            }
+                        }
+
+                    },
+                        "json");
+                });
+
+            $("#username").keyup(function () {
+                document.getElementById("usernameCK1").innerHTML = "";
+            });
+
+            $("#password").keyup(function () {
+                document.getElementById("passwordCK1").innerHTML = "";
+            });
+
+        });
+
+        $(document).ready(function () {
+            $(document).on("submit",
+                "#FormRegister",
+                function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/Logins/Register",
+                        method: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data === false) {
+                                document.getElementById("usernameCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
+                                document.getElementById("passwordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
+                                document.getElementById("repasswordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
+                            } else {
+                                window.location.href = "/Home/Index";
+                            }
+                        }
+
+                    },
+                        "json");
+                });
+
+            $("#username2").keyup(function () {
+                document.getElementById("usernameCK2").innerHTML = "";
+            });
+
+            $("#password2").keyup(function () {
+                document.getElementById("passwordCK2").innerHTML = "";
+            });
+
+            $("#repassword2").keyup(function () {
+                document.getElementById("repasswordCK2").innerHTML = "";
+            });
+
+        });
+    </script>
+
     <script src="~/Content/js/plugins/jquery.validate/jquery.validate.min.js"></script>
     <script src="~/Content/js/plugins/jquery.validate/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts", required: false)

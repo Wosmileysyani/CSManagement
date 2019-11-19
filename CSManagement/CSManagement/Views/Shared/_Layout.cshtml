@@ -1,6 +1,9 @@
 ﻿@using System.Web.Optimization
 @using WebHelpers.Mvc5.Enum
 <!DOCTYPE html>
+@{
+    if (Session["Loginchk"] == null) { Response.Redirect("~/Home/IndexUser");}
+}
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,8 +19,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @Styles.Render("~/Bundles/css")
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/9738106a36.js" crossorigin="anonymous"></script>
@@ -40,126 +43,6 @@
     <div class="wrapper">
         @Html.Partial("_Header")
         @Html.Partial("_Sidebar")
-
-        <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog cascading-modal" role="document">
-
-                <div class="modal-content modal-md">
-                    <div class="modal-header modal-md text-center" style="background-color:cornflowerblue;">
-                        @*<img src="~/img/cs1.png" height="100" width="150" />*@
-                        <a style="font-size:25px;color:white">ระบบจัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</a>
-                    </div>
-                    <div class="modal-c-tabs">
-                        <ul class="nav nav-tabs md-tabs light-blue darken-3" role="tablist">
-                            <li class="nav-item take-all-space-you-can set-text">
-                                <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab" style="font-size:20px">
-                                    <i class="fas fa-user"></i>
-                                    เข้าสู่ระบบ
-                                </a>
-                            </li>
-                            <li class="nav-item take-all-space-you-can set-text">
-                                <a class="nav-link" data-toggle="tab" href="#panel8" role="tab" style="font-size:20px">
-                                    <i class="fas fa-user-plus"></i>
-                                    สมัครสมาชิก
-                                </a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="panel7" role="tabpanel">
-                                <div class="modal-body modal-md">
-                                    <form id="FormLogin">
-                                        @Html.AntiForgeryToken()
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                                        @*@Html.Label("username", "รหัสนักศึกษา", new { @class = "control-label col-md-6" })*@
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <span class="fas fa-id-card"></span>
-                                                </div>
-                                                @Html.Editor("username", new { htmlAttributes = new { @class = "form-control  input-lg", AutoComplete = "off", placeholder = "กรุณาใส่รหัสนักศึกษา" } })
-                                            </div>
-                                            @Html.ValidationMessage("username", "", new { @class = "text-danger", id = "usernameCK1" })
-                                        </div>
-
-                                        @*@Html.Label("password", "รหัสผ่าน", new { @class = "control-label col-md-6" })*@
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon" style="font-size:15px">
-                                                    <span class="fas fa-lock"></span>
-                                                </div>
-                                                @Html.Editor("password", new { htmlAttributes = new { @class = "form-control input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่าน" } })
-                                            </div>
-                                            @Html.ValidationMessage("password", "", new { @class = "text-danger", id = "passwordCK1" })
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="text-center">
-                                                <button type="submit"class="btn btn-success input-lg" style="font-size:20px">เข้าสู่ระบบ</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="panel8" role="tabpanel">
-                                <form id="FormRegister">
-                                    @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="modal-body modal-md">
-
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <span class="fas fa-id-card"></span>
-                                                </div>
-                                                @Html.Editor("username2", new { htmlAttributes = new { @class = "form-control input-lg", AutoComplete = "off", placeholder = "กรุณาใส่รหัสนักศึกษา" } })
-                                            </div>
-                                            @Html.ValidationMessage("username", "", new { @class = "text-danger", id = "usernameCK2" })
-                                        </div>
-
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <span class="fas fa-lock"></span>
-                                                </div>
-                                                @Html.Editor("password2", new { htmlAttributes = new { @class = "form-control input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่าน" } })
-                                            </div>
-                                            @Html.ValidationMessage("password", "", new { @class = "text-danger", id = "passwordCK2" })
-                                        </div>
-
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <span class="fas fa-lock"></span>
-                                                </div>
-                                                @Html.Editor("repassword2", new { htmlAttributes = new { @class = "form-control  input-lg", @Type = "password", placeholder = "กรุณาใส่รหัสผ่านอีกครั้ง" } })
-                                            </div>
-                                            @Html.ValidationMessage("repassword", "", new { @class = "text-danger", id = "repasswordCK2" })
-                                        </div>
-
-                                        <div class="form-group ">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <span class="fas fa-user-slash"></span>
-                                                </div>
-                                                @Html.Editor("specailcode", new { htmlAttributes = new { @class = "form-control  input-lg", @Type = "password", placeholder = "รหัสพิเศษ(ไม่มีไม่ต้องใส่)" } })
-                                            </div>
-                                            @Html.ValidationMessage("specailcode", "", new { @class = "text-danger", id = "specialcodeCK2" })
-                                        </div>
-
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-info input-lg" style="font-size:20px">สมัครสมาชิก</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="content-wrapper">
 
@@ -191,8 +74,7 @@
                             if (data === false) {
                                 document.getElementById("usernameCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
                                 document.getElementById("passwordCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
-                            }
-                            else {
+                            } else {
                                 window.location.href = "/Home/Index";
                             }
                         }
@@ -227,8 +109,7 @@
                                 document.getElementById("usernameCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                                 document.getElementById("passwordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                                 document.getElementById("repasswordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
-                            }
-                            else {
+                            } else {
                                 window.location.href = "/Home/Index";
                             }
                         }

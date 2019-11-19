@@ -36,6 +36,7 @@ namespace CSManagement.Controllers
                     Session["UserID"] = data.Stu_ID;
                     Session["UserName"] = data.Stu_Name;
                     Session["UserSurname"] = data.Stu_Surname;
+                    Session["Loginchk"] = "set";
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
                 else if (dataCk != null && dataCk.Log_Role == 1)
@@ -45,6 +46,7 @@ namespace CSManagement.Controllers
                     Session["UserName"] = data.Tea_Name;
                     Session["UserSurname"] = data.Tea_Surname;
                     Session["AJ"] = "AJ";
+                    Session["Loginchk"] = "set";
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
             }

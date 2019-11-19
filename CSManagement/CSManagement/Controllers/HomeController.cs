@@ -22,7 +22,11 @@ namespace CSManagement.Controllers
         public ActionResult IndexUser()
         {
             SetSession();
-            return View();
+            List<Picture> imgPictures = db.Pictures.ToList();
+            ViewBag.Images = imgPictures;
+            ViewBag.Count = imgPictures.Count;
+            ViewBag.ProjectCount = db.Projects.ToList();
+            return View(db.Pictures.ToList());
         }
 
         [HttpGet]

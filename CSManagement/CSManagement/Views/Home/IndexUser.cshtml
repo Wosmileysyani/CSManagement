@@ -102,14 +102,17 @@
                             </div>
                             <div class="box-footer no-padding">
                                 <ul class="nav nav-stacked">
-                                    <li><a href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                                    <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
                                     <li>
-                                        <a href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                        <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
                                             รูปเล่ม
                                             <span class="pull-right badge bg-aqua">เข้าชม</span>
                                         </a>
                                     </li>
-                                    <li><a href="@item.Pj_Video">วีดีโอ<span class="pull-right badge bg-green">เข้าชม</span></a></li>
+                                    <li><a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">วิดีโอ
+                                            <span class="pull-right badge bg-aqua">เข้าชม</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -117,6 +120,25 @@
                 }
             }
         </div>
+
+        <!-- Modal Video -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -159,7 +181,50 @@
         chart.render();
         chart2.render();
     };
+</script>
+<style>
 
+    .modal-dialog {
+        max-width: 800px;
+        margin: 30px auto;
+    }
 
+    .close {
+        position: absolute;
+        right: 1%;
+        top: 0;
+        z-index: 999;
+        font-size: 4rem;
+        font-weight: normal;
+        color: black;
+        opacity: 1;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Gets the video src from the data-src on each button
+
+        var $videoSrc;
+        $('.video-btn').click(function () {
+            $videoSrc = $(this).data("src");
+            $("#videos").attr('src', $videoSrc);
+        });
+        // when the modal is opened autoplay it
+        //$('#myModal').on('shown.bs.modal', function () {
+        //})
+
+        // stop playing the youtube video when I close the modal
+        $('#myModal').on('hide.bs.modal', function () {
+            // a poor man's stop video
+            $("#videos").attr('src', $videoSrc);
+        })
+
+        $('#modelClose').click(function () {
+            $("#videos").attr('src', $videoSrc);
+        });
+        // document ready
+    });
 
 </script>

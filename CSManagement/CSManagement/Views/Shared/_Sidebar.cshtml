@@ -22,74 +22,17 @@
         <li class="@Url.IsLinkActive("Index", "Home")">
             <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span>หน้าหลัก</span></a>
         </li>
-
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-user"></i> <span>จัดการข้อมูลนักศึกษา</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a href="@Url.Action("Index", "Students")"><i class="fa fa-user"></i> <span>จัดการข้อมูลนักศึกษา</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Histories")"><i class="fa fa-user"></i> <span>จัดการประวัติการทำงาน</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Schools")"><i class="fa fa-user"></i> <span>จัดการโรงเรียนเดิมของนักศึกษา</span></a>
-                </li>
-            </ul>
-        </li>
-        <li class="@Url.IsLinkActive("Index", "Teachers")">
-            <a href="@Url.Action("Index", "Teachers")"><i class="fa fa-user"></i> <span>จัดการข้อมูลอาจารย์</span></a>
+        <li class="@Url.IsLinkActive("Index", "Students")">
+            <a href="@Url.Action("Index", "Students")"><i class="fa fa-user"></i> <span>ข้อมูลนักศึกษา</span></a>
         </li>
         <li>
-            <a href="@Url.Action("Index", "Projects")"><i class="fa fa-graduation-cap"></i> <span>จัดการข้อมูลปริญญานิพนธ์</span></a>
+            <a href="#"><i class="fa fa-graduation-cap"></i> <span>ข้อมูลปริญญานิพนธ์</span></a>
         </li>
-
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-bullhorn"></i> <span>จัดการข้อมูลประชาสัมพันธ์</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a href="@Url.Action("Index", "Departments")"><i class="fa fa-user"></i> <span>ข้อมูลหมวดวิชา</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Courses")"><i class="fa fa-user"></i> <span>ข้อมูลหลักสูตร</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Pictures")"><i class="fa fa-user"></i> <span>รูปภาพประชาสัมพันธ์</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "RegisterLinks")"><i class="fa fa-user"></i> <span>เว็ปสมัครเรียน</span></a>
-                </li>
-            </ul>
+        <li>
+            <a href="#"><i class="fa fa-bullhorn"></i> <span>ข้อมูลประชาสัมพันธ์</span></a>
         </li>
-
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-calendar-check-o"></i> <span>จัดการข้อมูลครุภัณฑ์</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-user"></i> <span>ข้อมูลครุภัณฑ์</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Disposes")"><i class="fa fa-user"></i> <span>การจำหน่าย</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "CESups")"><i class="fa fa-address-book"></i> <span>ครุภัณฑ์ทั้งหมด</span></a>
-                </li>
-            </ul>
+        <li>
+            <a href="#"><i class="fa fa-cube"></i> <span>ข้อมูลครุภัณฑ์</span></a>
         </li>
         <li class="treeview">
             <a href="#">

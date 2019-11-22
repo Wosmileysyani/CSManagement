@@ -3,67 +3,142 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="box-title">จัดการข้อมูลการสมัคร</h1>
+                    @*<div style="float:right">
+                            <a class="btn btn-success" href="@Url.Action("Create", "Generations")"><i class="fa fa-plus"></i> เพิ่มข้อมูลหลักสูตร</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ที่</th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.APP_Status)
+                        </th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
+                    </tr>
+                </thead>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.APP_Status)
-        </th>
-        <th></th>
-    </tr>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(i++)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Register_SC.REG_Name)
+                            </td>
+                            @{
+                                if (item.APP_Status == 1)
+                                {
+                                    <td style="color:forestgreen">
+                                        <i class="fa fa-check-circle  "></i>
+                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                        รับสมัครแล้ว
+                                    </td>
+                                }
+                                else if (item.APP_Status == 2)
+                                {
+                                    <td style="color:red">
+                                        <i class="fa fa-times-circle"></i>
+                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                        ยกเลิกการสมัครแล้ว
+                                    </td>
+                                }
+                                else if (item.APP_Status == 3)
+                                {
+                                    <td style="color:gold">
+                                        <i class="fa  fa-circle"></i>
+                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                        รอการอนุมัติ
+                                    </td>
+                                    <td style="text-align:center">
+                                        <a class="btn btn-success" onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO)" href="@Url.Action("AppAgree", new { id = item.APP_NO })"><i class="fa fa-check"></i>รับสมัคร</a>
+                                        <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.APP_NO })"><i class="fa fa-close"></i>ยกเลิกการสมัคร</a>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Register_SC.REG_Name)
-            </td>
-            @{
-                if (item.APP_Status == 1)
-                {
-                    <td>
-                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                        รับสมัครแล้ว
-                    </td>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+
+        function SendEmail(id1, idg1) {
+            $.ajax({
+                method: "POST",
+                url: "/Applieds/SendMailToUser",
+                data: { 'id': id1 , 'idg': idg1 },
+                success: function (data) {
+                    if (data == true) {
+                        alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
+                    } else {
+                        alert("การส่งอีเมลล์ตอบรับไม่สำเร็จ");
+                    }
                 }
-                else if (item.APP_Status == 2)
-                {
-                    <td>
-                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                        ยกเลิกการสมัครแล้ว
-                    </td>
-                }
-                else if (item.APP_Status == 3)
-                {
-                    <td>
-                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                        รอการอนุมัติ
-                    </td>
-                    <td style="text-align:center">
-                        @Html.ActionLink("Details", "Details", new { id = item.APP_NO })
-                    </td>
-                }
-            }
-            <td>
+            });
+        }
+    </script>
+}
 
-        </tr>
-    }
+<script type="text/javascript">
+    //var SendEmail = function  () {
 
-</table>
+    //    $.ajax({
+    //        url: "/Applieds/SendMailToUser",
+    //        data: { 'id': , 'idg':  },
+    //        method: "POST",
+    //        success: function (data) {
+    //            if (data == true) {
+    //                alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
+    //            } else {
+    //                alert("การส่งอีเมลล์ตอบรับไม่สำเร็จ");
+    //            }
+    //        }
+    //    })
+    //}
 
+</script>

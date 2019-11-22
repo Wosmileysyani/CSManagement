@@ -24,6 +24,7 @@ namespace CSManagement.Controllers
 
         public ActionResult IndexUser()
         {
+            ViewBag.ProjectCount = db.Projects.ToList();
             return View();
         }
 

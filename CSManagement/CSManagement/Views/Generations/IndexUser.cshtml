@@ -3,63 +3,169 @@
 @{
     ViewBag.Title = "IndexUser";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int i = 1;
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Member)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_MemberMax)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Fee)
-        </th>
-        <th></th>
-    </tr>
+<head>
+    <style>
+        .outer {
+            padding: 1em 1em;
+            box-shadow: 5px 5px 5px #d9d9d9;
+        }
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Member)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_MemberMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Details)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Fee)
-            </td>
-            <td>
-                @Html.ActionLink("รายละเอียด", "DetailsUser", new { id = item.Gen_NO }) 
-            </td>
-        </tr>
-    }
+        .headerbar {
+            background: #feac28 !important;
+            color: #ffffff !important;
+            position: relative;
+            margin-bottom: 0.5em;
+            margin-right: -2.5em;
+            margin-left: -2.5em;
+            box-shadow: 5px 5px 5px #d9d9d9;
+        }
 
-</table>
+            .headerbar:before {
+                content: "";
+                position: absolute;
+                border-bottom: 0.5em solid #333;
+                border-left: 1.5em solid transparent;
+                left: 5px;
+                top: -0.5em;
+            }
 
+            .headerbar:after {
+                content: "";
+                position: absolute;
+                border-top: 0.5em solid #333;
+                border-right: 1.5em solid transparent;
+                right: 5px;
+                bottom: -0.5em;
+            }
+
+            .headerbar:hover {
+                transform: scale(1,1.1);
+            }
+    </style>
+</head>
+
+<body>
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default outer" style="width:100%">
+                            <div class="panel-heading headerbar" style="text-align:center;font-size:20px">
+                                หลักสูตรอบรมระยะสั้น
+                            </div>
+                            <div class="panel-body text-justify">
+                                <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">ที่</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Name)</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Member)</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Year)</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Fee)</th>
+                                            <th style="text-align:center">จัดการข้อมูล</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td style="text-align:center">@(i++)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)</td>
+                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Name)</td>
+                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Member)</td>
+                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Year)</td>
+                                                <td style="text-align:right"><strong>@Html.DisplayFor(modelItem => item.Gen_Fee)</strong></td>
+                                                <td style="text-align:center">
+                                                    @*<a class="btn btn-info" href="@Url.Action("DetailsUser", "Generations", new { id = item.Gen_NO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
+                                                    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-list-ul"></i> รายละเอียด</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="letter-spacing:0px;font-size:20px">รายละเอียดหลักสูตร</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table" style="width:100%">
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <th style="text-align:center">@Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)</th>
+                                                                <td>@Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Name)</th>
+                                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Name)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Member)</th>
+                                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Member)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Year)</th>
+                                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Year)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Fee)</th>
+                                                                <td style="text-align:right"><strong>@Html.DisplayFor(modelItem => item.Gen_Fee)</strong></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-default" href="@Url.Action("Registers","Generations", new { id = item.Gen_NO })"><i class="fa fa-edit"></i>สมัครคอร์ส</a>
+
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}

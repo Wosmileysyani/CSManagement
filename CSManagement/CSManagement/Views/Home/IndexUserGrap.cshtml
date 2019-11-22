@@ -1,0 +1,59 @@
+﻿@model CSManagement.Models.Course
+
+@{
+    ViewBag.Title = "IndexUserGrap";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@using (Html.BeginForm("IndexUserGrap", "Home",FormMethod.Post))
+{
+    <div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.Course_Year, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("Year", null, "เลือกปี", htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success col-lg-3" style="float:right;font-size:18px"><i class="fa fa-save"></i> ค้นหาตามปี</button>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default outer" style="width:95%">
+                <div class="panel-heading headerbar">
+                    สัดส่วนหมวดวิชาหลักสูตรสาขา
+                </div>
+                <div class="panel-body text-justify chart-responsive">
+                    <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        var chart =
+            new CanvasJS.Chart("chartContainer", {
+                theme: "light2",
+                exportEnabled: true,
+                animationEnabled: true,
+                data: [
+                    {
+                        type: "pie", //change type to bar, line, area, pie, etc
+                        startAngle: 180,
+                        toolTipContent: "<b>{label}</b>: {y}%",
+                        indexLabel: "{label} {y}%",
+                        dataPoints: @Html.Raw(ViewBag.DataPoints)
+                    }
+        ]
+            });
+        chart.render();
+    };
+
+</script>

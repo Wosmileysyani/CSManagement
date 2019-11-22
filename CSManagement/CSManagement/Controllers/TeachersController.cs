@@ -23,6 +23,12 @@ namespace CSManagement.Controllers
             return View(teachers.ToList());
         }
 
+        public ActionResult IndexUser()
+        {
+            var teachers = db.Teachers.Include(t => t.Title);
+            return View(teachers.ToList());
+        }
+
         // GET: Teachers/Details/5
         public ActionResult Details(string id)
         {
@@ -65,7 +71,7 @@ namespace CSManagement.Controllers
             }
             catch (Exception)
             {
-                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
+                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID)  ;
                 return View(teacher);
             }
         }
@@ -90,7 +96,6 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Teacher teacher, string birthday, HttpPostedFileBase file)
         {
-            //วันที่ถ้าเป็นค่าว่างให้เอาวันที่เก่ามา
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -107,7 +112,7 @@ namespace CSManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Teachers", new { id = Session["UserID"].ToString() });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
                 return View(teacher);

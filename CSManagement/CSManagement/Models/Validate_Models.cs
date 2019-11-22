@@ -413,4 +413,61 @@ namespace CSManagement.Models
     }
     [MetadataType(typeof(V_Title))]
     public partial class Title { }
+
+    public partial class V_Generation
+    {
+        [Display(Name = "รหัสรุ่น")]
+        public int Gen_NO { get; set; }
+
+        [Display(Name = "ชื่อหลักสูตรอบรม")]
+        public Nullable<int> Gen_SCID { get; set; }
+
+        [Display(Name ="รุ่นที่")]
+        [Required(ErrorMessage ="กรุณากรอกข้อมูล")]
+        public string Gen_Name { get; set; }
+
+        [Display(Name = "จำนวนที่เหลือ")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<int> Gen_Member { get; set; }
+
+        [Display(Name = "จำนวนที่รับ")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<int> Gen_MemberMax { get; set; }
+
+        [Display(Name = "รายละเอียด")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.MultilineText)]
+        public string Gen_Details { get; set; }
+
+        [Display(Name = "ปีที่อบรม")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string Gen_Year { get; set; }
+
+        [Display(Name = "ราคา")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<double> Gen_Fee { get; set; }
+
+        [Display(Name = "ข้อความตอบกลับอีเมล")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.MultilineText)]
+        public string Gen_TextForMail { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applied> Applieds { get; set; }
+        public virtual Short_Course Short_Course { get; set; }
+    }
+    [MetadataType(typeof(V_Generation))]
+    public partial class Generation { }
+
+    public partial class V_Short_Course
+    {
+        [Display(Name = "รหัส")]
+        public int SC_ID { get; set; }
+
+        [Display(Name = "ชื่อหลักสูตรอบรม")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string SC_NameTH { get; set; }
+    }
+    [MetadataType(typeof(V_Short_Course))]
+    public partial class Short_Course { }
 }

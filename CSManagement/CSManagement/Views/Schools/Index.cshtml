@@ -26,7 +26,7 @@
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.SCH_Name)</th>
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.SCH_Province)</th>
                         <th style="text-align:center">@Html.DisplayNameFor(model => model.SCH_Tel)</th>
-                        <th style="text-align:center">จัดกาข้อมูล</th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
                     </tr>
                 </thead>
 
@@ -34,19 +34,18 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(i++)</td>
+                            <td style="text-align:center">@(i++)</td>
                             <td>@Html.DisplayFor(modelItem => item.SCH_Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.SCH_Province)</td>
                             <td style="text-align:center">@Html.DisplayFor(modelItem => item.SCH_Tel)</td>
                             <td style="text-align:center">
                                 <a class="btn btn-warning" href="@Url.Action("Edit", "Schools", new { id = item.SCH_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
-                                <a class="btn btn-info" href="@Url.Action("Details", "Schools", new { id = item.SCH_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                @*<a class="btn btn-info" href="@Url.Action("Details", "Schools", new { id = item.SCH_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
                                 <a class="btn btn-danger" href="@Url.Action("Delete", "Schools", new { id = item.SCH_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
                             </td>
                         </tr>
                     }
                 </tbody>
-
             </table>
         </div>
     </div>

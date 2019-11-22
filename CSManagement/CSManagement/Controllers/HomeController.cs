@@ -30,9 +30,46 @@ namespace CSManagement.Controllers
         }
 
         [HttpGet]
+        public ActionResult IndexUser1()
+        {
+            SetSession();
+            List<Picture> imgPictures = db.Pictures.ToList();
+            ViewBag.Images = imgPictures;
+            ViewBag.Count = imgPictures.Count;
+            ViewBag.ProjectCount = db.Projects.ToList();
+            return View(db.Pictures.ToList());
+        }
+
+        [HttpGet]
         public ActionResult AnotherLink()
         {
             return View("Index");
+        }
+
+        public ActionResult IndexUserGrap()
+        {
+            ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
+            SetSession();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult IndexUserGrap(int? Year)
+        {
+            var coursesList = db.Departments.Where(x => x.Dep_CourseID == Year).ToList();
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            double? total = 0;
+            foreach (var item in coursesList)
+            {
+                total += item.Dep_Credit;
+            }
+            foreach (var item in coursesList)
+            {
+                dataPoints.Add(new DataPoint(item.Dep_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
+            return View();
         }
 
         public void SetSession()
@@ -50,7 +87,7 @@ namespace CSManagement.Controllers
             var logCount = db.Logins.Count();
             Session["Totallogin"] = logCount;
             //Chartหลักสูตร
-            var coursesList = db.Departments.ToList();
+            var coursesList = db.Departments.OrderByDescending(x => x.Dep_CourseID).ToList();
             List<DataPoint> dataPoints = new List<DataPoint>();
             double? total = 0;
             foreach (var item in coursesList)

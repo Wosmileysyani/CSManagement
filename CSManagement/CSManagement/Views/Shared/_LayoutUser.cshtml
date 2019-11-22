@@ -23,6 +23,16 @@
         body {
             font: 400 15px/1.8 Lato, sans-serif;
             color: #777;
+            background: url(body1.png);
+            background-position-x: left;
+            background-position-y: top;
+            background-size: initial;
+            background-repeat-x: repeat;
+            background-repeat-y: no-repeat;
+            background-attachment: scroll;
+            background-origin: initial;
+            background-clip: initial;
+            background-color: #e7edf8;
         }
 
         h3, h4 {
@@ -33,7 +43,7 @@
         }
 
         .container {
-            padding: 80px 120px;
+            padding: 15px;
         }
 
         .person {
@@ -49,23 +59,12 @@
             }
 
         .carousel-inner img {
-            /*-webkit-filter: grayscale(90%);*/
-            /*filter: grayscale(90%);*/ /* make all photos black and white */
             width: 100%; /* Set width to 100% */
             margin: auto;
         }
 
         .carousel-caption h3 {
             color: #fff !important;
-        }
-
-        .media (max-width: 600px) {
-            .carousel-caption
-
-        {
-            display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
-        }
-
         }
 
         .bg-1 {
@@ -81,63 +80,6 @@
                 font-style: italic;
             }
 
-        .list-group-item:first-child {
-            border-top-right-radius: 0;
-            border-top-left-radius: 0;
-        }
-
-        .list-group-item:last-child {
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .thumbnail {
-            padding: 0 0 15px 0;
-            border: none;
-            border-radius: 0;
-        }
-
-            .thumbnail p {
-                margin-top: 15px;
-                color: #555;
-            }
-
-        .btn {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #f1f1f1;
-            border-radius: 0;
-            transition: .2s;
-        }
-
-            .btn:hover, .btn:focus {
-                border: 1px solid #333;
-                background-color: #fff;
-                color: #000;
-            }
-
-        .modal-header, h4, .close {
-            background-color: #333;
-            color: #fff !important;
-            text-align: center;
-            font-size: 30px;
-        }
-
-        .modal-header, .modal-body {
-            padding: 40px 50px;
-        }
-
-        .nav-tabs li a {
-            color: #777;
-        }
-
-        #googleMap {
-            width: 100%;
-            height: 400px;
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
-        }
-
         .navbar {
             font-family: Montserrat, sans-serif;
             margin-bottom: 0;
@@ -146,10 +88,16 @@
             font-size: 20px !important;
             letter-spacing: 0px;
             opacity: 0.9;
+            position: relative;
+            min-height: 60px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 0px;
         }
 
+
             .navbar li a, .navbar .navbar-brand {
-                color: #d5d5d5 !important;
+                color: black !important;
             }
 
         .navbar-nav li a:hover {
@@ -193,51 +141,100 @@
                     text-decoration: none;
                 }
 
-        .form-control {
-            border-radius: 0;
+        .outer {
+            padding: 1em 1em;
+            box-shadow: 5px 5px 5px #d9d9d9;
         }
 
-        .textarea {
-            resize: none;
+        .headerbar {
+            background: #feac28 !important;
+            color: #ffffff !important;
+            position: relative;
+            margin-bottom: 0.5em;
+            margin-right: -2.5em;
+            margin-left: -2.5em;
+            box-shadow: 5px 5px 5px #d9d9d9;
         }
+
+            .headerbar:before {
+                content: "";
+                position: absolute;
+                border-bottom: 0.5em solid #333;
+                border-left: 1.5em solid transparent;
+                left: 0;
+                top: -0.5em;
+            }
+
+            .headerbar:after {
+                content: "";
+                position: absolute;
+                border-top: 0.5em solid #333;
+                border-right: 1.5em solid transparent;
+                right: 0;
+                bottom: -0.5em;
+            }
+
+            .headerbar:hover {
+                transform: scale(1,1.1);
+            }
+
+        .content-wrapper,
+        .main-footer {
+            -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+            -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+            -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+            margin-left: 0px;
+            z-index: 820;
     </style>
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
-    <div class="header">
-        <div class="row">
-            <div class="col-lg-6">
-                <img src="~/img/logo.png" style="float:right;padding:10px 0px 10px 150px" width="600" height="120" />
+    <div class="navbar-fixed-top">
+        <nav class="navbar navbar-default" style="background-color:#F39C12;color:black">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="color:black">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#myPage" style=" padding-bottom: .5rem !important;padding-top: .5rem !important;">
+                        <img src="~/Content/img/logo.png" style=" max-width: 100%;height: 140%;" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="@Url.Action("IndexUser", "Home")">หน้าหลัก</a></li>
+                        <li><a href="@Url.Action("IndexUser", "Teachers")">บุคคลกร</a></li>
+                        <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
+                        <li><a href="@Url.Action("IndexUserGrap", "Home")">หลักสูตรสาขา</a></li>
+                        <li><a href="@Url.Action("IndexUser", "Generations")">หลักสูตรอบรม</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-6" style="padding:30px 0px 0px 10px">
-                <a href="https://www.facebook.com/kru.cs/?epa=SEARCH_BOX" style="color:black"><img src="~/img/fb.png" width="20" height="20"> วิทยาการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏกาญจนบุรี</a>
-                <p>
-                    <a style="color:black"><img src="~/img/tel.png" width="20" height="20"> 084-0990207</a>
-                    <a href="http://coms.kru.ac.th/WebLink/" style="color:black"><img src="~/img/email.png" width="20" height="20"> coms.kru.ac.th</a>
-                    <a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a>
-                </p>
-            </div>
-        </div>
+        </nav>
     </div>
 
     <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog cascading-modal" role="document">
 
             <div class="modal-content modal-md">
-                <div class="modal-header modal-md text-center" style="background-color: cornflowerblue;">
-                    <img src="~/img/com.png" height="100" width="150" />
+                <div class="modal-header modal-md text-center" style="background-color: #333333">
+                    <img src="~/img/com.png" height="50" width="50" />
                     <a style="font-size: 25px; color: white">ระบบจัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</a>
                 </div>
                 <div class="modal-c-tabs">
                     <ul class="nav nav-tabs md-tabs light-blue darken-3" role="tablist">
                         <li class="nav-item take-all-space-you-can set-text">
-                            <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab" style="font-size: 20px">
+                            <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab" style="font-size: 20px;float:left">
                                 <i class="fas fa-user"></i>
                                 เข้าสู่ระบบ
                             </a>
                         </li>
                         <li class="nav-item take-all-space-you-can set-text">
-                            <a class="nav-link" data-toggle="tab" href="#panel8" role="tab" style="font-size: 20px">
+                            <a class="nav-link" data-toggle="tab" href="#panel8" role="tab" style="font-size: 20px;float:right">
                                 <i class="fas fa-user-plus"></i>
                                 สมัครสมาชิก
                             </a>
@@ -340,37 +337,13 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-default" style="margin:0px 100px 0px 100px">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a href="@Url.Action("IndexUser", "Home")">หน้าหลัก</a></li>
-                    <li><a href="#">บุคคลกร</a></li>
-                    <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
-                    <li><a href="#">หลักสูตรสาขา</a></li>
-                    <li><a href="@Url.Action("Index", "Generations")">หลักสูตรอบรม</a></li>
-                    <li><a href="#">ประชาสัมพันธ์</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                </ul>
-            </div>
+    <div class="container-fluid" style="padding-top:80px">
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+            </section>
         </div>
-    </nav>
-
-
-
-
-    <div class="content" style="margin:10px 100px 10px 100px">
-        @RenderBody()
     </div>
-
-
     <!-- Footer -->
     <footer class="text-center">
         <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
@@ -417,7 +390,7 @@
                 function (e) {
                     e.preventDefault();
                     $.ajax({
-                        url: "/Logins/Login",
+                        url: "@Url.Action("Login","Logins")",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -427,7 +400,7 @@
                                 document.getElementById("usernameCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
                                 document.getElementById("passwordCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
                             } else {
-                                window.location.href = "/Home/Index";
+                                window.location.href = "@Url.Action("IndexUser","Home")";
                             }
                         }
 
@@ -451,7 +424,7 @@
                 function (e) {
                     e.preventDefault();
                     $.ajax({
-                        url: "/Logins/Register",
+                        url: "@Url.Action("Register","Logins")",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -462,7 +435,7 @@
                                 document.getElementById("passwordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                                 document.getElementById("repasswordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                             } else {
-                                window.location.href = "/Home/Index";
+                                window.location.href = "@Url.Action("IndexUser","Home")";
                             }
                         }
 

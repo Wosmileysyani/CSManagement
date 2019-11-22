@@ -6,68 +6,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>เพิ่มประวัติการทำงาน</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">เพิ่มข้อมูลการทำงานศิษย์เก่า</h3>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HIS_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.HIS_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name" } })
-                @Html.ValidationMessageFor(model => model.HIS_StuID, "", new { @class = "text-danger" })
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="font-size:15px">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.HIS_StuID, "ชื่อนักศึกษา", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HIS_StuID, new { htmlAttributes = new { @class = "form-control", @id = "Stu_Name", @PlaceHolder = "กรุณากรอกชื่อนักศึกษา เช่น สมชาย" } })
+                        @Html.ValidationMessageFor(model => model.HIS_StuID, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.HIS_Company, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HIS_Company, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HIS_Company, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.HIS_Job, "ประเภทงานที่ทำ", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("HIS_Job", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HIS_Job, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.HIS_Jobname, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HIS_Jobname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HIS_Jobname, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.HIS_Year, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HIS_Year, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "ใส่เฉพาะปี(จำไม่ได้ไม่ต้องใส่)" } })
+                        @Html.ValidationMessageFor(model => model.HIS_Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success col-md-3" style="float:right;font-size:18px"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    <a class="btn btn-default col-md-3" style="float:left;font-size:18px" href="@Url.Action("Index", "Histories")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HIS_Job, "ประเภทงานที่ทำ", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.DropDownList("HIS_Job", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HIS_Job, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HIS_Jobname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.HIS_Jobname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HIS_Jobname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HIS_Year, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.HIS_Year, new { htmlAttributes = new { @class = "form-control",@PlaceHolder = "ใส่เฉพาะปี(จำไม่ได้ไม่ต้องใส่)" } })
-                @Html.ValidationMessageFor(model => model.HIS_Year, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HIS_Company, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.HIS_Company, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HIS_Company, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </section>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

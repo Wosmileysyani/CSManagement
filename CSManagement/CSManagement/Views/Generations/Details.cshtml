@@ -5,71 +5,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="box-title">รายละเอียดหลักสูตรอบรม</h1>
 
-<div>
-    <h4>Generation</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
-        </dt>
+                    <div style="float:right">
+                        <a class="btn btn-default" href="@Url.Action("Index", "Generations")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Generations")"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Short_Course.SC_NameTH)
-        </dd>
+        <div class="box-body">
+            <table id="w0" class="table table-striped table-bordered detail-view" style="font-size:18px">
+                <tbody>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)</th>
+                        <td>@Html.DisplayFor(model => model.Short_Course.SC_NameTH)</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_Name)
-        </dt>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Name)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Name)</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gen_Name)
-        </dd>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Member)</th>
+                        <td style="color:red">@Html.DisplayFor(model => model.Gen_Member) คน</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_Member)
-        </dt>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_MemberMax)</th>
+                        <td style="color:forestgreen">@Html.DisplayFor(model => model.Gen_MemberMax) คน</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gen_Member)
-        </dd>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Year)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Year)</td>
+                    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_MemberMax)
-        </dt>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Fee)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Fee) บาท</td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gen_MemberMax)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_Details)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gen_Details)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gen_Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gen_Fee)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gen_Fee)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Gen_NO }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Details)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Details)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

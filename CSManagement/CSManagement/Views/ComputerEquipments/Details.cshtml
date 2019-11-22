@@ -12,21 +12,20 @@
                 <div class="col-md-12">
                     <h1 class="box-title">รายละเอียดข้อมูลครุภัณฑ์</h1>
                     <div style="float: right">
-                        <a class="btn btn-default" href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
                         <td>
                             @* 1 = อยู่ในระบบ / 2 = จำหน่ายแล้ว / 3 = รอดำเนินการ *@
                             @if (Model.CE_Status == 1)
                             {
+                                <a class="btn btn-default" href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
                                 <a class="btn btn-danger" href="@Url.Action("Dispose", "ComputerEquipments", new {id = Model.CE_ATNO})"><i class="fa  fa-user-times"></i> จำหน่ายครุภัณฑ์</a>
                             }
                             else if (Model.CE_Status == 2)
                             {
-                                <span style="color:red">
-                                    <i class="fa fa-times-circle"></i>
-                                </span>
+                                <a class="btn btn-default" href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
                             }
                             else if (Model.CE_Status == 3)
                             {
+                                <a class="btn btn-default" href="@Url.Action("Index", "ComputerEquipments")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
                                 <a class="btn btn-danger" href="@Url.Action("Dispose", "ComputerEquipments", new {id = Model.CE_ATNO})"><i class="fa  fa-user-times"></i> จำหน่ายครุภัณฑ์</a>
                             }
                         </td>

@@ -3,69 +3,97 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="box-title">จัดการข้อมูลรุ่นหลักสูตรอบรม</h1>
+                    <div style="float:right">
+                        <a class="btn btn-success" href="@Url.Action("Create", "Generations")"><i class="fa fa-plus"></i> เพิ่มข้อมูลหลักสูตร</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Member)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_MemberMax)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gen_Fee)
-        </th>
-        <th></th>
-    </tr>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ที่</th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Gen_Name)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Short_Course.SC_NameTH)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Gen_Member)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Gen_Year)
+                        </th>
+                        <th style="text-align:center">
+                            @Html.DisplayNameFor(model => model.Gen_Fee)
+                        </th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
+                    </tr>
+                </thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Member)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_MemberMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Details)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gen_Fee)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Gen_NO }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Gen_NO }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Gen_NO })
-            </td>
-        </tr>
-    }
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center">@(i++)</td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Gen_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Gen_Member)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Gen_Year)
+                            </td>
+                            <td style="text-align:right">
+                                @Html.DisplayFor(modelItem => item.Gen_Fee)
+                            </td>
+                            <td style="text-align:center">
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "Generations", new { id = item.Gen_NO })"><i class="fa fa-edit"></i>แก้ไข</a>
+                                <a class="btn btn-info" href="@Url.Action("Details", "Generations", new { id = item.Gen_NO })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                                <a class="btn btn-danger" href="@Url.Action("Delete", "Generations", new { id = item.Gen_NO })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
 
-</table>
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
+}

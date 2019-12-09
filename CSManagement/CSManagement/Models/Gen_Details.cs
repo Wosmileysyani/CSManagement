@@ -12,14 +12,16 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CESup
+    public partial class Gen_Details
     {
-        public int CESUB_ATNO { get; set; }
-        public string CESUB_NO { get; set; }
-        public string CESUB_Name { get; set; }
-        public Nullable<int> CESUB_Status { get; set; }
-        public Nullable<int> CE_ATNO { get; set; }
+        public int Gen_ID { get; set; }
+        public string Gen_Name { get; set; }
+        public Nullable<System.DateTime> Gen_Date { get; set; }
+        public string Gen_Location { get; set; }
+        public Nullable<int> Gen_Status { get; set; }
+        public Nullable<int> Gen_NO { get; set; }
     
-        public virtual ComputerEquipment ComputerEquipment { get; set; }
+        public virtual Gen_Status Gen_Status1 { get; set; }
+        public virtual Generation Generation { get; set; }
     }
 }

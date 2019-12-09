@@ -18,6 +18,7 @@ namespace CSManagement.Controllers
         // GET: Pictures
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             List<Picture> imgPictures = db.Pictures.ToList();
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;

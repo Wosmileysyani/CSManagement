@@ -19,6 +19,7 @@ namespace CSManagement.Controllers
         public ActionResult Index()
         {
             var computerEquipments = db.ComputerEquipments.Include(c => c.Teacher);
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(computerEquipments.ToList());
         }
 
@@ -58,11 +59,6 @@ namespace CSManagement.Controllers
                     db.Disposes.Add(dispose);
                     var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
                     findCE.CE_Status = 3;
-                    var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
-                    foreach (var item in findCESUB)
-                    {
-                        item.CESUB_Status = 3;
-                    }
                     db.SaveChanges();
                 }
                 else if (chk.Count > 0)
@@ -87,11 +83,6 @@ namespace CSManagement.Controllers
                         db.Disposes.Add(dispose);
                         var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
                         findCE.CE_Status = 3;
-                        var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
-                        foreach (var item in findCESUB)
-                        {
-                            item.CESUB_Status = 3;
-                        }
                         db.SaveChanges();
                     }
                     else
@@ -123,23 +114,6 @@ namespace CSManagement.Controllers
                 computerEquipment.CE_Status = 1;
                 db.ComputerEquipments.Add(computerEquipment);
                 db.SaveChanges();
-
-                var getno = db.ComputerEquipments.OrderByDescending(x => x.CE_ATNO).FirstOrDefault();
-
-                for (int i = 0; i < computerEquipment.CE_Piece; i++)
-                {
-                    CESup ceSup = new CESup()
-                    {
-                        CESUB_NO = computerEquipment.CE_NO,
-                        CESUB_Name = computerEquipment.CE_Name,
-                        CESUB_Status = 1,
-                        CE_ATNO = getno.CE_ATNO
-                    };
-                    db.CESups.Add(ceSup);
-                }
-
-                db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
             catch (Exception)

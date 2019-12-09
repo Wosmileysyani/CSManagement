@@ -17,6 +17,7 @@ namespace CSManagement.Controllers
         // GET: Disposes
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(db.Disposes.ToList());
         }
 
@@ -28,11 +29,6 @@ namespace CSManagement.Controllers
             db.Entry(findid).State = EntityState.Modified;
             var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
             findCE.CE_Status = 2;
-            var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
-            foreach (var item in findCESUB)
-            {
-                item.CESUB_Status = 2;
-            }
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -44,11 +40,6 @@ namespace CSManagement.Controllers
             db.Entry(findid).State = EntityState.Modified;
             var findCE = db.ComputerEquipments.FirstOrDefault(x => x.CE_ATNO == id);
             findCE.CE_Status = 1;
-            var findCESUB = db.CESups.Where(x => x.CE_ATNO == id).ToList();
-            foreach (var item in findCESUB)
-            {
-                item.CESUB_Status = 1;
-            }
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

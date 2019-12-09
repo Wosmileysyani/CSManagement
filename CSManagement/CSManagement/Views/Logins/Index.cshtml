@@ -1,8 +1,35 @@
-﻿
+﻿@model IEnumerable<CSManagement.Models.Login>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ไอดี-พาสเวิร์ด";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            ไอดี
+        </th>
+        <th>
+            พาสเวิร์ด
+        </th>
+        <th>
+            ประเภท
+        </th>
+    </tr>
 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Log_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Log_Pass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Log_Role)
+        </td>
+    </tr>
+}
+
+</table>

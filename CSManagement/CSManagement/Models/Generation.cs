@@ -18,6 +18,7 @@ namespace CSManagement.Models
         public Generation()
         {
             this.Applieds = new HashSet<Applied>();
+            this.Gen_Details1 = new HashSet<Gen_Details>();
         }
     
         public int Gen_NO { get; set; }
@@ -33,5 +34,7 @@ namespace CSManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Applied> Applieds { get; set; }
         public virtual Short_Course Short_Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gen_Details> Gen_Details1 { get; set; }
     }
 }

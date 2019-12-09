@@ -12,10 +12,12 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Picture
+    public partial class News
     {
-        public int Pic_ID { get; set; }
-        public string Pic_Img { get; set; }
-        public string Pic_Name { get; set; }
+        public int New_ID { get; set; }
+        public string New_Name { get; set; }
+        public string New_Details { get; set; }
+        public string New_Img { get; set; }
+        public Nullable<System.DateTime> New_Date { get; set; }
     }
 }

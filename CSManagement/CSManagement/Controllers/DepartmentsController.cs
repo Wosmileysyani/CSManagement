@@ -18,6 +18,7 @@ namespace CSManagement.Controllers
         public ActionResult Index()
         {
             var departments = db.Departments.Include(d => d.Course);
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(departments.ToList());
         }
 

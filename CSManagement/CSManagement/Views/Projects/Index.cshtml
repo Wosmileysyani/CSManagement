@@ -45,7 +45,10 @@
                             <td style="text-align:center">
                                 <a class="btn btn-info" href="@item.Pj_Linkweb"><i class="fa fa-globe"></i> ดูเว็บไซต์</a>
                                 @*<a class="btn btn-warning" href="@Url.Action("Edit", "Projects", new { id = item.Pj_ID })"><i class="fa fa-edit"></i>แก้ไข</a>*@
-                                <a class="btn btn-danger" href="@Url.Action("Delete", "Projects", new { id = item.Pj_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                                @if (Session["AJ"] != null)
+                                {
+                                    <a class="btn btn-danger" href="@Url.Action("Delete", "Projects", new { id = item.Pj_ID })"><i class="fa  fa-trash-o"></i> ลบ</a>
+                                }
                             </td>
                         </tr>
                     }

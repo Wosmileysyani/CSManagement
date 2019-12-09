@@ -23,6 +23,14 @@
             <li class="@Url.IsLinkActive("Index", "Home")">
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span>หน้าหลัก</span></a>
             </li>
+            
+            @if (Session["PJ"] != null)
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Projects")"><i class="fa fa-graduation-cap"></i> <span>จัดการข้อมูลปริญญานิพนธ์</span></a>
+                </li>
+            }
+
             @{
                 if (Session["AJ"] != null)
                 {
@@ -42,6 +50,9 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Schools")"><i class="fa fa-user"></i> <span>จัดการโรงเรียนเดิมของนักศึกษา</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Logins")"><i class="fa fa-user"></i> <span>จัดการข้อมูลไอดี-พาสเวิร์ด</span></a>
                             </li>
                         </ul>
                     </li>

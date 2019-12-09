@@ -16,6 +16,6 @@ namespace CSManagement.Models
     {
         public string Log_ID { get; set; }
         public string Log_Pass { get; set; }
-        public Nullable<int> Log_Role { get; set; }
+        public string Log_Role { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace CSManagement.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             var projects = db.Projects.Include(p => p.Student).Include(p => p.Teacher);
             return View(projects.ToList());
         }
@@ -85,9 +86,6 @@ namespace CSManagement.Controllers
                 {
                     ViewBag.ResultErrorMessage = fs.ErrorMessage;
                 }
-                project.Pj_Date = DateTime.Today;
-                string[] Split_ID = project.Pj_StuID.Split(' ');
-                //เปลี่ยนใช้ Select tool
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
@@ -95,7 +93,12 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     project.Pj_File = myUniqueFileName;
                 }
-                project.Pj_StuID = Split_ID[2];
+                project.Pj_Date = DateTime.Today;
+                string[] Split_ID = project.Pj_StuID.Split(' ');
+                if (Session["PJ"] == null)
+                {
+                    project.Pj_StuID = Split_ID[0];
+                }
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -128,17 +131,48 @@ namespace CSManagement.Controllers
         // POST: Projects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Project project)
+        public ActionResult Edit(Project project, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
+                var recordToUpdate = db.Projects.AsNoTracking().Single(x => x.Pj_ID == project.Pj_ID);
+                FileUploadCheck fs = new FileUploadCheck();
+                fs.filesize = 1000000;
+                if (file == null)
+                {
+                    project.Pj_File = recordToUpdate.Pj_File;
+                }
+                else
+                {
+                    string us = fs.UploadUserFile(file);
+                    if (us != null)
+                    {
+                        ViewBag.ResultErrorMessage = fs.ErrorMessage;
+                    }
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                        string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
+                        file.SaveAs(physicalPath);
+                        project.Pj_File = myUniqueFileName;
+                    }
+                }
+                project.Pj_Date = DateTime.Today;
+                string[] Split_ID = project.Pj_StuID.Split(' ');
+                if (Session["PJ"] == null)
+                {
+                    project.Pj_StuID = Split_ID[0];
+                }
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
-            ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
-            return View(project);
+            catch (Exception)
+            {
+                ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
+                ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
+                return View(project);
+            }
         }
 
         // GET: Projects/Delete/5

@@ -428,11 +428,6 @@
     <Content Include="Views\ComputerEquipments\Details.cshtml" />
     <Content Include="Views\ComputerEquipments\Edit.cshtml" />
     <Content Include="Views\ComputerEquipments\Index.cshtml" />
-    <Content Include="Views\CESups\Create.cshtml" />
-    <Content Include="Views\CESups\Delete.cshtml" />
-    <Content Include="Views\CESups\Details.cshtml" />
-    <Content Include="Views\CESups\Edit.cshtml" />
-    <Content Include="Views\CESups\Index.cshtml" />
     <Content Include="Views\Disposes\Create.cshtml" />
     <Content Include="Views\Disposes\Delete.cshtml" />
     <Content Include="Views\Disposes\Details.cshtml" />
@@ -504,6 +499,8 @@
     <Content Include="Views\Home\IndexUserGrap.cshtml" />
     <Content Include="Views\Home\IndexUser1.cshtml" />
     <Content Include="Views\Shared\_LayoutUser1.cshtml" />
+    <Content Include="Views\Students\EditID.cshtml" />
+    <Content Include="Views\Teachers\EditID.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -513,7 +510,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AppliedsController.cs" />
-    <Compile Include="Controllers\CESupsController.cs" />
     <Compile Include="Controllers\ComputerEquipmentsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -535,9 +531,6 @@
     <Compile Include="Models\Applied.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CESup.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ComputerEquipment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -553,6 +546,12 @@
     </Compile>
     <Compile Include="Models\FileUploadCheck.cs" />
     <Compile Include="Models\Generation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Gen_Details.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Gen_Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\History.cs">
@@ -582,6 +581,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\News.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Picture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -607,6 +609,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentName.cs" />
+    <Compile Include="Models\Syllabu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

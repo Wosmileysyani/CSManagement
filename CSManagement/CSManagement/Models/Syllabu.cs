@@ -12,10 +12,11 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Picture
+    public partial class Syllabu
     {
-        public int Pic_ID { get; set; }
-        public string Pic_Img { get; set; }
-        public string Pic_Name { get; set; }
+        public int Sy_ID { get; set; }
+        public string Sy_Name { get; set; }
+        public string Sy_Details { get; set; }
+        public string Sy_Img { get; set; }
     }
 }

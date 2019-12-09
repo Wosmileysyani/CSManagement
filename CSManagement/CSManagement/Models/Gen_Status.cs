@@ -12,28 +12,18 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ComputerEquipment
+    public partial class Gen_Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ComputerEquipment()
+        public Gen_Status()
         {
-            this.Disposes = new HashSet<Dispose>();
+            this.Gen_Details = new HashSet<Gen_Details>();
         }
     
-        public int CE_ATNO { get; set; }
-        public string CE_NO { get; set; }
-        public Nullable<System.DateTime> CE_DateIN { get; set; }
-        public string CE_Name { get; set; }
-        public string CE_Noce { get; set; }
-        public Nullable<int> CE_Piece { get; set; }
-        public Nullable<double> CE_Price { get; set; }
-        public Nullable<double> CE_PriceTotal { get; set; }
-        public string CE_TeaID { get; set; }
-        public string CE_Budget { get; set; }
-        public Nullable<int> CE_Status { get; set; }
+        public int Gen_Status1 { get; set; }
+        public string Gen_Name { get; set; }
     
-        public virtual Teacher Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dispose> Disposes { get; set; }
+        public virtual ICollection<Gen_Details> Gen_Details { get; set; }
     }
 }

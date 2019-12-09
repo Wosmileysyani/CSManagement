@@ -57,7 +57,11 @@
 
                                 <ul class="dropdown-menu">
                                     <li class="user-header">
-                                        <img src="~/img/icons8-cat-profile-64.png" class="img-circle" alt="User Image">
+                                        @if (Session["UserImg"].ToString().Equals("รอแก้ไข") != true)
+                                        {
+                                            <img src="~/img/@Session["UserImg"]" class="img-circle" alt="User Image">
+                                        }
+                                        else {<img src="~/img/icons8-cat-profile-64.png" class="img-circle" alt="User Image">}
 
                                         <p>
                                             @Session["UserName"].ToString()
@@ -70,17 +74,23 @@
                                         @if (Session["AJ"] == null)
                                         {
                                             <div class="pull-left">
-                                                <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">Profile</a>
+                                                <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูล</a>
+                                            </div>
+                                            <div class="pull-left">
+                                                <a href='@Url.Action("EditID", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">รหัสผ่าน</a>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="pull-left">
-                                                <a href='@Url.Action("Edit", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">Profile</a>
+                                                <a href='@Url.Action("Edit", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                                            </div>
+                                            <div class="pull-left">
+                                                <a href='@Url.Action("EditID", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">รหัสผ่าน</a>
                                             </div>
                                         }
                                         <div class="pull-right">
-                                            <a href='@Url.Action("Logout", "logins")' class="btn btn-default btn-flat">Sign out</a>
+                                            <a href='@Url.Action("Logout", "logins")' class="btn btn-default btn-flat">ออก</a>
                                         </div>
                                     </li>
                                 </ul>

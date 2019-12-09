@@ -1,0 +1,43 @@
+﻿@model CSManagement.Models.Syllabu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Syllabu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sy_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sy_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sy_Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sy_Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sy_Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sy_Img)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Sy_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

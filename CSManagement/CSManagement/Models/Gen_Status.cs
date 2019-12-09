@@ -17,13 +17,13 @@ namespace CSManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gen_Status()
         {
-            this.Gen_Details = new HashSet<Gen_Details>();
+            this.Generations = new HashSet<Generation>();
         }
     
         public int Gen_Status1 { get; set; }
         public string Gen_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gen_Details> Gen_Details { get; set; }
+        public virtual ICollection<Generation> Generations { get; set; }
     }
 }

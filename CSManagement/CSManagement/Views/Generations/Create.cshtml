@@ -56,15 +56,42 @@
                 </div>
 
                 <div class="row">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Gen_Date, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="gendate" name="gendate" class="form-control" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Gen_Location, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Gen_Location, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Gen_Location, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.Gen_Status, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa  fa-mortar-board"></i></span>
+                            @Html.DropDownList("Gen_Status", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Gen_Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.Gen_Details, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Gen_Details, new { htmlAttributes = new { @class = "form-control",rows="7" }})
+                        @Html.EditorFor(model => model.Gen_Details, new { htmlAttributes = new { @class = "form-control", rows = "7" } })
                         @Html.ValidationMessageFor(model => model.Gen_Details, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.Gen_TextForMail, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Gen_TextForMail, new { htmlAttributes = new { @class = "form-control",rows="7" } })
+                        @Html.EditorFor(model => model.Gen_TextForMail, new { htmlAttributes = new { @class = "form-control", rows = "7" } })
                         @Html.ValidationMessageFor(model => model.Gen_TextForMail, "", new { @class = "text-danger" })
                     </div>
                 </div>

@@ -501,6 +501,17 @@
     <Content Include="Views\Shared\_LayoutUser1.cshtml" />
     <Content Include="Views\Students\EditID.cshtml" />
     <Content Include="Views\Teachers\EditID.cshtml" />
+    <Content Include="Views\Syllabus\Create.cshtml" />
+    <Content Include="Views\Syllabus\Delete.cshtml" />
+    <Content Include="Views\Syllabus\Details.cshtml" />
+    <Content Include="Views\Syllabus\Edit.cshtml" />
+    <Content Include="Views\Syllabus\Index.cshtml" />
+    <Content Include="Views\News\Create.cshtml" />
+    <Content Include="Views\News\Delete.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Generations\showdetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -520,6 +531,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RegisterLinksController.cs" />
@@ -527,8 +539,12 @@
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\Short_CourseController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SyllabusController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Models\Applied.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CESup.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ComputerEquipment.cs">
@@ -546,9 +562,6 @@
     </Compile>
     <Compile Include="Models\FileUploadCheck.cs" />
     <Compile Include="Models\Generation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Gen_Details.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Gen_Status.cs">

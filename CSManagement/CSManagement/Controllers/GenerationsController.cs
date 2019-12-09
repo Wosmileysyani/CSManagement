@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using CSManagement.Models;
 
 namespace CSManagement.Controllers
@@ -17,7 +19,7 @@ namespace CSManagement.Controllers
         // GET: Generations
         public ActionResult Index()
         {
-            var generations = db.Generations.Include(g => g.Short_Course);
+            var generations = db.Generations.Include(g => g.Short_Course).Include(g => g.Gen_Status1);
             return View(generations.ToList());
         }
 
@@ -25,6 +27,19 @@ namespace CSManagement.Controllers
         {
             var generations = db.Generations.Include(g => g.Short_Course);
             return View(db.Generations.ToList());
+        }
+
+        public ActionResult showdetails(int id)
+        {
+            var vm = new Generation();
+
+            var question = db.Generations.FirstOrDefault(a => a.Gen_NO == id);
+            if (question != null)
+            {
+                vm = question;
+            }
+
+            return PartialView(vm);
         }
 
         public ActionResult Registers(int? id)
@@ -57,7 +72,7 @@ namespace CSManagement.Controllers
             }
             return View(generation);
         }
-        
+
         // GET: Generations/Details/5
         public ActionResult Details(int? id)
         {
@@ -77,6 +92,7 @@ namespace CSManagement.Controllers
         public ActionResult Create()
         {
             ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH");
+            ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name");
             return View();
         }
 
@@ -85,18 +101,24 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Generation generation)
+        public ActionResult Create(Generation generation, string gendate)
         {
-            generation.Gen_Member = generation.Gen_MemberMax;
-            if (ModelState.IsValid)
+            try
             {
+                generation.Gen_Member = generation.Gen_MemberMax;
+                generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 db.Generations.Add(generation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            catch (Exception)
+            {
+                ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+                ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
+                return View(generation);
+            }
 
-            ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
-            return View(generation);
+
         }
 
         // GET: Generations/Edit/5
@@ -112,6 +134,7 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+            ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
             return View(generation);
         }
 
@@ -120,8 +143,17 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Gen_NO,Gen_SCID,Gen_Name,Gen_Member,Gen_MemberMax,Gen_Details,Gen_Year,Gen_Fee,Gen_TextForMail")] Generation generation)
+        public ActionResult Edit(Generation generation, string gendate)
         {
+            var recordToUpdate = db.Generations.AsNoTracking().Single(x => x.Gen_NO == generation.Gen_NO);
+            if (gendate.IsEmpty() == true)
+            {
+                generation.Gen_Date = recordToUpdate.Gen_Date;
+            }
+            else
+            {
+                generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(generation).State = EntityState.Modified;
@@ -129,6 +161,7 @@ namespace CSManagement.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+            ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
             return View(generation);
         }
 

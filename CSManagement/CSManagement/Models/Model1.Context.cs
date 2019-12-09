@@ -26,6 +26,7 @@ namespace CSManagement.Models
         }
     
         public virtual DbSet<Applied> Applieds { get; set; }
+        public virtual DbSet<CESup> CESups { get; set; }
         public virtual DbSet<ComputerEquipment> ComputerEquipments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -49,6 +50,5 @@ namespace CSManagement.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<Totaljob> Totaljobs { get; set; }
-        public virtual DbSet<Gen_Details> Gen_Details { get; set; }
     }
 }

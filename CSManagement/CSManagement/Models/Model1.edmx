@@ -14,6 +14,16 @@
           <Property Name="APP_GenNO" Type="int" />
           <Property Name="APP_Status" Type="int" />
         </EntityType>
+        <EntityType Name="CESup">
+          <Key>
+            <PropertyRef Name="CESUB_ATNO" />
+          </Key>
+          <Property Name="CESUB_ATNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CESUB_NO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CESUB_Name" Type="nvarchar(max)" />
+          <Property Name="CESUB_Status" Type="int" />
+          <Property Name="CE_ATNO" Type="int" />
+        </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
             <PropertyRef Name="CE_ATNO" />
@@ -61,17 +71,6 @@
           <Property Name="DIS_DateAPP" Type="date" />
           <Property Name="DIS_Status" Type="int" />
         </EntityType>
-        <EntityType Name="Gen_Details">
-          <Key>
-            <PropertyRef Name="Gen_ID" />
-          </Key>
-          <Property Name="Gen_ID" Type="int" Nullable="false" />
-          <Property Name="Gen_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Gen_Date" Type="date" />
-          <Property Name="Gen_Location" Type="nvarchar(max)" />
-          <Property Name="Gen_Status" Type="int" />
-          <Property Name="Gen_NO" Type="int" />
-        </EntityType>
         <EntityType Name="Gen_Status">
           <Key>
             <PropertyRef Name="Gen_Status" />
@@ -90,8 +89,11 @@
           <Property Name="Gen_MemberMax" Type="int" />
           <Property Name="Gen_Details" Type="nvarchar(max)" />
           <Property Name="Gen_Year" Type="nchar" MaxLength="4" />
+          <Property Name="Gen_Date" Type="date" />
+          <Property Name="Gen_Location" Type="nvarchar(max)" />
           <Property Name="Gen_Fee" Type="float" />
           <Property Name="Gen_TextForMail" Type="nvarchar(max)" />
+          <Property Name="Gen_Status" Type="int" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -284,6 +286,18 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CESup_ComputerEquipment">
+          <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="0..1" />
+          <End Role="CESup" Type="Self.CESup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="CESup">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
           <End Role="ComputerEquipment" Type="Self.ComputerEquipment" Multiplicity="*" />
@@ -320,27 +334,15 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gen_Details_Gen_Status">
+        <Association Name="FK_Generation_Gen_Status">
           <End Role="Gen_Status" Type="Self.Gen_Status" Multiplicity="0..1" />
-          <End Role="Gen_Details" Type="Self.Gen_Details" Multiplicity="*" />
+          <End Role="Generation" Type="Self.Generation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gen_Status">
               <PropertyRef Name="Gen_Status" />
             </Principal>
-            <Dependent Role="Gen_Details">
+            <Dependent Role="Generation">
               <PropertyRef Name="Gen_Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gen_Details_Generation">
-          <End Role="Generation" Type="Self.Generation" Multiplicity="0..1" />
-          <End Role="Gen_Details" Type="Self.Gen_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Generation">
-              <PropertyRef Name="Gen_NO" />
-            </Principal>
-            <Dependent Role="Gen_Details">
-              <PropertyRef Name="Gen_NO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -442,11 +444,11 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
         </Association>
         <EntityContainer Name="CsManagementModelStoreContainer">
           <EntitySet Name="Applied" EntityType="Self.Applied" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CESup" EntityType="Self.CESup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComputerEquipment" EntityType="Self.ComputerEquipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dispose" EntityType="Self.Dispose" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Gen_Details" EntityType="Self.Gen_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gen_Status" EntityType="Self.Gen_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Generation" EntityType="Self.Generation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
@@ -480,6 +482,10 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Register_SC" EntitySet="Register_SC" />
             <End Role="Applied" EntitySet="Applied" />
           </AssociationSet>
+          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="Self.FK_CESup_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
+            <End Role="CESup" EntitySet="CESup" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="Self.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
@@ -492,13 +498,9 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="ComputerEquipment" EntitySet="ComputerEquipment" />
             <End Role="Dispose" EntitySet="Dispose" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gen_Details_Gen_Status" Association="Self.FK_Gen_Details_Gen_Status">
+          <AssociationSet Name="FK_Generation_Gen_Status" Association="Self.FK_Generation_Gen_Status">
             <End Role="Gen_Status" EntitySet="Gen_Status" />
-            <End Role="Gen_Details" EntitySet="Gen_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gen_Details_Generation" Association="Self.FK_Gen_Details_Generation">
             <End Role="Generation" EntitySet="Generation" />
-            <End Role="Gen_Details" EntitySet="Gen_Details" />
           </AssociationSet>
           <AssociationSet Name="FK_Generation_Short_Course" Association="Self.FK_Generation_Short_Course">
             <End Role="Short_Course" EntitySet="Short_Course" />
@@ -539,6 +541,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
       <Schema Namespace="CsManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CsManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Applieds" EntityType="CsManagementModel.Applied" />
+          <EntitySet Name="CESups" EntityType="CsManagementModel.CESup" />
           <EntitySet Name="ComputerEquipments" EntityType="CsManagementModel.ComputerEquipment" />
           <EntitySet Name="Courses" EntityType="CsManagementModel.Course" />
           <EntitySet Name="Departments" EntityType="CsManagementModel.Department" />
@@ -570,6 +573,10 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Register_SC" EntitySet="Register_SC" />
             <End Role="Applied" EntitySet="Applieds" />
           </AssociationSet>
+          <AssociationSet Name="FK_CESup_ComputerEquipment" Association="CsManagementModel.FK_CESup_ComputerEquipment">
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+            <End Role="CESup" EntitySet="CESups" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="CsManagementModel.FK_ComputerEquipment_Teacher">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
@@ -581,6 +588,10 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <AssociationSet Name="FK_Department_Course" Association="CsManagementModel.FK_Department_Course">
             <End Role="Course" EntitySet="Courses" />
             <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Generation_Gen_Status" Association="CsManagementModel.FK_Generation_Gen_Status">
+            <End Role="Gen_Status" EntitySet="Gen_Status" />
+            <End Role="Generation" EntitySet="Generations" />
           </AssociationSet>
           <AssociationSet Name="FK_Generation_Short_Course" Association="CsManagementModel.FK_Generation_Short_Course">
             <End Role="Short_Course" EntitySet="Short_Course" />
@@ -614,15 +625,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-          <EntitySet Name="Gen_Details" EntityType="CsManagementModel.Gen_Details" />
-          <AssociationSet Name="FK_Gen_Details_Gen_Status" Association="CsManagementModel.FK_Gen_Details_Gen_Status">
-            <End Role="Gen_Status" EntitySet="Gen_Status" />
-            <End Role="Gen_Details" EntitySet="Gen_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gen_Details_Generation" Association="CsManagementModel.FK_Gen_Details_Generation">
-            <End Role="Generation" EntitySet="Generations" />
-            <End Role="Gen_Details" EntitySet="Gen_Details" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Applied">
           <Key>
@@ -634,6 +636,17 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="APP_Status" Type="Int32" />
           <NavigationProperty Name="Generation" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Applied" ToRole="Generation" />
           <NavigationProperty Name="Register_SC" Relationship="CsManagementModel.FK_Applied_Register_SC" FromRole="Applied" ToRole="Register_SC" />
+        </EntityType>
+        <EntityType Name="CESup">
+          <Key>
+            <PropertyRef Name="CESUB_ATNO" />
+          </Key>
+          <Property Name="CESUB_ATNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CESUB_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CESUB_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CESUB_Status" Type="Int32" />
+          <Property Name="CE_ATNO" Type="Int32" />
+          <NavigationProperty Name="ComputerEquipment" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="CESup" ToRole="ComputerEquipment" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
@@ -650,6 +663,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="CE_Budget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Status" Type="Int32" />
+          <NavigationProperty Name="CESups" Relationship="CsManagementModel.FK_CESup_ComputerEquipment" FromRole="ComputerEquipment" ToRole="CESup" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
           <NavigationProperty Name="Disposes" Relationship="CsManagementModel.FK_Dispose_ComputerEquipment" FromRole="ComputerEquipment" ToRole="Dispose" />
         </EntityType>
@@ -693,7 +707,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           </Key>
           <Property Name="Gen_Status1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Gen_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Gen_Details" Relationship="CsManagementModel.FK_Gen_Details_Gen_Status" FromRole="Gen_Status" ToRole="Gen_Details" />
+          <NavigationProperty Name="Generations" Relationship="CsManagementModel.FK_Generation_Gen_Status" FromRole="Gen_Status" ToRole="Generation" />
         </EntityType>
         <EntityType Name="Generation">
           <Key>
@@ -706,11 +720,14 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Gen_MemberMax" Type="Int32" />
           <Property Name="Gen_Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Gen_Date" Type="DateTime" Precision="0" />
+          <Property Name="Gen_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Fee" Type="Double" />
           <Property Name="Gen_TextForMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gen_Status" Type="Int32" />
           <NavigationProperty Name="Applieds" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Generation" ToRole="Applied" />
+          <NavigationProperty Name="Gen_Status1" Relationship="CsManagementModel.FK_Generation_Gen_Status" FromRole="Generation" ToRole="Gen_Status" />
           <NavigationProperty Name="Short_Course" Relationship="CsManagementModel.FK_Generation_Short_Course" FromRole="Generation" ToRole="Short_Course" />
-          <NavigationProperty Name="Gen_Details1" Relationship="CsManagementModel.FK_Gen_Details_Generation" FromRole="Generation" ToRole="Gen_Details" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -918,6 +935,18 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CESup_ComputerEquipment">
+          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="0..1" />
+          <End Type="CsManagementModel.CESup" Role="CESup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerEquipment">
+              <PropertyRef Name="CE_ATNO" />
+            </Principal>
+            <Dependent Role="CESup">
+              <PropertyRef Name="CE_ATNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComputerEquipment_Teacher">
           <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
           <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="*" />
@@ -951,6 +980,18 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="Dep_CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Generation_Gen_Status">
+          <End Type="CsManagementModel.Gen_Status" Role="Gen_Status" Multiplicity="0..1" />
+          <End Type="CsManagementModel.Generation" Role="Generation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gen_Status">
+              <PropertyRef Name="Gen_Status1" />
+            </Principal>
+            <Dependent Role="Generation">
+              <PropertyRef Name="Gen_Status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1050,43 +1091,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Gen_Details">
-          <Key>
-            <PropertyRef Name="Gen_ID" />
-          </Key>
-          <Property Name="Gen_ID" Type="Int32" Nullable="false" />
-          <Property Name="Gen_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gen_Date" Type="DateTime" Precision="0" />
-          <Property Name="Gen_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Gen_Status" Type="Int32" />
-          <Property Name="Gen_NO" Type="Int32" />
-          <NavigationProperty Name="Gen_Status1" Relationship="CsManagementModel.FK_Gen_Details_Gen_Status" FromRole="Gen_Details" ToRole="Gen_Status" />
-          <NavigationProperty Name="Generation" Relationship="CsManagementModel.FK_Gen_Details_Generation" FromRole="Gen_Details" ToRole="Generation" />
-        </EntityType>
-        <Association Name="FK_Gen_Details_Gen_Status">
-          <End Type="CsManagementModel.Gen_Status" Role="Gen_Status" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Gen_Details" Role="Gen_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gen_Status">
-              <PropertyRef Name="Gen_Status1" />
-            </Principal>
-            <Dependent Role="Gen_Details">
-              <PropertyRef Name="Gen_Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gen_Details_Generation">
-          <End Type="CsManagementModel.Generation" Role="Generation" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Gen_Details" Role="Gen_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Generation">
-              <PropertyRef Name="Gen_NO" />
-            </Principal>
-            <Dependent Role="Gen_Details">
-              <PropertyRef Name="Gen_NO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1100,6 +1104,17 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="APP_GenNO" ColumnName="APP_GenNO" />
                 <ScalarProperty Name="APP_ReNO" ColumnName="APP_ReNO" />
                 <ScalarProperty Name="APP_NO" ColumnName="APP_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CESups">
+            <EntityTypeMapping TypeName="CsManagementModel.CESup">
+              <MappingFragment StoreEntitySet="CESup">
+                <ScalarProperty Name="CE_ATNO" ColumnName="CE_ATNO" />
+                <ScalarProperty Name="CESUB_Status" ColumnName="CESUB_Status" />
+                <ScalarProperty Name="CESUB_Name" ColumnName="CESUB_Name" />
+                <ScalarProperty Name="CESUB_NO" ColumnName="CESUB_NO" />
+                <ScalarProperty Name="CESUB_ATNO" ColumnName="CESUB_ATNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1165,8 +1180,11 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <EntitySetMapping Name="Generations">
             <EntityTypeMapping TypeName="CsManagementModel.Generation">
               <MappingFragment StoreEntitySet="Generation">
+                <ScalarProperty Name="Gen_Status" ColumnName="Gen_Status" />
                 <ScalarProperty Name="Gen_TextForMail" ColumnName="Gen_TextForMail" />
                 <ScalarProperty Name="Gen_Fee" ColumnName="Gen_Fee" />
+                <ScalarProperty Name="Gen_Location" ColumnName="Gen_Location" />
+                <ScalarProperty Name="Gen_Date" ColumnName="Gen_Date" />
                 <ScalarProperty Name="Gen_Year" ColumnName="Gen_Year" />
                 <ScalarProperty Name="Gen_Details" ColumnName="Gen_Details" />
                 <ScalarProperty Name="Gen_MemberMax" ColumnName="Gen_MemberMax" />
@@ -1356,18 +1374,6 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
                 <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
                 <ScalarProperty Name="JOB" ColumnName="JOB" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gen_Details">
-            <EntityTypeMapping TypeName="CsManagementModel.Gen_Details">
-              <MappingFragment StoreEntitySet="Gen_Details">
-                <ScalarProperty Name="Gen_NO" ColumnName="Gen_NO" />
-                <ScalarProperty Name="Gen_Status" ColumnName="Gen_Status" />
-                <ScalarProperty Name="Gen_Location" ColumnName="Gen_Location" />
-                <ScalarProperty Name="Gen_Date" ColumnName="Gen_Date" />
-                <ScalarProperty Name="Gen_Name" ColumnName="Gen_Name" />
-                <ScalarProperty Name="Gen_ID" ColumnName="Gen_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -68,7 +68,7 @@ namespace CSManagement.Controllers
             if (history.HIS_Year == null) history.HIS_Year = " ";
             if (ModelState.IsValid)
             {
-                history.HIS_StuID = Split_ID[2];
+                history.HIS_StuID = Split_ID[0];
                 db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");

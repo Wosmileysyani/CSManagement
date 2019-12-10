@@ -79,6 +79,7 @@ namespace CSManagement.Controllers
         {
             try
             {
+                project.Pj_Rate = 3;
                 FileUploadCheck fs = new FileUploadCheck();
                 fs.filesize = 1000000;
                 string us = fs.UploadUserFile(file);

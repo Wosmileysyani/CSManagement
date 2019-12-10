@@ -162,6 +162,7 @@
           <Property Name="Pj_Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Pj_Linkweb" Type="nvarchar(max)" />
           <Property Name="Pj_Video" Type="nvarchar(max)" />
+          <Property Name="Pj_Rate" Type="int" />
         </EntityType>
         <EntityType Name="Register_SC">
           <Key>
@@ -261,6 +262,16 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="JOB" Type="int" />
           <Property Name="JOB_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="JOB_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TotalSchool">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Total" Type="int" />
         </EntityType>
         <Association Name="FK_Applied_Generation">
           <End Role="Generation" Type="Self.Generation" Multiplicity="0..1" />
@@ -474,6 +485,13 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
     [Totaljob].[JOB_ID] AS [JOB_ID]
     FROM [dbo].[Totaljob] AS [Totaljob]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="TotalSchool" EntityType="Self.TotalSchool" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TotalSchool].[ID] AS [ID], 
+    [TotalSchool].[Name] AS [Name], 
+    [TotalSchool].[Total] AS [Total]
+    FROM [dbo].[TotalSchool] AS [TotalSchool]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Applied_Generation" Association="Self.FK_Applied_Generation">
             <End Role="Generation" EntitySet="Generation" />
             <End Role="Applied" EntitySet="Applied" />
@@ -625,6 +643,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
+          <EntitySet Name="TotalSchools" EntityType="CsManagementModel.TotalSchool" />
         </EntityContainer>
         <EntityType Name="Applied">
           <Key>
@@ -799,6 +818,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <Property Name="Pj_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Pj_Linkweb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Pj_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Rate" Type="Int32" />
           <NavigationProperty Name="Student" Relationship="CsManagementModel.FK_Project_Student" FromRole="Project" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_Project_Teacher" FromRole="Project" ToRole="Teacher" />
         </EntityType>
@@ -1091,6 +1111,14 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TotalSchool">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1255,6 +1283,7 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="CsManagementModel.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Pj_Rate" ColumnName="Pj_Rate" />
                 <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
                 <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
                 <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
@@ -1374,6 +1403,15 @@ warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary
                 <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
                 <ScalarProperty Name="JOB_Name" ColumnName="JOB_Name" />
                 <ScalarProperty Name="JOB" ColumnName="JOB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TotalSchools">
+            <EntityTypeMapping TypeName="CsManagementModel.TotalSchool">
+              <MappingFragment StoreEntitySet="TotalSchool">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

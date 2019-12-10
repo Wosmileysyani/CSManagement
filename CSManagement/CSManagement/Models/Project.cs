@@ -26,6 +26,7 @@ namespace CSManagement.Models
         public string Pj_Description { get; set; }
         public string Pj_Linkweb { get; set; }
         public string Pj_Video { get; set; }
+        public Nullable<int> Pj_Rate { get; set; }
     
         public virtual Student Student { get; set; }
         public virtual Teacher Teacher { get; set; }

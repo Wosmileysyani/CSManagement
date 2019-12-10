@@ -50,5 +50,6 @@ namespace CSManagement.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<Totaljob> Totaljobs { get; set; }
+        public virtual DbSet<TotalSchool> TotalSchools { get; set; }
     }
 }

@@ -25,6 +25,20 @@ namespace CSManagement.Controllers
             return View(students);
         }
 
+        public ActionResult Indexforreport()
+        {
+            var students = db.Students.Include(x => x.Status).ToList();
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            return View(students);
+        }
+
+        public ActionResult Indexforschool()
+        {
+            var schooList = db.TotalSchools.ToList();
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            return View(schooList);
+        }
+
         public ActionResult EditID(string id)
         {
             if (id == null)
@@ -161,7 +175,7 @@ namespace CSManagement.Controllers
                 }
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Students", new { id = Session["UserID"].ToString() });
+                return RedirectToAction("Index", "Students");
             }
             catch (Exception)
             {

@@ -168,23 +168,6 @@ namespace CSManagement.Controllers
         // GET: Generations/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Generation generation = db.Generations.Find(id);
-            if (generation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(generation);
-        }
-
-        // POST: Generations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Generation generation = db.Generations.Find(id);
             db.Generations.Remove(generation);
             db.SaveChanges();

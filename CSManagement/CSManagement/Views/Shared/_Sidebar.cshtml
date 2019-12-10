@@ -1,4 +1,4 @@
-﻿@using WebHelpers.Mvc5
+﻿    @using WebHelpers.Mvc5
 <aside class="main-sidebar">
     <section class="sidebar">
         @* BEGIN Search *@
@@ -129,6 +129,22 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Applieds")"><i class="fa fa-address-book"></i> <span>จัดการสมาชิก</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-calendar-check-o"></i> <span>ดูรีพอร์ต</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="@Url.Action("Indexforreport", "Students")"><i class="fa fa-user"></i> <span>รายชื่อนักศึก</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Indexforschool", "Students")"><i class="fa fa-user"></i> <span>โรงเรียนเดิม</span></a>
                             </li>
                         </ul>
                     </li>

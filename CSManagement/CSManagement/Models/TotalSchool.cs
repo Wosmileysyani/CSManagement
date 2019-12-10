@@ -12,10 +12,10 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Picture
+    public partial class TotalSchool
     {
-        public int Pic_ID { get; set; }
-        public string Pic_Img { get; set; }
-        public string Pic_Name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Total { get; set; }
     }
 }

@@ -298,10 +298,6 @@
     <Content Include="img\com.png" />
     <Content Include="img\cs1.png" />
     <Content Include="img\icons8-cat-profile-64.png" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Content\img\logo.png" />
     <Content Include="img\images.jpg" />
     <Content Include="img\logo1.png" />
@@ -309,6 +305,10 @@
     <Content Include="img\logo3.png" />
     <Content Include="img\logo4.png" />
     <Content Include="imgSlideShow\present1.png" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
@@ -555,6 +555,9 @@
     <Compile Include="Models\Generation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gen_Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\History.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -582,6 +585,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\News.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Picture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -607,6 +613,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentName.cs" />
+    <Compile Include="Models\Syllabu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -614,6 +623,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Totaljob.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TotalSchool.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Validate_Models.cs" />

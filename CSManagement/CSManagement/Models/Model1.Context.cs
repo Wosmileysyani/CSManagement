@@ -31,11 +31,13 @@ namespace CSManagement.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Dispose> Disposes { get; set; }
+        public virtual DbSet<Gen_Status> Gen_Status { get; set; }
         public virtual DbSet<Generation> Generations { get; set; }
         public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<HitCount> HitCounts { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Register_SC> Register_SC { get; set; }
@@ -44,8 +46,10 @@ namespace CSManagement.Models
         public virtual DbSet<Short_Course> Short_Course { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Syllabu> Syllabus { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<Totaljob> Totaljobs { get; set; }
+        public virtual DbSet<TotalSchool> TotalSchools { get; set; }
     }
 }

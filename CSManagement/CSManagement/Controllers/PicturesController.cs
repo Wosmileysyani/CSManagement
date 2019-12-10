@@ -18,6 +18,7 @@ namespace CSManagement.Controllers
         // GET: Pictures
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             List<Picture> imgPictures = db.Pictures.ToList();
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;
@@ -106,23 +107,6 @@ namespace CSManagement.Controllers
 
         // GET: Pictures/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Picture picture = db.Pictures.Find(id);
-            if (picture == null)
-            {
-                return HttpNotFound();
-            }
-            return View(picture);
-        }
-
-        // POST: Pictures/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
         {
             Picture picture = db.Pictures.Find(id);
             db.Pictures.Remove(picture);

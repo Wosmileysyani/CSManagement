@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using CSManagement.Models;
 
 namespace CSManagement.Controllers
@@ -20,7 +21,42 @@ namespace CSManagement.Controllers
         public ActionResult Index()
         {
             var teachers = db.Teachers.Include(t => t.Title);
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(teachers.ToList());
+        }
+
+        public ActionResult EditID(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Login teachers = db.Logins.Find(id);
+            if (teachers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(teachers);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditID(Login login)
+        {
+            try
+            {
+                var recordToUpdate = db.Logins.AsNoTracking().Single(x => x.Log_ID == login.Log_ID);
+                login.Log_Role = recordToUpdate.Log_Role;
+                db.Entry(login).State = EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "อัพเดทข้อมูลเสร็จสิิ้น กรุณาออกจากระบบและลองเข้าใหม่อีกครั้ง";
+                return View(login);
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
+                return View(login);
+            }
         }
 
         public ActionResult IndexUser()
@@ -52,7 +88,7 @@ namespace CSManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Teacher teacher,string birthday, HttpPostedFileBase file)
+        public ActionResult Create(Teacher teacher, string birthday, HttpPostedFileBase file)
         {
             try
             {
@@ -71,7 +107,7 @@ namespace CSManagement.Controllers
             }
             catch (Exception)
             {
-                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID)  ;
+                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
                 return View(teacher);
             }
         }
@@ -98,6 +134,8 @@ namespace CSManagement.Controllers
         {
             try
             {
+                var recordToUpdate = db.Teachers.AsNoTracking().Single(x => x.Tea_ID == teacher.Tea_ID);
+                teacher.Tea_Birth = birthday.IsEmpty() == true ? recordToUpdate.Tea_Birth : DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 if (file != null && file.ContentLength > 0)
                 {
                     string ImageName = Path.GetFileName(file.FileName);
@@ -106,7 +144,10 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     teacher.Tea_Img = myUniqueFileName;
                 }
-                teacher.Tea_Birth = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                else
+                {
+                    teacher.Tea_Img = recordToUpdate.Tea_Img;
+                }
                 db.Teachers.Add(teacher);
                 db.Entry(teacher).State = EntityState.Modified;
                 db.SaveChanges();
@@ -114,6 +155,7 @@ namespace CSManagement.Controllers
             }
             catch (Exception)
             {
+                ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
                 ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", teacher.Tea_TitleID);
                 return View(teacher);
             }

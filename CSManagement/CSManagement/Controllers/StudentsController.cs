@@ -1,16 +1,15 @@
-﻿using System;
+﻿using CSManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.WebPages;
-using CSManagement.Models;
-using Microsoft.Ajax.Utilities;
 
 namespace CSManagement.Controllers
 {
@@ -21,11 +20,39 @@ namespace CSManagement.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(x=>x.Status).ToList();
+            var students = db.Students.Include(x => x.Status).ToList();
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(students);
         }
 
-       
+        public ActionResult Indexforreport()
+        {
+            var students = db.Students.Include(x => x.Status).ToList();
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            return View(students);
+        }
+
+        public ActionResult Indexforschool()
+        {
+            var schooList = db.TotalSchools.ToList();
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            return View(schooList);
+        }
+
+        public ActionResult EditID(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Login student = db.Logins.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
 
         // GET: Students/Details/5
         public ActionResult Details(string id)
@@ -46,6 +73,26 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             return View(student);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditID(Login login)
+        {
+            try
+            {
+                var recordToUpdate = db.Logins.AsNoTracking().Single(x => x.Log_ID == login.Log_ID);
+                login.Log_Role = recordToUpdate.Log_Role;
+                db.Entry(login).State = EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "อัพเดทข้อมูลเสร็จสิิ้น กรุณาออกจากระบบและลองเข้าใหม่อีกครั้ง";
+                return View(login);
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
+                return View(login);
+            }
         }
 
         // GET: Students/Create
@@ -103,14 +150,10 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-            //วันที่ถ้าเป็นค่าว่างให้เอาวันที่เก่ามา
             try
             {
-                if (birthday.IsEmpty() == true)
-                {
-                    var bd = db.Students.FirstOrDefault(x => x.Stu_ID == student.Stu_ID);
-                    student.Stu_Birthday = bd.Stu_Birthday;
-                }
+                var recordToUpdate = db.Students.AsNoTracking().Single(x => x.Stu_ID == student.Stu_ID);
+                student.Stu_Birthday = birthday.IsEmpty() == true ? recordToUpdate.Stu_Birthday : DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
@@ -118,14 +161,25 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     student.Stu_Img = myUniqueFileName;
                 }
-                student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                student.Stu_Tel = tel;
+                else
+                {
+                    student.Stu_Img = recordToUpdate.Stu_Img;
+                }
+                if (tel.IsEmpty() != true)
+                {
+                    student.Stu_Tel = tel;
+                }
+                else
+                {
+                    student.Stu_Tel = recordToUpdate.Stu_Tel;
+                }
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Students", new { id = Session["UserID"].ToString() });
+                return RedirectToAction("Index", "Students");
             }
             catch (Exception)
             {
+                ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
                 return View(student);
@@ -136,25 +190,8 @@ namespace CSManagement.Controllers
         // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        // POST: Students/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
+            Student students = db.Students.Find(id);
+            db.Students.Remove(students);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

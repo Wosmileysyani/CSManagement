@@ -17,6 +17,7 @@ namespace CSManagement.Controllers
         // GET: Courses
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(db.Courses.ToList());
         }
 

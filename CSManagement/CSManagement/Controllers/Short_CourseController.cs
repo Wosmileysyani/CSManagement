@@ -94,23 +94,6 @@ namespace CSManagement.Controllers
         // GET: Short_Course/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Short_Course short_Course = db.Short_Course.Find(id);
-            if (short_Course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(short_Course);
-        }
-
-        // POST: Short_Course/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Short_Course short_Course = db.Short_Course.Find(id);
             db.Short_Course.Remove(short_Course);
             db.SaveChanges();

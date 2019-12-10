@@ -32,7 +32,7 @@ namespace CSManagement.Controllers
             findid.APP_Status = 1;
             db.Entry(findid).State = EntityState.Modified;
             var findGen = db.Generations.FirstOrDefault(x => x.Gen_NO == findid.Generation.Gen_NO);
-            if (findGen.Gen_Member >= 0)
+            if (findGen.Gen_Member > 0)
             {
                 findGen.Gen_Member -= 1;
             }

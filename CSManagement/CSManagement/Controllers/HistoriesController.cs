@@ -20,6 +20,7 @@ namespace CSManagement.Controllers
         public ActionResult Index()
         {
             var histories = db.Histories.Include(h => h.Job).Include(h => h.Student);
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(histories.ToList());
         }
 
@@ -27,7 +28,7 @@ namespace CSManagement.Controllers
         {
             List<StudentName> allsearch = db.Students.Where(x => x.Stu_Name.Contains(search)).Select(x => new StudentName
             {
-                Stu_ID = x.Stu_Name + " " + x.Stu_Surname + " " + x.Stu_ID,
+                Stu_ID = x.Stu_ID + " " + x.Stu_Name + " " + x.Stu_Surname,
                 Stu_Name = x.Stu_Name + " " + x.Stu_Surname
             }).ToList();
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -67,7 +68,7 @@ namespace CSManagement.Controllers
             if (history.HIS_Year == null) history.HIS_Year = " ";
             if (ModelState.IsValid)
             {
-                history.HIS_StuID = Split_ID[2];
+                history.HIS_StuID = Split_ID[0];
                 db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -115,23 +116,6 @@ namespace CSManagement.Controllers
 
         // GET: Histories/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            History history = db.Histories.Find(id);
-            if (history == null)
-            {
-                return HttpNotFound();
-            }
-            return View(history);
-        }
-
-        // POST: Histories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
         {
             History history = db.Histories.Find(id);
             db.Histories.Remove(history);

@@ -6,6 +6,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.WebPages;
@@ -30,21 +31,27 @@ namespace CSManagement.Controllers
             if (username.IsEmpty() == false && password.IsEmpty() == false)
             {
                 var dataCk = db.Logins.FirstOrDefault(x => x.Log_ID == username && x.Log_Pass == password);
-                if (dataCk != null && dataCk.Log_Role == 2)
+                FormsAuthentication.SetAuthCookie(dataCk.Log_ID,false);
+                if (dataCk != null && dataCk.Log_Role == "Student")
                 {
                     var data = db.Students.FirstOrDefault(x => x.Stu_ID == dataCk.Log_ID);
                     Session["UserID"] = data.Stu_ID;
                     Session["UserName"] = data.Stu_Name;
                     Session["UserSurname"] = data.Stu_Surname;
+                    Session["UserImg"] = data.Stu_Img;
+                    if (data.Status.Status_Name == "สำเร็จการศึกษา" ||
+                        data.Status.Status_Name == "เกียรตินิยม 1" ||
+                        data.Status.Status_Name == "เกียรตินิยม 2") Session["PJ"] = "PJ";
                     Session["Loginchk"] = "set";
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
-                else if (dataCk != null && dataCk.Log_Role == 1)
+                else if (dataCk != null && dataCk.Log_Role == "Admin")
                 {
                     var data = db.Teachers.FirstOrDefault(x => x.Tea_ID == dataCk.Log_ID);
                     Session["UserID"] = data.Tea_ID;
                     Session["UserName"] = data.Tea_Name;
                     Session["UserSurname"] = data.Tea_Surname;
+                    Session["UserImg"] = data.Tea_Img;
                     Session["AJ"] = "AJ";
                     Session["Loginchk"] = "set";
                     return Json(true, JsonRequestBehavior.AllowGet);
@@ -75,7 +82,7 @@ namespace CSManagement.Controllers
                     loginmodel.Log_Pass = password2;
                     if (specailcode == "admin")
                     {
-                        loginmodel.Log_Role = 1;
+                        loginmodel.Log_Role = "Admin";
                         Teacher teachermodel = new Teacher()
                         {
                             Tea_ID = username2,
@@ -95,7 +102,7 @@ namespace CSManagement.Controllers
                     }
                     else
                     {
-                        loginmodel.Log_Role = 2;
+                        loginmodel.Log_Role = "Student";
                         Student studentmodel = new Student()
                         {
                             Stu_ID = username2,

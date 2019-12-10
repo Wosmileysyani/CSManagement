@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_ID, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control" ,@readonly = true} })
                         @Html.ValidationMessageFor(model => model.Stu_ID, "", new { @class = "text-danger" })
                     </div>
 
@@ -132,19 +132,12 @@
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_StatusID, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-mortar-board"></i></span>
-                            @Html.DropDownListFor(model => model.Stu_StatusID, new List<SelectListItem>()
-                            {
-                                new SelectListItem() { Text = "กำลังศึกษาอยู่", Value = "1" },
-                                new SelectListItem() { Text = "สำเร็จการศึกษา", Value = "2" },
-                                new SelectListItem() { Text = "เกียรตินิยมอันดับ 1", Value = "3" },
-                                new SelectListItem() { Text = "เกียรตินิยมอันดับ 2", Value = "4"} ,
-                                new SelectListItem() { Text = "พ้นสภาพการเป็นนักศึกษา", Value = "5"},
-                                new SelectListItem() { Text = "พักการเรียน", Value = "6"}
-                            }, "เลือกวุฒิการศึกษา", new { @id = "Stu_StatusID", @class = "form-control" })
+                            <span class="input-group-addon"><i class="fa  fa-mortar-board"></i></span>
+                            @Html.DropDownList("Stu_StatusID", null, "เลือกสถานะการศึกษา", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
                     </div>
+
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_Img, htmlAttributes: new { @class = "control-label" })
                         <input type="file" id="file" name="file">
@@ -154,9 +147,18 @@
                     <button type="submit" class="btn btn-success col-md-3" style="float:right"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
                     <a class="btn btn-default col-md-3" style="float:left" href="@Url.Action("Index", "Students")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
                 </div>
-                
+
             </div>
         </div>
+        
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    alert("@ViewBag.Message");
+                };
+            </script>
+        }
 
         <div class="box-footer">
             หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก

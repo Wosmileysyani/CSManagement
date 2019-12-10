@@ -17,6 +17,7 @@ namespace CSManagement.Controllers
         // GET: RegisterLinks
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(db.RegisterLinks.ToList());
         }
 
@@ -91,23 +92,6 @@ namespace CSManagement.Controllers
 
         // GET: RegisterLinks/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RegisterLink registerLink = db.RegisterLinks.Find(id);
-            if (registerLink == null)
-            {
-                return HttpNotFound();
-            }
-            return View(registerLink);
-        }
-
-        // POST: RegisterLinks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
         {
             RegisterLink registerLink = db.RegisterLinks.Find(id);
             db.RegisterLinks.Remove(registerLink);

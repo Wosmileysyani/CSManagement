@@ -1,4 +1,4 @@
-﻿@using WebHelpers.Mvc5
+﻿    @using WebHelpers.Mvc5
 <aside class="main-sidebar">
     <section class="sidebar">
         @* BEGIN Search *@
@@ -23,6 +23,14 @@
             <li class="@Url.IsLinkActive("Index", "Home")">
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span>หน้าหลัก</span></a>
             </li>
+            
+            @if (Session["PJ"] != null)
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Projects")"><i class="fa fa-graduation-cap"></i> <span>จัดการข้อมูลปริญญานิพนธ์</span></a>
+                </li>
+            }
+
             @{
                 if (Session["AJ"] != null)
                 {
@@ -42,6 +50,9 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Schools")"><i class="fa fa-user"></i> <span>จัดการโรงเรียนเดิมของนักศึกษา</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Logins")"><i class="fa fa-user"></i> <span>จัดการข้อมูลไอดี-พาสเวิร์ด</span></a>
                             </li>
                         </ul>
                     </li>
@@ -64,6 +75,12 @@
                         <ul class="treeview-menu">
                             <li>
                                 <a href="@Url.Action("Index", "Departments")"><i class="fa fa-user"></i> <span>ข้อมูลหมวดวิชา</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Syllabus")"><i class="fa fa-user"></i> <span>ข้อมูลประชาสัมพันธ์หลักสูตร</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "News")"><i class="fa fa-user"></i> <span>ข้อมูลประชาสัมพันธ์ข่าว</span></a>
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Courses")"><i class="fa fa-user"></i> <span>ข้อมูลหลักสูตร</span></a>
@@ -91,9 +108,6 @@
                             <li>
                                 <a href="@Url.Action("Index", "Disposes")"><i class="fa fa-user"></i> <span>การจำหน่าย</span></a>
                             </li>
-                            <li>
-                                <a href="@Url.Action("Index", "CESups")"><i class="fa fa-address-book"></i> <span>ครุภัณฑ์ทั้งหมด</span></a>
-                            </li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -115,6 +129,22 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Applieds")"><i class="fa fa-address-book"></i> <span>จัดการสมาชิก</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-calendar-check-o"></i> <span>ดูรีพอร์ต</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="@Url.Action("Indexforreport", "Students")"><i class="fa fa-user"></i> <span>รายชื่อนักศึก</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Indexforschool", "Students")"><i class="fa fa-user"></i> <span>โรงเรียนเดิม</span></a>
                             </li>
                         </ul>
                     </li>

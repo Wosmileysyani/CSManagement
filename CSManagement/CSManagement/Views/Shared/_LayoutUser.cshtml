@@ -210,7 +210,62 @@
                         <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
                         <li><a href="@Url.Action("IndexUserGrap", "Home")">หลักสูตรสาขา</a></li>
                         <li><a href="@Url.Action("IndexUser", "Generations")">หลักสูตรอบรม</a></li>
-                        <li><a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a></li>
+                        @{
+                            if (Session["UserID"] != null)
+                            {
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="~/img/icons8-cat-profile-64.png" class="user-image" alt="User Image">
+                                        <span class="hidden-xs">@Session["UserName"].ToString() @Session["UserSurname"].ToString()</span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li class="user-header">
+                                            @if (Session["UserImg"].ToString().Equals("รอแก้ไข") != true)
+                                            {
+                                                <img src="~/img/@Session["UserImg"]" class="img-circle" alt="User Image">
+                                            }
+                                            else
+                                            {<img src="~/img/icons8-cat-profile-64.png" class="img-circle" alt="User Image">}
+
+                                            <p style="color: #111111">
+                                                @Session["UserName"].ToString()
+                                                @Session["UserSurname"].ToString()
+                                                <small>@Session["UserID"].ToString()</small>
+                                            </p>
+                                        </li>
+
+                                        <li class="user-footer">
+                                            @if (Session["AJ"] == null)
+                                            {
+                                                <div class="pull-left">
+                                                    <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูล</a>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <a href='@Url.Action("EditID", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">รหัสผ่าน</a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="pull-left">
+                                                    <a href='@Url.Action("Edit", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <a href='@Url.Action("EditID", "Teachers", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">รหัสผ่าน</a>
+                                                </div>
+                                            }
+                                            <div class="pull-right">
+                                                <a href='@Url.Action("Logout", "logins")' class="btn btn-default btn-flat">ออก</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a href="" data-toggle="modal" data-target="#modalLRForm" style="color:black"><img src="~/img/login.jpg" width="20" height="20" /> เข้าสู่ระบบ</a></li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>
@@ -400,7 +455,7 @@
                                 document.getElementById("usernameCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
                                 document.getElementById("passwordCK1").innerHTML = "ชื่อผู้ใช้หรือรหัสผ่านผิด";
                             } else {
-                                window.location.href = "@Url.Action("IndexUser","Home")";
+                                window.location.href = "@Url.Action("Index","Home")";
                             }
                         }
 
@@ -435,7 +490,7 @@
                                 document.getElementById("passwordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                                 document.getElementById("repasswordCK2").innerHTML = "กรุณากรอกข้อมูลให้ถูกต้อง";
                             } else {
-                                window.location.href = "@Url.Action("IndexUser","Home")";
+                                window.location.href = "@Url.Action("Index","Home")";
                             }
                         }
 

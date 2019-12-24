@@ -96,12 +96,9 @@ namespace CSManagement.Controllers
             return View(history);
         }
 
-        // POST: Histories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HIS_ID,HIS_StuID,HIS_Job,HIS_Jobname,HIS_Year,HIS_Company")] History history)
+        public ActionResult Edit(History history)
         {
             if (ModelState.IsValid)
             {

@@ -5,45 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Syllabu</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sy_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sy_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sy_Name, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">เพิ่มข้อมูลประชาสัมพันธ์</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="font-size:15px">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Sy_Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Sy_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Sy_Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Sy_Details, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Sy_Details, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Sy_Details, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.Sy_Img, htmlAttributes: new { @class = "control-label" })
+                        <input type="file" id="file" name="file">
+                    </div>
+                </div>
+                <hr />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success col-md-3" style="float:right;font-size:18px"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                    <a class="btn btn-default col-md-3" style="float:left;font-size:18px" href="@Url.Action("Index", "Syllabus")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sy_Details, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sy_Details, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sy_Details, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-3">
-            @Html.LabelFor(model => model.Sy_Img, htmlAttributes: new { @class = "control-label" })
-            <input type="file" id="file" name="file">
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </section>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -3,44 +3,42 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Sy_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sy_Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sy_Img)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sy_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sy_Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sy_Img)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Sy_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Sy_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Sy_ID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="box-title">จัดการข้อมูลประชาสัมพันธ์หลักสูตร</h1>
+                <a class="btn btn-success" style="float: right" href="@Url.Action("Create", "Syllabus")"><i class="fa fa-user-plus"></i>เพิ่มข้อมูลประชาสัมพันธ์</a>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align:center">ที่</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Sy_Name)</th>
+                    <th style="text-align:center">@Html.DisplayNameFor(model => model.Sy_Details)</th>
+                    <th style="text-align:center">จัดการข้อมูล</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:center">@(i++)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sy_Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sy_Details)</td>
+                        <td style="text-align:center">
+                            <div class="delete-section">
+                                <a class="btn btn-info" href="@Url.Action("Details", "Syllabus", new { id = item.Sy_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

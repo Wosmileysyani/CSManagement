@@ -414,7 +414,7 @@ namespace CSManagement.Models
     [MetadataType(typeof(V_Title))]
     public partial class Title { }
 
-    public partial class V_Generation
+    public partial class VGeneration
     {
         [Display(Name = "รหัสรุ่น")]
         public int Gen_NO { get; set; }
@@ -422,8 +422,8 @@ namespace CSManagement.Models
         [Display(Name = "ชื่อหลักสูตรอบรม")]
         public Nullable<int> Gen_SCID { get; set; }
 
-        [Display(Name ="รุ่นที่")]
-        [Required(ErrorMessage ="กรุณากรอกข้อมูล")]
+        [Display(Name = "รุ่นที่")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public string Gen_Name { get; set; }
 
         [Display(Name = "จำนวนที่เหลือ")]
@@ -443,6 +443,14 @@ namespace CSManagement.Models
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public string Gen_Year { get; set; }
 
+        [Display(Name = "วันที่จัดอบรม")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<System.DateTime> Gen_Date { get; set; }
+
+        [Display(Name = "สถานที่จัดอบรม")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string Gen_Location { get; set; }
+
         [Display(Name = "ราคา")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public Nullable<double> Gen_Fee { get; set; }
@@ -452,12 +460,30 @@ namespace CSManagement.Models
         [DataType(DataType.MultilineText)]
         public string Gen_TextForMail { get; set; }
 
+        [Display(Name = "สถานะการรับสมัคร")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<int> Gen_Status { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Applied> Applieds { get; set; }
         public virtual Short_Course Short_Course { get; set; }
+        public virtual Gen_Status Gen_Status1 { get; set; }
     }
-    [MetadataType(typeof(V_Generation))]
+    [MetadataType(typeof(VGeneration))]
     public partial class Generation { }
+
+    public partial class VGen_Status
+    {
+        [Display(Name = "รหัสสถานะ")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public int Gen_Status1 { get; set; }
+
+        [Display(Name = "สถานะการรับสมัคร")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string Gen_Name { get; set; }
+    }
+    [MetadataType(typeof(VGen_Status))]
+    public partial class Gen_Status { }
 
     public partial class V_Short_Course
     {
@@ -470,4 +496,82 @@ namespace CSManagement.Models
     }
     [MetadataType(typeof(V_Short_Course))]
     public partial class Short_Course { }
+
+    public partial class VRegister_SC
+    {
+        [Display(Name = "รหัสบัตรประชาชน")]
+        [Required(ErrorMessage = "กรุณากรอกหมายเลข")]
+        public string REG_IDCard { get; set; }
+
+        [Display(Name = "ชื่อ-นามสกุล")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string REG_Name { get; set; }
+
+        [Display(Name = "ที่อยู่")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string REG_Address { get; set; }
+
+        [Display(Name = "เบอร์โทร")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.PhoneNumber)]
+        public string REG_Tel { get; set; }
+
+        [Display(Name = "อีเมล")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.EmailAddress)]
+        public string REG_Email { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applied> Applieds { get; set; }
+    }
+    [MetadataType(typeof(VRegister_SC))]
+    public partial class Register_SC { }
+
+    public partial class VSyllabu
+    {
+        [Display(Name = "รหัส")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public int Sy_ID { get; set; }
+
+        [Display(Name = "เรื่อง")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string Sy_Name { get; set; }
+
+        [Display(Name = "รายละเอียด")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.MultilineText)]
+        public string Sy_Details { get; set; }
+
+        [Display(Name = "รูปภาพ")]
+        public string Sy_Img { get; set; }
+    }
+    [MetadataType(typeof(VSyllabu))]
+    public partial class Syllabu { }
+
+    public partial class VNews
+    {
+        [Display(Name = "รหัส")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public int New_ID { get; set; }
+
+        [Display(Name = "หัวข้อข่าวสาร")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string New_Name { get; set; }
+
+        [Display(Name = "รายละเอียด")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.MultilineText)]
+        public string New_Details { get; set; }
+
+        [Display(Name = "รูปภาพ")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public string New_Img { get; set; }
+
+        [Display(Name = "วันที่")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.Date)]
+        public Nullable<System.DateTime> New_Date { get; set; }
+    }
+    [MetadataType(typeof(VNews))]
+    public partial class News { }
 }

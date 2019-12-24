@@ -8,6 +8,27 @@
     .carousel .item img {
         margin: 0 auto;
     }
+
+    .card-img-top {
+        box-shadow: 5px 5px 5px #d9d9d9;
+        max-width: 100%;
+        max-height: 100%;
+        margin-top: 10px;
+    }
+
+    .header1 {
+        border-bottom: 2px solid #207016;
+    }
+
+    .page-title {
+        color: #fff;
+        padding: 6px 12px;
+        display: inline-block;
+        font-size: 18px;
+        margin-bottom: 0px;
+        padding-bottom: 15px;
+        background-color: #207016;
+    }
 </style>
 
 <section class="banner full">
@@ -67,16 +88,7 @@
     </div>
 
 
-    <style>
-        .card-img-top {
-            box-shadow: 5px 5px 5px #d9d9d9;
-            max-width: 100%;
-            max-height: 100%;
-            margin-top: 10px;
-        }
-    </style>
-
-    <div class="container">
+    <div class="container" >
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-3 col-md-3 col-sm-6">
@@ -96,6 +108,7 @@
                 </div>
             </div>
         </div>
+        <br />
 
         <div class="container">
             <div class="row">
@@ -125,7 +138,10 @@
 
 
         @*ผลงานนักศึกษา*@
-        <p class="page-header text-center" style="font-size:40px"><i class="fa fa-star"></i>ผลงานนักศึกษา<i class="fa fa-star"></i></p>
+        <header class="header1">
+            <a class="page-title" href="@Url.Action("IndexUser","Projects")">ผลงานนักศึกษา</a>
+        </header>
+        <br />
         <div class="row">
             @{
                 foreach (var item in ViewBag.ProjectCount)
@@ -182,48 +198,51 @@
         </div>
 
         @*แนะนำว่าเรียนอะไรบ้าง*@
-    <div class="container">
-        @*<div class="panel panel-default outer" style="padding: 1em 5em;">*@
-        <p class="page-header text-center" style="font-size:40px"><i class="fa fa-star"></i>สาขาเราเรียนอะไรกัน<i class="fa fa-star"></i></p>
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="panel panel-default outer" style="width:90%">
-                    <div class="panel-heading headerbar">
-                        1.การเขียนแอพพลิเคชั่น
-                    </div>
-                    <div class="panel-body text-justify">
-                        <img src="~/img/images.jpg" style="width:80%;height:50%" />
-                        <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="panel panel-default outer" style="width:90%">
-                    <div class="panel-heading headerbar">
-                        1.การเขียนแอพพลิเคชั่น
-                    </div>
-                    <div class="panel-body text-justify">
-                        <img src="~/img/images.jpg" style="width:80%;height:50%" />
-                        <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
+        <div class="container">
+            @*<div class="panel panel-default outer" style="padding: 1em 5em;">*@
+            <header class="header1">
+                <h1 class="page-title">สาขาเราเรียนอะไรกัน</h1>
+            </header>
+            <br />
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="panel panel-default outer" style="width:90%">
+                        <div class="panel-heading headerbar">
+                            1.การเขียนแอพพลิเคชั่น
+                        </div>
+                        <div class="panel-body text-justify">
+                            <img src="~/img/images.jpg" style="width:80%;height:50%" />
+                            <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="panel panel-default outer" style="width:90%">
-                    <div class="panel-heading headerbar">
-                        1.การเขียนแอพพลิเคชั่น
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="panel panel-default outer" style="width:90%">
+                        <div class="panel-heading headerbar">
+                            1.การเขียนแอพพลิเคชั่น
+                        </div>
+                        <div class="panel-body text-justify">
+                            <img src="~/img/images.jpg" style="width:80%;height:50%" />
+                            <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
+                        </div>
                     </div>
-                    <div class="panel-body text-justify">
-                        <img src="~/img/images.jpg" style="width:80%;height:50%" />
-                        <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
+                </div>
+
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="panel panel-default outer" style="width:90%">
+                        <div class="panel-heading headerbar">
+                            1.การเขียนแอพพลิเคชั่น
+                        </div>
+                        <div class="panel-body text-justify">
+                            <img src="~/img/images.jpg" style="width:80%;height:50%" />
+                            <p>พัฒนาแอพพลิชั่นด้วยCross platform เช่น Xamarin, Ionic, React</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        </div>
 </section>
 
 

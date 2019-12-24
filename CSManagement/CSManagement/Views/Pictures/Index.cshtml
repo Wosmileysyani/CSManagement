@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CSManagement.Models.Picture>
+   
 
 <style>
     .carousel .item img {
@@ -46,40 +47,40 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
+
+
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ที่</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.Pic_Img)</th>
+                        <th style="text-align:center">@Html.DisplayNameFor(model => model.Pic_Name)</th>
+                        <th style="text-align:center">จัดการข้อมูล</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:center">@(i++)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Pic_Img)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Pic_Name)</td>
+                            <td style="text-align:center">
+                                <div class="delete-section">
+                                    @*<a class="btn btn-info" href="@Url.Action("Details", "Pictures", new { id = item.Pic_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
+                                    <a class="btn btn-primary delete-link" href="@Url.Action("Delete", new {id = item.Pic_ID})"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
+                                    <div class="btn btn-danger delete-confirm" style="display:none" data-delete-id="@item.Pic_ID"><i class="fa  fa-trash-o"></i> ยืนยันการลบ</div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Pic_Img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pic_Name)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pic_Img)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pic_Name)
-            </td>
-            <td style="text-align:center">
-                <div class="delete-section">
-                @Html.ActionLink("Details", "Details", new { id = item.Pic_ID })
-                    <a class="btn btn-primary delete-link" href="@Url.Action("Delete", new {id = item.Pic_ID})">ลบข้อมูล</a>
-                    <div class="btn btn-danger delete-confirm" style="display:none" data-delete-id="@item.Pic_ID">ยืนยันการลบ</div>
-                </div>
-            </td>
-        </tr>
-    }
-
-</table>
 
 @section Scripts{
     <script type="text/javascript">

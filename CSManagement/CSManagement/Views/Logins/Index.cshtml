@@ -3,33 +3,60 @@
 @{
     ViewBag.Title = "ไอดี-พาสเวิร์ด";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<table class="table">
-    <tr>
-        <th>
-            ไอดี
-        </th>
-        <th>
-            พาสเวิร์ด
-        </th>
-        <th>
-            ประเภท
-        </th>
-    </tr>
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="box-title">จัดการข้อมูลชื่อผู้ใช้-รหัสผ่าน</h1>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align:center">ที่</th>
+                    <th style="text-align:center">ชื่อผู้ใช้งาน</th>
+                    <th style="text-align:center">รหัสผ่าน</th>
+                    <th style="text-align:center">ประเภทผู้ใช้</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td style="text-align:center">@(i++)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Log_ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Log_Pass)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Log_Role)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Log_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Log_Pass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Log_Role)
-        </td>
-    </tr>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
 }
-
-</table>

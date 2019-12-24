@@ -3,50 +3,61 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="box-title">จัดการข้อมูลข่าวสาร</h1>
+                <a class="btn btn-success" style="float: right" href="@Url.Action("Create", "News")"><i class="fa fa-user-plus"></i>เพิ่มข้อมูลประชาสัมพันธ์</a>
+            </div>
+        </div>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.New_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.New_Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.New_Img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.New_Date)
-        </th>
-        <th></th>
-    </tr>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align:center">ที่</th>
+                    <th style="text-align:center">
+                        @Html.DisplayNameFor(model => model.New_Name)
+                    </th>
+                    <th style="text-align:center">
+                        @Html.DisplayNameFor(model => model.New_Details)
+                    </th>
+                    <th style="text-align:center">
+                        @Html.DisplayNameFor(model => model.New_Date)
+                    </th>
+                    <th style="text-align:center">จัดการข้อมูล</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:center">@(i++)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.New_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.New_Details)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.New_Date)
+                        </td>
+                        <td style="text-align:center">
+                            <div class="delete-section">
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "News", new { id = item.New_ID })"><i class="fa fa-edit"></i>แก้ไข</a>
+                                @*<a class="btn btn-info" href="@Url.Action("Details", "News", new { id = item.New_ID })"><i class="fa fa-list-ul"></i> รายละเอียด</a>*@
+                                <a class="btn btn-primary delete-link" href="@Url.Action("Delete","News", new {id = item.New_ID})"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.New_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.New_Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.New_Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.New_Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.New_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.New_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.New_ID })
-        </td>
-    </tr>
-}
-
-</table>

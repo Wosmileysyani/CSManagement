@@ -21,13 +21,13 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_Year, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_Year, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_Year, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_Credit, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_Credit, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_Credit, "", new { @class = "text-danger" })
@@ -35,13 +35,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_NameTH, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_NameTH, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_NameTH, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_NameENG, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_NameENG, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_NameENG, "", new { @class = "text-danger" })
@@ -49,13 +49,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_DegreeTH, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_DegreeTH, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_DegreeTH, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-6">
                         @Html.LabelFor(model => model.Course_DegreeENG, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Course_DegreeENG, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Course_DegreeENG, "", new { @class = "text-danger" })

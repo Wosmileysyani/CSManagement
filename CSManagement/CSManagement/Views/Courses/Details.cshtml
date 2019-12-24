@@ -9,11 +9,11 @@
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="box-title">รายละเอียดหมวดหมู่วิชา</h1>
+                    <h1 class="box-title">รายละเอียดข้อมูลหลักสูตร</h1>
 
                     <div style="float:right">
                         <a class="btn btn-default" href="@Url.Action("Index", "Courses")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Courses")"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Courses")/@Model.Course_ID"><i class="fa  fa-trash-o"></i> ลบข้อมูล</a>
                     </div>
                 </div>
             </div>

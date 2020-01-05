@@ -68,27 +68,29 @@
                                             <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Member)</th>
                                             <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Year)</th>
                                             <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Fee)</th>
+                                            <th style="text-align:center">@Html.DisplayNameFor(model => model.Gen_Status1.Gen_Name)</th>
                                             <th style="text-align:center">จัดการข้อมูล</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                <td style="text-align:center">@(i++)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)</td>
-                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Name)</td>
-                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Member)</td>
-                                                <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Year)</td>
-                                                <td style="text-align:right;color:forestgreen"><strong>@Html.DisplayFor(modelItem => item.Gen_Fee)-.</strong></td>
-                                                <td style="text-align:center">
-                                                    <button type="button" class="btn btn-success btn-sm  modal-link"
-                                                            data-targeturl="@Url.Action("showdetails","Generations",new { id = item.Gen_NO })">
-                                                        รายละเอียด
-                                                    </button>
-                                                    @*<button class="btn btn-info" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-list-ul"></i> รายละเอียด</button>*@
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td style="text-align:center">@(i++)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Short_Course.SC_NameTH)</td>
+                                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Name)</td>
+                                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Member)</td>
+                                            <td style="text-align:center">@Html.DisplayFor(modelItem => item.Gen_Year)</td>
+                                            <td style="text-align:right;color:forestgreen"><strong>@Html.DisplayFor(modelItem => item.Gen_Fee)-.</strong></td>
+                                            <td style="color:@(item.Gen_Status1.Gen_Name == "เปิดรับสมัคร"?"forestgreen":"red")">@Html.DisplayFor(modelItem => item.Gen_Status1.Gen_Name)</td>
+                                            <td style="text-align:center">
+                                                <button type="button" class="btn btn-success btn-sm  modal-link"
+                                                        data-targeturl="@Url.Action("showdetails","Generations",new { id = item.Gen_NO })">
+                                                    รายละเอียด
+                                                </button>
+                                                @*<button class="btn btn-info" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-list-ul"></i> รายละเอียด</button>*@
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>

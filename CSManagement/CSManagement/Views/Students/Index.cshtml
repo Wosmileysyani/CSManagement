@@ -2,7 +2,6 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int i = 1;
 }
 
 <div class="box">
@@ -18,7 +17,6 @@
         <table id="example1" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th style="text-align:center">ที่</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_ID)</th>
                     <th style="text-align:center">ชื่อ-นามสกุล</th>
                     <th style="text-align:center">@Html.DisplayNameFor(model => model.Stu_Birthday)</th>
@@ -31,7 +29,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@(i++)</td>
                         <td>@Html.DisplayFor(modelItem => item.Stu_ID)</td>
                         <td>@item.Stu_Title @item.Stu_Name @item.Stu_Surname</td>
                         <td>@Html.DisplayFor(modelItem => item.Stu_Birthday)</td>

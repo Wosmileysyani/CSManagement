@@ -24,7 +24,8 @@ namespace CSManagement.Models
         [Display(Name = "เพศ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<bool> Stu_Sex { get; set; }
-        [Display(Name = "วัน/เดือน/ปีเกิด")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "วันเกิด")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<System.DateTime> Stu_Birthday { get; set; }
         [Display(Name = "อีเมลล์")]
@@ -101,6 +102,7 @@ namespace CSManagement.Models
 
         [Display(Name = "วันที่รับเข้า")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> CE_DateIN { get; set; }
 
         [Display(Name = "ชื่อรายการ")]
@@ -209,9 +211,11 @@ namespace CSManagement.Models
 
         [Display(Name = "วันที่ทำรายการ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DIS_DateOUT { get; set; }
 
         [Display(Name = "วันที่จำหน่าย")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DIS_DateAPP { get; set; }
 
         [Display(Name = "สถานะ")]
@@ -292,6 +296,7 @@ namespace CSManagement.Models
 
         [Display(Name = "วันที่")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime Pj_Date { get; set; }
 
         [Display(Name = "ประเภท")]
@@ -366,6 +371,7 @@ namespace CSManagement.Models
 
         [Display(Name = "วัน/เดือน/ปีเกิด")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Tea_Birth { get; set; }
 
         [Display(Name = "รูปภาพประจำตัว")]
@@ -445,6 +451,7 @@ namespace CSManagement.Models
 
         [Display(Name = "วันที่จัดอบรม")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Gen_Date { get; set; }
 
         [Display(Name = "สถานที่จัดอบรม")]
@@ -570,6 +577,7 @@ namespace CSManagement.Models
         [Display(Name = "วันที่")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> New_Date { get; set; }
     }
     [MetadataType(typeof(VNews))]

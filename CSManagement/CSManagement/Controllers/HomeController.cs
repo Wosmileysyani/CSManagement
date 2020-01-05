@@ -26,7 +26,9 @@ namespace CSManagement.Controllers
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;
             ViewBag.ProjectCount = db.Projects.ToList();
-            return View(db.Pictures.ToList());
+            ViewBag.SyllabusCount = db.Syllabus.ToList();
+            ViewBag.NewsCount = db.News.ToList();
+            return View(imgPictures);
         }
 
         [HttpGet]
@@ -44,6 +46,12 @@ namespace CSManagement.Controllers
         public ActionResult AnotherLink()
         {
             return View("Index");
+        }
+
+        public ActionResult GoRegister()
+        {
+            string link = db.RegisterLinks.FirstOrDefault().Weblink;
+            return Redirect(link);
         }
 
         public ActionResult IndexUserGrap()
@@ -69,6 +77,7 @@ namespace CSManagement.Controllers
             }
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
             ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
+            ViewBag.coursesList = coursesList;
             return View();
         }
 

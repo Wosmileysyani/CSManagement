@@ -514,6 +514,7 @@
     <Content Include="Views\Generations\showdetails.cshtml" />
     <Content Include="Views\Students\Indexforreport.cshtml" />
     <Content Include="Views\Students\Indexforschool.cshtml" />
+    <Content Include="Views\Students\IndexUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -25,6 +25,12 @@ namespace CSManagement.Controllers
             return View(students);
         }
 
+        public ActionResult IndexUser()
+        {
+            var students = db.Students.Include(x => x.Status).ToList();
+            return View(students);
+        }
+
         public ActionResult Indexforreport()
         {
             var students = db.Students.Include(x => x.Status).ToList();

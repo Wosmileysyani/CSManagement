@@ -11,10 +11,13 @@
                 <div class="col-md-12">
                     <h1 class="box-title">รายละเอียดข้อมูลประชาสัมพันธ์</h1>
 
-                    <div style="float:right">
-                        <a class="btn btn-default" href="@Url.Action("Index", "Syllabus")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
-                        <a class="btn btn-warning" href="@Url.Action("Edit", "Syllabus")/@Model.Sy_ID"><i class="fa fa-edit"></i> แก้ไขข้อมูล</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Syllabus")"><i class="fa fa-trash-o"></i> ลบข้อมูล</a>
+                    <div class="delete-section">
+                        <div style="float:right">
+                            <a class="btn btn-default" href="@Url.Action("Index", "Syllabus")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>
+                            <a class="btn btn-warning" href="@Url.Action("Edit", "Syllabus")/@Model.Sy_ID"><i class="fa fa-edit"></i> แก้ไขข้อมูล</a>
+                            <a class="btn btn-primary delete-link" href="@Url.Action("Delete", new {id = Model.Sy_ID})">ลบข้อมูล</a>
+                            <div class="btn btn-danger delete-confirm" style="display:none" data-delete-id="@Model.Sy_ID">ยืนยันการลบ</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,10 +36,76 @@
                     </tr>
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.Sy_Img)</th>
-                        <td>@Html.DisplayFor(model => model.Sy_Img)</td>
+                        <td class="text-center" style="padding:10px 10px 10px 10px"><img src="~/img/@Model.Sy_Img" height="70" width="70" alt="Alternate Text" /></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+    $(function () {
+        $("a.delete-link").click(function () {
+            var deleteLink = $(this);
+            deleteLink.hide();
+            var confirmButton = deleteLink.siblings(".delete-confirm");
+            confirmButton.show();
+
+            var cancelDelete =  function () {
+                removeEvents();
+                showDeleteLink();
+            };
+
+            var deleteItem = function () {
+                removeEvents();
+                confirmButton.hide();
+                $.post(
+                    '@Url.Action("Delete")',
+                    AddAntiForgeryToken({ id: confirmButton.attr('data-delete-id') }))
+                   .done(function () {
+                       var parentRow = deleteLink.parents("tr:first");
+                       parentRow.fadeOut('fast', function () {
+                           parentRow.remove();
+                       });
+                   }).fail(function (data) {
+                       alert("error");
+                   });
+                return false;
+            };
+
+            var removeEvents = function () {
+                confirmButton.off("click", deleteItem);
+                $(document).on("click", cancelDelete);
+                $(document).off("keypress", onKeyPress);
+            };
+
+            var showDeleteLink = function () {
+                confirmButton.hide();
+                deleteLink.show();
+            };
+
+            var onKeyPress = function (e) {
+                //Cancel if escape key pressed
+                if (e.which == 27) {
+                    cancelDelete();
+                }
+            };
+
+            confirmButton.on("click", deleteItem);
+            $(document).on("click", cancelDelete);
+            $(document).on("keypress", onKeyPress);
+
+            return false;
+        });
+
+        AddAntiForgeryToken = function (data) {
+            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            return data;
+        };
+    });
+    </script>
+
+}

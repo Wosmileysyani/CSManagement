@@ -101,7 +101,9 @@
                             @foreach (var item in ViewBag.NewsCount)
                             {
                                 <div class="container tab-pane" id="@item.New_Name">
+                                    <img style="padding: 10px 10px 10px 10px" src="~/img/@item.New_Img" height="100" width="340" alt="Alternate Text" />
                                     <p>
+                                        @item.New_Date.ToString("dd MMM yyyy") -
                                         @item.New_Details
                                     </p>
                                 </div>
@@ -131,7 +133,7 @@
                 </div>
 
                 <div class="col-12 col-lg-3 col-md-3 col-sm-6">
-                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("GoRegister", "Home" )'"><img src="~/img/logo4.png" class="card-img-top"/></a>
+                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("GoRegister", "Home" )'"><img src="~/img/logo4.png" class="card-img-top" /></a>
                 </div>
             </div>
         </div>

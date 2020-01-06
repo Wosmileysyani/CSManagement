@@ -12,6 +12,7 @@
             padding: 1em 1em;
             box-shadow: 5px 5px 5px #d9d9d9;
         }
+
         .content {
             min-height: 250px;
             padding: 0px;
@@ -20,105 +21,127 @@
             padding-left: 5px;
             padding-right: 0px;
         }
-
     </style>
 </head>
 
 @using (Html.BeginForm("Create", "Register_SC", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<section class="content">
-    @*///ใบสมัครคอร์ส///*@
-    <div class="box box-default col-md-8" style="margin-left:10px;width:65%">
-        <div class="box-header with-border">
-            <span style="font-size:25px;text-align:center">ใบสมัครคอร์ส @ViewBag.Gen_SCID</span>
+    <section class="content">
+        @*///ใบสมัครคอร์ส///*@
+        <div class="box box-default col-md-8" style="margin-left:10px;width:65%">
+            <div class="box-header with-border">
+                <span style="font-size:25px;text-align:center">ใบสมัครคอร์ส @ViewBag.Gen_SCID</span>
 
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-            </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body" style="font-size:15px">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.REG_IDCard, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.REG_IDCard, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.REG_Name, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.REG_Name, "", new { @class = "text-danger" })
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                 </div>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="font-size:15px">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.REG_IDCard, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.REG_IDCard, "", new { @class = "text-danger" })
+                    </div>
 
-            <div class="row">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.REG_Address, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.REG_Address, "", new { @class = "text-danger" })
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.REG_Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.REG_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.REG_Address, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.REG_Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.REG_Tel, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.REG_Tel, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.REG_Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.REG_Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="text-center">
+                    <a class="btn btn-default col-md-3" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
+                    @if (ViewBag.genList != null)
+                    {
+                        if (ViewBag.genList.Gen_Status1.Gen_Name.Equals("เปิดรับสมัคร"))
+                        {
+                            <button type="submit" class="btn btn-success col-md-3" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครอบรม</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-danger col-md-3" style="float:right; font-size: 18px" onclick="return false;"><i class="fa fa-close"></i> ปิดสมัครอบรม</button>
+                        }
+                    }
                 </div>
             </div>
 
-            <div class="row">
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.REG_Tel, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.REG_Tel, "", new { @class = "text-danger" })
+            <div class="box-footer">
+                หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก
+            </div>
+        </div>
+
+        @*///รายชื่อผู้สมัคร///*@
+        <div class="box box-default col-md-4" style="margin-left:10px;width:30%">
+            <div class="box-header with-border">
+                <span style="font-size:25px;text-align:center">รายชื่อผู้สมัคร</span>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                 </div>
-
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.REG_Email, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.REG_Email, "", new { @class = "text-danger" })
-                </div>
             </div>
-
-            <br />
-
-            <div class="text-center">
-                <a class="btn btn-default col-md-3" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
-                <button type="submit" class="btn btn-success col-md-3" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครอบรม</button>
+            <!-- /.box-header -->
+            <div class="box-body" style="font-size:15px">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ที่</th>
+                            <th>ชื่อ-นามสกุล</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.rigList != null)
+                        {
+                            foreach (var item in ViewBag.rigList)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>@item.REG_Name</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>ยังไม่มีผู้สมัคร</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="box-footer">
-            หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก
-        </div>
-    </div>
-
-    @*///รายชื่อผู้สมัคร///*@
-    <div class="box box-default col-md-4" style="margin-left:10px;width:30%">
-        <div class="box-header with-border">
-            <span style="font-size:25px;text-align:center">รายชื่อผู้สมัคร</span>
-
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-            </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body" style="font-size:15px">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ที่</th>
-                        <th>ชื่อ-นามสกุล</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@(i++)</td>
-                        <td>ชื่อ-นามสกุล</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</section>
+    </section>
 }
 
 <div>

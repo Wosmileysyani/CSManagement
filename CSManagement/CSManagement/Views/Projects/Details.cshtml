@@ -127,7 +127,9 @@
                             </th>
 
                             <td>
-                                <a target="_blank" href=@Model.Pj_Video>ดูวิดีโอ</a>
+                                <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=https://web.facebook.com/kru.cs/videos/@Model.Pj_Video/" data-target="#myModal">
+                                    วิดีโอ
+                                </a>
                             </td>
                         }
                     </tr>
@@ -142,3 +144,49 @@
     </div>
 </section>
 
+<!-- Modal Video -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <!-- 16:9 aspect ratio -->
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Gets the video src from the data-src on each button
+
+        var $videoSrc;
+        $('.video-btn').click(function () {
+            $videoSrc = $(this).data("src");
+            $("#videos").attr('src', $videoSrc);
+        });
+        // when the modal is opened autoplay it
+        //$('#myModal').on('shown.bs.modal', function () {
+        //})
+
+        // stop playing the youtube video when I close the modal
+        $('#myModal').on('hide.bs.modal', function () {
+            // a poor man's stop video
+            $("#videos").attr('src', $videoSrc);
+        })
+
+        $('#modelClose').click(function () {
+            $("#videos").attr('src', $videoSrc);
+        });
+        // document ready
+    });
+
+</script>

@@ -88,24 +88,7 @@ namespace CSManagement.Controllers
         }
 
         // GET: Schools/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            School school = db.Schools.Find(id);
-            if (school == null)
-            {
-                return HttpNotFound();
-            }
-            return View(school);
-        }
-
-        // POST: Schools/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
             School school = db.Schools.Find(id);
             db.Schools.Remove(school);

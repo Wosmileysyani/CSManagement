@@ -84,10 +84,18 @@ namespace CSManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "New_ID,New_Name,New_Details,New_Img,New_Date")] News news)
+        public async Task<ActionResult> Edit(News news, HttpPostedFileBase file, string newdate)
         {
             if (ModelState.IsValid)
             {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    news.New_Img = myUniqueFileName;
+                }
+                news.New_Date = DateTime.ParseExact(newdate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 db.Entry(news).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -97,23 +105,6 @@ namespace CSManagement.Controllers
 
         // GET: News/Delete/5
         public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            News news = await db.News.FindAsync(id);
-            if (news == null)
-            {
-                return HttpNotFound();
-            }
-            return View(news);
-        }
-
-        // POST: News/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             News news = await db.News.FindAsync(id);
             db.News.Remove(news);

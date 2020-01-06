@@ -44,6 +44,12 @@ namespace CSManagement.Controllers
 
         public ActionResult Registers(int? id)
         {
+            var appList = db.Applieds.Where(x => x.APP_GenNO == id).ToList();
+            List<Register_SC> rigList = new List<Register_SC>();
+            foreach (var item in appList)
+            {
+                rigList = db.Register_SC.Where(x => x.REG_IDCard == item.APP_ReNO).ToList();
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -54,6 +60,8 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Gen_SCID = generation.Short_Course.SC_NameTH + " รุ่นที่ " + generation.Gen_Name;
+            ViewBag.rigList = rigList;
+            ViewBag.genList = generation;
             Session.Remove("IDSC");
             Session["IDSC"] = generation.Gen_NO.ToString();
             return View();

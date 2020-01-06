@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_ID, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control" ,@readonly = true} })
+                        @Html.EditorFor(model => model.Stu_ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                         @Html.ValidationMessageFor(model => model.Stu_ID, "", new { @class = "text-danger" })
                     </div>
 
@@ -129,14 +129,28 @@
                         @Html.ValidationMessageFor(model => model.Stu_OldEdu, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group col-md-3">
-                        @Html.LabelFor(model => model.Stu_StatusID, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa  fa-mortar-board"></i></span>
-                            @Html.DropDownList("Stu_StatusID", null, "เลือกสถานะการศึกษา", htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
+                    @if (Session["AJ"] != null)
+                    {
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Stu_StatusID, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-mortar-board"></i></span>
+                                @Html.DropDownList("Stu_StatusID", null, "เลือกสถานะการศึกษา", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Stu_StatusID, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-mortar-board"></i></span>
+                                @Html.DropDownList("Stu_StatusID", null, "เลือกสถานะการศึกษา", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.Stu_StatusID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
 
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_Img, htmlAttributes: new { @class = "control-label" })
@@ -150,7 +164,7 @@
 
             </div>
         </div>
-        
+
         @if (ViewBag.Message != null)
         {
             <script type="text/javascript">

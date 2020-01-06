@@ -9,10 +9,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                ชื่อโรงเรียน
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
+            <th style="text-align: center">
+                รวม(จำนวนนักศึกษา)
             </th>
         </tr>
     </thead>
@@ -23,7 +23,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td style="text-align: center">
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
             </tr>

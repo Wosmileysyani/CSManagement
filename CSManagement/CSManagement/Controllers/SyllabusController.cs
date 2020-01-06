@@ -51,12 +51,17 @@ namespace CSManagement.Controllers
         {
             try
             {
+                var recordToUpdate = db.Syllabus.AsNoTracking().Single(x => x.Sy_ID == syllabu.Sy_ID);
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
                     syllabu.Sy_Img = myUniqueFileName;
+                }
+                else
+                {
+                    syllabu.Sy_Img = recordToUpdate.Sy_Img;
                 }
                 db.Syllabus.Add(syllabu);
                 await db.SaveChangesAsync();
@@ -88,10 +93,17 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Sy_ID,Sy_Name,Sy_Details,Sy_Img")] Syllabu syllabu)
+        public async Task<ActionResult> Edit(Syllabu syllabu, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    syllabu.Sy_Img = myUniqueFileName;
+                }
                 db.Entry(syllabu).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -101,23 +113,6 @@ namespace CSManagement.Controllers
 
         // GET: Syllabus/Delete/5
         public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Syllabu syllabu = await db.Syllabus.FindAsync(id);
-            if (syllabu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(syllabu);
-        }
-
-        // POST: Syllabus/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Syllabu syllabu = await db.Syllabus.FindAsync(id);
             db.Syllabus.Remove(syllabu);

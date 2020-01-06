@@ -43,9 +43,6 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: News/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(News news, HttpPostedFileBase file, string newdate)
@@ -85,9 +82,6 @@ namespace CSManagement.Controllers
             return View(news);
         }
 
-        // POST: News/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "New_ID,New_Name,New_Details,New_Img,New_Date")] News news)

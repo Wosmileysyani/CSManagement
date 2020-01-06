@@ -11,7 +11,6 @@ namespace CSManagement.Controllers
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        [HttpGet]
         public ActionResult Index()
         {
             SetSession();

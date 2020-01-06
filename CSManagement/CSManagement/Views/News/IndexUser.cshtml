@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "IndexUser";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<head>
+    <style>
+        .outer {
+            padding: 1em 1em;
+            box-shadow: 5px 5px 5px #d9d9d9;
+        }
+
+        .header1 {
+            border-bottom: 2px solid #207016;
+        }
+
+        .page-title {
+            color: #fff;
+            padding: 6px 12px;
+            display: inline-block;
+            font-size: 20px;
+            margin-bottom: 0px;
+            padding-bottom: 15px;
+            background-color: #207016;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="content" style="background-color:white">
+        <div class="row">
+            <div class="col-md-12">
+                <header class="header1">
+                    <h1 class="page-title">ข่าวประชาสัมพันธ์</h1>
+                </header>
+                <br />
+
+                @foreach (var item in ViewBag.News)
+                {
+                    <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong><br />
+                    <img @item.New_Img /><br />
+                    <strong>วันที่ : </strong><p>@item.New_Date.ToString("dd MMM yyyy") </p>
+                    <strong>รายละเอียด : </strong><p>@item.New_Details</p>
+
+                }
+            </div>
+        </div>
+    </section>
+</body>

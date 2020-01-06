@@ -42,9 +42,6 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        // POST: Syllabus/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Syllabu syllabu, HttpPostedFileBase file)
@@ -88,9 +85,6 @@ namespace CSManagement.Controllers
             return View(syllabu);
         }
 
-        // POST: Syllabus/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Syllabu syllabu, HttpPostedFileBase file)
@@ -119,7 +113,7 @@ namespace CSManagement.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

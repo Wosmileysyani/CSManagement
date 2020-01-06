@@ -22,6 +22,19 @@ namespace CSManagement.Controllers
             return View(await db.News.ToListAsync());
         }
 
+        [HttpGet]
+        public ActionResult IndexUser()
+        {
+            List<Picture> imgPictures = db.Pictures.ToList();
+            ViewBag.News = db.News.ToList();
+            ViewBag.Images = imgPictures;
+            ViewBag.Count = imgPictures.Count;
+            ViewBag.ProjectCount = db.Projects.ToList();
+            ViewBag.SyllabusCount = db.Syllabus.ToList();
+            ViewBag.NewsCount = db.News.ToList();
+            return View(imgPictures);
+        }
+
         // GET: News/Details/5
         public async Task<ActionResult> Details(int? id)
         {

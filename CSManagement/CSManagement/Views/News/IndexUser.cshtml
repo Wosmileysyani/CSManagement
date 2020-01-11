@@ -30,19 +30,32 @@
 <body>
     <section class="content" style="background-color:white">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-4 col-md-12 col-sm-12">
                 <header class="header1">
                     <h1 class="page-title">ข่าวประชาสัมพันธ์</h1>
                 </header>
                 <br />
 
+                <div class="panel panel-default outer" style="width:100%">
+                    @{
+                        foreach (var item in ViewBag.NewsCount)
+                        {
+                            <img src="~/img/newicon.png" style="width:10%" />
+                            <strong>@item.New_Name</strong>
+                            <a href="@Url.Action("IndexUser","News")">[อ่านต่อ]</a><br />
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
                 @foreach (var item in ViewBag.News)
                 {
-                    <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong><br />
+                    <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong>
+                    <img src="~/img/calendar.png" style="width:20px;height:20px" />
+                    <strong>วันที่ : </strong>;@item.New_Date.ToString("dd MMM yyyy")<br />
                     <img @item.New_Img /><br />
-                    <strong>วันที่ : </strong><p>@item.New_Date.ToString("dd MMM yyyy") </p>
-                    <strong>รายละเอียด : </strong><p>@item.New_Details</p>
-
+                    <strong>รายละเอียด : </strong>@item.New_Details<br />
                 }
             </div>
         </div>

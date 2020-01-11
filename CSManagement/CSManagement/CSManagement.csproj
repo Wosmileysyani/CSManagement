@@ -303,6 +303,7 @@
     <Content Include="Global.asax" />
     <Content Include="imgSlideShow\637098631891730360.jpg" />
     <Content Include="img\app.png" />
+    <Content Include="img\calendar.png" />
     <Content Include="img\com.png" />
     <Content Include="img\cs1.png" />
     <Content Include="img\GameDev.jpg" />

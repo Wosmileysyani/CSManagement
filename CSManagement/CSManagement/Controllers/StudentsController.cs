@@ -198,6 +198,8 @@ namespace CSManagement.Controllers
         {
             Student students = db.Students.Find(id);
             db.Students.Remove(students);
+            Login login = db.Logins.Find(id);
+            db.Logins.Remove(login);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

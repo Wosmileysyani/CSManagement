@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c731a2c10baf4ab686daf018007e9fbc" Name="Diagram1">
+      <Diagram DiagramId="c731a2c10baf4ab686daf018007e9fbc" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="CsManagementModel.Applied" Width="1.5" PointX="13.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CsManagementModel.CESup" Width="1.5" PointX="10.5" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
@@ -47,6 +47,7 @@
         <AssociationConnector Association="CsManagementModel.FK_Student_School" ManuallyRouted="false" />
         <AssociationConnector Association="CsManagementModel.FK_Student_Status" ManuallyRouted="false" />
         <AssociationConnector Association="CsManagementModel.FK_Teacher_Title" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CsManagementModel.ProjectView" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

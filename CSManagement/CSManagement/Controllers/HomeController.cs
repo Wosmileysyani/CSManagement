@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using CSManagement.Models;
@@ -24,7 +25,10 @@ namespace CSManagement.Controllers
             List<Picture> imgPictures = db.Pictures.ToList();
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;
-            ViewBag.ProjectCount = db.Projects.ToList();
+            var newDataTable = db.ProjectViews.AsEnumerable()
+                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                .ThenByDescending(r => r.Pj_Rate);
+            ViewBag.ProjectCount = newDataTable.ToList();
             ViewBag.SyllabusCount = db.Syllabus.ToList();
             ViewBag.NewsCount = db.News.ToList();
             return View(imgPictures);

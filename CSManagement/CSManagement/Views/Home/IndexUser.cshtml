@@ -79,7 +79,7 @@
                     {
                         <img src="~/img/newicon.png" style="width:10%" />
                         <strong>@item.New_Name</strong>
-                        <a href="@Url.Action("IndexUser","News")">[อ่านต่อ]</a><br />
+                        <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]</a><br />
                     }
                 }
             </div>
@@ -141,37 +141,53 @@
         </header>
         <br />
         <div class="row">
-            @{
+            @{ var counter = 0;
                 foreach (var item in ViewBag.ProjectCount)
                 {
-                        <div class="col-md-4">
-                            <div class="box box-widget widget-user-2">
-                                <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
-                                    <div class="widget-user-image">
-                                        <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
-                                    </div>
-                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
-                                    <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
+                    if (counter == 15)
+                    {
+                        break;
+                    }
+                    counter++;
+                    <div class="col-md-4">
+                        <div class="box box-widget widget-user-2">
+                            <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
+                                <div class="widget-user-image">
+                                    <img class="img-circle" style="height: 80px" img src="~/img/@item.Stu_Img" />
                                 </div>
-                                <div class="box-footer no-padding">
-                                    <ul class="nav nav-stacked">
-                                        <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
-                                        <li>
-                                            <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
-                                                รูปเล่ม
-                                                <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">
-                                                วิดีโอ
-                                                <span class="pull-right badge bg-green">เข้าชม</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Stu_Name @item.Stu_Surname</h3>
+                                <h4 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h4>
+                                <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
+                                <div style="text-align: center;">
+                                    @for (int j = 0; j < @item.Pj_Rate; j++)
+                                    {
+                                        <span style="text-align: center" class="glyphicon glyphicon-star"></span>
+                                    }
+                                    @for (int j = @item.Pj_Rate; j < 5; j++)
+                                    {
+                                        <span style="text-align: center" class="glyphicon glyphicon-star-empty"></span>
+                                    }
                                 </div>
                             </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                                    <li>
+                                        <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                            รูปเล่ม
+                                            <span class="pull-right badge bg-aqua">เข้าชม</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">
+                                            วิดีโอ
+                                            <span class="pull-right badge bg-green">เข้าชม</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                    </div>
                 }
             }
         </div>

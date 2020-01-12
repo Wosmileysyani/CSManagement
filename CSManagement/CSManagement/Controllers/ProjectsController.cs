@@ -25,7 +25,10 @@ namespace CSManagement.Controllers
 
         public ActionResult IndexUser()
         {
-            ViewBag.ProjectCount = db.Projects.ToList();
+            var newDataTable = db.ProjectViews.AsEnumerable()
+                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                .ThenByDescending(r => r.Pj_Rate);
+            ViewBag.ProjectCount = newDataTable.ToList();
             return View();
         }
 

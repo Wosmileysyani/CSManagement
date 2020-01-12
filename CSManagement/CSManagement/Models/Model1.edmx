@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CsManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Applied">
           <Key>
             <PropertyRef Name="APP_NO" />
@@ -264,6 +264,26 @@
           <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'CsManagement.dbo.ProjectView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProjectView">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+            <PropertyRef Name="Pj_StuID" />
+            <PropertyRef Name="Pj_NameTH" />
+            <PropertyRef Name="Pj_File" />
+          </Key>
+          <Property Name="Pj_ID" Type="int" Nullable="false" />
+          <Property Name="Pj_StuID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Pj_NameTH" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_File" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_Linkweb" Type="nvarchar(max)" />
+          <Property Name="Pj_Video" Type="nvarchar(max)" />
+          <Property Name="Pj_Rate" Type="int" />
+          <Property Name="Stu_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Img" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Totaljob">
           <Key>
@@ -489,6 +509,20 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectView" EntityType="Self.ProjectView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProjectView].[Pj_ID] AS [Pj_ID], 
+    [ProjectView].[Pj_StuID] AS [Pj_StuID], 
+    [ProjectView].[Pj_NameTH] AS [Pj_NameTH], 
+    [ProjectView].[Pj_File] AS [Pj_File], 
+    [ProjectView].[Pj_Linkweb] AS [Pj_Linkweb], 
+    [ProjectView].[Pj_Video] AS [Pj_Video], 
+    [ProjectView].[Pj_Rate] AS [Pj_Rate], 
+    [ProjectView].[Stu_Name] AS [Stu_Name], 
+    [ProjectView].[Stu_Surname] AS [Stu_Surname], 
+    [ProjectView].[Stu_Img] AS [Stu_Img]
+    FROM [dbo].[ProjectView] AS [ProjectView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Totaljob" EntityType="Self.Totaljob" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Totaljob].[JOB] AS [JOB], 
@@ -564,8 +598,7 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CsManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1141,7 +1174,26 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
+          <EntitySet Name="ProjectViews" EntityType="CsManagementModel.ProjectView" />
         </EntityContainer>
+        <EntityType Name="ProjectView">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+            <PropertyRef Name="Pj_StuID" />
+            <PropertyRef Name="Pj_NameTH" />
+            <PropertyRef Name="Pj_File" />
+          </Key>
+          <Property Name="Pj_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pj_StuID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_File" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Linkweb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Rate" Type="Int32" />
+          <Property Name="Stu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1446,6 +1498,22 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectViews">
+            <EntityTypeMapping TypeName="CsManagementModel.ProjectView">
+              <MappingFragment StoreEntitySet="ProjectView">
+                <ScalarProperty Name="Stu_Img" ColumnName="Stu_Img" />
+                <ScalarProperty Name="Stu_Surname" ColumnName="Stu_Surname" />
+                <ScalarProperty Name="Stu_Name" ColumnName="Stu_Name" />
+                <ScalarProperty Name="Pj_Rate" ColumnName="Pj_Rate" />
+                <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
+                <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
+                <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
+                <ScalarProperty Name="Pj_NameTH" ColumnName="Pj_NameTH" />
+                <ScalarProperty Name="Pj_StuID" ColumnName="Pj_StuID" />
+                <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

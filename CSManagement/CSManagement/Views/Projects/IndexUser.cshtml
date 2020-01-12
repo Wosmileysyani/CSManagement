@@ -48,17 +48,28 @@
         <br />
         <div class="row">
             <div class="col-md-12">
-                @{
+                @{ 
                     foreach (var item in ViewBag.ProjectCount)
                     {
                         <div class="col-md-4">
                             <div class="box box-widget widget-user-2">
                                 <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
                                     <div class="widget-user-image">
-                                        <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                                        <img class="img-circle" style="height: 80px" img src="~/img/@item.Stu_Img" />
                                     </div>
-                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
+                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Stu_Name @item.Stu_Surname</h3>
+                                    <h4 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h4>
                                     <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
+                                    <div style="text-align: center;">
+                                        @for (int i = 0; i < @item.Pj_Rate; i++)
+                                        {
+                                            <span style="text-align: center" class="glyphicon glyphicon-star"></span>
+                                        }
+                                        @for (int i = @item.Pj_Rate; i < 5; i++)
+                                        {
+                                            <span style="text-align: center" class="glyphicon glyphicon-star-empty"></span>
+                                        }
+                                    </div>
                                 </div>
                                 <div class="box-footer no-padding">
                                     <ul class="nav nav-stacked">

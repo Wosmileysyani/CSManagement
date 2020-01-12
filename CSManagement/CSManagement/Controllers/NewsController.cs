@@ -23,16 +23,11 @@ namespace CSManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult IndexUser()
+        public ActionResult IndexUser(int id)
         {
-            List<Picture> imgPictures = db.Pictures.ToList();
-            ViewBag.News = db.News.ToList();
-            ViewBag.Images = imgPictures;
-            ViewBag.Count = imgPictures.Count;
-            ViewBag.ProjectCount = db.Projects.ToList();
-            ViewBag.SyllabusCount = db.Syllabus.ToList();
+            ViewBag.News = db.News.Where(x => x.New_ID == id).ToList();
             ViewBag.NewsCount = db.News.ToList();
-            return View(imgPictures);
+            return View();
         }
 
         // GET: News/Details/5

@@ -9,6 +9,7 @@
             padding: 1em 1em;
             box-shadow: 5px 5px 5px #d9d9d9;
         }
+
         .header1 {
             border-bottom: 2px solid #207016;
         }
@@ -22,83 +23,79 @@
             padding-bottom: 15px;
             background-color: #207016;
         }
-        
     </style>
 </head>
+
 <body>
     <section class="content">
+        @*<div class="grid-container">
+                <div class="container">
+                    <div class="col-lg-8 col-md-12 col-sm-12 item1">
+                        <div class="panel panel-default outer" style="width:95%;margin: 0px 100px 10px 0px">
+                            <div class="panel-heading headerbar">
+                                ผลงานนักศึกษา
+                            </div>
+                            <div class="panel-body text-justify">
+                                <img class="d-block img-fluid" src="~/imgSlideShow/present1.png" width="600" height="400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        <header class="header1">
+            <h1 class="page-title">ผลงานนักศึกษา</h1>
+        </header>
+        <br />
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default outer" style="width:100%">
-                    @*<div class="grid-container">
-                            <div class="container">
-                                <div class="col-lg-8 col-md-12 col-sm-12 item1">
-                                    <div class="panel panel-default outer" style="width:95%;margin: 0px 100px 10px 0px">
-                                        <div class="panel-heading headerbar">
-                                            ผลงานนักศึกษา
-                                        </div>
-                                        <div class="panel-body text-justify">
-                                            <img class="d-block img-fluid" src="~/imgSlideShow/present1.png" width="600" height="400">
-                                        </div>
+                @{
+                    foreach (var item in ViewBag.ProjectCount)
+                    {
+                        <div class="col-md-4">
+                            <div class="box box-widget widget-user-2">
+                                <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
                                     </div>
+                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
+                                    <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
                                 </div>
-                            </div>
-                        </div>*@
-                    <header class="header1">
-                        <h1 class="page-title">ผลงานนักศึกษา</h1>
-                    </header>
-                    <br />
-                    <div class="row">
-                        @{
-                            foreach (var item in ViewBag.ProjectCount)
-                            {
-                                <div class="col-md-4">
-                                    <div class="box box-widget widget-user-2">
-                                        <div class="widget-user-header bg-yellow" style="height:85px;padding:10px">
-                                            <div class="widget-user-image">
-                                                <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
-                                            </div>
-                                            <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
-                                            <h5 class="widget-user-desc">@item.Pj_NameTH</h5>
-                                        </div>
-                                        <div class="box-footer no-padding">
-                                            <ul class="nav nav-stacked">
-                                                <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
-                                                <li>
-                                                    <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
-                                                        รูปเล่ม
-                                                        <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">
-                                                        วิดีโอ
-                                                        <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
-                    <!-- Modal Video -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <!-- 16:9 aspect ratio -->
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
-                                    </div>
-
+                                <div class="box-footer no-padding">
+                                    <ul class="nav nav-stacked">
+                                        <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                                        <li>
+                                            <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                                รูปเล่ม
+                                                <span class="pull-right badge bg-aqua">เข้าชม</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">
+                                                วิดีโอ
+                                                <span class="pull-right badge bg-green">เข้าชม</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- Modal Video -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
+                        </div>
+
                     </div>
                 </div>
             </div>

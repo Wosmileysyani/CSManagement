@@ -34,8 +34,8 @@
 <section class="banner full">
     <div class="row">
         <div class="col-lg-8 col-md-12 col-sm-12 ">
-            <div class="panel panel-default outer" style="width:95%">
-                <div class="panel-body text-justify">
+            <div class="panel panel-default outer" style="width:95%;height:100%;padding:0px">
+                <div class="text-justify">
                     <div id="myCarousel" class="carousel slide vertical" data-ride="carousel" style="overflow: hidden">
                         <ol class="carousel-indicators">
                             @for (int j = 0; j < ViewBag.Count; j++)
@@ -67,6 +67,7 @@
             </div>
         </div>
 
+
         @*ประชาสัมพันธ์ข่าวสารของสาขา*@
         <div class="col-lg-4 col-md-12 col-sm-12">
             <div class="panel panel-default outer" style="width:95%">
@@ -74,48 +75,16 @@
                     ข่าวประชาสัมพันธ์
                 </div>
                 @{
-                    if (ViewBag.NewsCount.Count > 0)
+                    foreach (var item in ViewBag.NewsCount)
                     {
-                        <ul class="nav nav-tabs" role="tablist">
-                            @{
-                                int k = 0;
-                                foreach (var item in ViewBag.NewsCount)
-                                {
-                                    if (k == 0)
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#@item.New_Name">@item.New_Name</a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#@item.New_Name">@item.New_Name</a>
-                                        </li>
-                                    }
-                                    k++;
-                                }
-                            }
-                        </ul>
-                        <div class="tab-content">
-                            @foreach (var item in ViewBag.NewsCount)
-                            {
-                                <div class="container tab-pane" id="@item.New_Name">
-                                    <img style="padding: 10px 10px 10px 10px" src="~/img/@item.New_Img" height="100" width="340" alt="Alternate Text" />
-                                    <p>
-                                        @item.New_Date.ToString("dd MMM yyyy") -
-                                        @item.New_Details
-                                    </p>
-                                </div>
-                            }
-                            <div class="container tab-pane active">คลิกเพื่ออ่านข่าวสาร</div>
-                        </div>
+                        <img src="~/img/newicon.png" style="width:10%" />
+                        <strong>@item.New_Name</strong>
+                        <a href="@Url.Action("IndexUser","News")">[อ่านต่อ]</a><br />
                     }
                 }
             </div>
         </div>
     </div>
-
 
     <div class="container">
         <div class="card-body">
@@ -175,34 +144,34 @@
             @{
                 foreach (var item in ViewBag.ProjectCount)
                 {
-                    <div class="col-md-4">
-                        <div class="box box-widget widget-user-2">
-                            <div class="widget-user-header bg-yellow">
-                                <div class="widget-user-image">
-                                    <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                        <div class="col-md-4">
+                            <div class="box box-widget widget-user-2">
+                                <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" img src="~/img/icons8-cat-profile-64.png" />
+                                    </div>
+                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
+                                    <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
                                 </div>
-                                <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h3>
-                                <h5 class="widget-user-desc">จัดการข้อมูลสาขาวิทยาการคอมพิวเตอร์</h5>
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
-                                    <li>
-                                        <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
-                                            รูปเล่ม
-                                            <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=https://web.facebook.com/kru.cs/videos/@item.Pj_Video/" data-target="#myModal">
-                                            วิดีโอ
-                                            <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <div class="box-footer no-padding">
+                                    <ul class="nav nav-stacked">
+                                        <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                                        <li>
+                                            <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                                รูปเล่ม
+                                                <span class="pull-right badge bg-aqua">เข้าชม</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=@item.Pj_Video" data-target="#myModal">
+                                                วิดีโอ
+                                                <span class="pull-right badge bg-green">เข้าชม</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 }
             }
         </div>
@@ -234,20 +203,59 @@
             </header>
             <br />
             <div class="row">
-                @foreach (var item in ViewBag.SyllabusCount)
-                {
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="panel panel-default outer" style="width: 90%">
-                            <div class="panel-heading headerbar">
-                                @item.Sy_Name
-                            </div>
-                            <div class="panel-body text-justify">
-                                <img src="~/img/@item.Sy_Img" style="width: 80%; height: 50%" />
-                                <p>@item.Sy_Details</p>
-                            </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/programmer.png" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">พัฒนาการเขียนโปรแกรม</p></strong>
+                            <p style="padding:1em">พัฒนาการเขียนโปรแกรมทั้งแบบ OOP และ Structure เช่น C#, Python</p>
                         </div>
                     </div>
-                }
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/app.png" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">พัฒนาแอพพลิเคชั่น</p></strong>
+                            <p style="padding:1em">พัฒนาแอพพลิชั่นด้วย Cross platform เช่น Xamarin, Ionic, React</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/webApp.png" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">พัฒนาเว็บแอพพลิเคชั่น</p></strong>
+                            <p style="padding:1em">พัฒนาเว็บแอพพลิเคชั่นที่ทำงานได้จริง เช่น Asp.Net MVC, PHP, Angular, React JS, Javascript</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/GameDev.jpg" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">การพัฒนาออกแบบเกม</p></strong>
+                            <p style="padding:1em">ฝึกปฏิบัติการพัฒนาเกมส์ด้วยโปรแกรม Unity สร้างเกมส์แบบ 3 มิติ เขียนควบคุมคำสั่งด้วย ภาษา C#</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/graphic.png" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">การออกแบบกราฟิกดีไซน์</p></strong>
+                            <p style="padding:1em">ฝึกปฏิบัติการออกแบบงานกราฟฟิก เช่น Illustrator, Photoshop , ฯลฯ</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/img/Network.jpg" style="width: 100%; height: 50%" /><br />
+                            <strong><p style="text-align:center;font-size:20px">การพัฒนาออกแบบเครือข่าย</p></strong>
+                            <p style="padding:1em">การจัดการระบบเครือข่าย เช่น การติดตั้งเครื่องเซิร์ฟเวอร์ การจัดการระบบอินเทอร์เน็ต</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

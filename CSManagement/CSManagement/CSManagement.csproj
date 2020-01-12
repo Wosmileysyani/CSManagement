@@ -302,8 +302,12 @@
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.min.js" />
     <Content Include="Global.asax" />
     <Content Include="imgSlideShow\637098631891730360.jpg" />
+    <Content Include="img\app.png" />
+    <Content Include="img\calendar.png" />
     <Content Include="img\com.png" />
     <Content Include="img\cs1.png" />
+    <Content Include="img\GameDev.jpg" />
+    <Content Include="img\graphic.png" />
     <Content Include="img\icons8-cat-profile-64.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="img\images.jpg" />
@@ -316,6 +320,10 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="img\Network.jpg" />
+    <Content Include="img\newicon.png" />
+    <Content Include="img\programmer.png" />
+    <Content Include="img\webApp.png" />
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
@@ -523,6 +531,7 @@
     <Content Include="Views\Students\Indexforreport.cshtml" />
     <Content Include="Views\Students\Indexforschool.cshtml" />
     <Content Include="Views\Students\IndexUser.cshtml" />
+    <Content Include="Views\News\IndexUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

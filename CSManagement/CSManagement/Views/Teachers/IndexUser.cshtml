@@ -55,11 +55,11 @@
                 @foreach (var item in Model)
                 {
                     <div class="col-md-4">
-                        <div class="panel panel-default outer" style="height: 300px;margin-top:20px">
+                        <div class="panel panel-default outer" style="height:100%;margin-top:20px">
                             <div class="panel-body text-center">
-                                <img src="~/img/@item.Tea_Img" style="height:200px;width:250px" /><br />
-                                <label style="text-align:center">@item.Title.Title_Name @item.Tea_Name @item.Tea_Surname</label><br />
-                                <label style="text-align:center">@Html.DisplayFor(modelItem => item.Tea_Position)</label><br />
+                                <img src="~/img/@item.Tea_Img" style="width:80%;height:160px" /><br /><br />
+                                <label style="text-align:center">@item.Title.Title_Name @item.Tea_Name @item.Tea_Surname</label>
+                                <p style="text-align:center">@Html.DisplayFor(modelItem => item.Tea_Position)</p>
                             </div>
                         </div>
                     </div>

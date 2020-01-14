@@ -303,7 +303,11 @@
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.min.js" />
     <Content Include="Global.asax" />
-    <Content Include="imgSlideShow\637098631891730360.jpg" />
+    <Content Include="Content\img\logo.png" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="img\app.png" />
     <Content Include="img\calendar.png" />
     <Content Include="img\com.png" />
@@ -311,17 +315,12 @@
     <Content Include="img\GameDev.jpg" />
     <Content Include="img\graphic.png" />
     <Content Include="img\icons8-cat-profile-64.png" />
-    <Content Include="Content\img\logo.png" />
     <Content Include="img\images.jpg" />
+    <Content Include="img\login.jpg" />
     <Content Include="img\logo1.png" />
     <Content Include="img\logo2.png" />
     <Content Include="img\logo3.png" />
     <Content Include="img\logo4.png" />
-    <Content Include="imgSlideShow\present1.png" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="img\Network.jpg" />
     <Content Include="img\newicon.png" />
     <Content Include="img\programmer.png" />
@@ -330,6 +329,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.7-vsdoc.js" />
     <Content Include="Models\Model1.Context.tt">
@@ -776,6 +776,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FIleUploaded\" />
+    <Folder Include="imgSlideShow\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

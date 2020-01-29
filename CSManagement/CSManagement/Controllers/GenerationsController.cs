@@ -153,24 +153,36 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Generation generation, string gendate)
         {
-            var recordToUpdate = db.Generations.AsNoTracking().Single(x => x.Gen_NO == generation.Gen_NO);
-            if (gendate.IsEmpty() == true)
+            try
             {
-                generation.Gen_Date = recordToUpdate.Gen_Date;
-            }
-            else
-            {
-                generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            }
-            if (ModelState.IsValid)
-            {
+                var recordToUpdate = db.Generations.AsNoTracking().SingleOrDefault(x => x.Gen_NO == generation.Gen_NO);
+                if (gendate.IsEmpty() == true)
+                {
+                    generation.Gen_Date = recordToUpdate.Gen_Date;
+                }
+                else
+                {
+                    generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                }
+
+                generation.Gen_Member = (generation.Gen_MemberMax - recordToUpdate.Gen_MemberMax) + recordToUpdate.Gen_Member;
+                if (generation.Gen_Member < 0)
+                {
+                    ViewBag.Message = "จำนวนสมาชิกที่เหลืออยู่ไม่ถูกต้อง";
+                    ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+                    ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
+                    return View(generation);
+                }
                 db.Entry(generation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
-            ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
-            return View(generation);
+            catch (Exception e)
+            {
+                ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+                ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
+                return View(generation);
+            }
         }
 
         // GET: Generations/Delete/5

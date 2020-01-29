@@ -31,7 +31,6 @@ namespace CSManagement.Controllers
             if (username.IsEmpty() == false && password.IsEmpty() == false)
             {
                 var dataCk = db.Logins.FirstOrDefault(x => x.Log_ID == username && x.Log_Pass == password);
-                FormsAuthentication.SetAuthCookie(dataCk.Log_ID,false);
                 if (dataCk != null && dataCk.Log_Role == "Student")
                 {
                     var data = db.Students.FirstOrDefault(x => x.Stu_ID == dataCk.Log_ID);
@@ -39,7 +38,7 @@ namespace CSManagement.Controllers
                     Session["UserName"] = data.Stu_Name;
                     Session["UserSurname"] = data.Stu_Surname;
                     Session["UserImg"] = data.Stu_Img;
-                    if (data.Status.Status_Name == "กำลังศึกษาอยู่" || 
+                    if (data.Status.Status_Name == "กำลังศึกษาอยู่" ||
                         data.Status.Status_Name == "สำเร็จการศึกษา" ||
                         data.Status.Status_Name == "เกียรตินิยมอันดับ 1" ||
                         data.Status.Status_Name == "เกียรตินิยมอันดับ 2") Session["PJ"] = "PJ";

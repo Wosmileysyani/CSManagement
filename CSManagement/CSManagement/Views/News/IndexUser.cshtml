@@ -40,7 +40,7 @@
                     @{
                         foreach (var item in ViewBag.NewsCount)
                         {
-                            <img src="~/img/newicon.png" style="width:10%" />
+                            <img src="~/img/@item.New_Img" style="width:10%" />
                             <strong>@item.New_Name</strong>
                             <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]</a><br />
                         }

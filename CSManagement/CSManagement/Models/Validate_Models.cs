@@ -48,7 +48,6 @@ namespace CSManagement.Models
         public string Stu_Img { get; set; }
 
         [Display(Name = "สถานะการศึกษา")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<int> Stu_StatusID { get; set; }
     }
     [MetadataType(typeof(V_Student))]
@@ -304,7 +303,6 @@ namespace CSManagement.Models
         public string Pj_TypePj { get; set; }
 
         [Display(Name = "ไฟล์")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Pj_File { get; set; }
 
         [Display(Name = "Github")]

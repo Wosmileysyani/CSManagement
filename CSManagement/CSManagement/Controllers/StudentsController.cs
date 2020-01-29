@@ -91,8 +91,7 @@ namespace CSManagement.Controllers
                 login.Log_Role = recordToUpdate.Log_Role;
                 db.Entry(login).State = EntityState.Modified;
                 db.SaveChanges();
-                ViewBag.Message = "อัพเดทข้อมูลเสร็จสิิ้น กรุณาออกจากระบบและลองเข้าใหม่อีกครั้ง";
-                return View(login);
+                return RedirectToAction("Logout","Logins");
             }
             catch (Exception)
             {
@@ -121,6 +120,7 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     student.Stu_Img = myUniqueFileName;
                 }
+
                 student.Stu_Birthday = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 student.Stu_Tel = tel;
                 db.Students.Add(student);
@@ -171,17 +171,11 @@ namespace CSManagement.Controllers
                 {
                     student.Stu_Img = recordToUpdate.Stu_Img;
                 }
-                if (tel.IsEmpty() != true)
-                {
-                    student.Stu_Tel = tel;
-                }
-                else
-                {
-                    student.Stu_Tel = recordToUpdate.Stu_Tel;
-                }
+                student.Stu_Tel = tel.IsEmpty() != true ? tel : recordToUpdate.Stu_Tel;
+                student.Stu_StatusID = recordToUpdate.Stu_StatusID;
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Students");
+                return Session["AJ"] == null ? RedirectToAction("Logout", "Logins") : RedirectToAction("Index");
             }
             catch (Exception)
             {

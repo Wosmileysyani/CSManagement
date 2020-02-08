@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th style="text-align: center">@Html.DisplayNameFor(model => model.Gen_Status1.Gen_Name)</th>
-                <td style="color:@(Model.Gen_Status1.Gen_Name == "เปิดรับสมัคร"?"forestgreen":"red")">@Html.DisplayFor(modelItem => Model.Gen_Status1.Gen_Name)</td>
+                <td style="color: @(Model.Gen_Status1.Gen_Name == "เปิดรับสมัคร" ? "forestgreen" : "red")">@Html.DisplayFor(modelItem => Model.Gen_Status1.Gen_Name)</td>
             </tr>
             <tr>
                 <th style="text-align: center">@Html.DisplayNameFor(model => model.Gen_Fee)</th>
@@ -41,10 +41,15 @@
             </tr>
         </tbody>
     </table>
-
+    <h1>
+        @Html.DisplayNameFor(model => model.Gen_Details)
+    </h1>
+    <h5>
+        @Html.DisplayFor(modelItem => Model.Gen_Details)
+    </h5>
 </div>
 <div class="modal-footer">
-    <a class="btn btn-success" href="@Url.Action("Registers", "Generations", new {id = Model.Gen_NO})"><i class="fa fa-plus"></i>สมัครคอร์ส</a>
+    <a class="btn btn-success" href="@Url.Action("Registers", "Generations", new {id = Model.Gen_NO})"><i class="fa fa-plus"></i>ลงทะเบียน</a>
 
     <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
 </div>

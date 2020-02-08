@@ -40,7 +40,7 @@
                     @{
                         foreach (var item in ViewBag.NewsCount)
                         {
-                            <img src="~/img/@item.New_Img" style="width:10%" />
+                            <img src="~/img/@item.New_Img" style="width:100%" />
                             <strong>@item.New_Name</strong>
                             <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]</a><br />
                         }
@@ -51,10 +51,9 @@
             <div class="col-lg-8 col-md-12 col-sm-12">
                 @foreach (var item in ViewBag.News)
                 {
-                    <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong>
-                    <img src="~/img/calendar.png" style="width:20px;height:20px" />
+                    <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong><br />
+                    <img src="~/img/@item.New_Img" style="width:100%;height:300px" /><br />
                     <strong>วันที่ : </strong>;@item.New_Date.ToString("dd MMM yyyy")<br />
-                    <img @item.New_Img /><br />
                     <strong>รายละเอียด : </strong>@item.New_Details<br />
                 }
             </div>

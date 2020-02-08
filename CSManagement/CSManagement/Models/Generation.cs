@@ -27,7 +27,7 @@ namespace CSManagement.Models
         public Nullable<int> Gen_MemberMax { get; set; }
         public string Gen_Details { get; set; }
         public string Gen_Year { get; set; }
-        public Nullable<System.DateTime> Gen_Date { get; set; }
+        public string Gen_Date { get; set; }
         public string Gen_Location { get; set; }
         public Nullable<double> Gen_Fee { get; set; }
         public string Gen_TextForMail { get; set; }

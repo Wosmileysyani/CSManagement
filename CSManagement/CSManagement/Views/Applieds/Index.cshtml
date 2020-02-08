@@ -6,6 +6,79 @@
     int i = 1;
 }
 
+<style>
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        padding-top: 10px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        max-height: 500px;
+    }
+
+    /* Caption of Modal Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content, #caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @@-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @@keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @@media only screen and (max-width: 500px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
+</style>
+
 <section class="content">
     <div class="box box-default">
         <div class="box-header with-border">
@@ -23,13 +96,17 @@
             <table id="example1" class="table table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th style="text-align:center">ที่</th>
                         <th style="text-align:center">
-                            @Html.DisplayNameFor(model => model.Generation.Gen_Name)
+                            ชื่อคอร์ส (คงเหลือ)
                         </th>
                         <th style="text-align:center">
-                            @Html.DisplayNameFor(model => model.Register_SC.REG_Name)
+                            @Html.DisplayNameFor(model => model.Generation.Gen_Year)
                         </th>
+                        <th style="text-align:center">
+                            ชื่อผู้สมัคร
+                        </th>
+                        <th style="text-align:center">ราคา</th>
+                        <th style="text-align:center">สลิปเงิน</th>
                         <th style="text-align:center">สถานะ</th>
                         <th style="text-align:center">จัดการข้อมูล</th>
                     </tr>
@@ -39,13 +116,34 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(i++)</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name)
+                                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name) (@Html.DisplayFor(modelItem => item.Generation.Gen_Member) คน)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Generation.Gen_Year)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Register_SC.REG_Name)
                             </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Generation.Gen_Fee)
+                            </td>
+                            @{
+                                if (@item.APP_SlipImg == null)
+                                {
+                                    <td>
+                                        ไม่พบรูปภาพ
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="text-align: center">
+                                        <a data-toggle="modal" data-target="#img-thumbnail@i" class="img_modal" href="~/img/Slips/@item.APP_SlipImg">
+                                            <img id="img-thumbnail@i" class="img-thumbnail" src="~/img/Slips/@item.APP_SlipImg" height="30" width="30" alt="@item.Register_SC.REG_Name" />
+                                        </a>
+                                    </td>
+                                }
+                            }
                             @{
                                 if (item.APP_Status == 1)
                                 {
@@ -54,14 +152,16 @@
                                         @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
                                         รับสมัครแล้ว
                                     </td>
+                                    <td></td>
                                 }
                                 else if (item.APP_Status == 2)
                                 {
                                     <td style="color:red">
                                         <i class="fa fa-times-circle"></i>
                                         @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                                        ยกเลิกการสมัครแล้ว
+                                        ถูกยกเลิก
                                     </td>
+                                    <td></td>
                                 }
                                 else if (item.APP_Status == 3)
                                 {
@@ -71,8 +171,8 @@
                                         รอการอนุมัติ
                                     </td>
                                     <td style="text-align:center">
-                                        <a class="btn btn-success" onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO)" href="@Url.Action("AppAgree", new { id = item.APP_NO })"><i class="fa fa-check"></i>รับสมัคร</a>
-                                        <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.APP_NO })"><i class="fa fa-close"></i>ยกเลิกการสมัคร</a>
+                                        <a class="btn btn-success" onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO)" href="@Url.Action("AppAgree", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-check"></i>รับสมัคร</a>
+                                        <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-close"></i>ยกเลิกการสมัคร</a>
                                     </td>
                                 }
                             }
@@ -83,6 +183,15 @@
         </div>
     </div>
 </section>
+
+<div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">ปิด</button>
+    </div>
+    <div class="modal-content">
+        <img id="modal_img_target" class="modal-content">
+    </div>
+</div>
 
 <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 @section Scripts{
@@ -109,7 +218,7 @@
             $.ajax({
                 method: "POST",
                 url: "/Applieds/SendMailToUser",
-                data: { 'id': id1 , 'idg': idg1 },
+                data: { 'id': id1, 'idg': idg1 },
                 success: function (data) {
                     if (data == true) {
                         alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
@@ -120,23 +229,13 @@
             });
         }
     </script>
+
+    <script type="text/javascript">
+        $('.img_modal').on('click', function (e) {
+            e.preventDefault();
+            $("#modal_img_target").attr("src", this);
+            $("#modal").removeClass("hide");
+            $('#modal').modal('show');
+        });
+    </script>
 }
-
-<script type="text/javascript">
-    //var SendEmail = function  () {
-
-    //    $.ajax({
-    //        url: "/Applieds/SendMailToUser",
-    //        data: { 'id': , 'idg':  },
-    //        method: "POST",
-    //        success: function (data) {
-    //            if (data == true) {
-    //                alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
-    //            } else {
-    //                alert("การส่งอีเมลล์ตอบรับไม่สำเร็จ");
-    //            }
-    //        }
-    //    })
-    //}
-
-</script>

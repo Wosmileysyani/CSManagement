@@ -35,17 +35,6 @@ namespace CSManagement.Controllers
         }
 
         [HttpGet]
-        public ActionResult IndexUser1()
-        {
-            SetSession();
-            List<Picture> imgPictures = db.Pictures.ToList();
-            ViewBag.Images = imgPictures;
-            ViewBag.Count = imgPictures.Count;
-            ViewBag.ProjectCount = db.Projects.ToList();
-            return View(db.Pictures.ToList());
-        }
-
-        [HttpGet]
         public ActionResult AnotherLink()
         {
             return View("Index");

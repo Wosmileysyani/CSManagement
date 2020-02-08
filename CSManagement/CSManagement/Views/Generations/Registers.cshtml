@@ -1,4 +1,5 @@
-﻿@model CSManagement.Models.Register_SC
+﻿@using System.Web.UI.WebControls
+@model CSManagement.Models.Register_SC
 
 @{
     ViewBag.Title = "ใบสมัครอบรม";
@@ -37,10 +38,31 @@
             padding: 10px 0px 10px 0px;
         }
 
+        label.txtUploadFile {
+            cursor: pointer;
+            border-style: groove;
+        }
+
+        #txtUploadFile {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
     </style>
 </head>
 
-@using (Html.BeginForm("Create", "Register_SC", FormMethod.Post))
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        };
+    </script>
+}
+
+@using (Html.BeginForm("Create", "Register_SC", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
 {
     @Html.AntiForgeryToken()
     <section class="content">
@@ -60,13 +82,13 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.REG_IDCard, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @PlaceHolder = "ถ้าเคยกรอกข้อมูลแล้ว ให้ใส่แค่เลขบัตรประชาชน" } })
                             @Html.ValidationMessageFor(model => model.REG_IDCard, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.REG_Name, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
                             @Html.ValidationMessageFor(model => model.REG_Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -74,7 +96,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.REG_Address, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control", id = "address" } })
                             @Html.ValidationMessageFor(model => model.REG_Address, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -82,37 +104,49 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.REG_Tel, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control", id = "tel" } })
                             @Html.ValidationMessageFor(model => model.REG_Tel, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.REG_Email, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control", id = "email" } })
                             @Html.ValidationMessageFor(model => model.REG_Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <br />
 
+                    <a class="btn btn-default col-md-2" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
+
                     <div class="text-center">
-                        <a class="btn btn-default col-md-3" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
                         @if (ViewBag.genList != null)
                         {
                             if (ViewBag.genList.Gen_Status1.Gen_Name.Equals("เปิดรับสมัคร"))
                             {
-                                <button type="submit" class="btn btn-success col-md-3" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครเข้าอบรม</button>
+                                <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครอบรม</button>
+                                <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
+                                    <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
+                                </div>
                             }
                             else
                             {
-                                <button type="submit" class="btn btn-danger col-md-3" style="float:right; font-size: 18px" onclick="return false;"><i class="fa fa-close"></i> การสมัครอบรมปิดแล้ว</button>
+                                <button type="submit" class="btn btn-danger col-md-2" style="float:right; font-size: 18px" onclick="return false;"><i class="fa fa-close"></i> ปิดรับสมัคร</button>
+                                <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
+                                    <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
+                                </div>
                             }
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> บันทึก</button>
                         }
                     </div>
                 </div>
 
                 <div class="box-footer">
-                    หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก
+                    <p>หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก</p>
+                    <p>หากต้องการอัพโหลดหลักฐานการจ่ายเงินกรุณาใส่เลขบัตรประชาชน</p>
                 </div>
             </div>
 
@@ -132,7 +166,8 @@
                         <thead>
                             <tr>
                                 <th>ที่</th>
-                                <th>ชื่อ-นามสกุล</th>
+                                <th>อีเมลล์</th>
+                                <th>สถานะ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,7 +177,33 @@
                                 {
                                     <tr>
                                         <td>@(i++)</td>
-                                        <td>@item.REG_Name</td>
+                                        <td>@item.Register_SC.REG_Email</td>
+                                        @{
+                                            if (item.APP_Status == 1)
+                                            {
+                                                <td style="color:forestgreen">
+                                                    <i class="fa fa-check-circle  "></i>
+                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                    รับสมัครแล้ว
+                                                </td>
+                                            }
+                                            else if (item.APP_Status == 2)
+                                            {
+                                                <td style="color:red">
+                                                    <i class="fa fa-times-circle"></i>
+                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                    ถูกยกเลิก
+                                                </td>
+                                            }
+                                            else if (item.APP_Status == 3)
+                                            {
+                                                <td style="color:gold">
+                                                    <i class="fa  fa-circle"></i>
+                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                    รอการอนุมัติ
+                                                </td>
+                                            }
+                                        }
                                     </tr>
                                 }
                             }
@@ -151,16 +212,94 @@
                                 <tr>
                                     <td>@(i++)</td>
                                     <td>ยังไม่มีผู้สมัคร</td>
+                                    <td>ยังไม่มีผู้สมัคร</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </section>
 }
 
-<div>
 
-</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $('#REG_IDCard').change(function() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("findIDCard", "Register_SC")',
+                data: { idcard: $("#REG_IDCard").val() },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    if (response != null) {
+                        var data = "";
+                        $.each(response,
+                            function(index, value) {
+                                data = '<label for="txtUploadFile" class="added txtUploadFile">อัพโหลดรูปภาพ</label>'+
+                                    '<input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">';
+                                $("#name").val(value.REG_Name);
+                                $("#address").val(value.REG_Address);
+                                $("#tel").val(value.REG_Tel);
+                                $("#email").val(value.REG_Email);
+                            });
+                            $('.added').remove();
+                            $("#imgbutton").append(data);
+                    } else {
+                    }
+                },
+                failure: function(response) {
+
+                },
+                error: function(response) {
+                    $("#name").val("");
+                    $("#address").val("");
+                    $("#tel").val("");
+                    $("#email").val("");
+                    $('.added').remove();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $('#txtUploadFile').on('change',
+            function(e) {
+                var files = e.target.files;
+                var myID = $("#REG_IDCard").val();
+                if (files.length > 0) {
+                    if (window.FormData !== undefined) {
+                        var data = new FormData();
+                        for (var x = 0; x < files.length; x++) {
+                            data.append("file" + x, files[x]);
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("slipupload","Generations")?idcard='+myID,
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function(result) {
+                                alert(result);
+                                window.location.href = '@Url.Action("IndexUser","Generations")';
+                            },
+                            error: function(xhr, status, p3, p4) {
+                                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                                if (xhr.responseText && xhr.responseText[0] == "{")
+                                    err = JSON.parse(xhr.responseText).Message;
+                                alert(err);
+                            }
+                        });
+                    } else {
+                        alert("เบราเซอร์นี้ไม่สามารถใช้ได้ กรุณาลองแบบอื่น");
+                    }
+                }
+            });
+    </script>
+}

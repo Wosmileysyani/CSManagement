@@ -302,6 +302,68 @@
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.min.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\pdf.js\api.js" />
+    <Content Include="Content\pdf.js\bidi.js" />
+    <Content Include="Content\pdf.js\canvas.js" />
+    <Content Include="Content\pdf.js\charsets.js" />
+    <Content Include="Content\pdf.js\cidmaps.js" />
+    <Content Include="Content\pdf.js\colorspace.js" />
+    <Content Include="Content\pdf.js\compatibility.js" />
+    <Content Include="Content\pdf.js\core.js" />
+    <Content Include="Content\pdf.js\crypto.js" />
+    <Content Include="Content\pdf.js\debugger.js" />
+    <Content Include="Content\pdf.js\evaluator.js" />
+    <Content Include="Content\pdf.js\fonts.js" />
+    <Content Include="Content\pdf.js\function.js" />
+    <Content Include="Content\pdf.js\glyphlist.js" />
+    <Content Include="Content\pdf.js\image.js" />
+    <Content Include="Content\pdf.js\images\annotation-check.svg" />
+    <Content Include="Content\pdf.js\images\annotation-comment.svg" />
+    <Content Include="Content\pdf.js\images\annotation-help.svg" />
+    <Content Include="Content\pdf.js\images\annotation-insert.svg" />
+    <Content Include="Content\pdf.js\images\annotation-key.svg" />
+    <Content Include="Content\pdf.js\images\annotation-newparagraph.svg" />
+    <Content Include="Content\pdf.js\images\annotation-note.svg" />
+    <Content Include="Content\pdf.js\images\annotation-paragraph.svg" />
+    <Content Include="Content\pdf.js\images\findbarButton-next-rtl.png" />
+    <Content Include="Content\pdf.js\images\findbarButton-next.png" />
+    <Content Include="Content\pdf.js\images\findbarButton-previous-rtl.png" />
+    <Content Include="Content\pdf.js\images\findbarButton-previous.png" />
+    <Content Include="Content\pdf.js\images\loading-icon.gif" />
+    <Content Include="Content\pdf.js\images\loading-small.png" />
+    <Content Include="Content\pdf.js\images\texture.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-bookmark.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-download.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-fullscreen.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-menuArrows.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-openFile.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-pageDown-rtl.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-pageDown.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-pageUp-rtl.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-pageUp.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-print.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-search.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-sidebarToggle.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-viewOutline.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-viewThumbnail.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-zoomIn.png" />
+    <Content Include="Content\pdf.js\images\toolbarButton-zoomOut.png" />
+    <Content Include="Content\pdf.js\jbig2.js" />
+    <Content Include="Content\pdf.js\jpg.js" />
+    <Content Include="Content\pdf.js\jpx.js" />
+    <Content Include="Content\pdf.js\l10n.js" />
+    <Content Include="Content\pdf.js\metadata.js" />
+    <Content Include="Content\pdf.js\metrics.js" />
+    <Content Include="Content\pdf.js\obj.js" />
+    <Content Include="Content\pdf.js\parser.js" />
+    <Content Include="Content\pdf.js\pattern.js" />
+    <Content Include="Content\pdf.js\pdf.js" />
+    <Content Include="Content\pdf.js\stream.js" />
+    <Content Include="Content\pdf.js\util.js" />
+    <Content Include="Content\pdf.js\viewer.css" />
+    <Content Include="Content\pdf.js\viewer.js" />
+    <Content Include="Content\pdf.js\worker.js" />
+    <Content Include="Content\pdf.js\worker_loader.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
     <EntityDeploy Include="Models\Model1.edmx">
@@ -515,8 +577,6 @@
     <Content Include="Views\Generations\DetailsUser.cshtml" />
     <Content Include="Views\Teachers\IndexUser.cshtml" />
     <Content Include="Views\Home\IndexUserGrap.cshtml" />
-    <Content Include="Views\Home\IndexUser1.cshtml" />
-    <Content Include="Views\Shared\_LayoutUser1.cshtml" />
     <Content Include="Views\Students\EditID.cshtml" />
     <Content Include="Views\Teachers\EditID.cshtml" />
     <Content Include="Views\Syllabus\Create.cshtml" />
@@ -532,7 +592,6 @@
     <Content Include="Views\Generations\showdetails.cshtml" />
     <Content Include="Views\Students\Indexforreport.cshtml" />
     <Content Include="Views\Students\Indexforschool.cshtml" />
-    <Content Include="Views\Students\IndexUser.cshtml" />
     <Content Include="Views\News\IndexUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -648,9 +707,6 @@
     </Compile>
     <Compile Include="Models\StudentName.cs" />
     <Compile Include="Models\Syllabu.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">
@@ -777,6 +833,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="FIleUploaded\" />
     <Folder Include="imgSlideShow\" />
+    <Folder Include="img\Slips\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

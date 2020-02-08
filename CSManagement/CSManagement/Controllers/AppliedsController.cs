@@ -26,15 +26,34 @@ namespace CSManagement.Controllers
             return View(applieds.ToList());
         }
 
-        public ActionResult AppAgree(int? id)
+        public ActionResult AppAgree(string id = "")
         {
-            var findid = db.Applieds.FirstOrDefault(x => x.APP_NO == id);
-            findid.APP_Status = 1;
+            var findidall = db.Applieds.Where(x => x.APP_ReNO == id).ToList();
+            int i = 0;
+            foreach (var item in findidall)
+            {
+                if (i > 0)
+                {
+                    db.Applieds.Remove(item);
+                }
+                else
+                {
+                    item.APP_Status = 1;
+                }
+                i++;
+            }
+            db.SaveChanges();
+            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id);
             db.Entry(findid).State = EntityState.Modified;
             var findGen = db.Generations.FirstOrDefault(x => x.Gen_NO == findid.Generation.Gen_NO);
             if (findGen.Gen_Member > 0)
             {
                 findGen.Gen_Member -= 1;
+                if (findGen.Gen_Member <= 0) findGen.Gen_Status = 2;
+            }
+            else if (findGen.Gen_Member == 0)
+            {
+                if (findGen.Gen_Member <= 0) findGen.Gen_Status = 2;
             }
             else
             {
@@ -45,18 +64,18 @@ namespace CSManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public JsonResult SendMailToUser(string id,int idg)
+        public JsonResult SendMailToUser(string id, int idg)
         {
             bool Result = false;
 
             var user = db.Register_SC.FirstOrDefault(x => x.REG_IDCard == id);
             var text = db.Generations.FirstOrDefault(x => x.Gen_NO == idg);
-            Result = SendEmail(user.REG_Email, "ตอบกลับอัตโนมัติจากการสมัครคอร์สสั้น",text.Gen_TextForMail);
+            Result = SendEmail(user.REG_Email, "ตอบกลับอัตโนมัติจากการสมัครคอร์สสั้น", text.Gen_TextForMail);
 
-            return Json(Result,JsonRequestBehavior.AllowGet);
+            return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
-        public bool SendEmail(string toEmail,string subject,string emailBody)
+        public bool SendEmail(string toEmail, string subject, string emailBody)
         {
             try
             {
@@ -69,9 +88,9 @@ namespace CSManagement.Controllers
                 client.Timeout = 100000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(senderEmail,senderPassword);
+                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
-                MailMessage mailMessage = new MailMessage(senderEmail, toEmail,subject,emailBody);
+                MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
                 mailMessage.IsBodyHtml = true;
                 mailMessage.BodyEncoding = Encoding.UTF8;
                 client.Send(mailMessage);
@@ -84,9 +103,23 @@ namespace CSManagement.Controllers
             }
         }
 
-        public ActionResult AppCancle(int? id)
+        public ActionResult AppCancle(string id = "")
         {
-            var findid = db.Applieds.FirstOrDefault(x => x.APP_NO == id);
+            var findidall = db.Applieds.Where(x => x.APP_ReNO == id).ToList();
+            int i = 0;
+            foreach (var item in findidall)
+            {
+                if (i > 0)
+                {
+                    db.Applieds.Remove(item);
+                }
+                else
+                {
+                    item.APP_Status = 2;
+                }
+                i++;
+            }
+            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id);
             findid.APP_Status = 2;
             db.Entry(findid).State = EntityState.Modified;
             db.SaveChanges();

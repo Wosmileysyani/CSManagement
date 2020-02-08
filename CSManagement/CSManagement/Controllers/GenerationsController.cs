@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
@@ -26,6 +28,14 @@ namespace CSManagement.Controllers
         public ActionResult IndexUser()
         {
             var generations = db.Generations.Include(g => g.Short_Course);
+            if (Session["Errormessage"] != null)
+            {
+                if (Session["Errormessage"].ToString().Equals("สมัครได้"))
+                {
+                    Session.Remove("Errormessage");
+                    ViewBag.Message = "ข้อมูลถูกบันทึกแล้ว เลือกคอร์สที่ต้องการสมัครได้เลย";
+                }
+            }
             return View(db.Generations.ToList());
         }
 
@@ -42,13 +52,68 @@ namespace CSManagement.Controllers
             return PartialView(vm);
         }
 
-        public ActionResult Registers(int? id)
+        [HttpPost]
+        public JsonResult slipupload(string idcard)
         {
+            try
+            {
+                var IDSC = Convert.ToInt32(Session["IDSC"]);
+                var findgen = db.Applieds.AsNoTracking().SingleOrDefault(x => x.APP_ReNO.Equals(idcard) && x.APP_GenNO == IDSC);
+                if (findgen != null)
+                {
+                    foreach (string file in Request.Files)
+                    {
+                        var fileContent = Request.Files[file];
+                        if (fileContent != null && fileContent.ContentLength > 0)
+                        {
+                            // get a stream
+                            var stream = fileContent.InputStream;
+                            // and optionally write the file to disk
+                            var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                            string physicalPath = Server.MapPath("~/img/Slips/" + myUniqueFileName);
+                            fileContent.SaveAs(physicalPath);
+                            findgen.APP_SlipImg = myUniqueFileName;
+                            db.Entry(findgen).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                return Json("อัพโหลดสำเร็จ กรุณารอการยืนยันจากทางระบบ");
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("อัพโหลดไม่สำเร็จ");
+            }
+        }
+
+        public ActionResult Registers(int? id = 0)
+        {
+            if (id == 0)
+            {
+                if (Session["Errormessage"] != null)
+                {
+                    if (Session["Errormessage"].ToString().Equals("บัตรซ้ำ"))
+                    {
+                        Session.Remove("Errormessage");
+                        ViewBag.Message = "รหัสบัตรประชาชนถูกใช้แล้ว";
+                    }
+                }
+                ViewBag.rigList = null;
+                Session["IDSC"] = 0;
+                return View();
+            }
             var appList = db.Applieds.Where(x => x.APP_GenNO == id).ToList();
             List<Register_SC> rigList = new List<Register_SC>();
-            foreach (var item in appList)
+            if (appList.Count != 0)
             {
-                rigList = db.Register_SC.Where(x => x.REG_IDCard == item.APP_ReNO).ToList();
+                foreach (var item in appList)
+                {
+                    string input = item.Register_SC.REG_Email;
+                    string pattern = @"(?<=[\w]{2})[\w-\._\+%]*(?=[\w]{2}@)";
+                    string result = Regex.Replace(input, pattern, m => new string('*', m.Length));
+                    item.Register_SC.REG_Email = result;
+                }
             }
             if (id == null)
             {
@@ -60,7 +125,7 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Gen_SCID = generation.Short_Course.SC_NameTH + " รุ่นที่ " + generation.Gen_Name;
-            ViewBag.rigList = rigList;
+            ViewBag.rigList = appList;
             ViewBag.genList = generation;
             Session.Remove("IDSC");
             Session["IDSC"] = generation.Gen_NO.ToString();
@@ -109,15 +174,14 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Generation generation, string gendate)
+        public ActionResult Create(Generation generation)
         {
             try
             {
                 generation.Gen_Member = generation.Gen_MemberMax;
-                generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 db.Generations.Add(generation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
             catch (Exception)
             {
@@ -151,20 +215,17 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Generation generation, string gendate)
+        public ActionResult Edit(Generation generation)
         {
             try
             {
                 var recordToUpdate = db.Generations.AsNoTracking().SingleOrDefault(x => x.Gen_NO == generation.Gen_NO);
-                if (gendate.IsEmpty() == true)
+                if (generation.Gen_Date.IsEmpty() == true)
                 {
                     generation.Gen_Date = recordToUpdate.Gen_Date;
                 }
-                else
-                {
-                    generation.Gen_Date = DateTime.ParseExact(gendate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                }
-
+                
+                generation.Gen_Status = recordToUpdate.Gen_Status;
                 generation.Gen_Member = (generation.Gen_MemberMax - recordToUpdate.Gen_MemberMax) + recordToUpdate.Gen_Member;
                 if (generation.Gen_Member < 0)
                 {

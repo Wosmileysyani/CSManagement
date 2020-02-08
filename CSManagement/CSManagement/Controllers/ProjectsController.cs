@@ -32,11 +32,16 @@ namespace CSManagement.Controllers
             return View();
         }
 
-        public FileStreamResult ShowPdf(int? id)
+        public ActionResult ShowPdf(int? id)
         {
             var projects = db.Projects.Find(id);
             FileStream fs = new FileStream(Server.MapPath("~/FileUploaded/" + projects.Pj_File), FileMode.Open, FileAccess.Read);
-            return File(fs, "application/pdf");
+            var fsResult = new FileStreamResult(fs, "application/pdf");
+            var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+            Response.AddHeader("content-disposition", "attachment; filename=" + myUniqueFileName);
+            //ชื่อไฟล์ตามงาน เปิดดูได้ 1 ครั้ง
+            //Response.AddHeader("content-disposition", "attachment; filename=" + projects.Pj_File);
+            return fsResult;
         }
 
         public void DownloadPdf(int? id)

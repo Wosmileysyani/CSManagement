@@ -48,7 +48,8 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SC_ID,SC_NameTH")] Short_Course short_Course)
+        [ValidateInput(false)]
+        public ActionResult Create(Short_Course short_Course)
         {
             if (ModelState.IsValid)
             {

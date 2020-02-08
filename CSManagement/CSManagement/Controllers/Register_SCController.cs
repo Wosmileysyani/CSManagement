@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CSManagement.Models;
+using Newtonsoft.Json;
 
 namespace CSManagement.Controllers
 {
@@ -35,6 +36,28 @@ namespace CSManagement.Controllers
             return View(register_SC);
         }
 
+        public JsonResult findIDCard(string idcard = "")
+        {
+            var list = db.Register_SC.Where(x => x.REG_IDCard == idcard).Include(x => x.Applieds).ToList();
+            if (list.Count > 0)
+            {
+                var data = from r in list
+                           select new
+                           {
+                               r.REG_IDCard,
+                               r.REG_Address,
+                               r.REG_Email,
+                               r.REG_Name,
+                               r.REG_Tel
+                           };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(JsonConvert.DeserializeObject("null"), JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // GET: Register_SC/Create
         public ActionResult Create()
         {
@@ -51,6 +74,21 @@ namespace CSManagement.Controllers
             try
             {
                 var chkIDCard = db.Register_SC.FirstOrDefault(x => x.REG_IDCard == register_SC.REG_IDCard);
+                if (Convert.ToInt32(Session["IDSC"]) == 0)
+                {
+                    if (chkIDCard == null)
+                    {
+                        db.Register_SC.Add(register_SC);
+                        Session["Errormessage"] = "สมัครได้";
+                        db.SaveChanges();
+                        return RedirectToAction("IndexUser", "Generations", new { id = 0 });
+                    }
+                    else
+                    {
+                        Session["Errormessage"] = "บัตรซ้ำ";
+                        return RedirectToAction("Registers", "Generations", new { id = 0 });
+                    }
+                }
                 Applied applied = new Applied()
                 {
                     APP_ReNO = register_SC.REG_IDCard,
@@ -64,7 +102,7 @@ namespace CSManagement.Controllers
                     db.Register_SC.Add(register_SC);
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexUser", "Generations", new { id = Convert.ToInt32(Session["IDSC"]) });
             }
             catch (Exception)
             {

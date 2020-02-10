@@ -9,9 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
+using System.Web.Mail;
 using System.Web.Mvc;
 using System.Web.Services;
 using CSManagement.Models;
+using MailMessage = System.Net.Mail.MailMessage;
 
 namespace CSManagement.Controllers
 {
@@ -19,10 +21,10 @@ namespace CSManagement.Controllers
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        // GET: Applieds
         public ActionResult Index()
         {
             var applieds = db.Applieds.Include(a => a.Generation).Include(a => a.Register_SC);
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(applieds.ToList());
         }
 
@@ -64,6 +66,7 @@ namespace CSManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public JsonResult SendMailToUser(string id, int idg)
         {
             bool Result = false;
@@ -75,6 +78,7 @@ namespace CSManagement.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+
         public bool SendEmail(string toEmail, string subject, string emailBody)
         {
             try
@@ -82,13 +86,13 @@ namespace CSManagement.Controllers
                 string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
                 string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
 
-                SmtpClient client = new SmtpClient();
-                client.Host = "smtp.gmail.com";
-                client.EnableSsl = true;
-                client.Timeout = 100000;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
+                {
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("kruautoemail@gmail.com", "ef44ecc3"),
+                    DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
+                };
 
                 MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
                 mailMessage.IsBodyHtml = true;
@@ -97,7 +101,7 @@ namespace CSManagement.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -129,6 +133,7 @@ namespace CSManagement.Controllers
         // GET: Applieds/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -144,6 +149,7 @@ namespace CSManagement.Controllers
         // GET: Applieds/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.APP_GenNO = new SelectList(db.Generations, "Gen_NO", "Gen_Name");
             ViewBag.APP_ReNO = new SelectList(db.Register_SC, "REG_IDCard", "REG_Name");
             return View();
@@ -156,6 +162,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Applied applied)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Applieds.Add(applied);
@@ -171,6 +178,7 @@ namespace CSManagement.Controllers
         // GET: Applieds/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -192,6 +200,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "APP_NO,APP_ReNO,APP_GenNO,APP_Status")] Applied applied)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(applied).State = EntityState.Modified;
@@ -206,6 +215,7 @@ namespace CSManagement.Controllers
         // GET: Applieds/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -223,6 +233,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Applied applied = db.Applieds.Find(id);
             db.Applieds.Remove(applied);
             db.SaveChanges();

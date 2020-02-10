@@ -21,6 +21,7 @@ namespace CSManagement.Controllers
         // GET: Logins
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(db.Logins.ToList());
         }
 
@@ -133,6 +134,7 @@ namespace CSManagement.Controllers
         // GET: Logins/Details/5
         public ActionResult Details(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -148,6 +150,7 @@ namespace CSManagement.Controllers
         // GET: Logins/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -155,6 +158,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Login login)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Logins.Add(login);
@@ -168,6 +172,7 @@ namespace CSManagement.Controllers
         // GET: Logins/Edit/5
         public ActionResult Edit(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -184,6 +189,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Login login)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(login).State = EntityState.Modified;
@@ -196,6 +202,7 @@ namespace CSManagement.Controllers
         // GET: Logins/Delete/5
         public ActionResult Delete(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -213,6 +220,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Login login = db.Logins.Find(id);
             db.Logins.Remove(login);
             db.SaveChanges();

@@ -34,6 +34,7 @@ namespace CSManagement.Controllers
         // GET: Pictures/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,6 +50,7 @@ namespace CSManagement.Controllers
         // GET: Pictures/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -56,6 +58,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Picture picture,HttpPostedFileBase file)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -80,6 +83,7 @@ namespace CSManagement.Controllers
         // GET: Pictures/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -96,6 +100,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Picture picture)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(picture).State = EntityState.Modified;
@@ -108,6 +113,7 @@ namespace CSManagement.Controllers
         // GET: Pictures/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Picture picture = db.Pictures.Find(id);
             db.Pictures.Remove(picture);
             db.SaveChanges();

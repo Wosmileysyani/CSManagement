@@ -213,7 +213,9 @@
                 }]
             });
         });
+    </script>
 
+    <script>
         function SendEmail(id1, idg1) {
             $.ajax({
                 method: "POST",
@@ -222,8 +224,10 @@
                 success: function (data) {
                     if (data == true) {
                         alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
+                        console.log(data);
                     } else {
                         alert("การส่งอีเมลล์ตอบรับไม่สำเร็จ");
+                        console.log(data);
                     }
                 }
             });

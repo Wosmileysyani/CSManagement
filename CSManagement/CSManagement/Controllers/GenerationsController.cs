@@ -21,6 +21,7 @@ namespace CSManagement.Controllers
         // GET: Generations
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             var generations = db.Generations.Include(g => g.Short_Course).Include(g => g.Gen_Status1);
             return View(generations.ToList());
         }
@@ -149,6 +150,7 @@ namespace CSManagement.Controllers
         // GET: Generations/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -164,6 +166,7 @@ namespace CSManagement.Controllers
         // GET: Generations/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH");
             ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name");
             return View();
@@ -176,6 +179,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Generation generation)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 generation.Gen_Member = generation.Gen_MemberMax;
@@ -196,6 +200,7 @@ namespace CSManagement.Controllers
         // GET: Generations/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -217,6 +222,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Generation generation)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 var recordToUpdate = db.Generations.AsNoTracking().SingleOrDefault(x => x.Gen_NO == generation.Gen_NO);
@@ -249,6 +255,7 @@ namespace CSManagement.Controllers
         // GET: Generations/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Generation generation = db.Generations.Find(id);
             db.Generations.Remove(generation);
             db.SaveChanges();

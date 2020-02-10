@@ -26,6 +26,7 @@ namespace CSManagement.Controllers
         // GET: ComputerEquipments/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,6 +41,7 @@ namespace CSManagement.Controllers
 
         public ActionResult Dispose(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,6 +99,7 @@ namespace CSManagement.Controllers
         // GET: ComputerEquipments/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.CE_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name");
             return View();
         }
@@ -108,6 +111,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ComputerEquipment computerEquipment, string datein)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 computerEquipment.CE_DateIN = DateTime.ParseExact(datein, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -126,6 +130,7 @@ namespace CSManagement.Controllers
         // GET: ComputerEquipments/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -146,6 +151,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CE_ATNO,CE_NO,CE_DateIN,CE_Name,CE_Noce,CE_Piece,CE_Price,CE_PriceTotal,CE_TeaID,CE_Budget,CE_Status")] ComputerEquipment computerEquipment)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(computerEquipment).State = EntityState.Modified;
@@ -159,6 +165,7 @@ namespace CSManagement.Controllers
         // GET: ComputerEquipments/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -176,6 +183,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ComputerEquipment computerEquipment = db.ComputerEquipments.Find(id);
             db.ComputerEquipments.Remove(computerEquipment);
             db.SaveChanges();

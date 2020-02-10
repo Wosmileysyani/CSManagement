@@ -18,12 +18,14 @@ namespace CSManagement.Controllers
         // GET: Syllabus
         public async Task<ActionResult> Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(await db.Syllabus.ToListAsync());
         }
 
         // GET: Syllabus/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +41,7 @@ namespace CSManagement.Controllers
         // GET: Syllabus/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -48,17 +51,12 @@ namespace CSManagement.Controllers
         {
             try
             {
-                var recordToUpdate = db.Syllabus.AsNoTracking().Single(x => x.Sy_ID == syllabu.Sy_ID);
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
                     syllabu.Sy_Img = myUniqueFileName;
-                }
-                else
-                {
-                    syllabu.Sy_Img = recordToUpdate.Sy_Img;
                 }
                 db.Syllabus.Add(syllabu);
                 await db.SaveChangesAsync();
@@ -73,6 +71,7 @@ namespace CSManagement.Controllers
         // GET: Syllabus/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,12 +90,17 @@ namespace CSManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                var recordToUpdate = db.Syllabus.AsNoTracking().Single(x => x.Sy_ID == syllabu.Sy_ID);
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                     string physicalPath = Server.MapPath("~/img/" + myUniqueFileName);
                     file.SaveAs(physicalPath);
                     syllabu.Sy_Img = myUniqueFileName;
+                }
+                else
+                {
+                    syllabu.Sy_Img = recordToUpdate.Sy_Img;
                 }
                 db.Entry(syllabu).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -108,6 +112,7 @@ namespace CSManagement.Controllers
         // GET: Syllabus/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Syllabu syllabu = await db.Syllabus.FindAsync(id);
             db.Syllabus.Remove(syllabu);
             await db.SaveChangesAsync();

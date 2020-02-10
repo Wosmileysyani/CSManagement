@@ -47,6 +47,7 @@ namespace CSManagement.Models
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Syllabu> Syllabus { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<ProjectView> ProjectViews { get; set; }

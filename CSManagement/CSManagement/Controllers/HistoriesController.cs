@@ -24,6 +24,7 @@ namespace CSManagement.Controllers
             return View(histories.ToList());
         }
 
+
         public JsonResult GetSearchValue(string search)
         {
             List<StudentName> allsearch = db.Students.Where(x => x.Stu_Name.Contains(search)).Select(x => new StudentName

@@ -73,6 +73,11 @@ namespace CSManagement.Controllers
             return View();
         }
 
+        public ActionResult Indexoldstudent()
+        {
+            return View();
+        }
+
         public void SetSession()
         {
             //เก็บคนเข้าชมเว็ป

@@ -14,19 +14,17 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CSManagement</RootNamespace>
     <AssemblyName>CSManagement</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>52972</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -366,10 +364,6 @@
     <Content Include="Content\pdf.js\worker_loader.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="img\app.png" />
     <Content Include="img\calendar.png" />
     <Content Include="img\com.png" />
@@ -386,7 +380,12 @@
     <Content Include="img\Network.jpg" />
     <Content Include="img\newicon.png" />
     <Content Include="img\programmer.png" />
+    <Content Include="img\ComputerAssembly.png" />
     <Content Include="img\webApp.png" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
@@ -593,6 +592,7 @@
     <Content Include="Views\Students\Indexforreport.cshtml" />
     <Content Include="Views\Students\Indexforschool.cshtml" />
     <Content Include="Views\News\IndexUser.cshtml" />
+    <Content Include="Views\Home\Indexoldstudent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -707,6 +707,9 @@
     </Compile>
     <Compile Include="Models\StudentName.cs" />
     <Compile Include="Models\Syllabu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">

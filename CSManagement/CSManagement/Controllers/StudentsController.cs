@@ -39,6 +39,7 @@ namespace CSManagement.Controllers
             return View(schooList);
         }
 
+
         public ActionResult EditID(string id)
         {
             if (id == null)

@@ -36,7 +36,14 @@ namespace CSManagement.Controllers
             {
                 return HttpNotFound();
             }
-            return View(teachers);
+            else
+            {
+                if (!teachers.Log_ID.Equals(Session["UserID"].ToString()))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(teachers);
+            }
         }
 
         [HttpPost]
@@ -68,6 +75,7 @@ namespace CSManagement.Controllers
         // GET: Teachers/Details/5
         public ActionResult Details(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -83,6 +91,7 @@ namespace CSManagement.Controllers
         // GET: Teachers/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name");
             return View();
         }
@@ -115,6 +124,7 @@ namespace CSManagement.Controllers
         // GET: Teachers/Edit/5
         public ActionResult Edit(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -164,6 +174,7 @@ namespace CSManagement.Controllers
         // GET: Teachers/Delete/5
         public ActionResult Delete(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Teacher teacher = db.Teachers.Find(id);
             db.Teachers.Remove(teacher);
             db.SaveChanges();

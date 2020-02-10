@@ -15,11 +15,10 @@ namespace CSManagement.Controllers
     {
         private CsManagementEntities db = new CsManagementEntities();
 
-        // GET: Projects
         public ActionResult Index()
         {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             var projects = db.Projects.Include(p => p.Student).Include(p => p.Teacher);
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             return View(projects.ToList());
         }
 
@@ -61,6 +60,7 @@ namespace CSManagement.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -76,6 +76,7 @@ namespace CSManagement.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title");
             ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name");
             return View();
@@ -129,6 +130,7 @@ namespace CSManagement.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

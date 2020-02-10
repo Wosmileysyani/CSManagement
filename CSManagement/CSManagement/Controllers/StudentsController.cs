@@ -46,11 +46,19 @@ namespace CSManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Login student = db.Logins.Find(id);
+            
             if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            else
+            {
+                if (!student.Log_ID.Equals(Session["UserID"].ToString()))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(student);
+            }
         }
 
 
@@ -85,7 +93,7 @@ namespace CSManagement.Controllers
                 login.Log_Role = recordToUpdate.Log_Role;
                 db.Entry(login).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Logout","Logins");
+                return RedirectToAction("Logout", "Logins");
             }
             catch (Exception)
             {
@@ -150,6 +158,10 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
+            if (!student.Stu_ID.Equals(Session["UserID"].ToString()))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             try
             {
                 var recordToUpdate = db.Students.AsNoTracking().Single(x => x.Stu_ID == student.Stu_ID);
@@ -184,6 +196,7 @@ namespace CSManagement.Controllers
         // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Student students = db.Students.Find(id);
             db.Students.Remove(students);
             Login login = db.Logins.Find(id);

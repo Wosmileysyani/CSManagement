@@ -19,6 +19,7 @@ namespace CSManagement.Controllers
         // GET: News
         public async Task<ActionResult> Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(await db.News.ToListAsync());
         }
 
@@ -33,6 +34,8 @@ namespace CSManagement.Controllers
         // GET: News/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            ViewBag.News = db.News.Where(x => x.New_ID == id).ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -48,6 +51,7 @@ namespace CSManagement.Controllers
         // GET: News/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -55,6 +59,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(News news, HttpPostedFileBase file, string newdate)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -78,6 +83,7 @@ namespace CSManagement.Controllers
         // GET: News/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +100,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(News news, HttpPostedFileBase file, string newdate)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 if (file != null && file.ContentLength > 0)
@@ -114,6 +121,7 @@ namespace CSManagement.Controllers
         // GET: News/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             News news = await db.News.FindAsync(id);
             db.News.Remove(news);
             await db.SaveChangesAsync();

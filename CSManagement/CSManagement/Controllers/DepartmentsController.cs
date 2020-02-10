@@ -13,7 +13,6 @@ namespace CSManagement.Controllers
     public class DepartmentsController : Controller
     {
         private CsManagementEntities db = new CsManagementEntities();
-
         // GET: Departments
         public ActionResult Index()
         {
@@ -25,6 +24,7 @@ namespace CSManagement.Controllers
         // GET: Departments/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,6 +40,7 @@ namespace CSManagement.Controllers
         // GET: Departments/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH");
             return View();
         }
@@ -48,6 +49,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Department department)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Departments.Add(department);
@@ -61,6 +63,7 @@ namespace CSManagement.Controllers
         // GET: Departments/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,6 +81,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Department department)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(department).State = EntityState.Modified;
@@ -91,6 +95,7 @@ namespace CSManagement.Controllers
         // GET: Departments/Delete/5
         public ActionResult Delete(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Department department = db.Departments.Find(id);
             db.Departments.Remove(department);
             db.SaveChanges();

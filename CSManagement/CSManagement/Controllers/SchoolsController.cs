@@ -24,6 +24,7 @@ namespace CSManagement.Controllers
         // GET: Schools/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +40,7 @@ namespace CSManagement.Controllers
         // GET: Schools/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -59,6 +61,7 @@ namespace CSManagement.Controllers
         // GET: Schools/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -90,6 +93,7 @@ namespace CSManagement.Controllers
         // GET: Schools/Delete/5
         public ActionResult Delete(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             School school = db.Schools.Find(id);
             db.Schools.Remove(school);
             db.SaveChanges();

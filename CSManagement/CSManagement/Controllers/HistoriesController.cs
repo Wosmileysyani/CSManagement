@@ -37,6 +37,7 @@ namespace CSManagement.Controllers
         // GET: Histories/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -52,6 +53,7 @@ namespace CSManagement.Controllers
         // GET: Histories/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.HIS_Job = new SelectList(db.Jobs, "JOB_ID", "JOB_Name");
             ViewBag.HIS_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title");
             return View();
@@ -64,6 +66,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(History history)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             string[] Split_ID = history.HIS_StuID.Split(' ');
             if (history.HIS_Year == null) history.HIS_Year = " ";
             if (ModelState.IsValid)
@@ -82,6 +85,7 @@ namespace CSManagement.Controllers
         // GET: Histories/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -100,6 +104,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(History history)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(history).State = EntityState.Modified;
@@ -114,6 +119,7 @@ namespace CSManagement.Controllers
         // GET: Histories/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             History history = db.Histories.Find(id);
             db.Histories.Remove(history);
             db.SaveChanges();

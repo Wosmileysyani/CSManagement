@@ -47,6 +47,7 @@ namespace CSManagement.Controllers
         // GET: Disposes/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -62,6 +63,7 @@ namespace CSManagement.Controllers
         // GET: Disposes/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -69,6 +71,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Dispose dispose)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Disposes.Add(dispose);
@@ -82,6 +85,7 @@ namespace CSManagement.Controllers
         // GET: Disposes/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -101,6 +105,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DIS_ATNO,CE_ATNO,DIS_DateOUT,DIS_DateAPP,DIS_Status")] Dispose dispose)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
                 db.Entry(dispose).State = EntityState.Modified;
@@ -113,6 +118,7 @@ namespace CSManagement.Controllers
         // GET: Disposes/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -130,6 +136,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Dispose dispose = db.Disposes.Find(id);
             db.Disposes.Remove(dispose);
             db.SaveChanges();

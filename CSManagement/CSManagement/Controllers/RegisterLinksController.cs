@@ -24,6 +24,7 @@ namespace CSManagement.Controllers
         // GET: RegisterLinks/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +40,7 @@ namespace CSManagement.Controllers
         // GET: RegisterLinks/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -62,6 +64,7 @@ namespace CSManagement.Controllers
         // GET: RegisterLinks/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +96,7 @@ namespace CSManagement.Controllers
         // GET: RegisterLinks/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             RegisterLink registerLink = db.RegisterLinks.Find(id);
             db.RegisterLinks.Remove(registerLink);
             db.SaveChanges();

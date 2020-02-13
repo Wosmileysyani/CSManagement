@@ -78,7 +78,6 @@ namespace CSManagement.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
-
         public bool SendEmail(string toEmail, string subject, string emailBody)
         {
             try
@@ -86,13 +85,13 @@ namespace CSManagement.Controllers
                 string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
                 string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
 
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
-                {
-                    EnableSsl = true,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("kruautoemail@gmail.com", "ef44ecc3"),
-                    DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
-                };
+                SmtpClient client = new SmtpClient();
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                client.Timeout = 100000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
                 MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
                 mailMessage.IsBodyHtml = true;
@@ -101,10 +100,29 @@ namespace CSManagement.Controllers
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
+
+            //try
+            //{
+            //    SmtpClient smtpClient = new SmtpClient("localhost", 25);
+
+            //    smtpClient.Credentials = new System.Net.NetworkCredential("kruautoemail@gmail.com", "ef44ecc3");
+            //    smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
+
+            //    MailMessage mailMessage = new MailMessage("kruautoemail@gmail.com", toEmail, subject, emailBody);
+            //    mailMessage.IsBodyHtml = true;
+            //    mailMessage.BodyEncoding = Encoding.UTF8;
+            //    smtpClient.Send(mailMessage);
+
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return false;
+            //}
         }
 
         public ActionResult AppCancle(string id = "")

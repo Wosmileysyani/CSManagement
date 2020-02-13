@@ -159,10 +159,6 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, string birthday, string tel, HttpPostedFileBase file)
         {
-            if (!student.Stu_ID.Equals(Session["UserID"].ToString()))
-            {
-                return RedirectToAction("Index", "Home");
-            }
             try
             {
                 var recordToUpdate = db.Students.AsNoTracking().Single(x => x.Stu_ID == student.Stu_ID);
@@ -179,9 +175,24 @@ namespace CSManagement.Controllers
                     student.Stu_Img = recordToUpdate.Stu_Img;
                 }
                 student.Stu_Tel = tel.IsEmpty() != true ? tel : recordToUpdate.Stu_Tel;
-                student.Stu_StatusID = recordToUpdate.Stu_StatusID;
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
+                if (Session["AJ"] != null)
+                {
+                    db.Entry(student).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    if (!student.Stu_ID.Equals(Session["UserID"].ToString()))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        student.Stu_StatusID = recordToUpdate.Stu_StatusID;
+                        db.Entry(student).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
                 return Session["AJ"] == null ? RedirectToAction("Logout", "Logins") : RedirectToAction("Index");
             }
             catch (Exception)

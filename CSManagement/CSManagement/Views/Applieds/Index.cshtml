@@ -84,7 +84,7 @@
         <div class="box-header with-border">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="box-title">จัดการข้อมูลการสมัคร</h1>
+                    <h1 class="box-title" style="font-family: 'Kanit', sans-serif">จัดการข้อมูลการสมัคร</h1>
                     @*<div style="float:right">
                             <a class="btn btn-success" href="@Url.Action("Create", "Generations")"><i class="fa fa-plus"></i> เพิ่มข้อมูลหลักสูตร</a>
                         </div>*@
@@ -222,12 +222,10 @@
                 url: "/Applieds/SendMailToUser",
                 data: { 'id': id1, 'idg': idg1 },
                 success: function (data) {
-                    if (data == true) {
+                    if (data) {
                         alert("การส่งอีเมลล์ตอบรับเสร็จสิ้น");
-                        console.log(data);
                     } else {
                         alert("การส่งอีเมลล์ตอบรับไม่สำเร็จ");
-                        console.log(data);
                     }
                 }
             });

@@ -17,7 +17,7 @@ namespace CSManagement.Controllers
 
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Student).Include(p => p.Teacher);
+            var projects = db.Projects.Include(p => p.Stu_Pro).Include(p => p.Tea_Pro);
             if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             return View(projects.ToList());
         }

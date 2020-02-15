@@ -18,6 +18,11 @@ namespace CSManagement.Models
         public string New_Name { get; set; }
         public string New_Details { get; set; }
         public string New_Img { get; set; }
-        public Nullable<System.DateTime> New_Date { get; set; }
+        public Nullable<System.DateTime> New_DateStart { get; set; }
+        public Nullable<System.DateTime> New_DateEnd { get; set; }
+        public Nullable<bool> New_Active { get; set; }
+        public Nullable<int> New_Type { get; set; }
+    
+        public virtual Status_News Status_News { get; set; }
     }
 }

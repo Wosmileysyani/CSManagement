@@ -598,6 +598,11 @@
     <Content Include="Views\Students\Indexforschool.cshtml" />
     <Content Include="Views\News\IndexUser.cshtml" />
     <Content Include="Views\Home\Indexoldstudent.cshtml" />
+    <Content Include="Views\Picture_Banner\Create.cshtml" />
+    <Content Include="Views\Picture_Banner\Delete.cshtml" />
+    <Content Include="Views\Picture_Banner\Details.cshtml" />
+    <Content Include="Views\Picture_Banner\Edit.cshtml" />
+    <Content Include="Views\Picture_Banner\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -619,6 +624,7 @@
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PicturesController.cs" />
+    <Compile Include="Controllers\Picture_BannerController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RegisterLinksController.cs" />
     <Compile Include="Controllers\Register_SCController.cs" />
@@ -630,9 +636,6 @@
     <Compile Include="Models\Applied.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CESup.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ComputerEquipment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -641,6 +644,9 @@
     </Compile>
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department_Sup.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dispose.cs">
@@ -686,6 +692,9 @@
     <Compile Include="Models\Picture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Picture_Banner.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Project.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -707,17 +716,23 @@
     <Compile Include="Models\Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Status_News.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentName.cs" />
+    <Compile Include="Models\Stu_Pro.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Syllabu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Teacher.cs">
+    <Compile Include="Models\Tea_Pro.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Title.cs">

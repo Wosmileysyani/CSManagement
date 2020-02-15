@@ -35,14 +35,22 @@
                     <h1 class="page-title">ข่าวประชาสัมพันธ์</h1>
                 </header>
                 <br />
-
-                <div class="panel panel-default outer" style="width:100%">
+                @using (Html.BeginForm("IndexUser", "News"))
+                {
+                    <button type="submit" class="btn btn-success" style="float: right; width: 30%; font-size: 70%"><i class="fa fa-search"></i> ค้นหาตามประเภท</button>
+                    <div class="col-md-3" style="float: right; width: 70%">
+                        @Html.DropDownList("Type",null, "เลือกประเภท", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                }
+                <br />
+                <br />
+                <div class="panel panel-default outer" style="width: 100%">
                     @{
                         foreach (var item in ViewBag.NewsCount)
                         {
-                            <img src="~/img/@item.New_Img" style="width:100%" />
-                            <strong>@item.New_Name</strong>
-                            <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]</a><br />
+                            <img src="~/img/@item.New_Img" style="width: 100%" />
+                            <strong>@item.New_Name.Substring(0, Math.Min(10, @item.New_Name.Length))</strong>
+                            <a href="@Url.Action("IndexUser", "News")?id=@item.New_ID">[อ่านต่อ]...</a><br />
                         }
                     }
                 </div>
@@ -53,7 +61,7 @@
                 {
                     <strong><p style="text-align:center;font-size:25px">@item.New_Name</p></strong><br />
                     <img src="~/img/@item.New_Img" style="width:100%;height:300px" /><br />
-                    <strong>วันที่ : </strong>;@item.New_Date.ToString("dd MMM yyyy")<br />
+                    <strong>วันที่ : </strong>;@item.New_DateStart.ToString("dd MMM yyyy")<br />
                     <strong>รายละเอียด : </strong>@item.New_Details<br />
                 }
             </div>

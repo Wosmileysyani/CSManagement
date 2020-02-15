@@ -12,14 +12,13 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CESup
+    public partial class Stu_Pro
     {
-        public int CESUB_ATNO { get; set; }
-        public string CESUB_NO { get; set; }
-        public string CESUB_Name { get; set; }
-        public Nullable<int> CESUB_Status { get; set; }
-        public Nullable<int> CE_ATNO { get; set; }
+        public int ID { get; set; }
+        public string Stud_ID { get; set; }
+        public Nullable<int> Pro_ID { get; set; }
     
-        public virtual ComputerEquipment ComputerEquipment { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

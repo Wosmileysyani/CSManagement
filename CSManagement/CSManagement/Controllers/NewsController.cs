@@ -20,14 +20,35 @@ namespace CSManagement.Controllers
         public async Task<ActionResult> Index()
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
-            return View(await db.News.ToListAsync());
+            return View(await db.News.Include(n => n.Status_News).ToListAsync());
         }
 
-        [HttpGet]
-        public ActionResult IndexUser(int id)
+        public ActionResult IndexUser(int id = 0, int Type = 0)
         {
-            ViewBag.News = db.News.Where(x => x.New_ID == id).ToList();
-            ViewBag.NewsCount = db.News.ToList();
+            var chk = db.Status_News.Where(x => x.StatusN_ID == Type).Select(x => x.StatusN_Name).FirstOrDefault();
+            if (chk != null && chk.Equals("ข่าวทั้งหมด"))
+            {
+                Session.Remove("NewType");
+                Type = 0;
+            }
+            if (Type == 0)
+            {
+                if (Session["NewType"] != null) Type = Convert.ToInt32(Session["NewType"]);
+            }
+            if (Type != 0)
+            {
+                ViewBag.News = db.News.Where(x => x.New_ID == id).ToList();
+                ViewBag.NewsCount = db.News.Where(x => x.New_Active == true && x.New_Type == Type).OrderByDescending(x => x.New_DateStart);
+                ViewBag.Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name");
+                Session["NewType"] = Type;
+            }
+            else
+            {
+                ViewBag.News = db.News.Where(x => x.New_ID == id).ToList();
+                ViewBag.NewsCount = db.News.Where(x => x.New_Active == true).OrderByDescending(x => x.New_DateStart);
+                ViewBag.Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name");
+                Session.Remove("NewType");
+            }
             return View();
         }
 
@@ -52,12 +73,33 @@ namespace CSManagement.Controllers
         public ActionResult Create()
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            ViewBag.New_Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name");
             return View();
+        }
+
+        public void checkdatenew()
+        {
+            var data = db.News.ToList();
+            ThaiBuddhistCalendar thai = new ThaiBuddhistCalendar();
+            DateTime now = DateTime.Now;
+            DateTime today = new DateTime(thai.GetYear(now), thai.GetMonth(now), now.Day);
+            foreach (var item in data)
+            {
+                if (item.New_DateEnd != null && item.New_DateStart != null)
+                {
+                    var time = (item.New_DateEnd.Value.Ticks - today.Ticks);
+                    if (time <= 0)
+                    {
+                        item.New_Active = false;
+                    }
+                }
+            }
+            db.SaveChanges();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(News news, HttpPostedFileBase file, string newdate)
+        public async Task<ActionResult> Create(News news, HttpPostedFileBase file)
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
@@ -69,13 +111,20 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     news.New_Img = myUniqueFileName;
                 }
-                news.New_Date = DateTime.ParseExact(newdate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                var datestart = Request["New_DateStart"];
+                var datestop = Request["New_DateEnd"];
+                news.New_DateStart = DateTime.ParseExact(datestart, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                news.New_DateStart = news.New_DateStart.Value.AddYears(-543);
+                news.New_DateEnd = DateTime.ParseExact(datestop, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                news.New_DateEnd = news.New_DateEnd.Value.AddYears(-543);
+                news.New_Active = true;
                 db.News.Add(news);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                ViewBag.New_Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name", news.New_Type);
                 return View(news);
             }
         }
@@ -93,16 +142,18 @@ namespace CSManagement.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.New_Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name", news.New_Type);
             return View(news);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(News news, HttpPostedFileBase file, string newdate)
+        public async Task<ActionResult> Edit(News news, HttpPostedFileBase file)
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
-            if (ModelState.IsValid)
+            try
             {
+                var recordToUpdate = db.News.AsNoTracking().Single(x => x.New_ID == news.New_ID);
                 if (file != null && file.ContentLength > 0)
                 {
                     var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
@@ -110,12 +161,27 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     news.New_Img = myUniqueFileName;
                 }
-                news.New_Date = DateTime.ParseExact(newdate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                else
+                {
+                    news.New_Img = recordToUpdate.New_Img;
+                }
+                var datestart = Request["New_DateStart"];
+                var datestop = Request["New_DateEnd"];
+                news.New_DateStart = DateTime.ParseExact(datestart, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                news.New_DateStart = news.New_DateStart.Value.AddYears(-543);
+                news.New_DateEnd = DateTime.ParseExact(datestop, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                news.New_DateEnd = news.New_DateEnd.Value.AddYears(-543);
                 db.Entry(news).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(news);
+            catch (Exception e)
+            {
+                ViewBag.New_Type = new SelectList(db.Status_News, "StatusN_ID", "StatusN_Name", news.New_Type);
+                return View(news);
+            }
+
         }
 
         // GET: News/Delete/5

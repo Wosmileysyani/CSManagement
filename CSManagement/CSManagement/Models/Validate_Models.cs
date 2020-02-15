@@ -63,31 +63,6 @@ namespace CSManagement.Models
     [MetadataType(typeof(V_Status))]
     public partial class Status { }
 
-    public partial class V_CESup
-    {
-        [Display(Name = "รหัสรายละเอียด")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public int CESUB_ATNO { get; set; }
-
-        [Display(Name = "ใบเบิกที่")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public string CESUB_NO { get; set; }
-
-        [Display(Name = "ชื่อรายการ")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public string CESUB_Name { get; set; }
-
-        [Display(Name = "สถานะ")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public Nullable<int> CESUB_Status { get; set; }
-
-        [Display(Name = "หมายเลขครุภัณฑ์")]
-        [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
-        public Nullable<int> CE_ATNO { get; set; }
-    }
-    [MetadataType(typeof(V_CESup))]
-    public partial class CESup { }
-
     public partial class V_ComputerEquipment
     {
         [Display(Name = "หมายเลข")]
@@ -133,9 +108,6 @@ namespace CSManagement.Models
         [Display(Name = "สถานะ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<int> CE_Status { get; set; }
-
-
-        public virtual Teacher Teacher { get; set; }
     }
     [MetadataType(typeof(V_ComputerEquipment))]
     public partial class ComputerEquipment { }
@@ -190,8 +162,6 @@ namespace CSManagement.Models
         [Display(Name = "รหัสหลักสูตร")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public Nullable<int> Dep_CourseID { get; set; }
-
-        public virtual Course Course { get; set; }
     }
     [MetadataType(typeof(V_Department))]
     public partial class Department { }
@@ -244,10 +214,6 @@ namespace CSManagement.Models
         [Display(Name = "ชื่อบริษัท")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string HIS_Company { get; set; }
-
-        public virtual Job Job { get; set; }
-
-        public virtual Student Student { get; set; }
     }
     [MetadataType(typeof(V_History))]
     public partial class History { }
@@ -261,9 +227,6 @@ namespace CSManagement.Models
         [Display(Name = "ประกอบอาชีพ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string JOB_Name { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<History> Histories { get; set; }
     }
     [MetadataType(typeof(V_Job))]
     public partial class Job { }
@@ -315,8 +278,6 @@ namespace CSManagement.Models
         [Display(Name = "วิดีโอ")]
         public string Pj_Video { get; set; }
 
-        public virtual Student Student { get; set; }
-        public virtual Teacher Teacher { get; set; }
     }
     [MetadataType(typeof(V_Project))]
     public partial class Project { }
@@ -338,9 +299,6 @@ namespace CSManagement.Models
         [Display(Name = "เบอร์โทรศัพท์")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string SCH_Tel { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
     }
     [MetadataType(typeof(V_School))]
     public partial class School { }
@@ -387,12 +345,6 @@ namespace CSManagement.Models
         [Display(Name = "ตำแหน่งวิชาการ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Tea_Position { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComputerEquipment> ComputerEquipments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Projects { get; set; }
-        public virtual Title Title { get; set; }
     }
     [MetadataType(typeof(V_Teacher))]
     public partial class Teacher { }
@@ -406,9 +358,6 @@ namespace CSManagement.Models
         [Display(Name = "คำนำหน้า")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         public string Title_Name { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Teacher> Teachers { get; set; }
     }
     [MetadataType(typeof(V_Title))]
     public partial class Title { }
@@ -462,11 +411,6 @@ namespace CSManagement.Models
         [Display(Name = "สถานะการรับสมัคร")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public Nullable<int> Gen_Status { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applied> Applieds { get; set; }
-        public virtual Short_Course Short_Course { get; set; }
-        public virtual Gen_Status Gen_Status1 { get; set; }
     }
     [MetadataType(typeof(VGeneration))]
     public partial class Generation { }
@@ -519,9 +463,6 @@ namespace CSManagement.Models
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         [DataType(DataType.EmailAddress)]
         public string REG_Email { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applied> Applieds { get; set; }
     }
     [MetadataType(typeof(VRegister_SC))]
     public partial class Register_SC { }
@@ -547,10 +488,10 @@ namespace CSManagement.Models
     [MetadataType(typeof(VSyllabu))]
     public partial class Syllabu { }
 
+
     public partial class VNews
     {
         [Display(Name = "รหัส")]
-        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public int New_ID { get; set; }
 
         [Display(Name = "หัวข้อข่าวสาร")]
@@ -563,13 +504,21 @@ namespace CSManagement.Models
         public string New_Details { get; set; }
 
         [Display(Name = "รูปภาพ")]
-        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public string New_Img { get; set; }
 
-        [Display(Name = "วันที่")]
-        [DataType(DataType.Date)]
+        [Display(Name = "วันที่เริ่ม")]
+        [DataType(DataType.Date), Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> New_Date { get; set; }
+        public DateTime New_DateStart { get; set; }
+
+        [Display(Name = "วันที่จบ")]
+        [DataType(DataType.Date), Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime New_DateEnd { get; set; }
+
+        [Display(Name = "แสดงข่าว")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        public Nullable<bool> New_Active { get; set; }
     }
     [MetadataType(typeof(VNews))]
     public partial class News { }

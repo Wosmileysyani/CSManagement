@@ -26,10 +26,10 @@ namespace CSManagement.Models
         }
     
         public virtual DbSet<Applied> Applieds { get; set; }
-        public virtual DbSet<CESup> CESups { get; set; }
         public virtual DbSet<ComputerEquipment> ComputerEquipments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Department_Sup> Department_Sup { get; set; }
         public virtual DbSet<Dispose> Disposes { get; set; }
         public virtual DbSet<Gen_Status> Gen_Status { get; set; }
         public virtual DbSet<Generation> Generations { get; set; }
@@ -39,15 +39,18 @@ namespace CSManagement.Models
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
+        public virtual DbSet<Picture_Banner> Picture_Banner { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Register_SC> Register_SC { get; set; }
         public virtual DbSet<RegisterLink> RegisterLinks { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Short_Course> Short_Course { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Status_News> Status_News { get; set; }
+        public virtual DbSet<Stu_Pro> Stu_Pro { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Syllabu> Syllabus { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Tea_Pro> Tea_Pro { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
         public virtual DbSet<ProjectView> ProjectViews { get; set; }

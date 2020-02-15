@@ -64,7 +64,9 @@
                                 i++;
                                 var active = i == 1 ? "active" : "";
                                 <div class="item @active">
-                                    <img src="~/imgSlideShow/@item.Pic_Img" style="width:100%; height: 100%;max-height: 600px" />
+                                    <a style="cursor:pointer;" onclick="myFunction('@item.Pic_Link')">
+                                        <img src="~/imgSlideShow/@item.Pic_Img" style="width:100%; height: 100%;max-height: 600px" />
+                                    </a>
                                 </div>
                             }
                         </div>
@@ -92,8 +94,8 @@
                     foreach (var item in ViewBag.NewsCount)
                     {
                         <img src="~/img/newicon.png" style="width:10%" />
-                        <strong>@item.New_Name</strong>
-                        <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]</a><br />
+                        <strong>@item.New_Name.Substring(0, Math.Min(10, @item.New_Name.Length))</strong>
+                        <a href="@Url.Action("IndexUser","News")?id=@item.New_ID">[อ่านต่อ]...</a><br />
                     }
                 }
             </div>
@@ -103,21 +105,20 @@
     <div class="container">
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-lg-3 col-md-3 col-sm-6">
-                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("IndexUser", "Projects" )'"><img src="~/img/logo1.png" class="card-img-top"></a>
-                </div>
-
-                <div class="col-12 col-lg-3 col-md-3 col-sm-6">
-                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("IndexUser", "Teachers" )'"><img src="~/img/logo2.png" class="card-img-top"></a>
-                </div>
-
-                <div class="col-12 col-lg-3 col-md-3 col-sm-6">
-                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("IndexUser", "Generations" )'"><img src="~/img/logo3.png" class="card-img-top"></a>
-                </div>
-
-                <div class="col-12 col-lg-3 col-md-3 col-sm-6">
-                    <a style="cursor:pointer;" onclick="window.location.href = '@Url.Action("GoRegister", "Home" )'"><img src="~/img/logo4.png" class="card-img-top" /></a>
-                </div>
+                @{
+                    var count = 0;
+                    foreach (var item in ViewBag.Link)
+                    {
+                        if (count == 4)
+                        {
+                            break;
+                        }
+                        count++;
+                        <div class="col-12 col-lg-3 col-md-3 col-sm-6">
+                            <a style="cursor: pointer;" onclick="myFunction('@item.Picture_Link')"><img src="~/img/@item.Picture_Img" class="card-img-top"></a>
+                        </div>
+                    }
+                }
             </div>
         </div>
         <br />
@@ -127,22 +128,26 @@
                 <div class="col-md-6">
                     <div class="panel panel-default outer" style="width:95%">
                         <div class="panel-heading headerbar">
-                            สัดส่วนหมวดวิชาหลักสูตรสาขา
+                            สัดส่วนหมวดวิชาหลักสูตรสาขา  <a onclick="gotopage1()" style="cursor: pointer;">เพิ่มเติม...</a>
                         </div>
-                        <div class="panel-body text-justify chart-responsive">
-                            <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
-                        </div>
+                        <a onclick="gotopage1()" style="cursor: pointer;">
+                            <div class="panel-body text-justify chart-responsive">
+                                <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="panel panel-default outer" style="width:95%">
                         <div class="panel-heading headerbar">
-                            สัดส่วนการทำงานของศิษย์เก่า
+                            สัดส่วนการทำงานของศิษย์เก่า  <a onclick="gotopage2()" style="cursor: pointer;">เพิ่มเติม...</a>
                         </div>
-                        <div class="panel-body text-justify chart-responsive">
-                            <div class="chart" id="chartContainer2" style="height: 300px; position: relative;"></div>
-                        </div>
+                        <a onclick="gotopage2()" style="cursor: pointer;">
+                            <div class="panel-body text-justify chart-responsive">
+                                <div class="chart" id="chartContainer2" style="height: 300px; position: relative;"></div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -158,7 +163,7 @@
             @{ var counter = 0;
                 foreach (var item in ViewBag.ProjectCount)
                 {
-                    if (counter == 15)
+                    if (counter == 9)
                     {
                         break;
                     }
@@ -216,84 +221,85 @@
         </div>
 
         @*แนะนำว่าเรียนอะไรบ้าง*@
-    <div class="container">
-        @*<div class="panel panel-default outer" style="padding: 1em 5em;">*@
-        <header class="header1">
-            <h1 class="page-title">สาขาเราเรียนอะไรกัน</h1>
-        </header>
-        <br />
+        <div class="container">
+            @*<div class="panel panel-default outer" style="padding: 1em 5em;">*@
+            <header class="header1">
+                <h1 class="page-title">สาขาเราเรียนอะไรกัน</h1>
+            </header>
+            <br />
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/programmer.png" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px;margin-bottom:15px">
-                        <h4 style="letter-spacing: 0px;"><b>พัฒนาการเขียนโปรแกรม</b></h4>
-                        <p>พัฒนาการเขียนโปรแกรมทั้งแบบ OOP และ Structure เช่น C#, Python</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/programmer.png" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px;margin-bottom:15px">
+                            <h4 style="letter-spacing: 0px;"><b>พัฒนาการเขียนโปรแกรม</b></h4>
+                            <p>พัฒนาการเขียนโปรแกรมทั้งแบบ OOP และ Structure เช่น C#, Python</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/app.png" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>พัฒนาแอพพลิเคชั่น</b></h4>
+                            <p>พัฒนาแอพพลิชั่นด้วย Cross platform เช่น Xamarin, Ionic, React</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/webApp.png" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>พัฒนาเว็บแอพพลิเคชั่น</b></h4>
+                            <p>พัฒนาเว็บแอพพลิเคชั่นที่ทำงานได้จริง เช่น Asp.Net MVC, PHP, Angular, React JS, Javascript</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/app.png" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>พัฒนาแอพพลิเคชั่น</b></h4>
-                        <p>พัฒนาแอพพลิชั่นด้วย Cross platform เช่น Xamarin, Ionic, React</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/Network.jpg" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเครือข่าย</b></h4>
+                            <p>การจัดการระบบเครือข่าย เช่น การติดตั้งเครื่องเซิร์ฟเวอร์ การจัดการระบบอินเทอร์เน็ต</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/graphic.png" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>การออกแบบกราฟิกดีไซน์</b></h4>
+                            <p>ฝึกปฏิบัติการออกแบบงานกราฟฟิก เช่น Illustrator, Photoshop , ฯลฯ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/ComputerAssembly.png" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>การซ่อมคอมพิวเตอร์</b></h4>
+                            <p>ศึกษาสถาปัตยกรรมและซ่อมคอมพิวเตอร์ สำหรับรองรับงานด้าน It Support</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/webApp.png" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>พัฒนาเว็บแอพพลิเคชั่น</b></h4>
-                        <p>พัฒนาเว็บแอพพลิเคชั่นที่ทำงานได้จริง เช่น Asp.Net MVC, PHP, Angular, React JS, Javascript</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/Network.jpg" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเครือข่าย</b></h4>
-                        <p>การจัดการระบบเครือข่าย เช่น การติดตั้งเครื่องเซิร์ฟเวอร์ การจัดการระบบอินเทอร์เน็ต</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/graphic.png" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>การออกแบบกราฟิกดีไซน์</b></h4>
-                        <p>ฝึกปฏิบัติการออกแบบงานกราฟฟิก เช่น Illustrator, Photoshop , ฯลฯ</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/ComputerAssembly.png" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>การซ่อมคอมพิวเตอร์</b></h4>
-                        <p>ศึกษาสถาปัตยกรรมและซ่อมคอมพิวเตอร์ สำหรับรองรับงานด้าน It Support</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="~/img/GameDev.jpg" alt="Avatar" style="width:100%">
-                    <div class="card-body" style="margin:15px">
-                        <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเกม</b></h4>
-                        <p>ฝึกปฏิบัติการพัฒนาเกมส์ด้วย Unity , C#</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="~/img/GameDev.jpg" alt="Avatar" style="width:100%">
+                        <div class="card-body" style="margin:15px">
+                            <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเกม</b></h4>
+                            <p>ฝึกปฏิบัติการพัฒนาเกมส์ด้วย Unity , C#</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -387,4 +393,22 @@
         // document ready
     });
 
+</script>
+
+<script>
+    function myFunction(name) {
+        window.open(name, '_blank');
+    }
+</script>
+
+<script>
+    function gotopage1() {
+        window.open('/Home/IndexUserGrap', '_blank');
+    }
+</script>
+
+<script>
+    function gotopage2() {
+        window.open('/Home/Indexoldstudent', '_blank');
+    }
 </script>

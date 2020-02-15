@@ -30,7 +30,8 @@ namespace CSManagement.Controllers
                 .ThenByDescending(r => r.Pj_Rate);
             ViewBag.ProjectCount = newDataTable.ToList();
             ViewBag.SyllabusCount = db.Syllabus.ToList();
-            ViewBag.NewsCount = db.News.ToList();
+            ViewBag.NewsCount = db.News.Where(x => x.New_Active == true).OrderByDescending(x => x.New_DateStart);
+            ViewBag.Link = db.Picture_Banner.ToList();
             return View(imgPictures);
         }
 
@@ -38,12 +39,6 @@ namespace CSManagement.Controllers
         public ActionResult AnotherLink()
         {
             return View("Index");
-        }
-
-        public ActionResult GoRegister()
-        {
-            string link = db.RegisterLinks.FirstOrDefault().Weblink;
-            return Redirect(link);
         }
 
         public ActionResult IndexUserGrap()
@@ -65,7 +60,7 @@ namespace CSManagement.Controllers
             }
             foreach (var item in coursesList)
             {
-                dataPoints.Add(new DataPoint(item.Dep_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
+                dataPoints.Add(new DataPoint(item.Department_Sup.Deps_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
             }
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
             ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
@@ -102,7 +97,7 @@ namespace CSManagement.Controllers
             }
             foreach (var item in coursesList)
             {
-                dataPoints.Add(new DataPoint(item.Dep_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
+                dataPoints.Add(new DataPoint(item.Department_Sup.Deps_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
             }
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
             //Chartทำงาน

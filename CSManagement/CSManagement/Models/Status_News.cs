@@ -12,24 +12,18 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Course
+    public partial class Status_News
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Course()
+        public Status_News()
         {
-            this.Departments = new HashSet<Department>();
+            this.News = new HashSet<News>();
         }
     
-        public int Course_ID { get; set; }
-        public string Course_NameTH { get; set; }
-        public string Course_NameENG { get; set; }
-        public Nullable<int> Course_Year { get; set; }
-        public string Course_DegreeTH { get; set; }
-        public string Course_DegreeENG { get; set; }
-        public Nullable<int> Course_Credit { get; set; }
-        public string Couese_PDF { get; set; }
+        public int StatusN_ID { get; set; }
+        public string StatusN_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<News> News { get; set; }
     }
 }

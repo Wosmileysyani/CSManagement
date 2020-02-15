@@ -1,0 +1,43 @@
+﻿@model CSManagement.Models.Picture_Banner
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Picture_Banner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture_Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture_Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture_Link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture_Link)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Picture_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

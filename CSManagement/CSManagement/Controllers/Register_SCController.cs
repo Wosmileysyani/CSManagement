@@ -91,22 +91,32 @@ namespace CSManagement.Controllers
                         return RedirectToAction("Registers", "Generations", new { id = 0 });
                     }
                 }
-                Applied applied = new Applied()
+                else
                 {
-                    APP_ReNO = register_SC.REG_IDCard,
-                    APP_GenNO = Convert.ToInt32(Session["IDSC"]),
-                    APP_Status = 3
-                };
-                Session.Remove("IDSC");
-                db.Applieds.Add(applied);
-                if (chkIDCard == null)
-                {
-                    db.Register_SC.Add(register_SC);
+                    var IDSC = Convert.ToInt32(Session["IDSC"]);
+                    var chkApp = db.Applieds.FirstOrDefault(x =>
+                        x.APP_ReNO == register_SC.REG_IDCard && x.APP_GenNO == IDSC);
+                    if (chkApp == null)
+                    {
+                        Applied applied = new Applied()
+                        {
+                            APP_ReNO = register_SC.REG_IDCard,
+                            APP_GenNO = Convert.ToInt32(Session["IDSC"]),
+                            APP_Status = 3,
+                            APP_Date = DateTime.Today
+                        };
+                        Session.Remove("IDSC");
+                        db.Applieds.Add(applied);
+                    }
+                    if (chkIDCard == null)
+                    {
+                        db.Register_SC.Add(register_SC);
+                    }
+                    db.SaveChanges();
+                    return RedirectToAction("IndexUser", "Generations", new { id = Convert.ToInt32(Session["IDSC"]) });
                 }
-                db.SaveChanges();
-                return RedirectToAction("IndexUser", "Generations", new { id = Convert.ToInt32(Session["IDSC"]) });
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return View(register_SC);
             }

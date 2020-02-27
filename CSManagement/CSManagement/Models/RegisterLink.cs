@@ -16,5 +16,6 @@ namespace CSManagement.Models
     {
         public int WL_ID { get; set; }
         public string Weblink { get; set; }
+        public string WL_Name { get; set; }
     }
 }

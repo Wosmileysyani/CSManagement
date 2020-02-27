@@ -25,7 +25,7 @@ namespace CSManagement.Models
         public string Gen_Name { get; set; }
         public Nullable<int> Gen_Member { get; set; }
         public Nullable<int> Gen_MemberMax { get; set; }
-        public string Gen_Details { get; set; }
+        public string Gen_PDF { get; set; }
         public string Gen_Year { get; set; }
         public string Gen_Date { get; set; }
         public string Gen_Location { get; set; }
@@ -33,9 +33,9 @@ namespace CSManagement.Models
         public string Gen_TextForMail { get; set; }
         public Nullable<int> Gen_Status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applied> Applieds { get; set; }
         public virtual Gen_Status Gen_Status1 { get; set; }
         public virtual Short_Course Short_Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applied> Applieds { get; set; }
     }
 }

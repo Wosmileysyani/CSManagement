@@ -145,8 +145,9 @@
                 </div>
 
                 <div class="box-footer">
-                    <p>หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก</p>
-                    <p>หากต้องการอัพโหลดหลักฐานการจ่ายเงินกรุณาใส่เลขบัตรประชาชน</p>
+                    <p style="color: red">หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก</p>
+                    <p style="color: red">หากต้องการอัพโหลดหลักฐานการจ่ายเงินกรุณาใส่เลขบัตรประชาชน</p>
+                    <p style="color: red">ถ้าข้อมูลถูกต้องจะมีปุ่มสำหรับเพิ่มรูปให้</p>
                 </div>
             </div>
 
@@ -241,7 +242,7 @@
                         var data = "";
                         $.each(response,
                             function(index, value) {
-                                data = '<label for="txtUploadFile" class="added txtUploadFile">อัพโหลดรูปภาพ</label>'+
+                                data = '<label for="txtUploadFile" class="added txtUploadFile">อัพโหลดสลิปเงิน</label>'+
                                     '<input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">';
                                 $("#name").val(value.REG_Name);
                                 $("#address").val(value.REG_Address);

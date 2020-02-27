@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -48,7 +49,7 @@ namespace CSManagement
             hc.HitCount1 = count;
             db.SaveChanges();
             Application["Totaluser"] = count;
-            Session["Totaluser"] = (int) Application["Totaluser"];
+            Session["Totaluser"] = (int)Application["Totaluser"];
             Application.UnLock();
         }
 

@@ -14,6 +14,13 @@ namespace CSManagement.Models
     
     public partial class Project
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Project()
+        {
+            this.Stu_Pro = new HashSet<Stu_Pro>();
+            this.Tea_Pro = new HashSet<Tea_Pro>();
+        }
+    
         public int Pj_ID { get; set; }
         public string Pj_StuID { get; set; }
         public string Pj_TeaID { get; set; }
@@ -28,7 +35,9 @@ namespace CSManagement.Models
         public string Pj_Video { get; set; }
         public Nullable<int> Pj_Rate { get; set; }
     
-        public virtual Student Student { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Stu_Pro> Stu_Pro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tea_Pro> Tea_Pro { get; set; }
     }
 }

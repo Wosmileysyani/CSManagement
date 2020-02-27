@@ -15,10 +15,11 @@ namespace CSManagement.Models
     public partial class Department
     {
         public int Dep_ID { get; set; }
-        public string Dep_Name { get; set; }
+        public Nullable<int> Dep_Name { get; set; }
         public Nullable<double> Dep_Credit { get; set; }
         public Nullable<int> Dep_CourseID { get; set; }
     
         public virtual Course Course { get; set; }
+        public virtual Department_Sup Department_Sup { get; set; }
     }
 }

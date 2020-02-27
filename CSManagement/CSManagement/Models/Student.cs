@@ -18,7 +18,7 @@ namespace CSManagement.Models
         public Student()
         {
             this.Histories = new HashSet<History>();
-            this.Projects = new HashSet<Project>();
+            this.Stu_Pro = new HashSet<Stu_Pro>();
         }
     
         public string Stu_ID { get; set; }
@@ -37,9 +37,9 @@ namespace CSManagement.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Projects { get; set; }
         public virtual School School { get; set; }
         public virtual Status Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Stu_Pro> Stu_Pro { get; set; }
     }
 }

@@ -44,6 +44,11 @@
                     </tr>
 
                     <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Date)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Date)</td>
+                    </tr>
+
+                    <tr>
                         <th>@Html.DisplayNameFor(model => model.Gen_Year)</th>
                         <td>@Html.DisplayFor(model => model.Gen_Year)</td>
                     </tr>
@@ -54,8 +59,17 @@
                     </tr>
 
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.Gen_Details)</th>
-                        <td>@Html.DisplayFor(model => model.Gen_Details)</td>
+                        <th>@Html.DisplayNameFor(model => model.Gen_Status1.Gen_Name)</th>
+                        <td>@Html.DisplayFor(model => model.Gen_Status1.Gen_Name)</td>
+                    </tr>
+
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Gen_PDF)</th>
+                        <td>
+                            <a target="_blank" href="@Url.Action("forpdfview", "Projects")?id=@Model.Gen_PDF">
+                                เปิดอ่าน
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

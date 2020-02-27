@@ -52,59 +52,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-2">
-                        @Html.LabelFor(model => model.Stu_Sex, htmlAttributes: new { @class = "control-label" })
-                        <br />
-                        @Html.DropDownListFor(model => model.Stu_Sex, new List<SelectListItem>()
-                        {
-                            new SelectListItem() { Text = "เพศชาย", Value = "True" },
-                            new SelectListItem() { Text = "เพศหญิง", Value = "False"}
-                        }, "เลือกเพศ", new { @id = "Stu_Sex", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Stu_Sex, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        @Html.LabelFor(model => model.Stu_Birthday, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" id="birthday" name="birthday" class="form-control" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Stu_Email, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            @Html.EditorFor(model => model.Stu_Email, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Stu_Email, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group  col-md-3">
-                        @Html.LabelFor(model => model.Stu_Tel, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <input type="text" id="tel" name="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.Stu_Address, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
-                            @Html.EditorFor(model => model.Stu_Address, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Stu_Address, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.Stu_School, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
@@ -157,6 +104,61 @@
                         <input type="file" id="file" name="file">
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Stu_Address, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                            @Html.EditorFor(model => model.Stu_Address, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Stu_Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        @Html.LabelFor(model => model.Stu_Sex, htmlAttributes: new { @class = "control-label" })
+                        <br />
+                        @Html.DropDownListFor(model => model.Stu_Sex, new List<SelectListItem>()
+                        {
+                            new SelectListItem() { Text = "เพศชาย", Value = "True" },
+                            new SelectListItem() { Text = "เพศหญิง", Value = "False"}
+                        }, "เลือกเพศ", new { @id = "Stu_Sex", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Stu_Sex, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.Stu_Birthday, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(model => model.Stu_Birthday,
+                                new { @Value = @DateTime.Now.ToString("MM/dd/yyyy"), @class = "datepicker form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Stu_Email, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            @Html.EditorFor(model => model.Stu_Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Stu_Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group  col-md-3">
+                        @Html.LabelFor(model => model.Stu_Tel, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <input type="text" id="tel" name="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <button type="submit" class="btn btn-success col-md-3" style="float:right"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
                     <a class="btn btn-default col-md-3" style="float:left" href="@Url.Action("Index", "Students")"><i class="fa fa-mail-reply "></i> ย้อนกลับ</a>

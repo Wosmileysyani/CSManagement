@@ -109,7 +109,7 @@
                                             {
                                                 <tr>
                                                     <td style="text-align: center">@(i++)</td>
-                                                    <td style="text-align: center">@item.Dep_Name</td>
+                                                    <td style="text-align: center">@item.Department_Sup.Deps_Name</td>
                                                     <td style="text-align: center">@item.Dep_Credit</td>
                                                 </tr>
                                             }
@@ -123,7 +123,25 @@
                                             </tr>
                                         }
                                     </tbody>
+                                    <tfoot>
+                                        @if (ViewBag.total != null)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td style="text-align: center">รวม</td>
+                                                <td style="text-align: center">@ViewBag.total</td>
+                                            </tr>
+                                        }
+                                    </tfoot>
                                 </table>
+                                @if (ViewBag.pdf != null)
+                                {
+                                    <button>
+                                        <a target="_blank" href="@Url.Action("forpdfview", "Projects")?id=@ViewBag.pdf">
+                                            ดูข้อมูลหลักสูตร
+                                        </a>
+                                    </button>
+                                }
                             </div>
                         </div>
                     </div>

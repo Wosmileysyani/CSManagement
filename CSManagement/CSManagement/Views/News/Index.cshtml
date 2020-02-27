@@ -28,7 +28,13 @@
                         @Html.DisplayNameFor(model => model.New_Details)
                     </th>
                     <th style="text-align:center">
-                        @Html.DisplayNameFor(model => model.New_Date)
+                        @Html.DisplayNameFor(model => model.New_DateStart)
+                    </th>
+                    <th style="text-align:center">
+                        @Html.DisplayNameFor(model => model.New_DateEnd)
+                    </th>
+                    <th style="text-align:center">
+                        สถานะ
                     </th>
                     <th style="text-align:center">จัดการข้อมูล</th>
                 </tr>
@@ -39,13 +45,26 @@
                     <tr>
                         <td style="text-align:center">@(i++)</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.New_Name)
+                            @item.New_Name.Substring(0, Math.Min(20, @item.New_Name.Length))...
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.New_Details)
+                            @item.New_Details.Substring(0, Math.Min(30, @item.New_Details.Length))...
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.New_Date)
+                            @Html.DisplayFor(modelItem => item.New_DateStart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.New_DateEnd)
+                        </td>
+                        <td>
+                            @if (item.New_Active == true)
+                            {
+                                <a>เปิด</a>
+                            }
+                            else
+                            {
+                                <a>ปิด</a>
+                            }
                         </td>
                         <div class="delete-section">
                             <td style="text-align: center">

@@ -23,15 +23,15 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-lg-4">
-                        @Html.LabelFor(model => model.Dep_CourseID,"ชื่อหลักสูตร", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Dep_CourseID, "ชื่อหลักสูตร", htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("Dep_CourseID", null, "กรุณาเลือกหลักสูตร", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Dep_CourseID, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="col-lg-4">
-                        @Html.LabelFor(model => model.Dep_Name, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Dep_Name, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Department_Sup.Deps_Name, "ชื่อหมวดวิชา", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("Dep_Name", null, "กรุณาเลือกหมวดวิชา", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Department_Sup.Deps_Name, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="col-lg-4">

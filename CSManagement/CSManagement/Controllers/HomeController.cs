@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using CSManagement.Models;
@@ -25,12 +26,13 @@ namespace CSManagement.Controllers
             List<Picture> imgPictures = db.Pictures.ToList();
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;
-            var newDataTable = db.ProjectViews.AsEnumerable()
+            var newDataTable = db.ProjectViews.AsEnumerable().Where(x => x.Pj_Rate == 5)
                 .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
                 .ThenByDescending(r => r.Pj_Rate);
             ViewBag.ProjectCount = newDataTable.ToList();
             ViewBag.SyllabusCount = db.Syllabus.ToList();
-            ViewBag.NewsCount = db.News.ToList();
+            ViewBag.NewsCount = db.News.Where(x => x.New_Active == true).OrderByDescending(x => x.New_DateStart);
+            ViewBag.Link = db.Picture_Banner.ToList();
             return View(imgPictures);
         }
 
@@ -40,15 +42,9 @@ namespace CSManagement.Controllers
             return View("Index");
         }
 
-        public ActionResult GoRegister()
-        {
-            string link = db.RegisterLinks.FirstOrDefault().Weblink;
-            return Redirect(link);
-        }
-
         public ActionResult IndexUserGrap()
         {
-            ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
+            ViewBag.Year = new SelectList(db.Courses, "Course_Year", "Course_Year");
             SetSession();
             return View();
         }
@@ -56,7 +52,8 @@ namespace CSManagement.Controllers
         [HttpPost]
         public ActionResult IndexUserGrap(int? Year)
         {
-            var coursesList = db.Departments.Where(x => x.Dep_CourseID == Year).ToList();
+            var coursesList = db.Departments.Where(x => x.Course.Course_Year == Year).Include(x => x.Department_Sup).ToList();
+            var pdf = db.Courses.FirstOrDefault(x => x.Course_Year == Year)?.Couese_PDF;
             List<DataPoint> dataPoints = new List<DataPoint>();
             double? total = 0;
             foreach (var item in coursesList)
@@ -65,11 +62,13 @@ namespace CSManagement.Controllers
             }
             foreach (var item in coursesList)
             {
-                dataPoints.Add(new DataPoint(item.Dep_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
+                dataPoints.Add(new DataPoint(item.Department_Sup.Deps_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
             }
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-            ViewBag.Year = new SelectList(db.Courses, "Course_ID", "Course_Year");
+            ViewBag.Year = new SelectList(db.Courses, "Course_Year", "Course_Year");
             ViewBag.coursesList = coursesList;
+            ViewBag.total += total.ToString();
+            ViewBag.pdf = pdf;
             return View();
         }
 
@@ -93,7 +92,9 @@ namespace CSManagement.Controllers
             var logCount = db.Logins.Count();
             Session["Totallogin"] = logCount;
             //Chartหลักสูตร
-            var coursesList = db.Departments.OrderByDescending(x => x.Dep_CourseID).ToList();
+            var course = db.Courses.ToList();
+            var last = course.LastOrDefault()?.Course_Year;
+            var coursesList = db.Departments.Where(x => x.Course.Course_Year == last).ToList();
             List<DataPoint> dataPoints = new List<DataPoint>();
             double? total = 0;
             foreach (var item in coursesList)
@@ -102,7 +103,7 @@ namespace CSManagement.Controllers
             }
             foreach (var item in coursesList)
             {
-                dataPoints.Add(new DataPoint(item.Dep_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
+                dataPoints.Add(new DataPoint(item.Department_Sup.Deps_Name, Math.Round((Convert.ToDouble(item.Dep_Credit * 100.00 / total)), 2)));
             }
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
             //Chartทำงาน

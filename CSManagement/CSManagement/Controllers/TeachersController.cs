@@ -72,6 +72,19 @@ namespace CSManagement.Controllers
             return View(teachers.ToList());
         }
 
+        public ActionResult showdetails(string id)
+        {
+            var vm = new Teacher();
+
+            var question = db.Teachers.FirstOrDefault(x => x.Tea_ID.Equals(id));
+            if (question != null)
+            {
+                vm = question;
+            }
+
+            return PartialView(vm);
+        }
+
         // GET: Teachers/Details/5
         public ActionResult Details(string id)
         {
@@ -97,7 +110,7 @@ namespace CSManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Teacher teacher, string birthday, HttpPostedFileBase file)
+        public ActionResult Create(Teacher teacher, HttpPostedFileBase file)
         {
             try
             {
@@ -109,7 +122,9 @@ namespace CSManagement.Controllers
                     file.SaveAs(physicalPath);
                     teacher.Tea_Img = myUniqueFileName;
                 }
-                teacher.Tea_Birth = DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                var Tea_Birth = Request["Tea_Birth"];
+                teacher.Tea_Birth = DateTime.ParseExact(Tea_Birth, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                teacher.Tea_Birth = teacher.Tea_Birth.Value.AddYears(-543);
                 db.Teachers.Add(teacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -140,12 +155,22 @@ namespace CSManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Teacher teacher, string birthday, HttpPostedFileBase file)
+        public ActionResult Edit(Teacher teacher, HttpPostedFileBase file)
         {
             try
             {
                 var recordToUpdate = db.Teachers.AsNoTracking().Single(x => x.Tea_ID == teacher.Tea_ID);
-                teacher.Tea_Birth = birthday.IsEmpty() == true ? recordToUpdate.Tea_Birth : DateTime.ParseExact(birthday, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                var Tea_Birth = Request["Tea_Birth"];
+                teacher.Tea_Birth = DateTime.ParseExact(Tea_Birth, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                var today = DateTime.Today;
+                if (teacher.Tea_Birth == today)
+                {
+                    teacher.Tea_Birth = recordToUpdate.Tea_Birth;
+                }
+                else
+                {
+                    teacher.Tea_Birth = teacher.Tea_Birth.Value.AddYears(-543);
+                }
                 if (file != null && file.ContentLength > 0)
                 {
                     string ImageName = Path.GetFileName(file.FileName);

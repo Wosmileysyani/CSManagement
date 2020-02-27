@@ -86,13 +86,13 @@ namespace CSManagement.Controllers
                 string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
                 string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
 
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
-                {
-                    EnableSsl = true,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("kruautoemail@gmail.com", "ef44ecc3"),
-                    DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
-                };
+                SmtpClient client = new SmtpClient();
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                client.Timeout = 100000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
                 MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
                 mailMessage.IsBodyHtml = true;
@@ -101,10 +101,34 @@ namespace CSManagement.Controllers
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
+            //try
+            //{
+            //    string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
+            //    string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
+
+            //    SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
+            //    {
+            //        EnableSsl = true,
+            //        UseDefaultCredentials = false,
+            //        Credentials = new NetworkCredential("kruautoemail@gmail.com", "ef44ecc3"),
+            //        DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
+            //    };
+
+            //    MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
+            //    mailMessage.IsBodyHtml = true;
+            //    mailMessage.BodyEncoding = Encoding.UTF8;
+            //    client.Send(mailMessage);
+
+            //    return true;
+            //}
+            //catch (Exception e)
+            //{
+            //    return false;
+            //}
         }
 
         public ActionResult AppCancle(string id = "")

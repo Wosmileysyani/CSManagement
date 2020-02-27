@@ -17,12 +17,14 @@ namespace CSManagement.Controllers
         // GET: Picture_Banner
         public ActionResult Index()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View(db.Picture_Banner.ToList());
         }
 
         // GET: Picture_Banner/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +40,7 @@ namespace CSManagement.Controllers
         // GET: Picture_Banner/Create
         public ActionResult Create()
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -46,7 +49,7 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Picture_ID,Picture_Name,Picture_Img,Picture_Link")] Picture_Banner picture_Banner)
+        public ActionResult Create( Picture_Banner picture_Banner, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace CSManagement.Controllers
         // GET: Picture_Banner/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,20 +82,36 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Picture_ID,Picture_Name,Picture_Img,Picture_Link")] Picture_Banner picture_Banner)
+        public ActionResult Edit(Picture_Banner picture_Banner, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
+                var recordToUpdate = db.Picture_Banner.AsNoTracking().Single(x => x.Picture_ID == picture_Banner.Picture_ID);
+                if (file != null && file.ContentLength > 0)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/img/" + recordToUpdate.Picture_Img));
+                    string physicalPath = Server.MapPath("~/img/" + recordToUpdate.Picture_Img);
+                    file.SaveAs(physicalPath);
+                    picture_Banner.Picture_Img = recordToUpdate.Picture_Img;
+                }
+                else
+                {
+                    picture_Banner.Picture_Img = recordToUpdate.Picture_Img;
+                }
                 db.Entry(picture_Banner).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(picture_Banner);
+            catch (Exception e)
+            {
+                return View(picture_Banner);
+            }
         }
 
         // GET: Picture_Banner/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +129,7 @@ namespace CSManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             Picture_Banner picture_Banner = db.Picture_Banner.Find(id);
             db.Picture_Banner.Remove(picture_Banner);
             db.SaveChanges();

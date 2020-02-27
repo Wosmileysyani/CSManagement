@@ -17,40 +17,87 @@ namespace CSManagement.Controllers
 
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Stu_Pro).Include(p => p.Tea_Pro);
             if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            return View(projects.ToList());
+            var project = db.Project_View;
+            return View(project.ToList());
         }
 
-        public ActionResult IndexUser()
+        public ActionResult IndexUser(string options1 = "", string options2 = "")
         {
-            var newDataTable = db.ProjectViews.AsEnumerable()
+            if (options1 == "" && options2 == "")
+            {
+                var newDataTable = db.ProjectViews.AsEnumerable()
                 .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
                 .ThenByDescending(r => r.Pj_Rate);
-            ViewBag.ProjectCount = newDataTable.ToList();
-            return View();
+                ViewBag.ProjectCount = newDataTable.ToList();
+                return View();
+            }
+            else
+            {
+                IOrderedEnumerable<ProjectView> newDataTable;
+                switch (options1)
+                {
+                    case "name":
+                        {
+                            newDataTable = db.ProjectViews.AsEnumerable().Where(x => x.Pj_NameTH.Contains(options2))
+                                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                                .ThenByDescending(r => r.Pj_Rate);
+                            ViewBag.ProjectCount = newDataTable.ToList();
+                            break;
+                        }
+                    case "year":
+                        {
+                            newDataTable = db.ProjectViews.AsEnumerable().Where(x => x.Pj_StuID.Contains(options2))
+                                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                                .ThenByDescending(r => r.Pj_Rate);
+                            ViewBag.ProjectCount = newDataTable.ToList();
+                            break;
+                        }
+                }
+                return View();
+            }
         }
 
-        public ActionResult ShowPdf(int? id)
+        public ActionResult forpdfview(string id)
         {
-            var projects = db.Projects.Find(id);
-            //FileStream fs = new FileStream(Server.MapPath("~/FileUploaded/" + projects.Pj_File), FileMode.Open, FileAccess.Read);
-            //var fsResult = new FileStreamResult(fs, "application/pdf");
-            //var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
-            ////Response.AddHeader("content-disposition", "attachment; filename=" + myUniqueFileName);
-
-            var fileStream = new FileStream(Server.MapPath("~/FileUploaded/" + projects.Pj_File),
-                FileMode.Open,
-                FileAccess.Read
-            );
-            var fsResult = new FileStreamResult(fileStream, "application/pdf");
-            return fsResult;
+            if (RequestExtensions.fBrowserIsMobile())
+            {
+                //โทรศัพท์
+                return RedirectToAction("ShowPdf", "Projects", new { name = id.ToString(), chk = true });
+            }
+            else
+            {
+                //เดสท๊อป
+                return RedirectToAction("ShowPdf", "Projects", new { name = id.ToString(), chk = false });
+            }
         }
 
-        public void DownloadPdf(int? id)
+        public ActionResult ShowPdf(string name, bool chk = false)
         {
-            var projects = db.Projects.Find(id);
-            String Filepath = Server.MapPath("~/FileUploaded/" + projects.Pj_File);
+            if (chk == true)
+            {
+                //มือถือ
+                FileStream fileStream = new FileStream(Server.MapPath("~/FileUploaded/" + name), FileMode.Open, FileAccess.Read);
+                var fsResult = new FileStreamResult(fileStream, "application/pdf");
+                var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                Response.AddHeader("content-disposition", "attachment; filename=" + myUniqueFileName);
+                return fsResult;
+            }
+            else
+            {
+                //เปิดดูในคอม
+                var fileStream = new FileStream(Server.MapPath("~/FileUploaded/" + name),
+                    FileMode.Open,
+                    FileAccess.Read
+                );
+                var fsResult = new FileStreamResult(fileStream, "application/pdf");
+                return fsResult;
+            }
+        }
+
+        public void DownloadPdf(string id)
+        {
+            String Filepath = Server.MapPath("~/FileUploaded/" + id);
             System.IO.FileInfo file = new System.IO.FileInfo(Filepath); // full file path on disk
             Response.ClearContent(); // Clear previous content
             Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name);
@@ -69,12 +116,95 @@ namespace CSManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            var projectView = db.Project_View.Where(x => x.Pj_ID == id).ToList();
+            List<Stu_Pro> projectView1 = db.Stu_Pro.Where(x => x.Pro_ID == id).ToList();
+            List<Tea_Pro> projectView2 = db.Tea_Pro.Where(x => x.Pro_ID == id).ToList();
+            if (projectView.Count == 1)
+            {
+                Project_View project = db.Project_View.Find(id);
+                return View(project);
+            }
+            else if (projectView.Count > 1)
+            {
+                List<DetailsProject> list1 = new List<DetailsProject>();
+                List<DetailsProject2> list2 = new List<DetailsProject2>();
+                ViewBag.ProList = projectView;
+                foreach (var item in projectView1)
+                {
+                    var name = new DetailsProject()
+                    {
+                        Stud_ID = item.Stud_ID,
+                        Stu_Name = item.Student.Stu_Name,
+                        Stu_Title = item.Student.Stu_Title,
+                        Stu_Surname = item.Student.Stu_Surname,
+                        Pj_ID = item.Pro_ID
+                    };
+                    list1.Add(name);
+                }
+                foreach (var item in projectView2)
+                {
+                    var name = new DetailsProject2()
+                    {
+                        Tea_Name = item.Teacher.Tea_Name,
+                        Tea_Surname = item.Teacher.Tea_Surname,
+                        Title_Name = item.Teacher.Title.Title_Name
+                    };
+                    list2.Add(name);
+                }
+                ViewBag.NameList = list1;
+                ViewBag.TeaName = list2;
+                return View();
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(project);
+        }
+        public ActionResult AddStu(int? id)
+        {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
+            ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_ID");
+            ViewBag.pjid = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStu(string Pj_StuID)
+        {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
+            var id = Request["pjid"].ToString();
+            Stu_Pro stuPro = new Stu_Pro()
+            {
+                Pro_ID = Convert.ToInt32(id),
+                Stud_ID = Pj_StuID
+            };
+            db.Stu_Pro.Add(stuPro);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult AddTea(int? id)
+        {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
+            ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name");
+            ViewBag.pjid = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddTea(string Pj_TeaID)
+        {
+            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
+            var id = Request["pjid"].ToString();
+            Tea_Pro teaPro = new Tea_Pro()
+            {
+                Pro_ID = Convert.ToInt32(id),
+                Teac_ID = Pj_TeaID
+            };
+            db.Tea_Pro.Add(teaPro);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Projects/Create
@@ -92,7 +222,7 @@ namespace CSManagement.Controllers
         {
             try
             {
-                project.Pj_Rate = 3;
+                project.Pj_Rate = 1;
                 FileUploadCheck fs = new FileUploadCheck();
                 fs.filesize = 1000000;
                 string us = fs.UploadUserFile(file);

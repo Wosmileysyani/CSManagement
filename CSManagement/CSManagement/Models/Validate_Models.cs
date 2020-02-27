@@ -52,6 +52,19 @@ namespace CSManagement.Models
     [MetadataType(typeof(V_Student))]
     public partial class Student { }
 
+    public partial class V_Applied
+    {
+        public int APP_NO { get; set; }
+        public string APP_ReNO { get; set; }
+        public Nullable<int> APP_GenNO { get; set; }
+        public Nullable<int> APP_Status { get; set; }
+        public string APP_SlipImg { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> APP_Date { get; set; }
+    }
+    [MetadataType(typeof(V_Applied))]
+    public partial class Applied { }
+
     public partial class V_Status
     {
         [Display(Name = "สถานะ")]
@@ -282,6 +295,19 @@ namespace CSManagement.Models
     [MetadataType(typeof(V_Project))]
     public partial class Project { }
 
+    public partial class V_Project_View
+    {
+        [Display(Name = "วันที่")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public System.DateTime Pj_Date { get; set; }
+
+        [Display(Name = "ประเภท")] public string Pj_TypePj { get; set; }
+
+        [Display(Name = "ไฟล์")] public string Pj_File { get; set; }
+    }
+    [MetadataType(typeof(V_Project_View))]
+    public partial class Project_View { }
+
     public partial class V_School
     {
         [Display(Name = "รหัสโรงเรียน")]
@@ -382,18 +408,15 @@ namespace CSManagement.Models
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public Nullable<int> Gen_MemberMax { get; set; }
 
-        [Display(Name = "รายละเอียด")]
-        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
-        [DataType(DataType.MultilineText)]
-        public string Gen_Details { get; set; }
+        [Display(Name = "ไฟล์ PDF")]
+        public string Gen_PDF { get; set; }
 
         [Display(Name = "ปีที่อบรม")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public string Gen_Year { get; set; }
 
-        [Display(Name = "วันที่จัดอบรม")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> Gen_Date { get; set; }
+        [Display(Name = "วันเริ่มจัดอบรม")]
+        public string Gen_Date { get; set; }
 
         [Display(Name = "สถานที่จัดอบรม")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
@@ -436,6 +459,11 @@ namespace CSManagement.Models
         [Display(Name = "ชื่อหลักสูตรอบรม")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
         public string SC_NameTH { get; set; }
+
+        [Display(Name = "รายละเอียด")]
+        [Required(ErrorMessage = "กรุณากรอกข้อมูล")]
+        [DataType(DataType.MultilineText)]
+        public string SC_Details { get; set; }
     }
     [MetadataType(typeof(V_Short_Course))]
     public partial class Short_Course { }

@@ -182,7 +182,7 @@
                                 <ul class="nav nav-stacked">
                                     <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
                                     <li>
-                                        <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                        <a target="_blank" href="@Url.Action("forpdfview", "Projects")?id=@item.Pj_File">
                                             รูปเล่ม
                                             <span class="pull-right badge bg-aqua">เข้าชม</span>
                                         </a>
@@ -255,50 +255,6 @@
                         <div class="card-body" style="margin:15px">
                             <h4 style="letter-spacing: 0px;"><b>พัฒนาเว็บแอพพลิเคชั่น</b></h4>
                             <p>พัฒนาเว็บแอพพลิเคชั่นที่ทำงานได้จริง เช่น Asp.Net MVC, PHP, Angular, React JS, Javascript</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/Network.jpg" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเครือข่าย</b></h4>
-                            <p>การจัดการระบบเครือข่าย เช่น การติดตั้งเครื่องเซิร์ฟเวอร์ การจัดการระบบอินเทอร์เน็ต</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/graphic.png" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>การออกแบบกราฟิกดีไซน์</b></h4>
-                            <p>ฝึกปฏิบัติการออกแบบงานกราฟฟิก เช่น Illustrator, Photoshop , ฯลฯ</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/ComputerAssembly.png" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>การซ่อมคอมพิวเตอร์</b></h4>
-                            <p>ศึกษาสถาปัตยกรรมและซ่อมคอมพิวเตอร์ สำหรับรองรับงานด้าน It Support</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/GameDev.jpg" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>การพัฒนาออกแบบเกม</b></h4>
-                            <p>ฝึกปฏิบัติการพัฒนาเกมส์ด้วย Unity , C#</p>
                         </div>
                     </div>
                 </div>
@@ -403,12 +359,12 @@
 
 <script>
     function gotopage1() {
-        window.open('/Home/IndexUserGrap', '_blank');
+        window.open('../Home/IndexUserGrap', '_blank');
     }
 </script>
 
 <script>
     function gotopage2() {
-        window.open('/Home/Indexoldstudent', '_blank');
+        window.open('../Home/Indexoldstudent', '_blank');
     }
 </script>

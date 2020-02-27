@@ -62,14 +62,15 @@ namespace CSManagement.Controllers
                 var findgen = db.Applieds.AsNoTracking().SingleOrDefault(x => x.APP_ReNO.Equals(idcard) && x.APP_GenNO == IDSC);
                 if (findgen != null)
                 {
+                    if (findgen.APP_SlipImg != null)
+                    {
+                        return Json("คุณได้อัพโหลดไปแล้ว หากอัพโหลดรูปภาพผิด กรุณาติดต่อ ผู้บรรยาย");
+                    }
                     foreach (string file in Request.Files)
                     {
                         var fileContent = Request.Files[file];
                         if (fileContent != null && fileContent.ContentLength > 0)
                         {
-                            // get a stream
-                            var stream = fileContent.InputStream;
-                            // and optionally write the file to disk
                             var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
                             string physicalPath = Server.MapPath("~/img/Slips/" + myUniqueFileName);
                             fileContent.SaveAs(physicalPath);
@@ -78,13 +79,14 @@ namespace CSManagement.Controllers
                             db.SaveChanges();
                         }
                     }
+                    return Json("อัพโหลดสำเร็จ กรุณารอการยืนยันจากทางระบบ");
                 }
-                return Json("อัพโหลดสำเร็จ กรุณารอการยืนยันจากทางระบบ");
+                return Json("กรุณากดสมัครก่อน ทำการอัพโหลดรูปภาพ");
             }
             catch (Exception e)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("อัพโหลดไม่สำเร็จ");
+                return Json("อัพโหลดไม่สำเร็จ กรุณาลองใหม่อีกครั้ง");
             }
         }
 
@@ -125,7 +127,7 @@ namespace CSManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Gen_SCID = generation.Short_Course.SC_NameTH + " รุ่นที่ " + generation.Gen_Name;
+            ViewBag.Gen_SCID = generation.Short_Course.SC_NameTH.Substring(0, Math.Min(30, generation.Short_Course.SC_NameTH.Length)) + "... รุ่นที่ " + generation.Gen_Name;
             ViewBag.rigList = appList;
             ViewBag.genList = generation;
             Session.Remove("IDSC");
@@ -177,15 +179,35 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Generation generation)
+        public ActionResult Create(Generation generation, HttpPostedFileBase file)
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
-                generation.Gen_Member = generation.Gen_MemberMax;
-                db.Generations.Add(generation);
-                db.SaveChanges();
-                return View();
+                FileUploadCheck fs = new FileUploadCheck();
+                fs.filesize = 1000000;
+                string us = fs.UploadUserFile(file);
+                if (us != null)
+                {
+                    ViewBag.ResultErrorMessage = fs.ErrorMessage;
+                    ViewBag.Gen_SCID = new SelectList(db.Short_Course, "SC_ID", "SC_NameTH", generation.Gen_SCID);
+                    ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
+                    return View(generation);
+                }
+                else
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                        string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
+                        file.SaveAs(physicalPath);
+                        generation.Gen_PDF = myUniqueFileName;
+                    }
+                    generation.Gen_Member = generation.Gen_MemberMax;
+                    db.Generations.Add(generation);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception)
             {
@@ -193,8 +215,6 @@ namespace CSManagement.Controllers
                 ViewBag.Gen_Status = new SelectList(db.Gen_Status, "Gen_Status1", "Gen_Name", generation.Gen_Status);
                 return View(generation);
             }
-
-
         }
 
         // GET: Generations/Edit/5
@@ -220,18 +240,27 @@ namespace CSManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Generation generation)
+        public ActionResult Edit(Generation generation, HttpPostedFileBase file)
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             try
             {
                 var recordToUpdate = db.Generations.AsNoTracking().SingleOrDefault(x => x.Gen_NO == generation.Gen_NO);
+                if (file != null && file.ContentLength > 0)
+                {
+                    var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                    string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    generation.Gen_PDF = myUniqueFileName;
+                }
+                else
+                {
+                    generation.Gen_PDF = recordToUpdate.Gen_PDF;
+                }
                 if (generation.Gen_Date.IsEmpty() == true)
                 {
                     generation.Gen_Date = recordToUpdate.Gen_Date;
                 }
-                
-                generation.Gen_Status = recordToUpdate.Gen_Status;
                 generation.Gen_Member = (generation.Gen_MemberMax - recordToUpdate.Gen_MemberMax) + recordToUpdate.Gen_Member;
                 if (generation.Gen_Member < 0)
                 {

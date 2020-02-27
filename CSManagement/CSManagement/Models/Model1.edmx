@@ -14,6 +14,7 @@
           <Property Name="APP_GenNO" Type="int" />
           <Property Name="APP_Status" Type="int" />
           <Property Name="APP_SlipImg" Type="nvarchar" MaxLength="50" />
+          <Property Name="APP_Date" Type="date" />
         </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
@@ -86,7 +87,7 @@
           <Property Name="Gen_Name" Type="nvarchar(max)" />
           <Property Name="Gen_Member" Type="int" />
           <Property Name="Gen_MemberMax" Type="int" />
-          <Property Name="Gen_Details" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gen_PDF" Type="nvarchar" MaxLength="50" />
           <Property Name="Gen_Year" Type="nchar" MaxLength="4" />
           <Property Name="Gen_Date" Type="nvarchar" MaxLength="80" />
           <Property Name="Gen_Location" Type="nvarchar(max)" />
@@ -209,7 +210,7 @@
           </Key>
           <Property Name="SC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SC_NameTH" Type="nvarchar(max)" />
-          <Property Name="SC_PDF" Type="nvarchar" MaxLength="50" />
+          <Property Name="SC_Details" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -282,6 +283,7 @@
           <Property Name="Tea_LvEdu" Type="nvarchar(max)" />
           <Property Name="Tea_Program" Type="nvarchar" MaxLength="50" />
           <Property Name="Tea_Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tea_Tel" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Title">
           <Key>
@@ -289,6 +291,38 @@
           </Key>
           <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CsManagement.dbo.Project_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Project_View">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+            <PropertyRef Name="Pj_NameTH" />
+            <PropertyRef Name="Pj_NameENG" />
+            <PropertyRef Name="Pj_Date" />
+            <PropertyRef Name="Pj_TypePj" />
+            <PropertyRef Name="Pj_File" />
+            <PropertyRef Name="Pj_Description" />
+          </Key>
+          <Property Name="Pj_ID" Type="int" Nullable="false" />
+          <Property Name="Stu_Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stu_Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tea_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tea_Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pj_NameTH" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_NameENG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_Date" Type="date" Nullable="false" />
+          <Property Name="Pj_TypePj" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_File" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pj_Github" Type="nvarchar(max)" />
+          <Property Name="Pj_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pj_Linkweb" Type="nvarchar(max)" />
+          <Property Name="Pj_Video" Type="nvarchar(max)" />
+          <Property Name="Pj_Rate" Type="int" />
+          <Property Name="Stud_ID" Type="nchar" MaxLength="11" />
+          <Property Name="Teac_ID" Type="nchar" MaxLength="11" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CsManagement.dbo.ProjectView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -309,6 +343,16 @@ warning 6002: The table/view 'CsManagement.dbo.ProjectView' does not have a prim
           <Property Name="Stu_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Stu_Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Stu_Img" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CsManagement.dbo.ProList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProList">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+          </Key>
+          <Property Name="Teac_ID" Type="nchar" MaxLength="11" />
+          <Property Name="Stud_ID" Type="nchar" MaxLength="11" />
+          <Property Name="Pj_ID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CsManagement.dbo.Totaljob' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -575,6 +619,29 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <EntitySet Name="Tea_Pro" EntityType="Self.Tea_Pro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project_View" EntityType="Self.Project_View" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Project_View].[Pj_ID] AS [Pj_ID], 
+    [Project_View].[Stu_Title] AS [Stu_Title], 
+    [Project_View].[Stu_Name] AS [Stu_Name], 
+    [Project_View].[Stu_Surname] AS [Stu_Surname], 
+    [Project_View].[Title_Name] AS [Title_Name], 
+    [Project_View].[Tea_Name] AS [Tea_Name], 
+    [Project_View].[Tea_Surname] AS [Tea_Surname], 
+    [Project_View].[Pj_NameTH] AS [Pj_NameTH], 
+    [Project_View].[Pj_NameENG] AS [Pj_NameENG], 
+    [Project_View].[Pj_Date] AS [Pj_Date], 
+    [Project_View].[Pj_TypePj] AS [Pj_TypePj], 
+    [Project_View].[Pj_File] AS [Pj_File], 
+    [Project_View].[Pj_Github] AS [Pj_Github], 
+    [Project_View].[Pj_Description] AS [Pj_Description], 
+    [Project_View].[Pj_Linkweb] AS [Pj_Linkweb], 
+    [Project_View].[Pj_Video] AS [Pj_Video], 
+    [Project_View].[Pj_Rate] AS [Pj_Rate], 
+    [Project_View].[Stud_ID] AS [Stud_ID], 
+    [Project_View].[Teac_ID] AS [Teac_ID]
+    FROM [dbo].[Project_View] AS [Project_View]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ProjectView" EntityType="Self.ProjectView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProjectView].[Pj_ID] AS [Pj_ID], 
@@ -588,6 +655,13 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
     [ProjectView].[Stu_Surname] AS [Stu_Surname], 
     [ProjectView].[Stu_Img] AS [Stu_Img]
     FROM [dbo].[ProjectView] AS [ProjectView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProList" EntityType="Self.ProList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProList].[Teac_ID] AS [Teac_ID], 
+    [ProList].[Stud_ID] AS [Stud_ID], 
+    [ProList].[Pj_ID] AS [Pj_ID]
+    FROM [dbo].[ProList] AS [ProList]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Totaljob" EntityType="Self.Totaljob" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -681,7 +755,6 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
     <edmx:ConceptualModels>
       <Schema Namespace="CsManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CsManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Applieds" EntityType="CsManagementModel.Applied" />
           <EntitySet Name="ComputerEquipments" EntityType="CsManagementModel.ComputerEquipment" />
           <EntitySet Name="Courses" EntityType="CsManagementModel.Course" />
           <EntitySet Name="Departments" EntityType="CsManagementModel.Department" />
@@ -707,23 +780,10 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <EntitySet Name="Students" EntityType="CsManagementModel.Student" />
           <EntitySet Name="Syllabus" EntityType="CsManagementModel.Syllabu" />
           <EntitySet Name="Tea_Pro" EntityType="CsManagementModel.Tea_Pro" />
-          <EntitySet Name="Teachers" EntityType="CsManagementModel.Teacher" />
           <EntitySet Name="Titles" EntityType="CsManagementModel.Title" />
           <EntitySet Name="ProjectViews" EntityType="CsManagementModel.ProjectView" />
           <EntitySet Name="Totaljobs" EntityType="CsManagementModel.Totaljob" />
           <EntitySet Name="TotalSchools" EntityType="CsManagementModel.TotalSchool" />
-          <AssociationSet Name="FK_Applied_Generation" Association="CsManagementModel.FK_Applied_Generation">
-            <End Role="Generation" EntitySet="Generations" />
-            <End Role="Applied" EntitySet="Applieds" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Applied_Register_SC" Association="CsManagementModel.FK_Applied_Register_SC">
-            <End Role="Register_SC" EntitySet="Register_SC" />
-            <End Role="Applied" EntitySet="Applieds" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="CsManagementModel.FK_ComputerEquipment_Teacher">
-            <End Role="Teacher" EntitySet="Teachers" />
-            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
-          </AssociationSet>
           <AssociationSet Name="FK_Dispose_ComputerEquipment" Association="CsManagementModel.FK_Dispose_ComputerEquipment">
             <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
             <End Role="Dispose" EntitySet="Disposes" />
@@ -776,6 +836,20 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             <End Role="Student" EntitySet="Students" />
             <End Role="Stu_Pro" EntitySet="Stu_Pro" />
           </AssociationSet>
+          <EntitySet Name="Applieds" EntityType="CsManagementModel.Applied" />
+          <AssociationSet Name="FK_Applied_Generation" Association="CsManagementModel.FK_Applied_Generation">
+            <End Role="Generation" EntitySet="Generations" />
+            <End Role="Applied" EntitySet="Applieds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applied_Register_SC" Association="CsManagementModel.FK_Applied_Register_SC">
+            <End Role="Register_SC" EntitySet="Register_SC" />
+            <End Role="Applied" EntitySet="Applieds" />
+          </AssociationSet>
+          <EntitySet Name="Teachers" EntityType="CsManagementModel.Teacher" />
+          <AssociationSet Name="FK_ComputerEquipment_Teacher" Association="CsManagementModel.FK_ComputerEquipment_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="ComputerEquipment" EntitySet="ComputerEquipments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tea_Pro_Teacher" Association="CsManagementModel.FK_Tea_Pro_Teacher">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="Tea_Pro" EntitySet="Tea_Pro" />
@@ -784,19 +858,9 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             <End Role="Title" EntitySet="Titles" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
+          <EntitySet Name="Project_View" EntityType="CsManagementModel.Project_View" />
+          <EntitySet Name="ProLists" EntityType="CsManagementModel.ProList" />
         </EntityContainer>
-        <EntityType Name="Applied">
-          <Key>
-            <PropertyRef Name="APP_NO" />
-          </Key>
-          <Property Name="APP_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="APP_ReNO" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="APP_GenNO" Type="Int32" />
-          <Property Name="APP_Status" Type="Int32" />
-          <Property Name="APP_SlipImg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Generation" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Applied" ToRole="Generation" />
-          <NavigationProperty Name="Register_SC" Relationship="CsManagementModel.FK_Applied_Register_SC" FromRole="Applied" ToRole="Register_SC" />
-        </EntityType>
         <EntityType Name="ComputerEquipment">
           <Key>
             <PropertyRef Name="CE_ATNO" />
@@ -812,8 +876,8 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <Property Name="CE_TeaID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="CE_Budget" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CE_Status" Type="Int32" />
-          <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
           <NavigationProperty Name="Disposes" Relationship="CsManagementModel.FK_Dispose_ComputerEquipment" FromRole="ComputerEquipment" ToRole="Dispose" />
+          <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="ComputerEquipment" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -876,16 +940,16 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <Property Name="Gen_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Member" Type="Int32" />
           <Property Name="Gen_MemberMax" Type="Int32" />
-          <Property Name="Gen_Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gen_PDF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
           <Property Name="Gen_Date" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Fee" Type="Double" />
           <Property Name="Gen_TextForMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gen_Status" Type="Int32" />
-          <NavigationProperty Name="Applieds" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Generation" ToRole="Applied" />
           <NavigationProperty Name="Gen_Status1" Relationship="CsManagementModel.FK_Generation_Gen_Status" FromRole="Generation" ToRole="Gen_Status" />
           <NavigationProperty Name="Short_Course" Relationship="CsManagementModel.FK_Generation_Short_Course" FromRole="Generation" ToRole="Short_Course" />
+          <NavigationProperty Name="Applieds" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Generation" ToRole="Applied" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -1010,7 +1074,7 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           </Key>
           <Property Name="SC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SC_NameTH" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SC_PDF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SC_Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Generations" Relationship="CsManagementModel.FK_Generation_Short_Course" FromRole="Short_Course" ToRole="Generation" />
         </EntityType>
         <EntityType Name="Status">
@@ -1080,24 +1144,6 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <NavigationProperty Name="Project" Relationship="CsManagementModel.FK_Tea_Pro_Project" FromRole="Tea_Pro" ToRole="Project" />
           <NavigationProperty Name="Teacher" Relationship="CsManagementModel.FK_Tea_Pro_Teacher" FromRole="Tea_Pro" ToRole="Teacher" />
         </EntityType>
-        <EntityType Name="Teacher">
-          <Key>
-            <PropertyRef Name="Tea_ID" />
-          </Key>
-          <Property Name="Tea_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Tea_TitleID" Type="Int32" />
-          <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Birth" Type="DateTime" Precision="0" />
-          <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
-          <NavigationProperty Name="Tea_Pro" Relationship="CsManagementModel.FK_Tea_Pro_Teacher" FromRole="Teacher" ToRole="Tea_Pro" />
-          <NavigationProperty Name="Title" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
-        </EntityType>
         <EntityType Name="Title">
           <Key>
             <PropertyRef Name="Title_ID" />
@@ -1140,42 +1186,6 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Total" Type="Int32" />
         </EntityType>
-        <Association Name="FK_Applied_Generation">
-          <End Type="CsManagementModel.Generation" Role="Generation" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Applied" Role="Applied" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Generation">
-              <PropertyRef Name="Gen_NO" />
-            </Principal>
-            <Dependent Role="Applied">
-              <PropertyRef Name="APP_GenNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Applied_Register_SC">
-          <End Type="CsManagementModel.Register_SC" Role="Register_SC" Multiplicity="0..1" />
-          <End Type="CsManagementModel.Applied" Role="Applied" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Register_SC">
-              <PropertyRef Name="REG_IDCard" />
-            </Principal>
-            <Dependent Role="Applied">
-              <PropertyRef Name="APP_ReNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ComputerEquipment_Teacher">
-          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
-          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="Tea_ID" />
-            </Principal>
-            <Dependent Role="ComputerEquipment">
-              <PropertyRef Name="CE_TeaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Dispose_ComputerEquipment">
           <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="0..1" />
           <End Type="CsManagementModel.Dispose" Role="Dispose" Multiplicity="*" />
@@ -1332,6 +1342,74 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Applied">
+          <Key>
+            <PropertyRef Name="APP_NO" />
+          </Key>
+          <Property Name="APP_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APP_ReNO" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="APP_GenNO" Type="Int32" />
+          <Property Name="APP_Status" Type="Int32" />
+          <Property Name="APP_SlipImg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APP_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Generation" Relationship="CsManagementModel.FK_Applied_Generation" FromRole="Applied" ToRole="Generation" />
+          <NavigationProperty Name="Register_SC" Relationship="CsManagementModel.FK_Applied_Register_SC" FromRole="Applied" ToRole="Register_SC" />
+        </EntityType>
+        <Association Name="FK_Applied_Generation">
+          <End Type="CsManagementModel.Generation" Role="Generation" Multiplicity="0..1" />
+          <End Type="CsManagementModel.Applied" Role="Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generation">
+              <PropertyRef Name="Gen_NO" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_GenNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applied_Register_SC">
+          <End Type="CsManagementModel.Register_SC" Role="Register_SC" Multiplicity="0..1" />
+          <End Type="CsManagementModel.Applied" Role="Applied" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Register_SC">
+              <PropertyRef Name="REG_IDCard" />
+            </Principal>
+            <Dependent Role="Applied">
+              <PropertyRef Name="APP_ReNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Tea_ID" />
+          </Key>
+          <Property Name="Tea_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Tea_TitleID" Type="Int32" />
+          <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Tea_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Export" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_LvEdu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Program" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ComputerEquipments" Relationship="CsManagementModel.FK_ComputerEquipment_Teacher" FromRole="Teacher" ToRole="ComputerEquipment" />
+          <NavigationProperty Name="Tea_Pro" Relationship="CsManagementModel.FK_Tea_Pro_Teacher" FromRole="Teacher" ToRole="Tea_Pro" />
+          <NavigationProperty Name="Title" Relationship="CsManagementModel.FK_Teacher_Title" FromRole="Teacher" ToRole="Title" />
+        </EntityType>
+        <Association Name="FK_ComputerEquipment_Teacher">
+          <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="CsManagementModel.ComputerEquipment" Role="ComputerEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Tea_ID" />
+            </Principal>
+            <Dependent Role="ComputerEquipment">
+              <PropertyRef Name="CE_TeaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tea_Pro_Teacher">
           <End Type="CsManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
           <End Type="CsManagementModel.Tea_Pro" Role="Tea_Pro" Multiplicity="*" />
@@ -1356,23 +1434,50 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Project_View">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+            <PropertyRef Name="Pj_NameTH" />
+            <PropertyRef Name="Pj_NameENG" />
+            <PropertyRef Name="Pj_Date" />
+            <PropertyRef Name="Pj_TypePj" />
+            <PropertyRef Name="Pj_File" />
+            <PropertyRef Name="Pj_Description" />
+          </Key>
+          <Property Name="Pj_ID" Type="Int32" Nullable="false" />
+          <Property Name="Stu_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stu_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tea_Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_NameTH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_NameENG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Pj_TypePj" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_File" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Github" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Linkweb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pj_Rate" Type="Int32" />
+          <Property Name="Stud_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Teac_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProList">
+          <Key>
+            <PropertyRef Name="Pj_ID" />
+          </Key>
+          <Property Name="Teac_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Stud_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Pj_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CsManagementModelStoreContainer" CdmEntityContainer="CsManagementEntities">
-          <EntitySetMapping Name="Applieds">
-            <EntityTypeMapping TypeName="CsManagementModel.Applied">
-              <MappingFragment StoreEntitySet="Applied">
-                <ScalarProperty Name="APP_SlipImg" ColumnName="APP_SlipImg" />
-                <ScalarProperty Name="APP_Status" ColumnName="APP_Status" />
-                <ScalarProperty Name="APP_GenNO" ColumnName="APP_GenNO" />
-                <ScalarProperty Name="APP_ReNO" ColumnName="APP_ReNO" />
-                <ScalarProperty Name="APP_NO" ColumnName="APP_NO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ComputerEquipments">
             <EntityTypeMapping TypeName="CsManagementModel.ComputerEquipment">
               <MappingFragment StoreEntitySet="ComputerEquipment">
@@ -1450,7 +1555,7 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
                 <ScalarProperty Name="Gen_Location" ColumnName="Gen_Location" />
                 <ScalarProperty Name="Gen_Date" ColumnName="Gen_Date" />
                 <ScalarProperty Name="Gen_Year" ColumnName="Gen_Year" />
-                <ScalarProperty Name="Gen_Details" ColumnName="Gen_Details" />
+                <ScalarProperty Name="Gen_PDF" ColumnName="Gen_PDF" />
                 <ScalarProperty Name="Gen_MemberMax" ColumnName="Gen_MemberMax" />
                 <ScalarProperty Name="Gen_Member" ColumnName="Gen_Member" />
                 <ScalarProperty Name="Gen_Name" ColumnName="Gen_Name" />
@@ -1582,7 +1687,7 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
           <EntitySetMapping Name="Short_Course">
             <EntityTypeMapping TypeName="CsManagementModel.Short_Course">
               <MappingFragment StoreEntitySet="Short_Course">
-                <ScalarProperty Name="SC_PDF" ColumnName="SC_PDF" />
+                <ScalarProperty Name="SC_Details" ColumnName="SC_Details" />
                 <ScalarProperty Name="SC_NameTH" ColumnName="SC_NameTH" />
                 <ScalarProperty Name="SC_ID" ColumnName="SC_ID" />
               </MappingFragment>
@@ -1651,22 +1756,6 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Teachers">
-            <EntityTypeMapping TypeName="CsManagementModel.Teacher">
-              <MappingFragment StoreEntitySet="Teacher">
-                <ScalarProperty Name="Tea_Position" ColumnName="Tea_Position" />
-                <ScalarProperty Name="Tea_Program" ColumnName="Tea_Program" />
-                <ScalarProperty Name="Tea_LvEdu" ColumnName="Tea_LvEdu" />
-                <ScalarProperty Name="Tea_Export" ColumnName="Tea_Export" />
-                <ScalarProperty Name="Tea_Img" ColumnName="Tea_Img" />
-                <ScalarProperty Name="Tea_Birth" ColumnName="Tea_Birth" />
-                <ScalarProperty Name="Tea_Surname" ColumnName="Tea_Surname" />
-                <ScalarProperty Name="Tea_Name" ColumnName="Tea_Name" />
-                <ScalarProperty Name="Tea_TitleID" ColumnName="Tea_TitleID" />
-                <ScalarProperty Name="Tea_ID" ColumnName="Tea_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Titles">
             <EntityTypeMapping TypeName="CsManagementModel.Title">
               <MappingFragment StoreEntitySet="Title">
@@ -1706,6 +1795,69 @@ warning 6002: The table/view 'CsManagement.dbo.TotalSchool' does not have a prim
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applieds">
+            <EntityTypeMapping TypeName="CsManagementModel.Applied">
+              <MappingFragment StoreEntitySet="Applied">
+                <ScalarProperty Name="APP_Date" ColumnName="APP_Date" />
+                <ScalarProperty Name="APP_SlipImg" ColumnName="APP_SlipImg" />
+                <ScalarProperty Name="APP_Status" ColumnName="APP_Status" />
+                <ScalarProperty Name="APP_GenNO" ColumnName="APP_GenNO" />
+                <ScalarProperty Name="APP_ReNO" ColumnName="APP_ReNO" />
+                <ScalarProperty Name="APP_NO" ColumnName="APP_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="CsManagementModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Tea_Tel" ColumnName="Tea_Tel" />
+                <ScalarProperty Name="Tea_Position" ColumnName="Tea_Position" />
+                <ScalarProperty Name="Tea_Program" ColumnName="Tea_Program" />
+                <ScalarProperty Name="Tea_LvEdu" ColumnName="Tea_LvEdu" />
+                <ScalarProperty Name="Tea_Export" ColumnName="Tea_Export" />
+                <ScalarProperty Name="Tea_Img" ColumnName="Tea_Img" />
+                <ScalarProperty Name="Tea_Birth" ColumnName="Tea_Birth" />
+                <ScalarProperty Name="Tea_Surname" ColumnName="Tea_Surname" />
+                <ScalarProperty Name="Tea_Name" ColumnName="Tea_Name" />
+                <ScalarProperty Name="Tea_TitleID" ColumnName="Tea_TitleID" />
+                <ScalarProperty Name="Tea_ID" ColumnName="Tea_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_View">
+            <EntityTypeMapping TypeName="CsManagementModel.Project_View">
+              <MappingFragment StoreEntitySet="Project_View">
+                <ScalarProperty Name="Teac_ID" ColumnName="Teac_ID" />
+                <ScalarProperty Name="Stud_ID" ColumnName="Stud_ID" />
+                <ScalarProperty Name="Pj_Rate" ColumnName="Pj_Rate" />
+                <ScalarProperty Name="Pj_Video" ColumnName="Pj_Video" />
+                <ScalarProperty Name="Pj_Linkweb" ColumnName="Pj_Linkweb" />
+                <ScalarProperty Name="Pj_Description" ColumnName="Pj_Description" />
+                <ScalarProperty Name="Pj_Github" ColumnName="Pj_Github" />
+                <ScalarProperty Name="Pj_File" ColumnName="Pj_File" />
+                <ScalarProperty Name="Pj_TypePj" ColumnName="Pj_TypePj" />
+                <ScalarProperty Name="Pj_Date" ColumnName="Pj_Date" />
+                <ScalarProperty Name="Pj_NameENG" ColumnName="Pj_NameENG" />
+                <ScalarProperty Name="Pj_NameTH" ColumnName="Pj_NameTH" />
+                <ScalarProperty Name="Tea_Surname" ColumnName="Tea_Surname" />
+                <ScalarProperty Name="Tea_Name" ColumnName="Tea_Name" />
+                <ScalarProperty Name="Title_Name" ColumnName="Title_Name" />
+                <ScalarProperty Name="Stu_Surname" ColumnName="Stu_Surname" />
+                <ScalarProperty Name="Stu_Name" ColumnName="Stu_Name" />
+                <ScalarProperty Name="Stu_Title" ColumnName="Stu_Title" />
+                <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProLists">
+            <EntityTypeMapping TypeName="CsManagementModel.ProList">
+              <MappingFragment StoreEntitySet="ProList">
+                <ScalarProperty Name="Pj_ID" ColumnName="Pj_ID" />
+                <ScalarProperty Name="Stud_ID" ColumnName="Stud_ID" />
+                <ScalarProperty Name="Teac_ID" ColumnName="Teac_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

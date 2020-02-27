@@ -28,27 +28,37 @@
 
 <body>
     <section class="content">
-        @*<div class="grid-container">
-                <div class="container">
-                    <div class="col-lg-8 col-md-12 col-sm-12 item1">
-                        <div class="panel panel-default outer" style="width:95%;margin: 0px 100px 10px 0px">
-                            <div class="panel-heading headerbar">
-                                ผลงานนักศึกษา
-                            </div>
-                            <div class="panel-body text-justify">
-                                <img class="d-block img-fluid" src="~/imgSlideShow/present1.png" width="600" height="400">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
         <header class="header1">
-            <h1 class="page-title">ผลงานนักศึกษา</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="page-title">ผลงานนักศึกษา</h1>
+                </div>
+                <span>วิธีการค้นหา : เลือกประเภทที่ต้องการ แล้วใส่คำค้นหา เช่น ค้นหาตามชื่อเรื่อง ให้พิมชื่อเรื่องที่สนใจ<br/>
+                    ถ้าต้องการค้นหาตามปี 2559 ให้พิมแค่ "59" </span>
+                <div class="col-md-6">
+                    @using (Html.BeginForm("IndexUser", "Projects"))
+                    {
+                        <div style="float: right; width: 25%; margin-left: 20px;">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> ค้นหา</button>
+                        </div>
+                        <div class="col-md-3" style="float: right; width: 35%">
+                            @Html.TextBox("options2", "", new {@class = "control-label", @placeholder = "ป้อนข้อมูลเพื่อค้นหา"})
+                        </div>
+                        <div class="col-md-3" style="float: right; width: 35%">
+                            @Html.DropDownList("options1", new List<SelectListItem>()
+                            {
+                                new SelectListItem() {Text = "ค้นหาตามชื่อ", Value = "name"},
+                                new SelectListItem() {Text = "ค้นหาตามปี", Value = "year"}
+                            }, new {@id = "options1", @class = "form-control"})
+                        </div>
+                    }
+                </div>
+            </div>
         </header>
         <br />
         <div class="row">
             <div class="col-md-12">
-                @{ 
+                @{
                     foreach (var item in ViewBag.ProjectCount)
                     {
                         <div class="col-md-4">
@@ -59,13 +69,13 @@
                                     </div>
                                     <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Stu_Name @item.Stu_Surname</h3>
                                     <h4 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h4>
-                                    <h5 class="widget-user-desc" style="font-size:80%">@item.Pj_NameTH</h5>
+                                    <h5 class="widget-user-desc" style="font-size: 80%">@item.Pj_NameTH</h5>
                                 </div>
                                 <div class="box-footer no-padding">
                                     <ul class="nav nav-stacked">
                                         <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
                                         <li>
-                                            <a target="_blank" href="@Url.Action("ShowPdf", "Projects")?id=@item.Pj_ID">
+                                            <a target="_blank" href="@Url.Action("forpdfview", "Projects")?id=@item.Pj_File">
                                                 รูปเล่ม
                                                 <span class="pull-right badge bg-aqua">เข้าชม</span>
                                             </a>
@@ -139,10 +149,11 @@
         //})
 
         // stop playing the youtube video when I close the modal
-        $('#myModal').on('hide.bs.modal', function () {
-            // a poor man's stop video
-            $("#videos").attr('src', $videoSrc);
-        })
+        $('#myModal').on('hide.bs.modal',
+            function () {
+                // a poor man's stop video
+                $("#videos").attr('src', $videoSrc);
+            });
 
         $('#modelClose').click(function () {
             $("#videos").attr('src', $videoSrc);

@@ -1,0 +1,52 @@
+﻿@model CSManagement.Models.Teacher
+<style>
+    .col1 {
+        width: 25%;
+    }
+
+    .col2 {
+        width: 75%;
+    }
+</style>
+
+<div class="modal-header" style="background-color:#F39C12">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title" style="letter-spacing: 0px; font-size: 25px;color:white">รายละเอียดอาจารย์</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered" style="width: 100%">
+        <tbody>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_Name)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Name)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_Surname)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Surname)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">เบอร์โทร</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Tel)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_Program)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Program)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_Export)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Export)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_Position)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_Position)</td>
+            </tr>
+            <tr>
+                <th class="col1" style="text-align: center">@Html.DisplayNameFor(model => model.Tea_LvEdu)</th>
+                <td class="col2">@Html.DisplayFor(modelItem => Model.Tea_LvEdu)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+</div>

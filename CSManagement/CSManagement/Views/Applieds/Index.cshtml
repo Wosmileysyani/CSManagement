@@ -100,7 +100,7 @@
                             ชื่อคอร์ส (คงเหลือ)
                         </th>
                         <th style="text-align:center">
-                            @Html.DisplayNameFor(model => model.Generation.Gen_Year)
+                            วันที่สมัคร
                         </th>
                         <th style="text-align:center">
                             ชื่อผู้สมัคร
@@ -117,10 +117,10 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Generation.Short_Course.SC_NameTH) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name) (@Html.DisplayFor(modelItem => item.Generation.Gen_Member) คน)
+                                @item.Generation.Short_Course.SC_NameTH.Substring(0, Math.Min(20, @item.Generation.Short_Course.SC_NameTH.Length)) รุ่นที่ @Html.DisplayFor(modelItem => item.Generation.Gen_Name) (@Html.DisplayFor(modelItem => item.Generation.Gen_Member) คน)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Generation.Gen_Year)
+                                @Html.DisplayFor(modelItem => item.APP_Date)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Register_SC.REG_Name)
@@ -172,7 +172,7 @@
                                     </td>
                                     <td style="text-align:center">
                                         <a class="btn btn-success" onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO)" href="@Url.Action("AppAgree", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-check"></i>รับสมัคร</a>
-                                        <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-close"></i>ยกเลิกการสมัคร</a>
+                                        <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-close"></i>ยกเลิก</a>
                                     </td>
                                 }
                             }

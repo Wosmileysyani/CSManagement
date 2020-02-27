@@ -603,6 +603,14 @@
     <Content Include="Views\Picture_Banner\Details.cshtml" />
     <Content Include="Views\Picture_Banner\Edit.cshtml" />
     <Content Include="Views\Picture_Banner\Index.cshtml" />
+    <Content Include="Views\Teachers\showdetails.cshtml" />
+    <Content Include="Views\Projects\AddStu.cshtml" />
+    <Content Include="Views\Projects\AddTea.cshtml" />
+    <Content Include="Views\Department_Sup\Create.cshtml" />
+    <Content Include="Views\Department_Sup\Delete.cshtml" />
+    <Content Include="Views\Department_Sup\Details.cshtml" />
+    <Content Include="Views\Department_Sup\Edit.cshtml" />
+    <Content Include="Views\Department_Sup\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -615,6 +623,7 @@
     <Compile Include="Controllers\ComputerEquipmentsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\Department_SupController.cs" />
     <Compile Include="Controllers\DisposesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GenerationsController.cs" />
@@ -649,6 +658,8 @@
     <Compile Include="Models\Department_Sup.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetailsProject.cs" />
+    <Compile Include="Models\DetailsProject2.cs" />
     <Compile Include="Models\Dispose.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -701,12 +712,19 @@
     <Compile Include="Models\ProjectView.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Project_View.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProList.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RegisterLink.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Register_SC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestExtensions.cs" />
     <Compile Include="Models\School.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

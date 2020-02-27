@@ -20,11 +20,13 @@ namespace CSManagement.Controllers
         public async Task<ActionResult> Index()
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
+            checkdatenew();
             return View(await db.News.Include(n => n.Status_News).ToListAsync());
         }
 
         public ActionResult IndexUser(int id = 0, int Type = 0)
         {
+            checkdatenew();
             var chk = db.Status_News.Where(x => x.StatusN_ID == Type).Select(x => x.StatusN_Name).FirstOrDefault();
             if (chk != null && chk.Equals("ข่าวทั้งหมด"))
             {
@@ -80,17 +82,19 @@ namespace CSManagement.Controllers
         public void checkdatenew()
         {
             var data = db.News.ToList();
-            ThaiBuddhistCalendar thai = new ThaiBuddhistCalendar();
             DateTime now = DateTime.Now;
-            DateTime today = new DateTime(thai.GetYear(now), thai.GetMonth(now), now.Day);
             foreach (var item in data)
             {
                 if (item.New_DateEnd != null && item.New_DateStart != null)
                 {
-                    var time = (item.New_DateEnd.Value.Ticks - today.Ticks);
+                    var time = (item.New_DateEnd.Value.Ticks - now.Ticks);
                     if (time <= 0)
                     {
                         item.New_Active = false;
+                    }
+                    else
+                    {
+                        item.New_Active = true;
                     }
                 }
             }

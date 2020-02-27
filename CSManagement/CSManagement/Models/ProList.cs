@@ -12,16 +12,10 @@ namespace CSManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Applied
+    public partial class ProList
     {
-        public int APP_NO { get; set; }
-        public string APP_ReNO { get; set; }
-        public Nullable<int> APP_GenNO { get; set; }
-        public Nullable<int> APP_Status { get; set; }
-        public string APP_SlipImg { get; set; }
-        public Nullable<System.DateTime> APP_Date { get; set; }
-    
-        public virtual Generation Generation { get; set; }
-        public virtual Register_SC Register_SC { get; set; }
+        public string Teac_ID { get; set; }
+        public string Stud_ID { get; set; }
+        public int Pj_ID { get; set; }
     }
 }

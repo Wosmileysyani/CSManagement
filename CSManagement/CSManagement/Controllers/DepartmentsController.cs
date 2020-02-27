@@ -42,6 +42,7 @@ namespace CSManagement.Controllers
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH");
+            ViewBag.Dep_Name = new SelectList(db.Department_Sup, "Deps_ID", "Deps_Name");
             return View();
         }
 
@@ -57,6 +58,7 @@ namespace CSManagement.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH", department.Dep_CourseID);
+            ViewBag.Dep_Name = new SelectList(db.Department_Sup, "Deps_ID", "Deps_Name",department.Dep_Name);
             return View(department);
         }
 
@@ -74,6 +76,7 @@ namespace CSManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH");
+            ViewBag.Dep_Name = new SelectList(db.Department_Sup, "Deps_ID", "Deps_Name");
             return View(department);
         }
 
@@ -89,6 +92,7 @@ namespace CSManagement.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Dep_CourseID = new SelectList(db.Courses, "Course_ID", "Course_NameTH", department.Dep_CourseID);
+            ViewBag.Dep_Name = new SelectList(db.Department_Sup, "Deps_ID", "Deps_Name", department.Dep_Name);
             return View(department);
         }
 

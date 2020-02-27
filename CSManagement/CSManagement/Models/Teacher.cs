@@ -31,6 +31,7 @@ namespace CSManagement.Models
         public string Tea_LvEdu { get; set; }
         public string Tea_Program { get; set; }
         public string Tea_Position { get; set; }
+        public string Tea_Tel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComputerEquipment> ComputerEquipments { get; set; }

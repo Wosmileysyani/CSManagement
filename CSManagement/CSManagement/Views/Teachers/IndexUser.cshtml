@@ -54,13 +54,14 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="col-md-3">
+                    <div class="col-md-3 modal-link" data-targeturl="@Url.Action("showdetails","Teachers",new { id = item.Tea_ID })">
                         <div class="panel panel-default outer" style="height:100%;margin-top:20px">
                             <div class="panel-body text-center">
                                 <img src="~/img/@item.Tea_Img" style="width:70%;height:160px" /><br /><br />
                                 <label style="text-align:center">@item.Title.Title_Name @item.Tea_Name @item.Tea_Surname</label>
                                 <p style="text-align:center">@Html.DisplayFor(modelItem => item.Tea_Position)</p>
                             </div>
+                            <span style="padding: 45px">ดูข้อมูลเพิ่มเติม คลิก</span>
                         </div>
                     </div>
                 }
@@ -87,6 +88,26 @@
                     targets: "datatable-nosort",
                     orderable: false
                 }]
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+
+                $("#modal-container").remove();
+
+                $.get($(this).data("targeturl"), function (data) {
+
+                    $('<div id="modal-container" class="modal fade" role="dialog">' +
+                        '<div class="modal-dialog">' +
+                        '<div class="modal-content" id= "modalbody" >' +
+                        data + '</div></div>').modal();
+
+                });
             });
         });
     </script>

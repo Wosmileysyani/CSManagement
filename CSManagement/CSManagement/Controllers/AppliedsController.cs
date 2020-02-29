@@ -78,6 +78,7 @@ namespace CSManagement.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+
         public bool SendEmail(string toEmail, string subject, string emailBody)
         {
             try
@@ -104,22 +105,27 @@ namespace CSManagement.Controllers
             {
                 return false;
             }
-
             //try
             //{
-            //    SmtpClient smtpClient = new SmtpClient("localhost", 25);
+            //    string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
+            //    string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
 
-            //    smtpClient.Credentials = new System.Net.NetworkCredential("kruautoemail@gmail.com", "ef44ecc3");
-            //    smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
+            //    SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
+            //    {
+            //        EnableSsl = true,
+            //        UseDefaultCredentials = false,
+            //        Credentials = new NetworkCredential("kruautoemail@gmail.com", "ef44ecc3"),
+            //        DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis
+            //    };
 
-            //    MailMessage mailMessage = new MailMessage("kruautoemail@gmail.com", toEmail, subject, emailBody);
+            //    MailMessage mailMessage = new MailMessage(senderEmail, toEmail, subject, emailBody);
             //    mailMessage.IsBodyHtml = true;
             //    mailMessage.BodyEncoding = Encoding.UTF8;
-            //    smtpClient.Send(mailMessage);
+            //    client.Send(mailMessage);
 
             //    return true;
             //}
-            //catch (Exception ex)
+            //catch (Exception e)
             //{
             //    return false;
             //}

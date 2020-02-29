@@ -18,7 +18,7 @@ namespace CSManagement.Models
         public Teacher()
         {
             this.ComputerEquipments = new HashSet<ComputerEquipment>();
-            this.Tea_Pro = new HashSet<Tea_Pro>();
+            this.Projects = new HashSet<Project>();
         }
     
         public string Tea_ID { get; set; }
@@ -36,7 +36,7 @@ namespace CSManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComputerEquipment> ComputerEquipments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tea_Pro> Tea_Pro { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
         public virtual Title Title { get; set; }
     }
 }

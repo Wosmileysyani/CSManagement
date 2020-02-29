@@ -21,7 +21,6 @@ namespace CSManagement.Controllers
         // GET: Generations
         public ActionResult Index()
         {
-            if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
             var generations = db.Generations.Include(g => g.Short_Course).Include(g => g.Gen_Status1);
             return View(generations.ToList());
         }

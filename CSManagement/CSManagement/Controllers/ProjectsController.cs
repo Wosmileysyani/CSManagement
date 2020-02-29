@@ -18,8 +18,8 @@ namespace CSManagement.Controllers
         public ActionResult Index()
         {
             if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            var project = db.Project_View;
-            return View(project.ToList());
+            var projects = db.Projects.Include(x => x.Student);
+            return View(projects.ToList());
         }
 
         public ActionResult IndexUser(string options1 = "", string options2 = "")
@@ -111,100 +111,16 @@ namespace CSManagement.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var projectView = db.Project_View.Where(x => x.Pj_ID == id).ToList();
-            List<Stu_Pro> projectView1 = db.Stu_Pro.Where(x => x.Pro_ID == id).ToList();
-            List<Tea_Pro> projectView2 = db.Tea_Pro.Where(x => x.Pro_ID == id).ToList();
-            if (projectView.Count == 1)
-            {
-                Project_View project = db.Project_View.Find(id);
-                return View(project);
-            }
-            else if (projectView.Count > 1)
-            {
-                List<DetailsProject> list1 = new List<DetailsProject>();
-                List<DetailsProject2> list2 = new List<DetailsProject2>();
-                ViewBag.ProList = projectView;
-                foreach (var item in projectView1)
-                {
-                    var name = new DetailsProject()
-                    {
-                        Stud_ID = item.Stud_ID,
-                        Stu_Name = item.Student.Stu_Name,
-                        Stu_Title = item.Student.Stu_Title,
-                        Stu_Surname = item.Student.Stu_Surname,
-                        Pj_ID = item.Pro_ID
-                    };
-                    list1.Add(name);
-                }
-                foreach (var item in projectView2)
-                {
-                    var name = new DetailsProject2()
-                    {
-                        Tea_Name = item.Teacher.Tea_Name,
-                        Tea_Surname = item.Teacher.Tea_Surname,
-                        Title_Name = item.Teacher.Title.Title_Name
-                    };
-                    list2.Add(name);
-                }
-                ViewBag.NameList = list1;
-                ViewBag.TeaName = list2;
-                return View();
-            }
-            else
+            Project project = db.Projects.Find(id);
+            if (project == null)
             {
                 return HttpNotFound();
             }
-        }
-        public ActionResult AddStu(int? id)
-        {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_ID");
-            ViewBag.pjid = id;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddStu(string Pj_StuID)
-        {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            var id = Request["pjid"].ToString();
-            Stu_Pro stuPro = new Stu_Pro()
-            {
-                Pro_ID = Convert.ToInt32(id),
-                Stud_ID = Pj_StuID
-            };
-            db.Stu_Pro.Add(stuPro);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult AddTea(int? id)
-        {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name");
-            ViewBag.pjid = id;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddTea(string Pj_TeaID)
-        {
-            if (Session["AJ"] == null && Session["PJ"] == null) return RedirectToAction("Index", "Home");
-            var id = Request["pjid"].ToString();
-            Tea_Pro teaPro = new Tea_Pro()
-            {
-                Pro_ID = Convert.ToInt32(id),
-                Teac_ID = Pj_TeaID
-            };
-            db.Tea_Pro.Add(teaPro);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(project);
         }
 
         // GET: Projects/Create

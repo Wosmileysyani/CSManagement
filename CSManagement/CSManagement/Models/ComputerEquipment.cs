@@ -32,8 +32,8 @@ namespace CSManagement.Models
         public string CE_Budget { get; set; }
         public Nullable<int> CE_Status { get; set; }
     
+        public virtual Teacher Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dispose> Disposes { get; set; }
-        public virtual Teacher Teacher { get; set; }
     }
 }

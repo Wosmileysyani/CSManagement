@@ -124,7 +124,7 @@ namespace CSManagement.Controllers
                             Stu_Sex = true,
                             Stu_Tel = "รอแก้ไข",
                             Stu_Address = "รอแก้ไข",
-                            Stu_Title = "รอแก้ไข",
+                            Stu_Title = 1,
                             Stu_Name = "รอแก้ไข",
                             Stu_OldEdu = "รอแก้ไข",
                             Stu_Email = "รอแก้ไข",

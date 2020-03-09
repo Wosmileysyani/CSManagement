@@ -229,35 +229,20 @@
             <br />
 
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/programmer.png" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px;margin-bottom:15px">
-                            <h4 style="letter-spacing: 0px;"><b>พัฒนาการเขียนโปรแกรม</b></h4>
-                            <p>พัฒนาการเขียนโปรแกรมทั้งแบบ OOP และ Structure เช่น C#, Python</p>
+                @{
+                    foreach (var item in ViewBag.Syll)
+                    {
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="~/img/@item.Sy_Img" alt="Avatar" style="width: 100%">
+                                <div class="card-body" style="margin: 15px; margin-bottom: 15px">
+                                    <h4 style="letter-spacing: 0px;"><b>@item.Sy_Name</b></h4>
+                                    <p>@item.Sy_Details</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/app.png" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>พัฒนาแอพพลิเคชั่น</b></h4>
-                            <p>พัฒนาแอพพลิชั่นด้วย Cross platform เช่น Xamarin, Ionic, React</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="~/img/webApp.png" alt="Avatar" style="width:100%">
-                        <div class="card-body" style="margin:15px">
-                            <h4 style="letter-spacing: 0px;"><b>พัฒนาเว็บแอพพลิเคชั่น</b></h4>
-                            <p>พัฒนาเว็บแอพพลิเคชั่นที่ทำงานได้จริง เช่น Asp.Net MVC, PHP, Angular, React JS, Javascript</p>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ namespace CSManagement.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Applied> Applieds { get; set; }
         public virtual DbSet<ComputerEquipment> ComputerEquipments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -50,13 +51,12 @@ namespace CSManagement.Models
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Syllabu> Syllabus { get; set; }
         public virtual DbSet<Tea_Pro> Tea_Pro { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<Project_View> Project_View { get; set; }
         public virtual DbSet<ProjectView> ProjectViews { get; set; }
+        public virtual DbSet<ProList> ProLists { get; set; }
         public virtual DbSet<Totaljob> Totaljobs { get; set; }
         public virtual DbSet<TotalSchool> TotalSchools { get; set; }
-        public virtual DbSet<Applied> Applieds { get; set; }
-        public virtual DbSet<Teacher> Teachers { get; set; }
-        public virtual DbSet<Project_View> Project_View { get; set; }
-        public virtual DbSet<ProList> ProLists { get; set; }
     }
 }

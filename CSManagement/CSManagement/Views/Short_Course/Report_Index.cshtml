@@ -1,0 +1,51 @@
+﻿@model IQueryable<CSManagement.Models.ViewModelSC>
+@{
+    ViewBag.Title = "Report_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Report_Index</h2>
+@using (Html.BeginForm("Report_Index", "Short_Course", FormMethod.Post))
+{
+    <a style="float: right; width: 20%;font-size: 70%" class="btn btn-success" href="@Url.Action("ExportToExcel","Short_Course",new {SC = Session["ViewSCID"]})">ดาวน์โหลดไฟล์ Excel</a>
+    <button type="submit" class="btn btn-success" style="float: right; width: 20%; font-size: 70%"><i class="fa fa-search"></i> ค้นหาตามชื่อคอร์ส</button>
+    <div class="col-md-3" style="float: right; width: 60%">
+        @Html.DropDownList("SC", null, "เลือกชื่อคอร์ส", htmlAttributes: new { @class = "form-control" })
+    </div>
+    <br />
+}
+<table class="table">
+    <tr>
+        <th>
+            ชื่อ-นามสกุล
+        </th>
+        <th>
+            เบอร์โทร
+        </th>
+        <th>
+            อีเมลล์
+        </th>
+        <th>
+            วันที่สมัคร
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.REG_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REG_Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REG_Email)
+            </td>
+            <td>
+                @string.Format("{0:MM/dd/yyyy}", @item.APP_Date)
+            </td>
+        </tr>
+    }
+
+</table>

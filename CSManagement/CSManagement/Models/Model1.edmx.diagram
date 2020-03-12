@@ -4,40 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6cdcf832ff8e44379b78376edf73153e" Name="Diagram1" ZoomLevel="69">
-        <EntityTypeShape EntityType="CsManagementModel.Applied" Width="1.5" PointX="12.25" PointY="2.75" />
-        <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="10.25" PointY="12.25" />
-        <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="12.75" PointY="7" />
-        <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="15" PointY="7.25" />
-        <EntityTypeShape EntityType="CsManagementModel.Department_Sup" Width="1.5" PointX="12.75" PointY="10.5" />
-        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="12.5" PointY="12.875" />
-        <EntityTypeShape EntityType="CsManagementModel.Gen_Status" Width="1.5" PointX="7.75" PointY="6.125" />
-        <EntityTypeShape EntityType="CsManagementModel.Generation" Width="1.5" PointX="10" PointY="2" />
-        <EntityTypeShape EntityType="CsManagementModel.History" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="CsManagementModel.HitCount" Width="1.5" PointX="5.75" PointY="14.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Job" Width="1.5" PointX="3" PointY="14" />
-        <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="14.75" PointY="10.75" />
-        <EntityTypeShape EntityType="CsManagementModel.News" Width="1.5" PointX="17" PointY="2" />
-        <EntityTypeShape EntityType="CsManagementModel.Picture" Width="1.5" PointX="14.75" PointY="13.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Picture_Banner" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Project" Width="1.5" PointX="3" PointY="8.375" />
-        <EntityTypeShape EntityType="CsManagementModel.Register_SC" Width="1.5" PointX="10" PointY="16.875" />
-        <EntityTypeShape EntityType="CsManagementModel.RegisterLink" Width="1.5" PointX="2.75" PointY="16.75" />
-        <EntityTypeShape EntityType="CsManagementModel.School" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Short_Course" Width="1.5" PointX="7.75" PointY="3.125" />
-        <EntityTypeShape EntityType="CsManagementModel.Status" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="CsManagementModel.Status_News" Width="1.5" PointX="14.75" PointY="2.5" />
-        <EntityTypeShape EntityType="CsManagementModel.Stu_Pro" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Student" Width="1.5" PointX="3" PointY="2.625" />
-        <EntityTypeShape EntityType="CsManagementModel.Syllabu" Width="1.5" PointX="12.75" PointY="16.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Tea_Pro" Width="1.5" PointX="10.25" PointY="8.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Teacher" Width="1.5" PointX="8" PointY="9.375" />
-        <EntityTypeShape EntityType="CsManagementModel.Title" Width="1.5" PointX="5.75" PointY="10.5" />
-        <EntityTypeShape EntityType="CsManagementModel.Project_View" Width="1.5" PointX="14.75" PointY="16.75" />
-        <EntityTypeShape EntityType="CsManagementModel.ProjectView" Width="1.5" PointX="4.75" PointY="17.75" />
-        <EntityTypeShape EntityType="CsManagementModel.ProList" Width="1.5" PointX="6.75" PointY="17.75" />
-        <EntityTypeShape EntityType="CsManagementModel.Totaljob" Width="1.5" PointX="16.75" PointY="10.75" />
-        <EntityTypeShape EntityType="CsManagementModel.TotalSchool" Width="1.5" PointX="16.75" PointY="13.75" />
+      <Diagram DiagramId="6cdcf832ff8e44379b78376edf73153e" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="CsManagementModel.Applied" Width="1.5" PointX="10.25" PointY="1.75" />
+        <EntityTypeShape EntityType="CsManagementModel.ComputerEquipment" Width="1.5" PointX="5.25" PointY="10.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Course" Width="1.5" PointX="10.75" PointY="6" />
+        <EntityTypeShape EntityType="CsManagementModel.Department" Width="1.5" PointX="13" PointY="6.25" />
+        <EntityTypeShape EntityType="CsManagementModel.Department_Sup" Width="1.5" PointX="10.75" PointY="9.5" />
+        <EntityTypeShape EntityType="CsManagementModel.Dispose" Width="1.5" PointX="7.5" PointY="11.375" />
+        <EntityTypeShape EntityType="CsManagementModel.Gen_Status" Width="1.5" PointX="5.75" PointY="15.125" />
+        <EntityTypeShape EntityType="CsManagementModel.Generation" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="CsManagementModel.History" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="CsManagementModel.HitCount" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Job" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="CsManagementModel.Login" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CsManagementModel.News" Width="1.5" PointX="15" PointY="1" />
+        <EntityTypeShape EntityType="CsManagementModel.Picture" Width="1.5" PointX="12.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Picture_Banner" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Project" Width="1.5" PointX="8.25" PointY="6.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Register_SC" Width="1.5" PointX="8" PointY="14.875" />
+        <EntityTypeShape EntityType="CsManagementModel.RegisterLink" Width="1.5" PointX="14.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CsManagementModel.School" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="CsManagementModel.Short_Course" Width="1.5" PointX="5.75" PointY="2.125" />
+        <EntityTypeShape EntityType="CsManagementModel.Status" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Status_News" Width="1.5" PointX="12.75" PointY="1.5" />
+        <EntityTypeShape EntityType="CsManagementModel.Student" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="CsManagementModel.Syllabu" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Teacher" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="CsManagementModel.Title" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="CsManagementModel.ProjectView" Width="1.5" PointX="2.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CsManagementModel.Totaljob" Width="1.5" PointX="15.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CsManagementModel.TotalSchool" Width="1.5" PointX="10.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CsManagementModel.View_SC" Width="1.5" PointX="12.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CsManagementModel.View_SC_Substring" Width="1.5" PointX="14.75" PointY="15.75" />
         <AssociationConnector Association="CsManagementModel.FK_Applied_Generation" />
         <AssociationConnector Association="CsManagementModel.FK_Applied_Register_SC" />
         <AssociationConnector Association="CsManagementModel.FK_ComputerEquipment_Teacher" />
@@ -49,12 +47,11 @@
         <AssociationConnector Association="CsManagementModel.FK_History_Job" />
         <AssociationConnector Association="CsManagementModel.FK_History_Student" />
         <AssociationConnector Association="CsManagementModel.FK_News_Status_News" />
-        <AssociationConnector Association="CsManagementModel.FK_Stu_Pro_Project" />
-        <AssociationConnector Association="CsManagementModel.FK_Tea_Pro_Project" />
+        <AssociationConnector Association="CsManagementModel.FK_Project_Student" />
+        <AssociationConnector Association="CsManagementModel.FK_Project_Teacher" />
         <AssociationConnector Association="CsManagementModel.FK_Student_School" />
         <AssociationConnector Association="CsManagementModel.FK_Student_Status" />
-        <AssociationConnector Association="CsManagementModel.FK_Stu_Pro_Student" />
-        <AssociationConnector Association="CsManagementModel.FK_Tea_Pro_Teacher" />
+        <AssociationConnector Association="CsManagementModel.FK_Student_Title" />
         <AssociationConnector Association="CsManagementModel.FK_Teacher_Title" />
       </Diagram>
     </edmx:Diagrams>

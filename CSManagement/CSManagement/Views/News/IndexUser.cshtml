@@ -49,7 +49,7 @@
                         foreach (var item in ViewBag.NewsCount)
                         {
                             <img src="~/img/@item.New_Img" style="width: 100%" />
-                            <strong>@item.New_Name.Substring(0, Math.Min(10, @item.New_Name.Length))</strong>
+                            <strong>@item.New_Name.Substring(0, Math.Min(20, @item.New_Name.Length))</strong>
                             <a href="@Url.Action("IndexUser", "News")?id=@item.New_ID">[อ่านต่อ]...</a><br />
                         }
                     }

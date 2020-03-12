@@ -33,6 +33,7 @@ namespace CSManagement.Controllers
             ViewBag.SyllabusCount = db.Syllabus.ToList();
             ViewBag.NewsCount = db.News.Where(x => x.New_Active == true).OrderByDescending(x => x.New_DateStart);
             ViewBag.Link = db.Picture_Banner.ToList();
+            ViewBag.Syll = db.Syllabus.ToList();
             return View(imgPictures);
         }
 

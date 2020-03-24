@@ -98,16 +98,31 @@ namespace CSManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Picture picture)
+        public ActionResult Edit(Picture picture, HttpPostedFileBase file)
         {
             if (Session["AJ"] == null) return RedirectToAction("Index", "Home");
-            if (ModelState.IsValid)
+            try
             {
+                var recordToUpdate = db.Pictures.AsNoTracking().Single(x => x.Pic_ID == picture.Pic_ID);
+                if (file != null && file.ContentLength > 0)
+                {
+                    var myUniqueFileName = DateTime.Now.Ticks + ".jpg";
+                    string physicalPath = Server.MapPath("~/imgSlideShow/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    picture.Pic_Img = myUniqueFileName;
+                }
+                else
+                {
+                    picture.Pic_Img = recordToUpdate.Pic_Img;
+                }
                 db.Entry(picture).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(picture);
+            catch (Exception ex)
+            {
+                return View(picture);
+            }
         }
 
         // GET: Pictures/Delete/5

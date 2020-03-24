@@ -22,19 +22,13 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                    <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.CE_ATNO, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.CE_ATNO, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CE_ATNO, "", new { @class = "text-danger" })
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.CE_Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_Name, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.CE_NO, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.CE_NO, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CE_NO, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.CE_DateIN, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -45,9 +39,9 @@
 
                 <div class="row">
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.CE_Name, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.CE_Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CE_Name, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.CE_NO, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CE_NO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE_NO, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group col-md-4">
@@ -83,7 +77,7 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        @Html.LabelFor(model => model.CE_TeaID, "CE_TeaID", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.CE_TeaID, "ชื่อผู้เบิก", htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("CE_TeaID", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CE_TeaID, "", new { @class = "text-danger" })
                     </div>

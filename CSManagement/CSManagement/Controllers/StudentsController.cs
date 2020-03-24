@@ -108,7 +108,7 @@ namespace CSManagement.Controllers
         {
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name");
             ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name");
-            ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name");
+            ViewBag.Stu_Title = new SelectList(db.Titles, "Title_ID", "Title_Name");
             return View();
         }
 
@@ -136,7 +136,7 @@ namespace CSManagement.Controllers
             {
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
-                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name",student.Stu_Title);
+                ViewBag.Stu_Title = new SelectList(db.Titles, "Title_ID", "Title_Name",student.Stu_Title);
                 return View(student);
             }
         }
@@ -155,7 +155,7 @@ namespace CSManagement.Controllers
             }
             ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
             ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
-            ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", student.Stu_Title);
+            ViewBag.Stu_Title = new SelectList(db.Titles, "Title_ID", "Title_Name", student.Stu_Title);
             return View(student);
         }
 
@@ -209,12 +209,12 @@ namespace CSManagement.Controllers
                 }
                 return Session["AJ"] == null ? RedirectToAction("Logout", "Logins") : RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);
                 ViewBag.Stu_StatusID = new SelectList(db.Status, "Status_ID", "Status_Name", student.Stu_StatusID);
-                ViewBag.Tea_TitleID = new SelectList(db.Titles, "Title_ID", "Title_Name", student.Stu_Title);
+                ViewBag.Stu_Title = new SelectList(db.Titles, "Title_ID", "Title_Name", student.Stu_Title);
                 return View(student);
             }
 

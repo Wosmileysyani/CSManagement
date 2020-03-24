@@ -49,13 +49,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="text-align:center">@(i++)</td>
-                        <td style="text-align:center"></td>
-                        <td style="text-align:center"></td>
-                        <td style="text-align:center"></td>
-                        <td style="text-align:center"></td>
-                    </tr>
+                    @foreach (var item in @ViewBag.oldstud)
+                    {
+                        <tr>
+                            <td style="text-align: center">@(i++)</td>
+                            <td style="text-align: center">@item.Student.Stu_Name @item.Student.Stu_Surname</td>
+                            <td style="text-align: center">@item.Job.JOB_Name</td>
+                            <td style="text-align: center">@item.HIS_Jobname</td>
+                            <td style="text-align: center">@item.HIS_Company</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

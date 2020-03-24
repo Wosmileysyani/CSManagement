@@ -75,6 +75,7 @@ namespace CSManagement.Controllers
 
         public ActionResult Indexoldstudent()
         {
+            ViewBag.oldstud = db.Histories.Include(x => x.Student).ToList();
             return View();
         }
 

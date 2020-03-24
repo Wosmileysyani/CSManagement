@@ -19,6 +19,12 @@ namespace CSManagement.Controllers
             return View();
         }
 
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public ActionResult IndexUser()
         {

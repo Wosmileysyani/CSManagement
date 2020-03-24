@@ -6,100 +6,105 @@
     int i = 1;
 }
 
-<head>
-    <style>
-        .outer {
-            padding: 1em 1em;
-            box-shadow: 5px 5px 5px #d9d9d9;
-        }
-
-        .headerbar {
-            background: #feac28 !important;
-            color: #ffffff !important;
-            position: relative;
-            margin-bottom: 0.5em;
-            margin-right: -2.5em;
-            margin-left: -2.5em;
-            box-shadow: 5px 5px 5px #d9d9d9;
-        }
-
-            .headerbar:before {
-                content: "";
-                position: absolute;
-                border-bottom: 0.5em solid #333;
-                border-left: 1.1em solid transparent;
-                left: 5px;
-                top: -0.5em;
-            }
-
-            .headerbar:after {
-                content: "";
-                position: absolute;
-                border-top: 0.5em solid #333;
-                border-right: 1em solid transparent;
-                right: 5px;
-                bottom: -0.5em;
-            }
-
-            .headerbar:hover {
-                transform: scale(1,1.1);
-            }
-
-        .primary {
-            float: left;
-            width: 100%;
-        }
-
-        .header1 {
-            border-bottom: 2px solid #207016;
-        }
-
-        .page-title {
-            color: #fff;
-            padding: 6px 12px;
-            display: inline-block;
-            font-size: 18px;
-            margin-bottom: 0px;
-            padding-bottom: 15px;
-            background-color: #207016;
-        }
-    </style>
-</head>
-
 <body>
     @using (Html.BeginForm("IndexUserGrap", "Home", FormMethod.Post))
     {
-        <section class="content" style=" background-color: white;height:800px">
+        <section class="content" style=" background-color: white;height:1000px">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <header class="header1">
                         <h1 class="page-title">ข้อมูลหลักสูตร</h1>
                     </header>
                     <br />
                 </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-success" style="float:right;width:30%;font-size:70%"><i class="fa fa-search"></i> ค้นหาตามปี</button>
-                    <div class="col-md-3" style=" float: right;width:70%">
-                        @Html.DropDownList("Year", null, "เลือกปี", htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-                <br />
-                <br />
-
             </div>
 
-            <div class="primary">
-                <div class="row">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>ชื่อหลักสูตร </strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>ภาษาไทย</strong> : วิทยาศาสตรบัณฑิต  สาขาวิชาวิทยาการคอมพิวเตอร์ <br />
+                                <strong>ภาษาอังกฤษ</strong> :  Bachelor of Science Program in Computer Science
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>ชื่อปริญญาและสาขาวิชา</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>ภาษาไทย</strong>   : วิทยาศาสตรบัณฑิต (วท.บ.) (วิทยาการคอมพิวเตอร์)<br />
+                                <strong>ภาษาอังกฤษ</strong> : Bachelor of Science (B.Sc.) (Computer Science)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>วัตถุประสงค์ของหลักสูตร</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                เมื่อสำเร็จการศึกษาจากหลกัสูตรนี้แล้ว นักศึกษาจะมีคุณลักษะดังนี้  <br />
+                                1. มีความรู้ความสามารถทางวิชาการด้านวิทยาการคอมพิวเตอร์ ทั้งภาคทฤษฎี และภาคปฏิบัติ สามารถนำไปประยุกต์ใช้ในการประกอบอาชีพและศึกษาต่อในระดับสูงได้ <br />
+                                2. มีเจตคติทางวิทยาการคอมพิวเตอร์ มีความคิดริเริ่มสร้างสรรค์และมีจิตอาสา สามารถนำไปประยุกต์ใช้ใน การเรียนและปฏิบัติงาน อย่างมีคุณธรรม จริยธรรม และตระหนักในจรรยาบรรณวิชาชีพ<br />
+                                3. มีทักษะด้านการค้นคว้าและถ่ายทอด เพื่อศึกษาหาความรู้ด้านวิทยาการคอมพิวเตอร์ในระดับที่สูงขึ้น และพัฒนาตนเองอย่างต่อเนื่องตลอดชีวิต
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>หลักสูตร</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                หลักสูตรวิทยาศาสตรบัณฑิต  สาขาวิชาวิทยาการคอมพิวเตอร์ใช้ระยะเวลาในการสำเร็จการศึกษาไม่น้อยกว่า 6 ภาคการศึกษาปกติและไม่เกิน 8 ปีการศึกษา จำนวนหน่วยกิตรวมตลอดหลักสูตร 129 หน่วยกิต
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>โครงสร้างหลักสูตร</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                โครงสร้างหลักสูตร แบ่งเป็นหมวดวิชาที่สอดคล้องกับที่ก าหนดไว้ในเกณฑ์มาตรฐานหลักสูตรของ กระทรวงศึกษาธิการ ดังนี
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
                     @*///ตารางแสดงหลักสูตร///*@
-                    <div class="col-md-8">
-                        <div class="panel panel-default outer">
-                            <div class="panel-body text-justify">
-                                <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <strong>โครงสร้างหลักสูตรสูตรสาขาวิทยาการคอมพิวเตอร์</strong>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6" style="float:right;padding-right:44px">
+                                <button type="submit" class="btn btn-success col-sm-6 col-md-4" style="float:right"><i class="fa fa-search"></i> ค้นหา</button>
+                                <div class="col-sm-6 col-md-8" style=" float: right">
+                                    @Html.DropDownList("Year", null, "เลือกปี", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div><br />
+
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <table id="example1" class="table table-bordered table-striped" style="width:100%;">
                                     <thead>
                                         <tr>
                                             <th style="text-align:center">ที่</th>
                                             <th style="text-align:center">หมวดวิชา</th>
-                                            <th style="text-align:center">จำนวนหน่วยกิต</th>
+                                            <th style="text-align: center">จำนวนหน่วยกิต</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -108,7 +113,10 @@
                                             foreach (var item in ViewBag.coursesList)
                                             {
                                                 <tr>
-                                                    <td style="text-align: center">@(i++)</td>
+                                                    <td style="        text-align: center
+">
+                                                        @(i++)
+                                                    </td>
                                                     <td style="text-align: center">@item.Department_Sup.Deps_Name</td>
                                                     <td style="text-align: center">@item.Dep_Credit</td>
                                                 </tr>
@@ -143,23 +151,17 @@
                                     </button>
                                 }
                             </div>
-                        </div>
-                    </div>
 
-                    @*///กราฟแสดงหลักสูตร///*@
-                    <div class="col-md-4" style="float:right;padding-right:40px">
-                        <div class="panel panel-default outer">
-                            <div class="panel-heading headerbar">
-                                <label style="font-size:20px">สัดส่วนหมวดวิชาหลักสูตรสาขา</label>
-                            </div>
-                            <div class="panel-body text-justify chart-responsive">
-                                <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
+                            @*///กราฟแสดงหลักสูตร///*@
+                            <div class="col-md-12" style="float:right;padding-right:40px">
+                                <div class="panel-body text-justify chart-responsive">
+                                    <div class="chart" id="chartContainer" style="height: 300px; position: relative;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
     }
 </body>

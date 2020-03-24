@@ -9,25 +9,14 @@
 
 <head>
     <style>
-        .outer {
-            padding: 1em 1em;
-            box-shadow: 5px 5px 5px #d9d9d9;
-        }
-
-        .content {
-            min-height: 250px;
-            padding: 0px;
-            margin-right: auto;
-            margin-left: auto;
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-
-        .box-header {
+        .panel-heading {
             color: #444;
             display: block;
             padding: 10px 10px 10px 10px;
             position: relative;
+            font-size:20px;
+            text-align:center;
+            font-weight: bold;
         }
 
         .box-body {
@@ -52,178 +41,159 @@
 </head>
 
 
-@if (ViewBag.Message != null)
-{
-    <script type="text/javascript">
+<div class="content">
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
 
         window.onload = function () {
             alert("@ViewBag.Message");
         };
-    </script>
-}
+        </script>
+    }
 
-@using (Html.BeginForm("Create", "Register_SC", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
-{
-    @Html.AntiForgeryToken()
-    <section class="content">
-        <div class="row" style="margin-right: 15px;margin-left: 15px">
-            @*///ใบสมัครคอร์ส///*@
-            <div class="box box-default col-md-8">
-                <div class="box-header with-border">
-                    <span style="font-size: 25px;text-align: center">ใบสมัครคอร์ส @ViewBag.Gen_SCID</span>
+    @using (Html.BeginForm("Create", "Register_SC", FormMethod.Post, new { enctype = "multipart/form-data", accept_charset = "utf-8" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>ใบสมัครคอร์ส @ViewBag.Gen_SCID</strong></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.REG_IDCard, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @PlaceHolder = "ถ้าเคยกรอกข้อมูลแล้ว ให้ใส่แค่เลขบัตรประชาชน" } })
+                                @Html.ValidationMessageFor(model => model.REG_IDCard, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body" style="font-size:15px">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.REG_IDCard, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_IDCard, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @PlaceHolder = "ถ้าเคยกรอกข้อมูลแล้ว ให้ใส่แค่เลขบัตรประชาชน" } })
-                            @Html.ValidationMessageFor(model => model.REG_IDCard, "", new { @class = "text-danger" })
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.REG_Name, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
+                                @Html.ValidationMessageFor(model => model.REG_Name, "", new { @class = "text-danger" })
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.REG_Name, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
-                            @Html.ValidationMessageFor(model => model.REG_Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            @Html.LabelFor(model => model.REG_Address, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control", id = "address" } })
-                            @Html.ValidationMessageFor(model => model.REG_Address, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.REG_Tel, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control", id = "tel" } })
-                            @Html.ValidationMessageFor(model => model.REG_Tel, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.REG_Address, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.REG_Address, new { htmlAttributes = new { @class = "form-control", id = "address" } })
+                                @Html.ValidationMessageFor(model => model.REG_Address, "", new { @class = "text-danger" })
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.REG_Email, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control", id = "email" } })
-                            @Html.ValidationMessageFor(model => model.REG_Email, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.REG_Tel, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.REG_Tel, new { htmlAttributes = new { @class = "form-control", id = "tel" } })
+                                @Html.ValidationMessageFor(model => model.REG_Tel, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.REG_Email, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.REG_Email, new { htmlAttributes = new { @class = "form-control", id = "email" } })
+                                @Html.ValidationMessageFor(model => model.REG_Email, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <br />
+                        <a class="btn btn-default col-md-2" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
 
-                    <a class="btn btn-default col-md-2" style="float:left;font-size:18px" href="@Url.Action("IndexUser", "Generations")"><i class="fa fa-mail-reply"></i> ย้อนกลับ</a>
-
-                    <div class="text-center">
-                        @if (ViewBag.genList != null)
-                        {
-                            if (ViewBag.genList.Gen_Status1.Gen_Name.Equals("เปิดรับสมัคร"))
+                        <div class="text-center">
+                            @if (ViewBag.genList != null)
                             {
-                                <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครอบรม</button>
-                                <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
-                                    <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
-                                </div>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-danger col-md-2" style="float:right; font-size: 18px" onclick="return false;"><i class="fa fa-close"></i> ปิดรับสมัคร</button>
-                                <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
-                                    <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> บันทึก</button>
-                        }
-                    </div>
-                </div>
-
-                <div class="box-footer">
-                    <p style="color: red">หมายเหตุ : กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก</p>
-                    <p style="color: red">หากต้องการอัพโหลดหลักฐานการจ่ายเงินกรุณาใส่เลขบัตรประชาชน</p>
-                    <p style="color: red">ถ้าข้อมูลถูกต้องจะมีปุ่มสำหรับเพิ่มรูปให้</p>
-                </div>
-            </div>
-
-            @*///รายชื่อผู้สมัคร///*@
-            <div class="box box-default col-md-4">
-                <div class="box-header with-border">
-                    <span style="font-size:25px;text-align:center">รายชื่อผู้สมัคร</span>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body" style="font-size:15px">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ที่</th>
-                                <th>อีเมลล์</th>
-                                <th>สถานะ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (ViewBag.rigList != null)
-                            {
-                                foreach (var item in ViewBag.rigList)
+                                if (ViewBag.genList.Gen_Status1.Gen_Name.Equals("เปิดรับสมัคร"))
                                 {
-                                    <tr>
-                                        <td>@(i++)</td>
-                                        <td>@item.Register_SC.REG_Email</td>
-                                        @{
-                                            if (item.APP_Status == 1)
-                                            {
-                                                <td style="color:forestgreen">
-                                                    <i class="fa fa-check-circle  "></i>
-                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                                                    รับสมัครแล้ว
-                                                </td>
-                                            }
-                                            else if (item.APP_Status == 2)
-                                            {
-                                                <td style="color:red">
-                                                    <i class="fa fa-times-circle"></i>
-                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                                                    ถูกยกเลิก
-                                                </td>
-                                            }
-                                            else if (item.APP_Status == 3)
-                                            {
-                                                <td style="color:gold">
-                                                    <i class="fa  fa-circle"></i>
-                                                    @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
-                                                    รอการอนุมัติ
-                                                </td>
-                                            }
-                                        }
-                                    </tr>
+                                    <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> สมัครอบรม</button>
+                                    <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
+                                        <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-danger col-md-2" style="float:right; font-size: 18px" onclick="return false;"><i class="fa fa-close"></i> ปิดรับสมัคร</button>
+                                    <div id="imgbutton" for="txtUploadFile" class="txtUploadFile">
+                                        <input style="float:initial;" type="file" name="UploadFile" id="txtUploadFile">
+                                    </div>
                                 }
                             }
                             else
                             {
-                                <tr>
-                                    <td>@(i++)</td>
-                                    <td>ยังไม่มีผู้สมัคร</td>
-                                    <td>ยังไม่มีผู้สมัคร</td>
-                                </tr>
+                                <button type="submit" class="btn btn-success col-md-2" style="float:right;font-size:18px"><i class="fa fa-plus"></i> บันทึก</button>
                             }
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color: red"><strong>หมายเหตุ :</strong>
+                        กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการกดบันทึก หากต้องการอัพโหลดหลักฐานการจ่ายเงินกรุณาใส่เลขบัตรประชาชน ถ้าข้อมูลถูกต้องจะมีปุ่มสำหรับเพิ่มรูปให้</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">รายชื่อผู้สมัคร</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ที่</th>
+                                    <th>อีเมลล์</th>
+                                    <th>สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.rigList != null)
+                                {
+                                    foreach (var item in ViewBag.rigList)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@item.Register_SC.REG_Email</td>
+                                            @{
+                                                if (item.APP_Status == 1)
+                                                {
+                                                    <td style="color:forestgreen">
+                                                        <i class="fa fa-check-circle  "></i>
+                                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                        รับสมัครแล้ว
+                                                    </td>
+                                                }
+                                                else if (item.APP_Status == 2)
+                                                {
+                                                    <td style="color:red">
+                                                        <i class="fa fa-times-circle"></i>
+                                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                        ถูกยกเลิก
+                                                    </td>
+                                                }
+                                                else if (item.APP_Status == 3)
+                                                {
+                                                    <td style="color:gold">
+                                                        <i class="fa  fa-circle"></i>
+                                                        @* 1 = รับแล้ว // 2 = ยกเลิก // 3 = รอดำเนินการ*@
+                                                        รอการอนุมัติ
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td>ยังไม่มีผู้สมัคร</td>
+                                        <td>ยังไม่มีผู้สมัคร</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-}
+    }
+</div>
 
 
 @section Scripts {

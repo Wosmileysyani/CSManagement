@@ -21,12 +21,10 @@
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>52972</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -304,6 +302,10 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\img\bg-dark.jpg" />
+    <Content Include="Content\img\bg-random.jpg" />
+    <Content Include="Content\img\bg-yellow.jpg" />
+    <Content Include="Content\img\img-test-300-150.jpg" />
     <Content Include="Content\js\jquery.validate.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.js" />
     <Content Include="Content\js\plugins\jquery.validate\jquery.validate.min.js" />
@@ -373,12 +375,12 @@
     <Content Include="Content\pdf.js\worker_loader.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
-    <Content Include="img\app.png" />
+    <Content Include="Content\img\app.png" />
     <Content Include="img\calendar.png" />
     <Content Include="img\com.png" />
     <Content Include="img\cs1.png" />
-    <Content Include="img\GameDev.jpg" />
-    <Content Include="img\graphic.png" />
+    <Content Include="Content\img\GameDev.jpg" />
+    <Content Include="Content\img\graphic.png" />
     <Content Include="img\icons8-cat-profile-64.png" />
     <Content Include="img\images.jpg" />
     <Content Include="img\login.jpg" />
@@ -386,11 +388,13 @@
     <Content Include="img\logo2.png" />
     <Content Include="img\logo3.png" />
     <Content Include="img\logo4.png" />
-    <Content Include="img\Network.jpg" />
+    <Content Include="Content\img\Network.jpg" />
     <Content Include="img\newicon.png" />
-    <Content Include="img\programmer.png" />
-    <Content Include="img\ComputerAssembly.png" />
-    <Content Include="img\webApp.png" />
+    <Content Include="img\present3.jpg" />
+    <Content Include="Content\img\programmer.png" />
+    <Content Include="Content\img\ComputerAssembly.png" />
+    <Content Include="img\test1.jpg" />
+    <Content Include="Content\img\webApp.png" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -621,6 +625,8 @@
     <Content Include="Views\Titles\Edit.cshtml" />
     <Content Include="Views\Titles\Index.cshtml" />
     <Content Include="Views\Short_Course\Report_Index.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

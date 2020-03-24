@@ -3,74 +3,53 @@
     ViewBag.Title = "ผลงานนักศึกษา";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-<head>
-    <style>
-        .outer {
-            padding: 1em 1em;
-            box-shadow: 5px 5px 5px #d9d9d9;
-        }
 
-        .header1 {
-            border-bottom: 2px solid #207016;
-        }
+<div class="content">
+    <header class="header1">
+        <h1 class="page-title">ผลงานนักศึกษา</h1>
+    </header>
+    <br />
 
-        .page-title {
-            color: #fff;
-            padding: 6px 12px;
-            display: inline-block;
-            font-size: 20px;
-            margin-bottom: 0px;
-            padding-bottom: 15px;
-            background-color: #207016;
-        }
-    </style>
-</head>
-
-<body>
-    <section class="content">
-        <header class="header1">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="page-title">ผลงานนักศึกษา</h1>
+    <div class="row">
+        <div class="col-md-6" style="float: right;">
+            @using (Html.BeginForm("IndexUser", "Projects"))
+            {
+                <div class="col-sm-2 col-md-2" style="float: right;padding-left:0px;padding-right:0px">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> ค้นหา</button>
                 </div>
-                <span>วิธีการค้นหา : เลือกประเภทที่ต้องการ แล้วใส่คำค้นหา เช่น ค้นหาตามชื่อเรื่อง ให้พิมชื่อเรื่องที่สนใจ<br/>
-                    ถ้าต้องการค้นหาตามปี 2559 ให้พิมแค่ "59" </span>
-                <div class="col-md-6">
-                    @using (Html.BeginForm("IndexUser", "Projects"))
+                <div class="col-sm-5 col-md-5" style="float: right; width: 35%;padding-left: 0px;">
+                    @Html.TextBox("options2", "", new { @class = "input-textbox", @placeholder = "ป้อนข้อมูลเพื่อค้นหา" })
+                </div>
+                <div class="col-sm-5 col-md-5" style="float: right;width: 35%;padding-left: 0px;">
+                    @Html.DropDownList("options1", new List<SelectListItem>()
                     {
-                        <div style="float: right; width: 25%; margin-left: 20px;">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> ค้นหา</button>
-                        </div>
-                        <div class="col-md-3" style="float: right; width: 35%">
-                            @Html.TextBox("options2", "", new {@class = "control-label", @placeholder = "ป้อนข้อมูลเพื่อค้นหา"})
-                        </div>
-                        <div class="col-md-3" style="float: right; width: 35%">
-                            @Html.DropDownList("options1", new List<SelectListItem>()
-                            {
-                                new SelectListItem() {Text = "ค้นหาตามชื่อ", Value = "name"},
-                                new SelectListItem() {Text = "ค้นหาตามปี", Value = "year"}
-                            }, new {@id = "options1", @class = "form-control"})
-                        </div>
-                    }
+                        new SelectListItem() {Text = "ค้นหาตามชื่อ", Value = "name"},
+                        new SelectListItem() {Text = "ค้นหาตามปี", Value = "year"}
+                    }, new { @id = "options1", @class = "form-control" })
                 </div>
-            </div>
-        </header>
+            }
+        </div>
+    </div>
+    
+    <div class="row">
         <br />
-        <div class="row">
-            <div class="col-md-12">
-                @{
-                    foreach (var item in ViewBag.ProjectCount)
-                    {
+        <div class="col-md-12" style="padding-right: 0px;
+        padding-left: 0px;">
+            @{
+                foreach (var item in ViewBag.ProjectCount)
+                {
                         <div class="col-md-4">
                             <div class="box box-widget widget-user-2">
-                                <div class="widget-user-header bg-yellow" style="height: 100%; padding: 10px">
-                                    <div class="widget-user-image">
-                                        <img class="img-circle" style="height: 80px" img src="~/img/@item.Stu_Img" />
-                                    </div>
-                                    <h3 class="widget-user-username" style="letter-spacing: 0px">@item.Stu_Name @item.Stu_Surname</h3>
-                                    <h4 class="widget-user-username" style="letter-spacing: 0px">@item.Pj_StuID</h4>
-                                    <h5 class="widget-user-desc" style="font-size: 80%">@item.Pj_NameTH</h5>
-                                </div>
+                                            <div class="profile-widget bg-yellow">
+                                                <div class="profile-img">
+                                                    <img class="img-circle" style="height:80px;" img src="~/img/@item.Stu_Img" />
+                                                </div>
+                                                <div style="margin-left:10px;padding-left:10px">
+                                                    <p3-bold>@item.Stu_Name @item.Stu_Surname</p3-bold><br />
+                                                    <p3-bold>@item.Pj_StuID</p3-bold><br />
+                                                    <p5>เรื่อง : @item.Pj_NameTH</p5>
+                                                </div>
+                                            </div>
                                 <div class="box-footer no-padding">
                                     <ul class="nav nav-stacked">
                                         <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
@@ -90,29 +69,28 @@
                                 </div>
                             </div>
                         </div>
-                    }
                 }
-            </div>
+            }
         </div>
-        <!-- Modal Video -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
-                        </div>
-
+    </div>
+    <!-- Modal Video -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modelClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" id="videos" scrolling="no" src="" allowscriptaccess="always" allowFullScreen="true"></iframe>
                     </div>
+
                 </div>
             </div>
         </div>
-    </section>
-</body>
+    </div>
+</div>
 
 <style>
 

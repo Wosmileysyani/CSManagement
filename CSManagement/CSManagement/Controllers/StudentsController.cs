@@ -209,7 +209,7 @@ namespace CSManagement.Controllers
                 }
                 return Session["AJ"] == null ? RedirectToAction("Logout", "Logins") : RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 ViewBag.Message = "อัพเดทข้อมูลไม่สำเร็จ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง";
                 ViewBag.Stu_School = new SelectList(db.Schools, "SCH_ID", "SCH_Name", student.Stu_School);

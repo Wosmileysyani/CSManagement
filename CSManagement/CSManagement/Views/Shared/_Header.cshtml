@@ -79,7 +79,7 @@
                                         @if (Session["AJ"] == null)
                                         {
                                             <div class="pull-left">
-                                                <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูล</a>
+                                                <a href='@Url.Action("Edit", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                                             </div>
                                             <div class="pull-left">
                                                 <a href='@Url.Action("EditID", "Students", new {id = Session["UserID"].ToString()})' class="btn btn-default btn-flat">รหัสผ่าน</a>

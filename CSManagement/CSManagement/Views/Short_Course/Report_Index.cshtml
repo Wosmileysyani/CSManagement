@@ -2,50 +2,83 @@
 @{
     ViewBag.Title = "Report_Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Report_Index</h2>
-@using (Html.BeginForm("Report_Index", "Short_Course", FormMethod.Post))
-{
-    <a style="float: right; width: 20%;font-size: 70%" class="btn btn-success" href="@Url.Action("ExportToExcel","Short_Course",new {SC = Session["ViewSCID"]})">ดาวน์โหลดไฟล์ Excel</a>
-    <button type="submit" class="btn btn-success" style="float: right; width: 20%; font-size: 70%"><i class="fa fa-search"></i> ค้นหาตามชื่อคอร์ส</button>
-    <div class="col-md-3" style="float: right; width: 60%">
-        @Html.DropDownList("SC", null, "เลือกชื่อคอร์ส", htmlAttributes: new { @class = "form-control" })
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">รายชื่อผู้สมัคร</h3><br /><br />
+            @using (Html.BeginForm("Report_Index", "Short_Course", FormMethod.Post))
+            {
+                <div class="box-body">
+                    <div class="row">
+                        <button style="float: right;" class="btn btn-success col-md-3" href="@Url.Action("ExportToExcel","Short_Course",new {SC = Session["ViewSCID"]})">ดาวน์โหลดไฟล์ Excel</button>
+                        <button type="submit" class="btn btn-success col-md-3" style="float: right;padding-right:10px"><i class="fa fa-search"></i> ค้นหาตามชื่อคอร์ส</button>
+                        <div class="col-md-6" style="float: right;">
+                            @Html.DropDownList("SC", null, "เลือกชื่อคอร์ส", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">ชื่อ-นามสกุล</th>
+                            <th style="text-align:center">เบอร์โทร</th>
+                            <th style="text-align:center">อีเมลล์</th>
+                            <th style="text-align:center">วันที่สมัคร</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align:center">@(i++)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.REG_Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.REG_Tel)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.REG_Email)
+                                </td>
+                                <td>
+                                    @string.Format("{0:MM/dd/yyyy}", @item.APP_Date)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
-    <br />
+</section>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Thai.json"
+                },
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false
+                }]
+            });
+        });
+    </script>
 }
-<table class="table">
-    <tr>
-        <th>
-            ชื่อ-นามสกุล
-        </th>
-        <th>
-            เบอร์โทร
-        </th>
-        <th>
-            อีเมลล์
-        </th>
-        <th>
-            วันที่สมัคร
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.REG_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.REG_Tel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.REG_Email)
-            </td>
-            <td>
-                @string.Format("{0:MM/dd/yyyy}", @item.APP_Date)
-            </td>
-        </tr>
-    }
-
-</table>

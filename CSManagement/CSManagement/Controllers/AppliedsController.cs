@@ -121,23 +121,9 @@ namespace CSManagement.Controllers
             //}
         }
 
-        public ActionResult AppCancle(string id = "")
+        public ActionResult AppCancle(string id = "", int co = 0)
         {
-            var findidall = db.Applieds.Where(x => x.APP_ReNO == id).ToList();
-            int i = 0;
-            foreach (var item in findidall)
-            {
-                if (i > 0)
-                {
-                    db.Applieds.Remove(item);
-                }
-                else
-                {
-                    item.APP_Status = 2;
-                }
-                i++;
-            }
-            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id);
+            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id && x.APP_GenNO == co);
             findid.APP_Status = 2;
             db.Entry(findid).State = EntityState.Modified;
             db.SaveChanges();

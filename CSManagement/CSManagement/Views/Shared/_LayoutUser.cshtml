@@ -31,10 +31,10 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="@Url.Action("IndexUser", "Home")">หน้าหลัก</a></li>
-                    <li><a href="@Url.Action("IndexUser", "Generations")">หลักสูตรอบรม</a></li>
-                    <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
                     <li><a href="@Url.Action("IndexUserGrap", "Home")">หลักสูตรสาขา</a></li>
+                    <li><a href="@Url.Action("IndexUser", "Projects")">ผลงานนักศึกษา</a></li>
                     <li><a href="@Url.Action("IndexUser", "Teachers")">บุคคลากร</a></li>
+                    <li><a href="@Url.Action("IndexUser", "Generations")">คอร์สอบรม</a></li>
                     @{
                         if (Session["UserID"] != null)
                         {
@@ -259,8 +259,10 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
                     <p class="copyright-text">
-                        Copyright &copy; 2020 All Rights Reserved by
-                        <a href="#">Computer Science</a>.
+                        Copyright &copy; 2020 All Rights Created by
+                        <a href="https://www.facebook.com/TiceTmP">Pattarapon Songarsa</a>.
+                        Designed by 
+                        <a href="https://www.facebook.com/mind.indy.1610">Yanee Wongtanhuad</a>.
                     </p>
                 </div>
 

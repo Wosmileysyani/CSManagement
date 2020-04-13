@@ -28,25 +28,15 @@ namespace CSManagement.Controllers
             return View(applieds.ToList());
         }
 
-        public ActionResult AppAgree(string id = "")
+        public ActionResult AppAgree(string id = "", int co = 0)
         {
-            var findidall = db.Applieds.Where(x => x.APP_ReNO == id).ToList();
-            int i = 0;
+            var findidall = db.Applieds.Where(x => x.APP_ReNO == id && x.APP_GenNO == co).ToList();
             foreach (var item in findidall)
             {
-                if (i > 0)
-                {
-                    db.Applieds.Remove(item);
-                }
-                else
-                {
-                    item.APP_Status = 1;
-                }
-                i++;
+                item.APP_Status = 1;
             }
             db.SaveChanges();
-            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id);
-            db.Entry(findid).State = EntityState.Modified;
+            var findid = db.Applieds.FirstOrDefault(x => x.APP_ReNO == id && x.APP_GenNO == co);
             var findGen = db.Generations.FirstOrDefault(x => x.Gen_NO == findid.Generation.Gen_NO);
             if (findGen.Gen_Member > 0)
             {

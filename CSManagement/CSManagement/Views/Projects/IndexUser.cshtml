@@ -30,7 +30,7 @@
             }
         </div>
     </div>
-    
+
     <div class="row">
         <br />
         <div class="col-md-12" style="padding-right: 0px;
@@ -38,37 +38,44 @@
             @{
                 foreach (var item in ViewBag.ProjectCount)
                 {
-                        <div class="col-md-4">
-                            <div class="box box-widget widget-user-2">
-                                            <div class="profile-widget bg-yellow">
-                                                <div class="profile-img">
-                                                    <img class="img-circle" style="height:80px;" img src="~/img/@item.Stu_Img" />
-                                                </div>
-                                                <div style="margin-left:10px;padding-left:10px">
-                                                    <p3-bold>@item.Stu_Name @item.Stu_Surname</p3-bold><br />
-                                                    <p3-bold>@item.Pj_StuID</p3-bold><br />
-                                                    <p5>เรื่อง : @item.Pj_NameTH</p5>
-                                                </div>
-                                            </div>
-                                <div class="box-footer no-padding">
-                                    <ul class="nav nav-stacked">
-                                        <li><a target="_blank" href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
-                                        <li>
-                                            <a target="_blank" href="@Url.Action("forpdfview", "Projects")?id=@item.Pj_File">
-                                                รูปเล่ม
-                                                <span class="pull-right badge bg-aqua">เข้าชม</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=https://web.facebook.com/kru.cs/videos/@item.Pj_Video/" data-target="#myModal">
-                                                วิดีโอ
-                                                <span class="pull-right badge bg-green">เข้าชม</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                    <div class="col-md-4">
+                        <div class="box box-widget widget-user-2">
+                            <div class="profile-widget bg-yellow">
+                                <div class="profile-img">
+                                    <img class="img-circle" style="height:80px;" img src="~/img/@item.Stu_Img" />
+                                </div>
+                                <div style="margin-left:10px;padding-left:10px">
+                                    <p3-bold>@item.Stu_Name @item.Stu_Surname</p3-bold><br />
+                                    <p3-bold>@item.Pj_StuID</p3-bold><br />
+                                    <p5>เรื่อง : @item.Pj_NameTH</p5>
                                 </div>
                             </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    @if (item.Pj_Linkweb != null)
+                                    {
+                                        <li><a href="@item.Pj_Linkweb">เว็บไซต์<span class="pull-right badge bg-blue">เข้าชม</span></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a>เว็บไซต์<span class="pull-right badge bg-blue">ไม่มี</span></a></li>
+                                    }
+                                    <li>
+                                        <a href="@Url.Action("forpdfview", "Projects")?id=@item.Pj_File">
+                                            รูปเล่ม
+                                            <span class="pull-right badge bg-aqua">เข้าชม</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn_4 video-btn" alt="video" data-toggle="modal" data-src="https://www.facebook.com/plugins/video.php?href=https://web.facebook.com/kru.cs/videos/@item.Pj_Video/" data-target="#myModal">
+                                            วิดีโอ
+                                            <span class="pull-right badge bg-green">เข้าชม</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                    </div>
                 }
             }
         </div>

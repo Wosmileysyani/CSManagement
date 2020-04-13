@@ -27,7 +27,7 @@ namespace CSManagement.Controllers
             if (options1 == "" && options2 == "")
             {
                 var newDataTable = db.ProjectViews.AsEnumerable()
-                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                .OrderByDescending(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
                 .ThenByDescending(r => r.Pj_Rate);
                 ViewBag.ProjectCount = newDataTable.ToList();
                 return View();
@@ -86,10 +86,8 @@ namespace CSManagement.Controllers
             else
             {
                 //เปิดดูในคอม
-                var fileStream = new FileStream(Server.MapPath("~/FileUploaded/" + name),
-                    FileMode.Open,
-                    FileAccess.Read
-                );
+                var fileStream = new FileStream(Server.MapPath("~/FileUploaded/" + name), FileMode.Open,
+                    FileAccess.Read);
                 var fsResult = new FileStreamResult(fileStream, "application/pdf");
                 return fsResult;
             }
@@ -209,33 +207,24 @@ namespace CSManagement.Controllers
                 {
                     project.Pj_File = recordToUpdate.Pj_File;
                 }
-                string us = fs.UploadUserFile(file);
-                if (us != null)
+
+                if (file != null && file.ContentLength > 0)
                 {
-                    ViewBag.ResultErrorMessage = fs.ErrorMessage;
-                    ViewBag.Pj_StuID = new SelectList(db.Students, "Stu_ID", "Stu_Title", project.Pj_StuID);
-                    ViewBag.Pj_TeaID = new SelectList(db.Teachers, "Tea_ID", "Tea_Name", project.Pj_TeaID);
-                    return View(project);
+                    var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
+                    string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
+                    file.SaveAs(physicalPath);
+                    project.Pj_File = myUniqueFileName;
                 }
-                else
+                project.Pj_Date = DateTime.Today;
+                string[] Split_ID = project.Pj_StuID.Split(' ');
+                if (Session["PJ"] == null)
                 {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var myUniqueFileName = DateTime.Now.Ticks + ".pdf";
-                        string physicalPath = Server.MapPath("~/FileUploaded/" + myUniqueFileName);
-                        file.SaveAs(physicalPath);
-                        project.Pj_File = myUniqueFileName;
-                    }
-                    project.Pj_Date = DateTime.Today;
-                    string[] Split_ID = project.Pj_StuID.Split(' ');
-                    if (Session["PJ"] == null)
-                    {
-                        project.Pj_StuID = Split_ID[0];
-                    }
-                    db.Entry(project).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    project.Pj_StuID = Split_ID[0];
                 }
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
             }
             catch (Exception)
             {

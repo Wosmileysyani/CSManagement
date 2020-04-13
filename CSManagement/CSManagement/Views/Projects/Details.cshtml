@@ -37,7 +37,7 @@
 
                     <tr>
                         <th>ชื่อนักศึกษา</th>
-                        <td>@Model.Student.Stu_Title@Model.Student.Stu_Name @Model.Student.Stu_Surname</td>
+                        <td>@Model.Student.Title.Title_Name @Model.Student.Stu_Name @Model.Student.Stu_Surname</td>
                     </tr>
 
                     <tr>
@@ -76,8 +76,7 @@
                             <th>@Html.DisplayNameFor(model => model.Pj_File)</th>
 
                             <td>
-                                <a class="btn btn-info" target="_blank" href="@Url.Action("ShowPdf","Projects", new { id = Model.Pj_ID })"><i class="fa fa-file-text-o"></i> อ่านงานวิจัย</a>
-                                <a class="btn btn-success" target="_blank" href="@Url.Action("DownloadPdf","Projects", new { id = Model.Pj_ID })"><i class="fa fa-download"></i> ดาวน์โหลดไฟล์งาน</a>
+                                <a class="btn btn-info" href="@Url.Action("forpdfview", "Projects")?id=@Model.Pj_File"><i class="fa fa-file-text-o"></i> อ่านงานวิจัย</a>
                             </td>
                         }
 
@@ -92,7 +91,7 @@
                         else
                         {
                             <th>@Html.DisplayNameFor(model => model.Pj_Github)</th>
-                            <td><a class="btn btn-warning" target="_blank" href=@Model.Pj_Github><i class="fa fa-globe"></i> ดูเว็บไซต์</a></td>
+                            <td><a class="btn btn-warning" href=@Model.Pj_Github><i class="fa fa-globe"></i> ดูเว็บไซต์</a></td>
                         }
                     </tr>
 
@@ -105,7 +104,7 @@
                         else
                         {
                             <th>@Html.DisplayNameFor(model => model.Pj_Linkweb)</th>
-                            <td><a class="btn btn-warning" target="_blank" href="@Model.Pj_Linkweb"><i class="fa fa-globe"></i> ดูเว็บไซต์</a></td>
+                            <td><a class="btn btn-warning" href="@Model.Pj_Linkweb"><i class="fa fa-globe"></i> ดูเว็บไซต์</a></td>
                         }
                     </tr>
 

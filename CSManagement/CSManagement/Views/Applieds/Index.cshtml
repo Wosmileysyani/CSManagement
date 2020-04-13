@@ -171,7 +171,7 @@
                                         รอการอนุมัติ
                                     </td>
                                     <td style="text-align:center">
-                                        <a class="btn btn-success" onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO)" href="@Url.Action("AppAgree", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-check"></i>รับสมัคร</a>
+                                        <a class="btn btn-success" @*onclick="SendEmail(@item.Register_SC.REG_IDCard,@item.APP_GenNO);"*@ href="@Url.Action("AppAgree", new { id = item.Register_SC.REG_IDCard,co = item.Generation.Gen_NO })"><i class="fa fa-check"></i>รับสมัคร</a>
                                         <a class="btn btn-danger" href="@Url.Action("AppCancle", new { id = item.Register_SC.REG_IDCard })"><i class="fa fa-close"></i>ยกเลิก</a>
                                     </td>
                                 }

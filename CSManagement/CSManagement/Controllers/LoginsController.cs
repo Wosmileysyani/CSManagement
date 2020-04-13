@@ -39,7 +39,7 @@ namespace CSManagement.Controllers
                     Session["UserName"] = data.Stu_Name;
                     Session["UserSurname"] = data.Stu_Surname;
                     Session["UserImg"] = data.Stu_Img;
-                    if (data.Status.Status_Name == "กำลังศึกษาอยู่" ||
+                    if (data.Status.Status_Name == "กำลังศึกษา" ||
                         data.Status.Status_Name == "สำเร็จการศึกษา" ||
                         data.Status.Status_Name == "เกียรตินิยมอันดับ 1" ||
                         data.Status.Status_Name == "เกียรตินิยมอันดับ 2")

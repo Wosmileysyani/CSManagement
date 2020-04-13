@@ -33,7 +33,7 @@ namespace CSManagement.Controllers
             ViewBag.Images = imgPictures;
             ViewBag.Count = imgPictures.Count;
             var newDataTable = db.ProjectViews.AsEnumerable().Where(x => x.Pj_Rate == 5)
-                .OrderBy(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
+                .OrderByDescending(r => r.Pj_StuID.Remove(r.Pj_StuID.Length - 2))
                 .ThenByDescending(r => r.Pj_Rate);
             ViewBag.ProjectCount = newDataTable.ToList();
             ViewBag.SyllabusCount = db.Syllabus.ToList();

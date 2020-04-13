@@ -613,8 +613,6 @@
     <Content Include="Views\Picture_Banner\Edit.cshtml" />
     <Content Include="Views\Picture_Banner\Index.cshtml" />
     <Content Include="Views\Teachers\showdetails.cshtml" />
-    <Content Include="Views\Projects\AddStu.cshtml" />
-    <Content Include="Views\Projects\AddTea.cshtml" />
     <Content Include="Views\Department_Sup\Create.cshtml" />
     <Content Include="Views\Department_Sup\Delete.cshtml" />
     <Content Include="Views\Department_Sup\Details.cshtml" />

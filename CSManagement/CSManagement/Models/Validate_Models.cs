@@ -280,7 +280,7 @@ namespace CSManagement.Models
         [Display(Name = "Github")]
         public string Pj_Github { get; set; }
 
-        [Display(Name = "รายละเอียด")]
+        [Display(Name = "บทคัดย่อ")]
         [Required(ErrorMessage = "กรุณาใส่ข้อมูล")]
         [DataType(DataType.MultilineText)]
         public string Pj_Description { get; set; }

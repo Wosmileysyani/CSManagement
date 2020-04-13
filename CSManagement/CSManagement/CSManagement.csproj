@@ -21,10 +21,12 @@
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>52972</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -394,7 +396,6 @@
     <Content Include="img\present3.jpg" />
     <Content Include="Content\img\programmer.png" />
     <Content Include="Content\img\ComputerAssembly.png" />
-    <Content Include="img\test1.jpg" />
     <Content Include="Content\img\webApp.png" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -627,7 +628,6 @@
     <Content Include="Views\Titles\Index.cshtml" />
     <Content Include="Views\Short_Course\Report_Index.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

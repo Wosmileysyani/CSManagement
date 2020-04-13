@@ -21,9 +21,11 @@ namespace CSManagement.Controllers
 
         public ActionResult Index2()
         {
-            return View();
+            List<Picture> imgPictures = db.Pictures.ToList();
+            ViewBag.Images = imgPictures;
+            ViewBag.Count = imgPictures.Count;
+            return View(imgPictures);
         }
-
 
         [HttpGet]
         public ActionResult IndexUser()

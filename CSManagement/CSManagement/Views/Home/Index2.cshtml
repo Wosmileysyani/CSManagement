@@ -4,3 +4,68 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
+<section class="banner full">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @for (int j = 0; j < ViewBag.Count; j++)
+            {
+                <li data-target="#myCarousel" data-slide-to="@j" class="@(j == 0 ? "active" : string.Empty)"></li>
+            }
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+                i++;
+                var active = i == 1 ? "active" : "";
+                <div class="carousel-item @active">
+                    <a style="cursor: pointer;" onclick="myFunction('@item.Pic_Link')">
+                        <img src="~/imgSlideShow/@item.Pic_Img" style="width:100%; height: 100%;" />
+                    </a>
+                </div>
+            }
+        </div>
+
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center; padding-top: 50px;padding-bottom: 50px">
+        <button class="button col-md-4 col-sm-12" style="vertical-align: middle;background-color: #f4511e;" onclick="gotopage1()"><span>สมัครเรียน </span></button>
+        <button class="button col-md-4 col-sm-12" style="vertical-align: middle;background-color: #008000;" onclick="gotopage2()"><span>เข้าสู่เว็บไซต์ </span></button>
+        <button class="button col-md-4 col-sm-12" style="vertical-align: middle;background-color: #cd853f;" onclick="gotopage3()"><span>ผลงานนักศึกษา </span></button>
+    </div>
+</div>
+
+<script>
+    function myFunction(name) {
+        window.open(name);
+    }
+</script>
+
+<script>
+    function gotopage1() {
+        window.open('http://register.kru.ac.th/reg/');
+    }
+</script>
+
+<script>
+    function gotopage2() {
+        window.open('http://coms.kru.ac.th/tee/Home/IndexUser');
+    }
+</script>
+
+<script>
+    function gotopage3() {
+        window.open('http://coms.kru.ac.th/tee/Projects/IndexUser');
+    }
+</script>
